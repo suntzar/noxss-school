@@ -1,0 +1,685 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Gerenciador de Alunos - Noxss v1.4</title>
+
+    <!-- DEPENDÊNCIAS (VIA CDN PARA PORTABILIDADE) -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/gh/suntzar/noxss-base@main/noxss/dist/noxss.css"
+    />
+    <script defer src="https://unpkg.com/feather-icons"></script>
+
+    <!-- ESTILOS DO TEMPLATE -->
+    <style>
+      .noxss-navbar {
+        justify-content: space-between;
+        align-items: center;
+      }
+      #theme-switcher {
+        cursor: pointer;
+        transition: transform 0.4s ease-in-out, color 0.3s ease;
+      }
+      #theme-switcher:hover {
+        transform: rotate(180deg);
+        color: var(--noxss-accent-primary);
+      }
+      .content-panel {
+        max-width: 960px;
+        margin: 0 auto;
+        padding: 1.5rem;
+      }
+      .action-bar {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.75rem;
+        margin-bottom: 1.5rem;
+      }
+      .search-bar {
+        position: relative;
+        margin-bottom: 2rem;
+      }
+      .search-bar .search-icon {
+        position: absolute;
+        left: 1rem;
+        top: 50%;
+        transform: translateY(-50%);
+        color: var(--noxss-text-secondary);
+        pointer-events: none;
+      }
+      .search-bar .clear-search-btn {
+        position: absolute;
+        right: 1rem;
+        top: 50%;
+        transform: translateY(-50%);
+        cursor: pointer;
+        color: var(--noxss-text-secondary);
+        background: none;
+        border: none;
+        padding: 0.5rem;
+        display: none;
+      }
+      #searchInput {
+        padding-left: 3rem;
+        padding-right: 3rem;
+      }
+      .turma-title {
+        color: var(--noxss-accent-primary);
+        font-size: 1.5rem;
+        margin-top: 2rem;
+      }
+      .student-card {
+        margin-bottom: 1.5rem;
+      }
+      .student-card .noxss-card__subtitle {
+        margin-bottom: 0;
+      }
+      .student-card .card-text strong {
+        min-width: 90px;
+        display: inline-block;
+      }
+      .student-card-actions {
+        display: flex;
+        gap: 0.5rem;
+      }
+      .badge-status {
+        font-size: 0.8em;
+        padding: 0.4em 0.8em;
+        border-radius: var(--noxss-border-radius-base);
+        font-weight: 600;
+        color: var(--noxss-text-on-accent);
+      }
+      .badge-status--success {
+        background-color: var(--noxss-color-success);
+      }
+      .badge-status--warning {
+        background-color: var(--noxss-color-warning);
+        color: #333;
+      }
+      .badge-status--secondary {
+        background-color: var(--noxss-text-secondary);
+      }
+      #placeholder {
+        text-align: center;
+        padding: 3rem;
+        border: 2px dashed var(--noxss-border-color);
+        border-radius: var(--noxss-border-radius-base);
+      }
+      #jsonFileInput {
+        display: none;
+      }
+
+      /* --- ESTILOS DE SCROLLBAR PERSONALIZADOS (NOVO) --- */
+      /* Aplica a scrollbar aos principais contêineres roláveis da aplicação */
+      .noxss-tabs__panel,
+      .noxss-modal__body {
+        /* Para Firefox */
+        scrollbar-width: thin;
+        scrollbar-color: var(--noxss-accent-primary) var(--noxss-bg-elements);
+      }
+      /* Para Chrome, Safari, Edge e outros baseados em WebKit */
+      .noxss-tabs__panel::-webkit-scrollbar,
+      .noxss-modal__body::-webkit-scrollbar {
+        width: 10px;
+      }
+      .noxss-tabs__panel::-webkit-scrollbar-track,
+      .noxss-modal__body::-webkit-scrollbar-track {
+        background: var(--noxss-bg-elements);
+      }
+      .noxss-tabs__panel::-webkit-scrollbar-thumb,
+      .noxss-modal__body::-webkit-scrollbar-thumb {
+        background-color: var(--noxss-accent-primary);
+        border-radius: var(--noxss-border-radius-base);
+        border: 2px solid var(--noxss-bg-elements); /* Cria um efeito de espaçamento */
+      }
+      .noxss-tabs__panel::-webkit-scrollbar-thumb:hover,
+      .noxss-modal__body::-webkit-scrollbar-thumb:hover {
+        background-color: var(--noxss-accent-primary-hover);
+      }
+    </style>
+  </head>
+  <body data-noxss-layout="app">
+    <div class="noxss-layout">
+      <nav class="noxss-navbar">
+        <a class="noxss-navbar__brand" href="#"
+          ><i data-feather="book-open" class="noxss-icon"></i>
+          <span>Gerenciador de Alunos</span></a
+        >
+        <button
+          id="theme-switcher"
+          class="noxss-btn noxss-btn--icon"
+          title="Mudar tema"
+        ></button>
+      </nav>
+
+      <main class="noxss-layout__content">
+        <div class="noxss-tabs__panel is-visible">
+          <div class="content-panel">
+            <div class="action-bar">
+              <button id="add-student-btn" class="noxss-btn noxss-btn--primary">
+                <i data-feather="plus-circle" class="noxss-icon"></i> Adicionar
+                Aluno
+              </button>
+              <button id="load-list-btn" class="noxss-btn noxss-btn--secondary">
+                <i data-feather="folder-plus" class="noxss-icon"></i> Carregar
+                Lista
+              </button>
+              <input type="file" id="jsonFileInput" accept=".json" />
+              <button
+                id="download-list-btn"
+                class="noxss-btn noxss-btn--secondary"
+              >
+                <i data-feather="download" class="noxss-icon"></i> Baixar Lista
+              </button>
+            </div>
+            <div class="search-bar">
+              <i data-feather="search" class="noxss-icon search-icon"></i>
+              <input
+                type="text"
+                id="searchInput"
+                class="noxss-input"
+                placeholder="Pesquisar por nome, CPF, mãe ou pai..."
+              />
+              <button
+                class="clear-search-btn"
+                id="clearSearchBtn"
+                title="Limpar busca"
+              >
+                <i data-feather="x" class="noxss-icon"></i>
+              </button>
+            </div>
+            <div id="student-list-container">
+              <div id="placeholder" class="text-secondary">
+                <i data-feather="users" style="width: 3rem; height: 3rem"></i>
+                <p class="mt-3">Nenhum aluno na lista.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
+
+    <div class="noxss-modal" id="studentModal" data-noxss-modal>
+      <div class="noxss-modal__dialog noxss-modal__dialog--large">
+        <div class="noxss-modal__header">
+          <h3 class="noxss-modal__title" id="studentModalLabel">
+            Dados do Aluno
+          </h3>
+          <button
+            type="button"
+            class="noxss-btn noxss-btn--icon noxss-modal__close-btn"
+            data-noxss-modal-close
+          >
+            <i class="noxss-icon" data-feather="x"></i>
+          </button>
+        </div>
+        <div class="noxss-modal__body">
+          <form id="studentForm">
+            <input type="hidden" id="studentIndex" />
+            <div class="noxss-form-group">
+              <label for="nome" class="noxss-label">Nome Completo</label
+              ><input type="text" class="noxss-input" id="nome" required />
+            </div>
+            <div class="row">
+              <div class="col-md-7">
+                <div class="noxss-form-group">
+                  <label for="cpf" class="noxss-label">CPF (Opcional)</label
+                  ><input
+                    type="text"
+                    class="noxss-input"
+                    id="cpf"
+                    placeholder="000.000.000-00"
+                  />
+                </div>
+              </div>
+              <div class="col-md-5">
+                <div class="noxss-form-group">
+                  <label for="status" class="noxss-label">Status</label
+                  ><select id="status" class="noxss-select">
+                    <option value="Ativo" selected>Ativo</option>
+                    <option value="Transferido">Transferido</option>
+                    <option value="Inativo">Inativo</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+            <hr class="my-3" />
+            <div class="row">
+              <div class="col-md-6">
+                <div class="noxss-form-group">
+                  <label for="turma" class="noxss-label">Turma</label
+                  ><input type="text" class="noxss-input" id="turma" required />
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="noxss-form-group">
+                  <label for="turno" class="noxss-label">Turno</label
+                  ><input type="text" class="noxss-input" id="turno" />
+                </div>
+              </div>
+            </div>
+            <div class="noxss-form-group">
+              <label for="nascimento" class="noxss-label"
+                >Data de Nascimento</label
+              ><input
+                type="text"
+                class="noxss-input"
+                id="nascimento"
+                placeholder="dd/mm/aaaa"
+              />
+            </div>
+            <div class="noxss-form-group">
+              <label for="mae" class="noxss-label">Nome da Mãe</label
+              ><input type="text" class="noxss-input" id="mae" />
+            </div>
+            <div class="noxss-form-group">
+              <label for="pai" class="noxss-label">Nome do Pai</label
+              ><input type="text" class="noxss-input" id="pai" />
+            </div>
+            <div class="noxss-form-group">
+              <label for="telefone" class="noxss-label">Telefone(s)</label
+              ><input
+                type="text"
+                class="noxss-input"
+                id="telefone"
+                placeholder="Separe com vírgula: 98..., 99..."
+              />
+            </div>
+            <div class="noxss-form-group">
+              <label for="endereco" class="noxss-label">Endereço</label
+              ><input type="text" class="noxss-input" id="endereco" />
+            </div>
+            <div class="noxss-form-group">
+              <label for="cor" class="noxss-label">Cor/Raça</label
+              ><input type="text" class="noxss-input" id="cor" />
+            </div>
+          </form>
+        </div>
+        <div class="noxss-modal__footer">
+          <button
+            type="button"
+            class="noxss-btn noxss-btn--secondary"
+            data-noxss-modal-close
+          >
+            <i class="noxss-icon" data-feather="x"></i> Cancelar
+          </button>
+          <button
+            type="submit"
+            form="studentForm"
+            class="noxss-btn noxss-btn--primary"
+          >
+            <i class="noxss-icon" data-feather="check"></i> Salvar
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div class="noxss-modal" id="deleteConfirmModal" data-noxss-modal>
+      <div class="noxss-modal__dialog">
+        <div class="noxss-modal__header">
+          <h3 class="noxss-modal__title">Confirmar Exclusão</h3>
+        </div>
+        <div class="noxss-modal__body">
+          <p>
+            Você tem certeza que deseja remover este aluno? Esta ação não pode
+            ser desfeita.
+          </p>
+          <p
+            class="text-danger"
+            id="studentNameToDelete"
+            style="font-weight: bold"
+          ></p>
+        </div>
+        <div class="noxss-modal__footer">
+          <button
+            type="button"
+            class="noxss-btn noxss-btn--secondary"
+            data-noxss-modal-close
+          >
+            Cancelar
+          </button>
+          <button
+            type="button"
+            id="confirmDeleteBtn"
+            class="noxss-btn noxss-btn--danger"
+          >
+            Confirmar Exclusão
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/gh/suntzar/noxss-base@main/noxss/dist/noxss.js"></script>
+    <script>
+      // --- GERENCIADOR DE TEMA ---
+      const themeSwitcher = document.getElementById("theme-switcher");
+      const htmlElement = document.documentElement;
+      const THEME_KEY = "schoolAppTheme";
+      const themePalettes = {
+        light: { color: "#1d768c" },
+        dark: { color: "#8ecddd" },
+      };
+
+      const applyTheme = (mode) => {
+        const theme = themePalettes[mode];
+        if (!theme) return;
+        htmlElement.setAttribute("data-noxss-theme-gen", mode);
+        htmlElement.setAttribute("data-noxss-palette-gen", theme.color);
+        themeSwitcher.innerHTML =
+          mode === "dark"
+            ? `<i data-feather="sun" class="noxss-icon"></i>`
+            : `<i data-feather="moon" class="noxss-icon"></i>`;
+        if (window.feather) feather.replace();
+        localStorage.setItem(THEME_KEY, mode);
+      };
+
+      themeSwitcher.addEventListener("click", () => {
+        const currentTheme = localStorage.getItem(THEME_KEY) || "light";
+        applyTheme(currentTheme === "dark" ? "light" : "dark");
+      });
+
+      // --- LÓGICA PRINCIPAL DO APLICATIVO ---
+      document.addEventListener("DOMContentLoaded", () => {
+        const savedTheme = localStorage.getItem(THEME_KEY);
+        const prefersDark = window.matchMedia(
+          "(prefers-color-scheme: dark)"
+        ).matches;
+        applyTheme(savedTheme || (prefersDark ? "dark" : "light"));
+
+        let students = [];
+        const DB_KEY = "schoolAppStudents";
+
+        const studentListContainer = document.getElementById(
+          "student-list-container"
+        );
+        const placeholder = document.getElementById("placeholder");
+        const searchInput = document.getElementById("searchInput");
+        const studentForm = document.getElementById("studentForm");
+        const fileInput = document.getElementById("jsonFileInput");
+        const clearSearchBtn = document.getElementById("clearSearchBtn");
+
+        const getStatusBadge = (status = "Ativo") => {
+          const statusClass =
+            {
+              Ativo: "badge-status--success",
+              Transferido: "badge-status--warning",
+              Inativo: "badge-status--secondary",
+            }[status] || "badge-status--secondary";
+          return `<span class="badge-status ${statusClass}">${status}</span>`;
+        };
+
+        const createStudentCardHTML = (student, index) => {
+          const safeText = (text) => text || "Não informado";
+          const phones =
+            student.telefone && student.telefone.length
+              ? student.telefone.join(", ")
+              : "Não informado";
+          return `
+                        <div class="noxss-card__body">
+                            <div class="d-flex justify-content-between align-items-start">
+                                <div>
+                                    <h3 class="noxss-card__title">${safeText(
+                                      student.nome
+                                    )}</h3>
+                                    <p class="noxss-card__subtitle text-secondary"><strong>Status:</strong> ${getStatusBadge(
+                                      student.status
+                                    )}</p>
+                                </div>
+                                <div class="student-card-actions">
+                                    <button class="noxss-btn noxss-btn--icon edit-btn" data-index="${index}" title="Editar"><i data-feather="edit-2" class="noxss-icon"></i></button>
+                                    <button class="noxss-btn noxss-btn--icon delete-btn" data-index="${index}" title="Excluir"><i data-feather="trash-2" class="noxss-icon"></i></button>
+                                </div>
+                            </div>
+                            <hr>
+                            <p class="card-text"><strong>Mãe:</strong> ${safeText(
+                              student.mae
+                            )}</p>
+                            <p class="card-text"><strong>Pai:</strong> ${safeText(
+                              student.pai
+                            )}</p>
+                            <p class="card-text"><strong>Telefone(s):</strong> ${phones}</p>
+                        </div>`;
+        };
+
+        const renderStudentList = (studentList = students) => {
+          const searchTerm = searchInput.value;
+          const isSearching = searchTerm.length > 0;
+
+          if (studentList.length === 0) {
+            placeholder.innerHTML = isSearching
+              ? `<i data-feather="search" style="width: 3rem; height: 3rem;"></i><p class="mt-3">Nenhum aluno encontrado com o termo "<strong>${searchTerm}</strong>".</p>`
+              : `<i data-feather="users" style="width: 3rem; height: 3rem;"></i><p class="mt-3">Nenhum aluno na lista.</p>`;
+            placeholder.style.display = "block";
+            studentListContainer.innerHTML = "";
+            studentListContainer.appendChild(placeholder);
+            feather.replace();
+            return;
+          }
+
+          placeholder.style.display = "none";
+          studentListContainer.innerHTML = "";
+
+          const grouped = studentList.reduce((acc, student) => {
+            const key = `${student.turma || "Sem Turma"} - ${
+              student.turno || "Sem Turno"
+            }`;
+            if (!acc[key]) acc[key] = [];
+            acc[key].push(student);
+            return acc;
+          }, {});
+
+          Object.keys(grouped)
+            .sort()
+            .forEach((groupKey) => {
+              if (!isSearching) {
+                const title = document.createElement("h2");
+                title.className = "turma-title";
+                title.textContent = groupKey;
+                studentListContainer.appendChild(title);
+              }
+
+              grouped[groupKey]
+                .sort((a, b) => (a.nome || "").localeCompare(b.nome || ""))
+                .forEach((student) => {
+                  const originalIndex = students.indexOf(student);
+                  const card = document.createElement("div");
+                  card.className =
+                    "noxss-card noxss-card--interactive student-card";
+                  card.innerHTML = createStudentCardHTML(
+                    student,
+                    originalIndex
+                  );
+                  studentListContainer.appendChild(card);
+                });
+            });
+
+          feather.replace();
+        };
+
+        const saveStudents = () => {
+          localStorage.setItem(DB_KEY, JSON.stringify(students));
+          renderStudentList();
+        };
+
+        const openStudentModal = (student = null, index = -1) => {
+          studentForm.reset();
+          document.getElementById("studentIndex").value = index;
+          document.getElementById("studentModalLabel").textContent =
+            index === -1 ? "Adicionar Novo Aluno" : "Editar Aluno";
+          if (student) {
+            const fields = [
+              "nome",
+              "cpf",
+              "status",
+              "turma",
+              "turno",
+              "nascimento",
+              "mae",
+              "pai",
+              "endereco",
+              "cor",
+            ];
+            fields.forEach((key) => {
+              const input = document.getElementById(key);
+              if (input && student[key] !== undefined)
+                input.value = student[key];
+            });
+            const phoneInput = document.getElementById("telefone");
+            if (phoneInput && Array.isArray(student.telefone)) {
+              phoneInput.value = student.telefone.join(", ");
+            }
+          }
+          Noxss.Modals.open("studentModal");
+          setTimeout(() => document.getElementById("nome").focus(), 400);
+        };
+
+        studentForm.addEventListener("submit", (e) => {
+          e.preventDefault();
+          const index = parseInt(
+            document.getElementById("studentIndex").value,
+            10
+          );
+          const studentData = {
+            nome: document.getElementById("nome").value.trim(),
+            cpf: document.getElementById("cpf").value.trim(),
+            status: document.getElementById("status").value,
+            turma: document.getElementById("turma").value.trim().toUpperCase(),
+            turno: document.getElementById("turno").value.trim().toUpperCase(),
+            nascimento: document.getElementById("nascimento").value.trim(),
+            mae: document.getElementById("mae").value.trim(),
+            pai: document.getElementById("pai").value.trim(),
+            telefone: document
+              .getElementById("telefone")
+              .value.split(",")
+              .map((tel) => tel.trim())
+              .filter(Boolean),
+            endereco: document.getElementById("endereco").value.trim(),
+            cor: document.getElementById("cor").value.trim(),
+          };
+          if (index === -1) students.push(studentData);
+          else students[index] = studentData;
+          saveStudents();
+          Noxss.Modals.close();
+          Noxss.Toasts.show({
+            message: "Aluno salvo com sucesso!",
+            status: "success",
+          });
+        });
+
+        document
+          .getElementById("add-student-btn")
+          .addEventListener("click", () => openStudentModal());
+
+        studentListContainer.addEventListener("click", (e) => {
+          const editBtn = e.target.closest(".edit-btn");
+          if (editBtn)
+            openStudentModal(
+              students[editBtn.dataset.index],
+              editBtn.dataset.index
+            );
+          const deleteBtn = e.target.closest(".delete-btn");
+          if (deleteBtn) {
+            const index = parseInt(deleteBtn.dataset.index, 10);
+            document.getElementById("studentNameToDelete").textContent =
+              students[index].nome;
+            Noxss.Modals.open("deleteConfirmModal");
+            document.getElementById("confirmDeleteBtn").onclick = () => {
+              students.splice(index, 1);
+              saveStudents();
+              Noxss.Modals.close();
+              Noxss.Toasts.show({
+                message: "Aluno removido.",
+                status: "danger",
+              });
+            };
+          }
+        });
+
+        searchInput.addEventListener("input", (e) => {
+          const searchTerm = e.target.value.toLowerCase();
+          clearSearchBtn.style.display = searchTerm ? "block" : "none";
+          const filteredStudents = students.filter(
+            (s) =>
+              (s.nome || "").toLowerCase().includes(searchTerm) ||
+              (s.cpf || "").includes(searchTerm) ||
+              (s.mae || "").toLowerCase().includes(searchTerm) ||
+              (s.pai || "").toLowerCase().includes(searchTerm)
+          );
+          renderStudentList(filteredStudents);
+        });
+
+        clearSearchBtn.addEventListener("click", () => {
+          searchInput.value = "";
+          searchInput.dispatchEvent(new Event("input"));
+        });
+
+        document
+          .getElementById("load-list-btn")
+          .addEventListener("click", () => fileInput.click());
+        fileInput.addEventListener("change", (event) => {
+          const file = event.target.files[0];
+          if (!file) return;
+          const reader = new FileReader();
+          reader.onload = (e) => {
+            if (
+              confirm(
+                "Isso substituirá a lista de alunos atual. Deseja continuar?"
+              )
+            ) {
+              try {
+                const newStudents = JSON.parse(e.target.result);
+                if (!Array.isArray(newStudents))
+                  throw new Error("JSON não é um array.");
+                students = newStudents;
+                saveStudents();
+                Noxss.Toasts.show({
+                  message: "Lista de alunos carregada!",
+                  status: "success",
+                });
+              } catch (error) {
+                Noxss.Toasts.show({
+                  message: "Arquivo JSON inválido.",
+                  status: "danger",
+                });
+              }
+            }
+          };
+          reader.readAsText(file);
+          fileInput.value = "";
+        });
+
+        document
+          .getElementById("download-list-btn")
+          .addEventListener("click", () => {
+            const dataStr =
+              "data:text/json;charset=utf-8," +
+              encodeURIComponent(JSON.stringify(students, null, 2));
+            const downloadAnchorNode = document.createElement("a");
+            downloadAnchorNode.setAttribute("href", dataStr);
+            downloadAnchorNode.setAttribute(
+              "download",
+              `database_alunos_${new Date().toISOString().split("T")[0]}.json`
+            );
+            document.body.appendChild(downloadAnchorNode);
+            downloadAnchorNode.click();
+            downloadAnchorNode.remove();
+            Noxss.Toasts.show({
+              message: "Download iniciado.",
+              status: "info",
+            });
+          });
+
+        (() => {
+          students = JSON.parse(localStorage.getItem(DB_KEY) || "[]");
+          renderStudentList();
+        })();
+      });
+    </script>
+  </body>
+</html>
