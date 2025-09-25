@@ -1,0 +1,144 @@
+/* ==========================================================================
+   Noxss Library: Alerts Component
+   - Mensagens contextuais para feedback do usuário.
+   - Versão: 1.0
+   - Depende de: core.css
+   ========================================================================== */
+
+@keyframes noxss-alert-fade-out {
+    from {
+        opacity: 1;
+        transform: scaleY(1);
+        max-height: 150px; /* Altura aproximada para a animação */
+    }
+    to {
+        opacity: 0;
+        transform: scaleY(0.8);
+        max-height: 0;
+        padding-top: 0;
+        padding-bottom: 0;
+        margin-bottom: 0;
+        border-width: 0;
+    }
+}
+
+.noxss-alert {
+    display: flex;
+    align-items: flex-start; /* Alinha ícone com a primeira linha de texto */
+    gap: 1rem;
+    
+    padding: 1rem 1.25rem;
+    margin-bottom: 1.5rem; /* Espaçamento padrão abaixo do alerta */
+    
+    border-radius: var(--noxss-border-radius-base);
+    border: 1px solid transparent;
+    border-left-width: 5px; /* Borda de status proeminente */
+}
+
+/* Animação de saída quando a classe .is-hiding é adicionada pelo JS */
+.noxss-alert.is-hiding {
+    animation: noxss-alert-fade-out 350ms ease-out forwards;
+    overflow: hidden;
+}
+
+/* --- Partes Internas do Alerta --- */
+
+.noxss-alert__icon {
+    flex-shrink: 0;
+    margin-top: 0.15em; /* Ajuste fino para alinhar com o texto */
+    font-size: 1.25rem;
+}
+
+.noxss-alert__content {
+    flex-grow: 1;
+}
+
+.noxss-alert__title {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 0.4rem;
+}
+
+/* Garante que links dentro dos alertas tenham a cor correta */
+.noxss-alert a {
+    font-weight: 600;
+    text-decoration: underline;
+}
+
+.noxss-alert__close-btn {
+    flex-shrink: 0;
+    background: none;
+    border: none;
+    padding: 0;
+    margin: 0 -0.5rem 0 0.5rem; /* Margem negativa para alinhar visualmente */
+    color: inherit; /* Herda a cor do texto do alerta */
+    opacity: 0.7;
+    cursor: pointer;
+    transition: opacity 150ms ease;
+}
+.noxss-alert__close-btn:hover {
+    opacity: 1;
+}
+.noxss-alert__close-btn .noxss-icon {
+    width: 20px;
+    height: 20px;
+}
+
+/* ---------------------------------- */
+/* Modificadores de Status            */
+/* ---------------------------------- */
+
+/* Padrão (Info) */
+.noxss-alert,
+.noxss-alert--info {
+    background-color: rgba(var(--noxss-accent-primary-rgb), 0.1);
+    border-color: var(--noxss-accent-primary);
+    color: var(--noxss-text-primary);
+}
+.noxss-alert a,
+.noxss-alert--info a {
+    color: var(--noxss-accent-primary);
+}
+
+/* Sucesso */
+.noxss-alert--success {
+    background-color: rgba(var(--noxss-color-success-rgb), 0.1);
+    border-color: var(--noxss-color-success);
+}
+.noxss-alert--success .noxss-alert__icon,
+.noxss-alert--success .noxss-alert__title,
+.noxss-alert--success a {
+    color: var(--noxss-color-success);
+}
+
+/* Aviso */
+.noxss-alert--warning {
+    background-color: rgba(var(--noxss-color-warning-rgb, 255, 193, 7), 0.1);
+    border-color: var(--noxss-color-warning);
+}
+/* No tema claro, o texto amarelo pode ser difícil de ler. */
+[data-theme="light"] .noxss-alert--warning {
+    color: #664d03; /* Cor mais escura para contraste */
+}
+.noxss-alert--warning .noxss-alert__icon,
+.noxss-alert--warning .noxss-alert__title,
+.noxss-alert--warning a {
+    color: var(--noxss-color-warning);
+}
+[data-theme="light"] .noxss-alert--warning .noxss-alert__icon,
+[data-theme="light"] .noxss-alert--warning .noxss-alert__title,
+[data-theme="light"] .noxss-alert--warning a {
+    color: #664d03;
+}
+
+
+/* Perigo */
+.noxss-alert--danger {
+    background-color: rgba(var(--noxss-color-danger-rgb), 0.1);
+    border-color: var(--noxss-color-danger);
+}
+.noxss-alert--danger .noxss-alert__icon,
+.noxss-alert--danger .noxss-alert__title,
+.noxss-alert--danger a {
+    color: var(--noxss-color-danger);
+}

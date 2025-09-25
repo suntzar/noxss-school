@@ -1,0 +1,103 @@
+/* ==========================================================================
+   Noxss Library: Modals Component
+   - Versão: 1.3 (Estilo refinado, mais leve e compacto)
+   - Depende de: core.css, buttons.css
+   ========================================================================== */
+
+/* ---------------------------------- */
+/* 1. O Contêiner/Backdrop do Modal   */
+/* (sem alterações)                 */
+/* ---------------------------------- */
+.noxss-modal {
+    position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 1050;
+    display: flex; align-items: center; justify-content: center; padding: 1rem;
+    background-color: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px); /* Blur um pouco mais sutil */
+    opacity: 0; visibility: hidden;
+    transition: opacity 250ms ease, visibility 250ms ease;
+}
+.noxss-modal.is-open { opacity: 1; visibility: visible; }
+
+/* ---------------------------------- */
+/* 2. A Janela de Diálogo             */
+/* ---------------------------------- */
+
+.noxss-modal__dialog {
+    display: flex; flex-direction: column;
+    width: 100%;
+    max-width: 440px; /* REDUZIDO: Largura máxima padrão mais contida */
+    max-height: 90vh;
+    background-color: var(--noxss-bg-elements);
+    border: 1px solid var(--noxss-border-color);
+    border-radius: var(--noxss-border-radius-base);
+    box-shadow: var(--noxss-shadow-lg);
+    overflow: hidden;
+    transform: scale(0.95);
+    transition: transform 250ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+.noxss-modal.is-open .noxss-modal__dialog { transform: scale(1); }
+
+
+/* ---------------------------------- */
+/* 3. Seções Internas do Modal        */
+/* ---------------------------------- */
+
+.noxss-modal__header {
+    display: flex; align-items: center; gap: 1rem;
+    padding: 0.9rem 1.1rem; /* REDUZIDO: Padding menos agressivo */
+    border-bottom: 1px solid var(--noxss-border-color);
+    flex-shrink: 0;
+    background-color: rgba(255, 255, 255, 0.03);
+}
+
+.noxss-modal__title {
+    flex-grow: 1; margin: 0;
+    font-size: 1.1rem; /* REDUZIDO: Título mais sutil */
+    font-weight: 600; line-height: 1.4;
+    white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+
+.noxss-modal__body {
+    padding: 1.2rem 1.1rem; /* REDUZIDO: Padding ajustado */
+    overflow-y: auto;
+    flex-grow: 1;
+}
+
+.noxss-modal__footer {
+    display: flex; justify-content: flex-end; gap: 0.75rem;
+    padding: 0.9rem 1.1rem; /* REDUZIDO: Padding consistente com o header */
+    border-top: 1px solid var(--noxss-border-color);
+    flex-shrink: 0;
+}
+
+
+/* ---------------------------------- */
+/* 4. Botão de Fechar                 */
+/* ---------------------------------- */
+
+.noxss-modal__close-btn {
+    flex-shrink: 0;
+    padding: 0;
+    width: 32px; /* REDUZIDO: Botão de fechar menor e mais discreto */
+    height: 32px;
+}
+.noxss-modal__close-btn .noxss-icon {
+    width: 20px;
+    height: 20px;
+}
+
+
+/* ---------------------------------- */
+/* 5. Modificadores                   */
+/* ---------------------------------- */
+
+/* Modificador para diálogos maiores (ex: com formulários) */
+.noxss-modal__dialog--large {
+    max-width: 600px;
+}
+
+/* Modificador para tela cheia (sem alterações) */
+.noxss-modal__dialog--fullscreen {
+    width: 100%; height: 100%; max-width: 100%; max-height: 100%;
+    border-radius: 0; border: none;
+}

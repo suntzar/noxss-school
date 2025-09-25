@@ -1,0 +1,78 @@
+/* ==========================================================================
+   Noxss Library: FAB (Floating Action Button) Component
+   - Versão: 2.1 (Com animação de transição de conteúdo)
+   - Depende de: core.css
+   ========================================================================== */
+
+:root {
+    --noxss-fab-size: 56px;
+    --noxss-fab-margin: 1.25rem;
+    --noxss-safe-area-inset-bottom: 0px; 
+}
+
+.noxss-fab {
+    position: fixed;
+    z-index: 1040;
+    right: var(--noxss-fab-margin);
+    bottom: calc(var(--noxss-safe-area-inset-bottom) + var(--noxss-fab-margin));
+    width: var(--noxss-fab-size);
+    height: var(--noxss-fab-size);
+    background-color: var(--noxss-accent-primary);
+    color: var(--noxss-text-on-accent);
+    border: none;
+    border-radius: 35%;
+    box-shadow: var(--noxss-shadow-lg);
+    cursor: pointer;
+    
+    /* Prepara o FAB para posicionamento absoluto dos filhos e animações */
+    display: grid;
+    place-items: center;
+    overflow: hidden; /* Importante para as animações de entrada/saída */
+
+    transition: transform 250ms cubic-bezier(0.4, 0, 0.2, 1), background-color 200ms ease, box-shadow 200ms ease, opacity 250ms ease;
+}
+
+/* --- Wrapper para o conteúdo do FAB (permite a animação de troca) --- */
+.noxss-fab__content-wrapper {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    display: grid;
+    place-items: center;
+    
+    /* Estado inicial (invisível e encolhido) */
+    opacity: 0;
+    transform: scale(0.7);
+    
+    /* Animação suave de entrada/saída */
+    transition: transform 250ms cubic-bezier(0.4, 0, 0.2, 1), opacity 250ms ease;
+}
+
+/* A classe que torna o wrapper do conteúdo visível */
+.noxss-fab__content-wrapper.is-active {
+    opacity: 1;
+    transform: scale(1);
+}
+
+/* Estilo para o ícone dentro do wrapper */
+.noxss-fab .noxss-icon {
+    width: calc(var(--noxss-fab-size) * 0.5);
+    height: calc(var(--noxss-fab-size) * 0.5);
+    stroke-width: 2.5;
+}
+
+/* --- Estados de Interação e Visibilidade --- */
+.noxss-fab:hover {
+    background-color: var(--noxss-accent-primary-hover);
+    transform: scale(1.05) translateY(-2px);
+    box-shadow: 0 0 20px rgba(var(--noxss-accent-primary-rgb), 0.3);
+}
+.noxss-fab:active {
+    transform: scale(0.98);
+    box-shadow: var(--noxss-shadow-md);
+}
+.noxss-fab.is-hidden {
+    opacity: 0;
+    transform: scale(0.5);
+    pointer-events: none;
+}

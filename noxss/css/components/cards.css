@@ -1,0 +1,152 @@
+/* ==========================================================================
+   Noxss Library: Cards Component
+   - Versão: 2.0 (Variedade expandida, tipografia interna e layout de grupo)
+   - Depende de: core.css
+   ========================================================================== */
+
+/* ---------------------------------- */
+/* 1. Card Base                       */
+/* ---------------------------------- */
+
+.noxss-card {
+    display: flex;
+    flex-direction: column;
+    background-color: var(--noxss-bg-surface);
+    border: 1px solid var(--noxss-border-color);
+    border-radius: var(--noxss-border-radius-base);
+    box-shadow: var(--noxss-shadow-md);
+    overflow: hidden;
+    transition: all 200ms ease-in-out; /* Transição base para todos os cards */
+}
+
+/* --- Partes Estruturais do Card --- */
+
+.noxss-card__header,
+.noxss-card__body,
+.noxss-card__footer {
+    padding: 1.25rem;
+}
+
+.noxss-card__header {
+    padding-bottom: 0.75rem;
+    border-bottom: 1px solid var(--noxss-border-color);
+}
+
+.noxss-card__footer {
+    padding-top: 0.75rem;
+    margin-top: auto; /* Empurra para o fundo */
+    border-top: 1px solid var(--noxss-border-color);
+}
+
+.noxss-card__media {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+    display: block;
+}
+
+/* --- Elementos de Conteúdo do Card --- */
+
+.noxss-card__title {
+    font-size: 1.25em;
+    font-weight: 600;
+    margin-bottom: 0.25rem;
+}
+
+.noxss-card__subtitle {
+    font-size: 0.9em;
+    color: var(--noxss-text-secondary);
+    margin-bottom: 1rem;
+}
+
+/* ---------------------------------- */
+/* 2. Modificadores de Estilo         */
+/* ---------------------------------- */
+
+/* -- Destaque com Cor de Acento -- */
+.noxss-card--accent { border-left: 5px solid var(--noxss-accent-primary); }
+.noxss-card--success { border-left: 5px solid var(--noxss-color-success); }
+.noxss-card--danger { border-left: 5px solid var(--noxss-color-danger); }
+.noxss-card--warning { border-left: 5px solid var(--noxss-color-warning); }
+
+/* -- Card Interativo (clicável) -- */
+.noxss-card--interactive:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--noxss-shadow-lg);
+    border-color: var(--noxss-text-secondary); /* Leve destaque na borda */
+}
+
+/* -- Card Fantasma (sem fundo) -- */
+.noxss-card--ghost {
+    background-color: transparent;
+    box-shadow: none;
+    border-style: dashed;
+    border-width: 2px;
+}
+/* No tema claro, a borda tracejada pode ser muito forte, então a tornamos sólida. */
+[data-theme="light"] .noxss-card--ghost {
+    border-style: solid;
+    border-width: 1px;
+}
+
+/* -- Card Plano (sem sombra) -- */
+.noxss-card--flat {
+    box-shadow: none;
+}
+
+
+/* ---------------------------------- */
+/* 3. Tipos de Card Específicos       */
+/* ---------------------------------- */
+
+/* -- Card de Estatística (Dashboard) -- */
+.noxss-card--stat {
+    padding: 1.25rem;
+}
+.noxss-card--stat .stat-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+.noxss-card--stat .stat-label {
+    font-size: 0.9em;
+    color: var(--noxss-text-secondary);
+    margin-bottom: 0.5rem;
+}
+.noxss-card--stat .stat-value {
+    font-size: 2.2em;
+    font-weight: 600;
+    line-height: 1;
+}
+.noxss-card--stat .stat-icon {
+    font-size: 2.5em;
+    color: var(--noxss-text-secondary);
+    opacity: 0.4;
+}
+
+/* -- Card com Mídia no Topo -- */
+.noxss-card--media-top .noxss-card__header,
+.noxss-card--media-top .noxss-card__body {
+    padding-top: 1.25rem;
+}
+.noxss-card--media-top .noxss-card__media {
+    border-radius: 0;
+}
+
+
+/* ---------------------------------- */
+/* 4. Layout de Grupo de Cards        */
+/* ---------------------------------- */
+
+.noxss-card-deck {
+    display: grid;
+    gap: 1.5rem; /* Espaçamento entre os cards */
+
+    /*
+     * Cria colunas responsivas:
+     * - Tenta criar colunas com no mínimo 300px de largura.
+     * - O `auto-fit` garante que, se não houver espaço, ele quebra para a próxima linha.
+     * - `1fr` garante que as colunas ocupem todo o espaço disponível.
+     */
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+}

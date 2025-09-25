@@ -1,0 +1,131 @@
+/* ==========================================================================
+   Noxss Library: Lists Component
+   - Componentes para exibir conjuntos de dados em formato de lista.
+   - Versão: 1.0
+   - Depende de: core.css
+   ========================================================================== */
+
+/* ---------------------------------- */
+/* 1. Contêiner de Lista              */
+/* ---------------------------------- */
+
+.noxss-list {
+    list-style: none; /* Remove marcadores de lista padrão */
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+/*
+ * Modificador para uma lista "embutida", com fundo e bordas próprias.
+ * Ideal para grupos de configurações ou menus.
+ */
+.noxss-list--inset {
+    background-color: var(--noxss-bg-surface);
+    border-radius: var(--noxss-border-radius-base);
+    border: 1px solid var(--noxss-border-color);
+    overflow: hidden; /* Garante que os filhos respeitem o border-radius */
+}
+
+
+/* ---------------------------------- */
+/* 2. Item da Lista                   */
+/* ---------------------------------- */
+
+.noxss-list-item {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 0.9rem 1.25rem;
+    width: 100%;
+    text-align: left; /* Garante alinhamento para itens que são <button> */
+
+    /* Divisor entre os itens */
+    border-bottom: 1px solid var(--noxss-border-color);
+}
+
+/* Remove a borda do último item para um visual mais limpo */
+.noxss-list-item:last-child {
+    border-bottom: none;
+}
+
+/* --- Partes Estruturais do Item --- */
+
+.noxss-list-item__leading,
+.noxss-list-item__trailing {
+    flex-shrink: 0; /* Impede que os slots de ícone/ação encolham */
+    display: flex;
+    align-items: center;
+}
+
+.noxss-list-item__content {
+    flex-grow: 1; /* Faz o conteúdo principal ocupar o espaço restante */
+    min-width: 0; /* Permite que o texto com ellipsis funcione corretamente */
+}
+
+/* --- Modificador Interativo --- */
+
+.noxss-list-item--interactive {
+    cursor: pointer;
+    transition: background-color 150ms ease-in-out;
+}
+
+.noxss-list-item--interactive:hover {
+    background-color: var(--noxss-bg-elements);
+}
+
+.noxss-list-item--interactive:active {
+    background-color: var(--noxss-bg-surface);
+}
+
+
+/* ---------------------------------- */
+/* 3. Estilos de Conteúdo do Item     */
+/* ---------------------------------- */
+
+.noxss-list-item__title {
+    font-weight: 500;
+    color: var(--noxss-text-primary);
+}
+
+.noxss-list-item__subtitle {
+    font-size: 0.85em;
+    color: var(--noxss-text-secondary);
+}
+
+/* Ícone no slot "leading" */
+.noxss-list-item__icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: var(--noxss-bg-elements);
+    color: var(--noxss-text-secondary);
+}
+/* Cores semânticas para ícones */
+.noxss-list-item__icon--success {
+    background-color: rgba(var(--noxss-color-success-rgb, 40, 167, 69), 0.15);
+    color: var(--noxss-color-success);
+}
+.noxss-list-item__icon--danger {
+    background-color: rgba(var(--noxss-color-danger-rgb, 220, 53, 69), 0.15);
+    color: var(--noxss-color-danger);
+}
+
+
+/* Avatar (imagem) no slot "leading" */
+.noxss-list-item__avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+/* Ícone de "chevron" no slot "trailing", indicando navegação */
+.noxss-list-item__trailing .noxss-icon {
+    color: var(--noxss-text-secondary);
+    opacity: 0.7;
+}

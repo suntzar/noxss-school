@@ -1,0 +1,113 @@
+/* ==========================================================================
+   Noxss Library: Loaders Component
+   - Versão: 2.0 (Design e animação aprimorados para Spinners e Progress Bars)
+   - Indicadores de carregamento elegantes.
+   - Depende de: core.css
+   ========================================================================== */
+
+/* ---------------------------------- */
+/* 1. Spinner (Pontos Pulsantes)      */
+/* ---------------------------------- */
+
+@keyframes noxss-spinner-pulse {
+    0%, 80%, 100% {
+        transform: scale(0.5);
+        opacity: 0.5;
+    }
+    40% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+.noxss-spinner {
+    display: inline-flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 3.5em; /* Largura baseada na font-size */
+    height: 1.5em; /* Altura baseada na font-size */
+    font-size: 10px; /* Tamanho padrão dos pontos */
+    vertical-align: middle;
+}
+
+.noxss-spinner > div {
+    width: 1em;
+    height: 1em;
+    background-color: var(--noxss-accent-primary);
+    border-radius: 50%;
+    animation: noxss-spinner-pulse 1.4s infinite ease-in-out both;
+}
+
+/* Atraso na animação para cada ponto criar o efeito de onda */
+.noxss-spinner .noxss-spinner-point-1 { animation-delay: -0.32s; }
+.noxss-spinner .noxss-spinner-point-2 { animation-delay: -0.16s; }
+.noxss-spinner .noxss-spinner-point-3 { animation-delay: 0s; }
+
+
+/* -- Modificadores de Tamanho -- */
+.noxss-spinner--sm { font-size: 8px; }
+.noxss-spinner--lg { font-size: 14px; }
+
+/* -- Uso em Botões -- */
+.noxss-btn .noxss-spinner {
+    font-size: 7px;
+    color: currentColor; /* Permite que os pontos herdem a cor do texto do botão */
+}
+.noxss-btn .noxss-spinner > div {
+    background-color: currentColor;
+}
+.noxss-loading .is-loading-hidden { visibility: hidden; }
+.noxss-loading .noxss-spinner { position: absolute; }
+
+
+/* ---------------------------------- */
+/* 2. Barra de Progresso              */
+/* ---------------------------------- */
+
+@keyframes noxss-progress-stripes {
+    from { background-position: 1rem 0; }
+    to { background-position: 0 0; }
+}
+
+.noxss-progress {
+    display: flex;
+    height: 0.75rem; /* Um pouco mais alta para melhor visibilidade */
+    overflow: hidden;
+    background-color: var(--noxss-bg-surface);
+    border-radius: 50px; /* Bordas totalmente arredondadas */
+    border: 1px solid var(--noxss-border-color);
+    padding: 2px; /* Espaço interno para a barra */
+}
+
+.noxss-progress__bar {
+    display: flex;
+    justify-content: center;
+    color: var(--noxss-text-on-accent);
+    background-color: var(--noxss-accent-primary);
+    border-radius: 50px;
+    transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* -- Modificador Indeterminado (Listras Animadas) -- */
+.noxss-progress--indeterminate .noxss-progress__bar {
+    width: 100% !important;
+    background-image: linear-gradient(
+        45deg,
+        rgba(255, 255, 255, 0.15) 25%,
+        transparent 25%,
+        transparent 50%,
+        rgba(255, 255, 255, 0.15) 50%,
+        rgba(255, 255, 255, 0.15) 75%,
+        transparent 75%,
+        transparent
+    );
+    background-size: 1rem 1rem;
+    animation: noxss-progress-stripes 1s linear infinite;
+}
+
+/* -- Modificador com Rótulo (Aumenta a altura) -- */
+.noxss-progress--labeled {
+    height: 1.5rem;
+    font-size: 0.75rem;
+    font-weight: 500;
+}

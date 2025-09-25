@@ -1,0 +1,108 @@
+/* ==========================================================================
+   Noxss Library: Mathematical Typesetting Component
+   - Estilos para MathML nativo e integração com KaTeX (LaTeX).
+   - Versão: 1.0
+   - Depende de: core.css
+   ========================================================================== */
+
+/* ---------------------------------- */
+/* 1. Variáveis e Estilos de Base     */
+/* ---------------------------------- */
+
+:root {
+    /* Define uma família de fontes otimizada para matemática. */
+    /* O navegador tentará usar a primeira que encontrar. */
+    --noxss-font-family-math: "Latin Modern Math", "Cambria Math", "STIX Two Math", "Times New Roman", serif;
+}
+
+/* Estilo base para elementos matemáticos inline e em bloco */
+math, .katex {
+    font-family: var(--noxss-font-family-math);
+    font-size: 1.1em; /* Fórmulas um pouco maiores para legibilidade */
+    color: var(--noxss-text-primary);
+}
+
+
+/* ---------------------------------- */
+/* 2. Estilização para MathML Nativo  */
+/* ---------------------------------- */
+
+/* Garante que o MathML em modo display se comporte como um bloco */
+math[display="block"] {
+    display: block;
+    overflow-x: auto;
+    overflow-y: hidden;
+    padding: 1.5em;
+    margin: 1.5rem 0;
+    text-align: center;
+    background-color: var(--noxss-bg-surface);
+    border-radius: var(--noxss-border-radius-base);
+}
+
+/* Identificadores (variáveis) em itálico, como é o costume */
+mi {
+    font-style: italic;
+}
+
+/* Operadores com uma cor sutilmente diferente para destaque */
+mo {
+    color: var(--noxss-accent-primary);
+    padding: 0 0.25em;
+}
+
+
+/* ---------------------------------- */
+/* 3. Estilização para KaTeX (LaTeX)  */
+/* ---------------------------------- */
+
+/* -- Fórmulas Inline -- */
+.katex {
+    /* Ajusta o alinhamento vertical para não quebrar a linha do texto */
+    display: inline-flex;
+    align-items: baseline;
+    vertical-align: -0.1em;
+}
+
+/* -- Fórmulas em Bloco (Display) -- */
+.katex-display {
+    display: block;
+    overflow-x: auto;
+    overflow-y: hidden;
+    padding: 1.5rem;
+    margin: 1.5rem 0;
+    text-align: center;
+
+    background-color: var(--noxss-bg-surface);
+    border: 1px solid var(--noxss-border-color);
+    border-radius: var(--noxss-border-radius-base);
+}
+
+/* Ajusta o padding interno gerado pelo KaTeX */
+.katex-display > .katex {
+    display: inline-block;
+    white-space: nowrap;
+    text-align: initial;
+}
+
+/*
+ * Sobrescreve as cores padrão do KaTeX para usar as variáveis do tema Noxss.
+ * Isso garante que as equações se adaptem aos temas Light/Dark.
+ */
+
+/* Linhas de fração e raiz quadrada */
+.katex .frac-line,
+.katex .sqrt-line,
+.katex .overline-line,
+.katex .underline-line {
+    border-bottom-color: currentColor; /* Usa a cor do texto atual */
+}
+
+/* Símbolos que o KaTeX pode renderizar de forma diferente */
+.katex .op-symbol {
+    color: var(--noxss-accent-primary);
+}
+
+/* Corrigindo a cor de fundo de alguns ambientes, se necessário */
+.katex .mtable {
+    border-color: var(--noxss-border-color);
+}

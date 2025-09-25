@@ -1,0 +1,134 @@
+/* ==========================================================================
+   Noxss Library: Toasts/Snackbars Component
+   - Versão: 2.1 (Correção de centralização para posições 'center')
+   - Notificações não-intrusivas para feedback do usuário.
+   - Depende de: core.css
+   ========================================================================== */
+
+/* ---------------------------------- */
+/* 1. Contêiner de Toasts (Base)      */
+/* ---------------------------------- */
+.noxss-toast-container {
+    position: fixed;
+    z-index: 1100;
+    display: flex;
+    flex-direction: column;
+    width: -webkit-max-content;
+    width: -moz-max-content;
+    width: max-content;
+    max-width: calc(100% - 3rem);
+    pointer-events: none;
+    gap: 0.75rem;
+}
+
+/* ---------------------------------- */
+/* 2. O Toast Individual              */
+/* ---------------------------------- */
+.noxss-toast {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    
+    width: 100%;
+    max-width: 380px;
+    padding: 1rem 1.25rem;
+    
+    background-color: var(--noxss-bg-surface);
+    color: var(--noxss-text-primary);
+    border: 1px solid var(--noxss-border-color);
+    border-left-width: 5px;
+    border-left-color: var(--noxss-text-secondary);
+    border-radius: var(--noxss-border-radius-base);
+    box-shadow: var(--noxss-shadow-lg);
+    
+    pointer-events: auto;
+    /* A animação de entrada é aplicada pela classe de posição específica */
+}
+
+.noxss-toast.is-hiding {
+    /* A animação de saída também é aplicada pela classe de posição */
+}
+
+/* --- Partes Internas e Modificadores de Status --- */
+.noxss-toast__icon { flex-shrink: 0; font-size: 1.5rem; }
+.noxss-toast__message { flex-grow: 1; font-size: 0.95rem; line-height: 1.4; }
+.noxss-toast__close-btn { flex-shrink: 0; padding: 0; width: 28px; height: 28px; background: none; border: none; color: var(--noxss-text-secondary); cursor: pointer; opacity: 0.7; transition: opacity 150ms ease; }
+.noxss-toast__close-btn:hover { opacity: 1; }
+.noxss-toast__close-btn .noxss-icon { width: 18px; height: 18px; }
+.noxss-toast--success { border-left-color: var(--noxss-color-success); }
+.noxss-toast--success .noxss-toast__icon { color: var(--noxss-color-success); }
+.noxss-toast--danger { border-left-color: var(--noxss-color-danger); }
+.noxss-toast--danger .noxss-toast__icon { color: var(--noxss-color-danger); }
+.noxss-toast--warning { border-left-color: var(--noxss-color-warning); }
+.noxss-toast--warning .noxss-toast__icon { color: var(--noxss-color-warning); }
+.noxss-toast--info { border-left-color: var(--noxss-accent-primary); }
+.noxss-toast--info .noxss-toast__icon { color: var(--noxss-accent-primary); }
+
+
+/* ---------------------------------- */
+/* 3. Modificadores de Posição e Animação */
+/* ---------------------------------- */
+
+/* --- Canto Superior Direito --- */
+.noxss-toast-container--top-right { top: 1.5rem; right: 1.5rem; align-items: flex-end; }
+.noxss-toast-container--top-right .noxss-toast { animation: noxss-toast-in-right 0.4s cubic-bezier(0.21, 1.02, 0.73, 1); }
+.noxss-toast-container--top-right .noxss-toast.is-hiding { animation: noxss-toast-out-right 0.4s ease-out forwards; }
+
+/* --- Topo Central --- */
+.noxss-toast-container--top-center { top: 1.5rem; left: 50%; align-items: center; }
+.noxss-toast-container--top-center .noxss-toast { animation: noxss-toast-in-top 0.4s cubic-bezier(0.21, 1.02, 0.73, 1); }
+.noxss-toast-container--top-center .noxss-toast.is-hiding { animation: noxss-toast-out-top 0.4s ease-out forwards; }
+
+/* --- Canto Superior Esquerdo --- */
+.noxss-toast-container--top-left { top: 1.5rem; left: 1.5rem; align-items: flex-start; }
+.noxss-toast-container--top-left .noxss-toast { animation: noxss-toast-in-left 0.4s cubic-bezier(0.21, 1.02, 0.73, 1); }
+.noxss-toast-container--top-left .noxss-toast.is-hiding { animation: noxss-toast-out-left 0.4s ease-out forwards; }
+
+/* --- Canto Inferior Direito (Padrão) --- */
+.noxss-toast-container--bottom-right { bottom: 1.5rem; right: 1.5rem; align-items: flex-end; flex-direction: column-reverse; }
+.noxss-toast-container--bottom-right .noxss-toast { animation: noxss-toast-in-right 0.4s cubic-bezier(0.21, 1.02, 0.73, 1); }
+.noxss-toast-container--bottom-right .noxss-toast.is-hiding { animation: noxss-toast-out-right 0.4s ease-out forwards; }
+
+/* --- Fundo Central --- */
+.noxss-toast-container--bottom-center { bottom: 1.5rem; left: 50%; align-items: center; flex-direction: column-reverse; }
+.noxss-toast-container--bottom-center .noxss-toast { animation: noxss-toast-in-bottom 0.4s cubic-bezier(0.21, 1.02, 0.73, 1); }
+.noxss-toast-container--bottom-center .noxss-toast.is-hiding { animation: noxss-toast-out-bottom 0.4s ease-out forwards; }
+
+/* --- Canto Inferior Esquerdo --- */
+.noxss-toast-container--bottom-left { bottom: 1.5rem; left: 1.5rem; align-items: flex-start; flex-direction: column-reverse; }
+.noxss-toast-container--bottom-left .noxss-toast { animation: noxss-toast-in-left 0.4s cubic-bezier(0.21, 1.02, 0.73, 1); }
+.noxss-toast-container--bottom-left .noxss-toast.is-hiding { animation: noxss-toast-out-left 0.4s ease-out forwards; }
+
+
+/* ---------------------------------- */
+/* 4. Keyframes de Animação           */
+/* ---------------------------------- */
+
+@keyframes noxss-toast-in-top { from { opacity: 0; transform: translateY(-100%); } to { opacity: 1; transform: translateY(0); } }
+@keyframes noxss-toast-out-top { from { opacity: 1; transform: translateY(0); } to { opacity: 0; transform: translateY(-100%); } }
+
+@keyframes noxss-toast-in-right { from { opacity: 0; transform: translateX(100%); } to { opacity: 1; transform: translateX(0); } }
+@keyframes noxss-toast-out-right { from { opacity: 1; transform: translateX(0); } to { opacity: 0; transform: translateX(100%); } }
+
+@keyframes noxss-toast-in-bottom { from { opacity: 0; transform: translateY(100%); } to { opacity: 1; transform: translateY(0); } }
+@keyframes noxss-toast-out-bottom { from { opacity: 1; transform: translateY(0); } to { opacity: 0; transform: translateY(100%); } }
+
+@keyframes noxss-toast-in-left { from { opacity: 0; transform: translateX(-100%); } to { opacity: 1; transform: translateX(0); } }
+@keyframes noxss-toast-out-left { from { opacity: 1; transform: translateX(0); } to { opacity: 0; transform: translateX(-100%); } }
+
+/* Responsividade para telas pequenas */
+@media (max-width: 576px) {
+    .noxss-toast-container {
+        left: 1rem;
+        right: 1rem;
+        bottom: 1rem;
+        max-width: none;
+        width: auto;
+    }
+    /* Para posições no topo em mobile, ajusta o espaçamento */
+    .noxss-toast-container--top-left,
+    .noxss-toast-container--top-right,
+    .noxss-toast-container--top-center {
+        top: 1rem;
+    }
+}

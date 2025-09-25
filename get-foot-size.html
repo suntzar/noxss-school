@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <!-- Começa com o tema dark padrão da Noxss -->
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sistema de gestão escolar</title>
+
+    <!-- ICONE DO SITE-->
+    <link rel="icon" href="school-material.svg" />
+
+    <!-- DEPENDÊNCIAS -->
+    <link rel="stylesheet" href="packages/css/bootstrap.min.css" />
+    <!-- Apenas para display responsivo -->
+    <link rel="stylesheet" href="noxss/dist/noxss.css" />
+    <link rel="stylesheet" href="noxss/css/components/navbar.css" />
+    <script defer src="https://unpkg.com/feather-icons"></script>
+
+    <!-- ESTILOS DO TEMPLATE -->
+    <style>
+      /* 1. TEMA "VOID" - Agora aplicado diretamente com data-theme */
+      [data-theme="void"] {
+        --noxss-font-family-base: "Inter", system-ui, -apple-system, sans-serif;
+        --noxss-bg-main: #111113;
+        --noxss-bg-surface: #18181b;
+        --noxss-bg-elements: #202023;
+        --noxss-border-color: #27272a;
+        --noxss-text-primary: #e4e4e7;
+        --noxss-text-secondary: #a1a1aa;
+        --noxss-accent-primary: #818cf8;
+        --noxss-accent-primary-hover: #9fa8fb;
+        --noxss-accent-primary-rgb: 129, 140, 248;
+        --noxss-border-radius-base: 6px;
+      }
+
+      /* O tema padrão da Noxss (dark) será usado quando data-theme="dark" */
+      /* O tema light da Noxss será usado quando data-theme="light" */
+
+      /* 2. Estilos de placeholder (sem alterações) */
+      .placeholder-content {
+        display: flex;
+        flex-direction: column;
+        text-align: center;
+        gap: 1.5rem;
+        padding: 2rem;
+        color: var(--noxss-text-secondary);
+      }
+      .placeholder-content img {
+        width: 64px;
+        height: 64px;
+        margin: auto;
+        stroke-width: 1;
+        color: var(--noxss-accent-primary);
+        opacity: 1;
+      }
+      .placeholder-content .noxss-card {
+        max-width: 600px;
+        margin: 0 auto;
+      }
+      .about-content {
+        max-width: 720px;
+        margin: 0 auto;
+        padding: 2rem 1.5rem;
+      }
+      .settings-content {
+        max-width: 500px;
+        margin: 0 auto;
+        padding: 2rem 1.5rem;
+      }
+    </style>
+  </head>
+  <body data-noxss-layout="app">
+    <div class="noxss-layout">
+      <!-- 1. BARRA DE NAVEGAÇÃO SUPERIOR -->
+      <nav class="noxss-navbar">
+        <a class="noxss-navbar__brand" href="#"
+          ><span><img width="24px" height="24px" class="noxss-icon" src="school-material.svg" /></span> <span>Sistema de Gestão Escolar</span></a
+        >
+      </nav>
+
+      <!-- 2. CONTEÚDO PRINCIPAL COM ABAS -->
+      <main class="noxss-layout__content">
+        <div class="noxss-tabs" data-default-tab="home">
+          <!-- Abas para Desktop -->
+          <div class="noxss-tabs__header d-none d-md-flex">
+            <button class="noxss-tabs__header-button" data-tab-id="home"><i class="noxss-icon" data-feather="home"></i> Início</button>
+            <button class="noxss-tabs__header-button" data-tab-id="about"><i class="noxss-icon" data-feather="info"></i> Sobre</button>
+            <button class="noxss-tabs__header-button" data-tab-id="settings"><i class="noxss-icon" data-feather="settings"></i> Ajustes</button>
+          </div>
+
+          <!-- Painéis de Conteúdo -->
+          <div class="noxss-tabs__content-area">
+            <!-- Painel: Início -->
+            <div class="noxss-tabs__panel" id="panel-home">
+              <div class="placeholder-content">
+                <img src="school-material.svg" />
+                <h1 class="h2">Bem-vindo ao Sistema de Gestão Escolar</h1>
+                <div class="noxss-card">
+                  <div class="noxss-card__header">
+                    <div class="noxss-card__title">Título do Card</div>
+                  </div>
+                  <div class="noxss-card__body">
+                    <p>Conteúdo principal do card.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Painel: Sobre -->
+            <div class="noxss-tabs__panel" id="panel-about">
+              <div class="about-content">
+                <h2>Sobre a Biblioteca Noxss</h2>
+                <p class="text-secondary">A Noxss é uma biblioteca CSS e JS com filosofia "App-First", projetada para resolver problemas comuns no desenvolvimento de interfaces, como:</p>
+                <ul>
+                  <li><strong>Layout de Aplicativo:</strong> Estrutura pronta para interfaces de tela cheia com navbars e conteúdo rolável.</li>
+                  <li><strong>Tematização:</strong> Suporte nativo para temas Light/Dark e customização via Variáveis CSS.</li>
+                  <li><strong>Componentes Funcionais:</strong> Um conjunto de componentes reutilizáveis como botões, modais, e abas, prontos para uso.</li>
+                </ul>
+                <hr class="my-4" />
+                <p>O objetivo é fornecer um ponto de partida sólido para que você possa focar na lógica do seu aplicativo, e não na estrutura básica da UI.</p>
+              </div>
+            </div>
+
+            <!-- Painel: Configurações -->
+            <div class="noxss-tabs__panel" id="panel-settings">
+              <div class="settings-content">
+                <h2>Configurações</h2>
+                <div class="noxss-form-group">
+                  <label for="theme-select" class="noxss-label">Tema Visual</label>
+                  <select id="theme-select" class="noxss-select">
+                    <option value="dark">Noxss Dark</option>
+                    <option value="light">Noxss Light</option>
+                    <option value="void">Void</option>
+                    <option value="#e0c670-dark">Banana Dark</option>
+                    <option value="#e0c670-light">Banana Light</option>
+                  </select>
+                </div>
+                <div class="noxss-form-group">
+                  <label class="noxss-label">Notificações</label>
+                  <label class="noxss-check">
+                    <input type="checkbox" checked />
+                    <span class="noxss-check-control"></span>
+                    <span>Habilitar notificações por push</span>
+                  </label>
+                  <label class="noxss-check">
+                    <input type="checkbox" />
+                    <span class="noxss-check-control"></span>
+                    <span>Receber newsletter semanal</span>
+                  </label>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </main>
+
+      <!-- 3. BARRA DE NAVEGAÇÃO INFERIOR (MOBILE) -->
+      <nav class="noxss-navbar noxss-navbar--bottom noxss-active-bg-button d-md-none">
+        <button class="noxss-tabs__nav-button" data-tab-id="home" aria-label="Início"><i class="noxss-icon" data-feather="home"></i></button>
+        <button class="noxss-tabs__nav-button" data-tab-id="about" aria-label="Sobre"><i class="noxss-icon" data-feather="info"></i></button>
+        <button class="noxss-tabs__nav-button" data-tab-id="settings" aria-label="Ajustes"><i class="noxss-icon" data-feather="settings"></i></button>
+      </nav>
+    </div>
+
+    <script src="noxss/dist/noxss.js"></script>
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        if (window.feather) feather.replace();
+
+        const themeSelect = document.getElementById("theme-select");
+        const htmlElement = document.documentElement;
+
+        // --- LÓGICA DO SELETOR DE TEMAS SIMPLIFICADA ---
+
+        function applyTheme(theme) {
+          // Se o tema for 'dark', removemos o atributo para usar o padrão da Noxss.
+          // Para qualquer outro tema ('light', 'void'), nós definimos o atributo.
+          if (theme === "dark") {
+            htmlElement.removeAttribute("data-theme");
+          } else if (theme.includes("#")) {
+            let colorTheme = theme.split("-")
+            htmlElement.setAttribute("data-noxss-theme-gen", colorTheme[1]);
+            htmlElement.setAttribute("data-noxss-palette-gen", colorTheme[0]);
+          } else {
+            htmlElement.setAttribute("data-theme", theme);
+          }
+          // Salva a preferência do usuário no armazenamento local
+          localStorage.setItem("noxss-theme", theme);
+        }
+
+        // Ao carregar, aplica o tema salvo ou o padrão 'dark'
+        const savedTheme = localStorage.getItem("noxss-theme") || "dark";
+        applyTheme(savedTheme);
+        themeSelect.value = savedTheme;
+
+        // Listener para mudanças no select
+        themeSelect.addEventListener("change", (e) => {
+          applyTheme(e.target.value);
+        });
+
+        /* data-noxss-theme-gen="light" data-noxss-palette-gen="#198754"
+        htmlElement.setAttribute("data-noxss-theme-gen", "light");
+        htmlElement.setAttribute("data-noxss-theme-gen", "dark");
+        htmlElement.setAttribute("data-noxss-palette-gen", "#4d97eb");
+        htmlElement.setAttribute("data-noxss-palette-gen", "#e0c670");
+        */
+      });
+    </script>
+  </body>
+</html>

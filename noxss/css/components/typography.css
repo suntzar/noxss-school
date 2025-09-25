@@ -1,0 +1,217 @@
+/* ==========================================================================
+   Noxss Library: Typography Component
+   - Versão: 3.1 (Estilos de tabela aprimorados)
+   - Estilos para todos os elementos de texto.
+   - Depende de: core.css, buttons.css
+   ========================================================================== */
+
+/* ---------------------------------- */
+/* Cabeçalhos (Headings)              */
+/* ---------------------------------- */
+
+h1, .h1, h2, .h2, h3, .h3, h4, .h4, h5, .h5, h6, .h6 {
+    margin-top: 0;
+    margin-bottom: 0.8em;
+    font-weight: 600;
+    line-height: 1.3;
+    color: var(--noxss-text-primary);
+}
+h1, .h1 { font-size: 2.2rem; letter-spacing: -0.02em; }
+h2, .h2 { font-size: 1.8rem; padding-bottom: 0.4em; border-bottom: 1px solid var(--noxss-border-color); }
+h3, .h3 { font-size: 1.5rem; color: var(--noxss-accent-primary); }
+h4, .h4 { font-size: 1.2rem; }
+h5, .h5 { font-size: 1rem; font-weight: 500; color: var(--noxss-text-secondary); text-transform: uppercase; letter-spacing: 0.05em; }
+h6, .h6 { font-size: 0.9rem; font-weight: 500; color: var(--noxss-text-secondary); }
+
+
+/* ---------------------------------- */
+/* Corpo de Texto e Links             */
+/* ---------------------------------- */
+
+p { margin-bottom: 1.2em; }
+a { color: var(--noxss-accent-primary); text-decoration: none; transition: color 0.2s ease-in-out; }
+a:hover { color: var(--noxss-accent-primary-hover); text-decoration: underline; }
+
+/* ---------------------------------- */
+/* Ênfase e Elementos Inline          */
+/* ---------------------------------- */
+
+/* APRIMORADO: strong agora usa a cor de destaque */
+strong, b {
+    color: var(--noxss-accent-primary);
+    font-weight: 600;
+}
+
+em, i { font-style: italic; }
+
+small { font-size: 85%; color: var(--noxss-text-secondary); }
+
+/* NOVO: Estilo para texto marcado */
+mark {
+    background-color: var(--noxss-color-warning);
+    color: #000; /* Texto preto para contraste com o amarelo */
+    padding: 0.15em 0.4em;
+    border-radius: 4px;
+}
+
+/* NOVO: Estilo para abreviações */
+abbr[title] {
+    text-decoration: underline dotted;
+    cursor: help;
+}
+
+/* NOVO: Estilo para entrada de teclado */
+kbd {
+    font-family: var(--noxss-font-family-monospace);
+    padding: 0.2em 0.45em;
+    font-size: 0.85em;
+    color: var(--noxss-text-primary);
+    background-color: var(--noxss-bg-elements);
+    border: 1px solid var(--noxss-border-color);
+    border-bottom-width: 2px;
+    border-radius: 4px;
+}
+
+
+/* ---------------------------------- */
+/* Elementos de Bloco                 */
+/* ---------------------------------- */
+
+blockquote {
+    margin: 1.5em 0;
+    padding: 0.8em 1.2em;
+    border-left: 4px solid var(--noxss-accent-primary);
+    background-color: var(--noxss-bg-elements);
+    color: var(--noxss-text-secondary);
+    font-style: italic;
+    border-radius: 0 var(--noxss-border-radius-base) var(--noxss-border-radius-base) 0;
+}
+blockquote p:last-child { margin-bottom: 0; }
+
+/* APRIMORADO: <hr> agora é tracejado */
+hr {
+    border: 0;
+    border-top: 2px dashed var(--noxss-border-color);
+    margin: 2.5em 0;
+    opacity: 0.5;
+}
+
+ul, ol {
+    padding-left: 25px;
+    margin-bottom: 1.2em;
+}
+li { margin-bottom: 0.5em; }
+/* APRIMORADO: Estilo para o marcador da lista */
+li::marker { color: var(--noxss-text-secondary); }
+
+
+/* ---------------------------------- */
+/* Tabelas (Estilo Aprimorado)        */
+/* ---------------------------------- */
+
+/*
+   NOVO ESTILO - MAIS ELEGANTE E MODERNO
+   - Foco em linhas horizontais para um visual mais limpo.
+   - Cabeçalho destacado para melhor hierarquia.
+   - Efeito de hover nas linhas para melhor usabilidade.
+*/
+table {
+    width: 100%;
+    margin: 2em 0; /* Aumenta a margem para mais espaço vertical */
+    border-collapse: collapse; /* Essencial para o estilo de bordas horizontais */
+    text-align: left;
+    font-size: 0.95rem; /* Leve ajuste no tamanho da fonte para conforto na leitura */
+    border-radius: var(--noxss-border-radius-base);
+    background-color: var(--noxss-bg-surface);
+    box-shadow: var(--noxss-shadow-sm);
+    overflow: hidden; /* Garante que o border-radius seja aplicado às células de canto */
+}
+
+th, td {
+    /* Aumenta o padding para mais "respiro" */
+    padding: 1em 1.2em;
+    border-bottom: 1px solid var(--noxss-border-color);
+}
+
+/* Estilo do cabeçalho da tabela */
+thead th {
+    font-weight: 600;
+    color: var(--noxss-text-primary);
+    background-color: var(--noxss-bg-elements);
+    text-transform: uppercase; /* Deixa o cabeçalho mais formal e destacado */
+    letter-spacing: 0.05em;
+    font-size: 0.85em;
+    /* Borda inferior mais espessa e com a cor de destaque para separar o cabeçalho */
+    border-bottom: 2px solid var(--noxss-accent-primary);
+}
+
+/* Remove a borda inferior da última linha para um visual mais limpo */
+tbody tr:last-child th,
+tbody tr:last-child td {
+    border-bottom: 0;
+}
+
+/* Efeito de zebrado sutil nas linhas do corpo da tabela */
+tbody tr:nth-child(even) {
+    background-color: var(--noxss-bg-elements);
+}
+
+/* APRIMORADO: Efeito de hover suave para destacar a linha ativa * /
+tbody tr:hover {
+    background-color: rgba(var(--noxss-accent-primary-rgb), 0.08);
+    transition: background-color 0.15s ease-in-out;
+}
+
+*/
+
+/* ---------------------------------- */
+/* Código (Inline e Bloco)            */
+/* ---------------------------------- */
+
+code {
+    font-family: var(--noxss-font-family-monospace);
+    color: var(--noxss-accent-primary);
+    background-color: rgba(var(--noxss-accent-primary-rgb), 0.1);
+    padding: 0.2em 0.4em;
+    border-radius: 4px;
+    font-size: 0.9em;
+}
+
+.noxss-code-block {
+    position: relative;
+    margin: 1.5em 0;
+}
+
+.noxss-code-block .noxss-copy-btn {
+    position: absolute;
+    top: 0.5em; right: 0.5em; z-index: 1;
+    display: inline-flex;
+    padding: 0.5rem;
+    background-color: transparent;
+    border: none;
+    border-radius: var(--noxss-border-radius-base);
+    cursor: pointer;
+    color: var(--noxss-text-secondary);
+    transition: color 150ms ease-in-out;
+}
+.noxss-code-block .noxss-copy-btn:hover { color: var(--noxss-text-primary); }
+.noxss-code-block .noxss-copy-btn:focus-visible { outline: 2px solid var(--noxss-focus-ring-color); outline-offset: 1px; }
+.noxss-code-block .noxss-copy-btn svg { width: 18px; height: 18px; stroke-width: 2.5; }
+.noxss-code-block .noxss-copy-btn.copied { color: var(--noxss-accent-primary); }
+
+.noxss-code-block pre {
+    margin: 0;
+    padding: 1.2em;
+    padding-top: 3em; padding-right: 3em;
+    font-family: var(--noxss-font-family-monospace);
+    font-size: 0.9rem;
+    line-height: 1.5;
+    border: 1px solid var(--noxss-border-color);
+    border-radius: var(--noxss-border-radius-base);
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+}
+
+.noxss-code-block pre code {
+    padding: 0; background: none; font-size: inherit; color: inherit; border-radius: 0;
+}

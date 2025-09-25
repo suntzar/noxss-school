@@ -1,0 +1,168 @@
+<!doctype html>
+<html lang="pt-br" data-theme="dark">
+    <!-- Tema Padrão (Dark) -->
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Noxss - Preview de Layout de Aplicativo</title>
+
+        <!-- BIBLIOTECAS DE TERCEIROS -->
+        <!-- Bootstrap é usado apenas para classes de display (d-none, d-md-flex) -->
+        <link rel="stylesheet" href="packages/css/bootstrap.min.css" />
+        <link rel="stylesheet" href="packages/css/waves.min.css" />
+
+        <!-- BIBLIOTECA NOXSS COMPLETA -->
+        <link rel="stylesheet" href="noxss/dist/noxss.css" />
+
+        <!-- Estilos específicos para este preview -->
+        <style>
+            /* Camada preta cobrindo toda a tela */
+            #preloader {
+                position: fixed;
+                inset: 0;
+                background-color: #262626;
+                z-index: 9999;
+                opacity: 1;
+                pointer-events: none;
+                transition: opacity 0.8s ease 0.3s; /* fade-out suave com delay */
+            }
+
+            /* Quando estilos estiverem prontos */
+            .loaded #preloader {
+                opacity: 0;
+            }
+
+            /* Estilos para o conteúdo de exemplo dos painéis */
+            .placeholder-content {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                text-align: center;
+                height: 100%;
+                gap: 1.5rem;
+                color: var(--noxss-text-secondary);
+            }
+            .placeholder-content .feather {
+                width: 64px;
+                height: 64px;
+                stroke-width: 1;
+                color: var(--noxss-border-color);
+            }
+        </style>
+    </head>
+    <body data-noxss-layout="app">
+        <!-- Estrutura principal do aplicativo usando componentes Noxss -->
+        <div class="noxss-layout">
+            <!-- 1. Barra de Navegação Superior -->
+            <nav class="noxss-navbar">
+                <a class="noxss-navbar__brand" href="#">
+                    <i class="noxss-icon" data-feather="layout"></i>
+                    <span>App Preview</span>
+                </a>
+                <!-- Botão de exemplo no canto -->
+                <button class="noxss-btn noxss-btn--icon waves-effect waves-circle" style="margin-left: auto">
+                    <i class="noxss-icon" data-feather="user"></i>
+                </button>
+            </nav>
+
+            <!-- 2. Conteúdo Principal, que abriga o Sistema de Abas -->
+            <main class="noxss-layout__content">
+                <!-- Componente de Abas da Noxss -->
+                <div class="noxss-tabs" data-default-tab="home">
+                    <!-- Cabeçalho de abas para Desktop -->
+                    <div class="noxss-tabs__header d-none d-md-flex">
+                        <button class="noxss-tabs__header-button" data-tab-id="home"><i class="noxss-icon" data-feather="home"></i> Início</button>
+                        <button class="noxss-tabs__header-button" data-tab-id="tasks"><i class="noxss-icon" data-feather="check-square"></i> Tarefas</button>
+                        <button class="noxss-tabs__header-button" data-tab-id="stats"><i class="noxss-icon" data-feather="bar-chart-2"></i> Estatísticas</button>
+                        <button class="noxss-tabs__header-button" data-tab-id="settings"><i class="noxss-icon" data-feather="settings"></i> Ajustes</button>
+                    </div>
+
+                    <!-- Área de Conteúdo Deslizante -->
+                    <div class="noxss-tabs__content-area">
+                        <!-- Painel 1: Início -->
+                        <div class="noxss-tabs__panel" id="panel-home">
+                            <div class="placeholder-content">
+                                <i class="noxss-icon" data-feather="home"></i>
+                                <h1 class="h2">Aba de Início</h1>
+                                <p>Este é o painel principal do seu aplicativo.</p>
+                            </div>
+                        </div>
+
+                        <!-- Painel 2: Tarefas (com FAB) -->
+                        <div class="noxss-tabs__panel" id="panel-tasks" data-fab-visible data-fab-visible data-fab-icon="plus" data-fab-action="alert('Hello World')">
+                            <div class="placeholder-content">
+                                <i class="noxss-icon" data-feather="check-square"></i>
+                                <h1 class="h2">Aba de Tarefas</h1>
+                                <p>Observe como o Botão de Ação Flutuante (FAB) aparece nesta tela.</p>
+                                <button class="noxss-btn noxss-btn--secondary">Adicionar Tarefa</button>
+                            </div>
+                        </div>
+
+                        <!-- Painel 3: Estatísticas -->
+                        <div class="noxss-tabs__panel" id="panel-stats" data-fab-visible data-fab-visible data-fab-icon="edit-2" data-fab-action="alert('Hello World')">
+                            <div class="placeholder-content">
+                                <i class="noxss-icon" data-feather="bar-chart-2"></i>
+                                <h1 class="h2">Aba de Estatísticas</h1>
+                                <p>O FAB desaparece novamente aqui.</p>
+                            </div>
+                        </div>
+
+                        <!-- Painel 4: Ajustes -->
+                        <div class="noxss-tabs__panel" id="panel-settings">
+                            <div class="placeholder-content">
+                                <i class="noxss-icon" data-feather="settings"></i>
+                                <h1 class="h2">Aba de Ajustes</h1>
+                                <p>Um painel para as configurações do aplicativo.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </main>
+
+            <!-- 3. Barra de Navegação Inferior (Mobile) - Padrão Icon-Only -->
+            <nav class="noxss-navbar noxss-navbar--bottom d-md-none">
+                <button class="noxss-tabs__nav-button" data-tab-id="home" aria-label="Início">
+                    <i class="noxss-icon" data-feather="home"></i>
+                </button>
+                <button class="noxss-tabs__nav-button" data-tab-id="tasks" aria-label="Tarefas">
+                    <i class="noxss-icon" data-feather="check-square"></i>
+                </button>
+                <button class="noxss-tabs__nav-button" data-tab-id="stats" aria-label="Estatísticas">
+                    <i class="noxss-icon" data-feather="bar-chart-2"></i>
+                </button>
+                <button class="noxss-tabs__nav-button" data-tab-id="settings" aria-label="Ajustes">
+                    <i class="noxss-icon" data-feather="settings"></i>
+                </button>
+            </nav>
+        </div>
+
+        <!-- 4. Botão de Ação Flutuante (FAB) -->
+        <button class="noxss-fab waves-effect is-hidden" id="main-fab" aria-label="Adicionar Nova Tarefa">
+            <i class="noxss-icon" data-feather="plus"></i>
+        </button>
+
+        <!-- SCRIPTS -->
+        <script src="packages/js/waves.min.js"></script>
+        <script defer src="https://unpkg.com/feather-icons"></script>
+
+        <!-- Noxss Library JS -->
+        <script src="noxss/dist/noxss.js"></script>
+
+        <!-- Script de Inicialização da Página -->
+        <script>
+            document.addEventListener("DOMContentLoaded", () => {
+                // Inicializa bibliotecas de terceiros
+                Waves.init();
+                setTimeout(() => {
+                    Waves.attach(".waves-effect");
+                    feather.replace();
+                }, 100);
+
+                // A biblioteca Noxss se auto-inicializa,
+                // então não precisamos chamar Noxss.Tabs.init()
+                // a menos que queiramos um comportamento customizado.
+            });
+        </script>
+    </body>
+</html>

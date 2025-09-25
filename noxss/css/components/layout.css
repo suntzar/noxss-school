@@ -1,0 +1,62 @@
+/* ==========================================================================
+   Noxss Library: Layout Component
+   - Versão: 2.1 (Com correção para viewport móvel)
+   - Define a estrutura principal de um aplicativo de tela cheia.
+   - Depende de: core.css
+   ========================================================================== */
+
+/*
+ * O corpo da página em modo "app".
+ * Configura o layout para ocupar 100% da viewport visível de forma segura,
+ * evitando problemas com as barras de interface em navegadores móveis.
+ */
+body[data-noxss-layout="app"] {
+    /* 1. Fallback principal para navegadores mais antigos. */
+    height: 100vh;
+
+    /* 2. Propriedade não-padrão que ajuda a resolver o problema no Safari/iOS.
+       Navegadores que entendem 'svh' ignorarão isso. */
+    height: -webkit-fill-available;
+
+    /* 3. A solução moderna e preferida. Usa a altura do "viewport pequeno",
+       garantindo que o layout caiba na tela mesmo com as barras de UI visíveis. */
+    height: 100svh;
+
+    overflow: hidden;
+}
+
+/*
+ * O contêiner principal do aplicativo.
+ * Usa flexbox para organizar a navbar, o conteúdo e a barra inferior verticalmente.
+ */
+.noxss-layout {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    background-color: var(--noxss-bg-main);
+}
+
+/* 
+ * Garante que o layout ocupe 100% da altura do seu contêiner (o body).
+ * A altura do body já foi corrigida para ser a altura visível real.
+ */
+body[data-noxss-layout="app"] .noxss-layout {
+    height: 100%;
+    overflow: hidden;
+}
+
+
+/*
+ * O wrapper de conteúdo principal.
+ * É projetado para crescer e ocupar todo o espaço vertical disponível
+ * entre a navbar superior e a inferior.
+ * O `min-height: 0` é uma correção crucial de flexbox que permite que
+ * filhos com overflow (como o sistema de abas) rolem corretamente.
+ */
+.noxss-layout__content {
+    flex: 1; /* Faz este elemento crescer */
+    display: flex; /* Permite que o filho (ex: .noxss-tabs) também use flex */
+    flex-direction: column;
+    overflow: hidden;
+    min-height: 0;
+}

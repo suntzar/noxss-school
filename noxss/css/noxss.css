@@ -1,0 +1,58 @@
+/* ==========================================================================
+   Noxss Library: Master Stylesheet
+   - Ponto de entrada que importa todos os módulos da biblioteca.
+   - Inclua APENAS este arquivo no seu projeto HTML.
+   - Versão: 1.0.0
+   ========================================================================== */
+
+/*
+ * ==========================================================================
+ * 1. CORE
+ * Importa o arquivo de fundação que contém as variáveis globais do
+ * Design System e o reset básico. DEVE ser o primeiro a ser importado.
+ * ==========================================================================
+ */
+
+@import url('core.css');
+
+
+/*
+ * ==========================================================================
+ * 2. COMPONENTS
+ * Importa os estilos para cada componente individual da biblioteca.
+ * A ordem aqui pode ser importante se um componente depender de outro.
+ * Geralmente, do mais simples ao mais complexo é uma boa prática.
+ * ==========================================================================
+ */
+ 
+@import url('components/typography.css');
+@import url('components/buttons.css');
+@import url('components/player.css');
+@import url('components/layout.css');
+@import url('components/navbar.css');
+@import url('components/fab.css');
+@import url('components/tabs.css');
+@import url('components/forms.css');
+@import url('components/cards.css');
+@import url('components/lists.css');
+@import url('components/modals.css');
+@import url('components/toasts.css');
+@import url('components/loaders.css');
+@import url('components/alerts.css');
+@import url('components/math.css');
+@import url('components/utilities.css');
+/* @import url('components/forms.css');       */ /* Exemplo: descomente quando criar forms.css */
+/* @import url('components/cards.css');       */ /* Exemplo: descomente quando criar cards.css */
+/* @import url('components/tabs.css');        */ /* Exemplo: descomente quando criar tabs.css */
+
+
+/*
+ * ==========================================================================
+ * 3. UTILITIES (Opcional)
+ * Importa classes utilitárias, como helpers de espaçamento (ex: .mt-1)
+ * ou de cores (ex: .text-danger). Muitas vezes, um framework como o
+ * Bootstrap já cobre isso, mas você pode criar as suas.
+ * ==========================================================================
+ */
+
+/* @import url('utilities.css'); */

@@ -1,0 +1,96 @@
+/* ==========================================================================
+   Noxss Library: Core
+   - Versão: 1.2.0 (Com suporte a temas Light/Dark)
+   ========================================================================== */
+
+:root {
+    /* ---------------------------------- */
+    /* 1. Variáveis de Layout e Tipografia (Universais) */
+    /* Estas variáveis não mudam entre os temas. */
+    /* ---------------------------------- */
+    --noxss-font-family-base: "Linotte-SemiBold", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    --noxss-font-family-monospace: "Fira Code", "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace;
+    --noxss-line-height-base: 1.6;
+    --noxss-border-radius-base: 8px;
+    --noxss-spacing-base: 1rem;
+    --noxss-shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.07);
+    --noxss-shadow-md: 0 4px 12px rgba(0, 0, 0, 0.1);
+    --noxss-shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.12);
+
+    /* ---------------------------------- */
+    /* 2. Variáveis de Cor (Tema Padrão: DARK) */
+    /* Os componentes usam estas variáveis semânticas. */
+    /* ---------------------------------- */
+
+    /* Fundos */
+    --noxss-bg-main: #181818;
+    --noxss-bg-surface: #202020;
+    --noxss-bg-elements: #262626;
+
+    /* Textos */
+    --noxss-text-primary: #c9d1d9;
+    --noxss-text-secondary: #8b949e;
+    --noxss-text-on-accent: #ffffff;
+
+    /* Bordas */
+    --noxss-border-color: #383838;
+
+    /* Destaque (Accent) - Mantemos o verde como cor da marca */
+    --noxss-accent-primary: #4caf50;
+    --noxss-accent-primary-hover: #66bb6a;
+    --noxss-accent-primary-rgb: 76, 175, 80;
+
+    /* Cores Semânticas de Feedback */
+    --noxss-color-success: #28a745;
+    --noxss-color-success-rgb: 40, 167, 69;
+    --noxss-color-danger: #dc3545;
+    --noxss-color-danger-rgb: 220, 53, 69;
+    --noxss-color-warning: #ffc107;
+    --noxss-color-warning-rgb: 255, 193, 7;
+    
+
+    /* Foco é dinâmico, baseado no accent */
+    --noxss-focus-ring-color: rgba(var(--noxss-accent-primary-rgb), 0.25);
+}
+
+
+/* ---------------------------------- */
+/* 3. Definição do Tema LIGHT         */
+/* Ativado com <html data-theme="light"> */
+/* Aqui, sobrescrevemos as variáveis de cor. */
+/* ---------------------------------- */
+
+[data-theme="light"] {
+    /* Fundos */
+    --noxss-bg-main: #f4f6f8;      /* Um branco suave, não ofuscante */
+    --noxss-bg-surface: #ffffff;   /* Cards e painéis brancos puros */
+    --noxss-bg-elements: #fdfdfd;  /* Navbar um pouco diferente da superfície */
+
+    /* Textos (invertidos) */
+    --noxss-text-primary: #212529;     /* Texto principal escuro */
+    --noxss-text-secondary: #6c757d;   /* Texto secundário cinza */
+    /* --noxss-text-on-accent permanece branco, pois o verde é escuro o suficiente */
+
+    /* Bordas */
+    --noxss-border-color: #dee2e6;     /* Borda cinza clara */
+
+    /* As cores de Destaque e Feedback podem ser mantidas para consistência de marca,
+       ou ajustadas se ficarem muito "berrantes" no tema claro.
+       Manter é uma boa prática inicial. */
+}
+
+/* ---------------------------------- */
+/* Reset Básico e Estilos Globais     */
+/* ---------------------------------- */
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+    font-family: var(--noxss-font-family-base);
+    line-height: var(--noxss-line-height-base);
+    color: var(--noxss-text-primary);
+    background-color: var(--noxss-bg-main);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    transition: background-color 0.3s ease, color 0.3s ease; /* Transição suave na troca de tema */
+}

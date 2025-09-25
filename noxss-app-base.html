@@ -1,0 +1,398 @@
+<!doctype html>
+<html lang="pt-br" data-theme="dark">
+    <!-- 1. Ativa o tema dark da Noxss -->
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Template Base com Noxss</title>
+
+        <!-- Fonte Linotte-SemiBold -->
+        <link href="https://db.onlinewebfonts.com/c/2adbeea25e4c3a9e9ba6031bbfb45343?family=Linotte-SemiBold" rel="stylesheet" />
+
+        <!-- BIBLIOTECAS DE TERCEIROS (Vendors) -->
+        <!-- Feather Icons para ícones -->
+        <script defer src="https://unpkg.com/feather-icons"></script>
+        <!-- jsmediatags para o Player de Música (dependência do componente Noxss) -->
+        <script src="packages/js/jsmediatags.min.js"></script>
+
+        <!-- 2. BIBLIOTECA NOXSS - UM ÚNICO ARQUIVO CSS -->
+        <link rel="stylesheet" href="noxss/dist/noxss.css" />
+
+        <!-- 3. Estilos específicos do aplicativo (substituindo utilitários do Bootstrap) -->
+        <style>
+            :root {
+                --font-family-base: "Linotte-SemiBold", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
+            }
+
+            /* Tema customizado "Papiro" */
+            [data-theme="papiro"] {
+                --noxss-bg-main: #f5f0e1;
+                --noxss-bg-surface: #fdfaf0;
+                --noxss-bg-elements: #e9e2ce;
+                --noxss-text-primary: #3a2e24;
+                --noxss-text-secondary: #7a6a5d;
+                --noxss-border-color: #dcd2b9;
+                --noxss-accent-primary: #8a3b2b; /* Um tom de terracota/vinho */
+                --noxss-accent-primary-hover: #a15446;
+                --noxss-accent-primary-rgb: 138, 59, 43;
+            }
+
+            [data-theme="dark"] {
+                --noxss-bg-main: #262626;
+                --noxss-bg-surface: #2a2a2a;
+                --noxss-bg-elements: #2e2e2e;
+                --noxss-accent-primary: rgb(129, 158, 175);
+                --noxss-accent-primary-hover: rgb(164, 194, 211);
+                --noxss-accent-primary-rgb: 129, 158, 175;
+            }
+
+            /* --- Utilitários para substituir Bootstrap --- */
+
+            /* Layout responsivo para navegação */
+            .noxss-desktop-nav {
+                display: none;
+            }
+            .noxss-mobile-nav {
+                display: flex;
+            }
+            @media (min-width: 768px) {
+                .noxss-desktop-nav {
+                    display: flex;
+                }
+                .noxss-mobile-nav {
+                    display: none;
+                }
+            }
+
+            /* Contêiner para painéis */
+            .noxss-panel-container {
+                padding: 0 1rem; /* Adiciona espaçamento lateral */
+            }
+
+            /* Grid e Input Group */
+            .noxss-grid-container {
+                display: grid;
+                gap: 1.5rem;
+            }
+            .noxss-input-group {
+                display: flex;
+                align-items: stretch;
+                gap: 0.5rem;
+            }
+            .noxss-input-group .noxss-input {
+                flex-grow: 1;
+            }
+
+            /* Utilidades de texto e margem */
+            .text-center {
+                text-align: center;
+            }
+            .text-secondary {
+                color: var(--noxss-text-secondary);
+            }
+            .text-danger {
+                color: var(--noxss-color-danger);
+            }
+            .lead {
+                font-size: 1.1rem;
+                font-weight: 300;
+            }
+            .mt-5 {
+                margin-top: 3rem !important;
+            }
+            .mb-1 {
+                margin-bottom: 0.25rem !important;
+            }
+            .mb-4 {
+                margin-bottom: 1.5rem !important;
+            }
+
+            /* --- Estilos de conteúdo específico do app (ex: versículos) --- */
+            .verse {
+                text-align: justify;
+                transition: 0.3s ease;
+                border-radius: 10px;
+                padding: 8px;
+            }
+            .verse:hover {
+                background-color: rgba(var(--noxss-accent-primary-rgb), 0.1);
+            }
+            n {
+                color: var(--noxss-accent-primary);
+                font-weight: 700;
+                margin-right: 10px;
+                display: inline-block;
+                min-width: 30px;
+                text-align: right;
+                vertical-align: top;
+                font-size: 0.9em;
+            }
+            fbr {
+                display: block;
+                padding-top: 50vh; /* Espaço no final da página para rolagem */
+            }
+
+            /* Ajustes no texto do card */
+            .noxss-card__body b {
+                color: var(--noxss-accent-primary);
+            }
+        </style>
+    </head>
+    <body data-noxss-layout="app">
+        <!-- 4. Ativa o layout de app da Noxss -->
+
+        <!-- Estrutura do app usando componentes Noxss -->
+        <div class="noxss-layout">
+            <!-- Barra de Navegação Superior -->
+            <nav class="noxss-navbar">
+                <a class="noxss-navbar__brand" href="#" aria-label="Página inicial">
+                    <i data-feather="box" class="noxss-icon"></i>
+                    <span>Nome do App</span>
+                </a>
+            </nav>
+
+            <!-- Conteúdo Principal -->
+            <main class="noxss-layout__content">
+                <div class="noxss-tabs" data-default-tab="home">
+                    <!-- Cabeçalho das Abas (Desktop) -->
+                    <div class="noxss-tabs__header noxss-desktop-nav">
+                        <button class="noxss-tabs__header-button" data-tab-id="home"><i data-feather="home" class="noxss-icon"></i> Home</button>
+                        <button class="noxss-tabs__header-button" data-tab-id="void"><i data-feather="codesandbox" class="noxss-icon"></i> Void</button>
+                        <button class="noxss-tabs__header-button" data-tab-id="bible"><i data-feather="book" class="noxss-icon"></i> Bíblia</button>
+                        <button class="noxss-tabs__header-button" data-tab-id="search"><i data-feather="search" class="noxss-icon"></i> Buscar</button>
+                        <button class="noxss-tabs__header-button" data-tab-id="settings"><i data-feather="settings" class="noxss-icon"></i> Configurações</button>
+                    </div>
+
+                    <!-- Área de Conteúdo Deslizante -->
+                    <div class="noxss-tabs__content-area">
+                        <!-- Painel Home -->
+                        <div class="noxss-tabs__panel" id="panel-home">
+                            <div style="text-align: center; padding: 40px 20px">
+                                <i data-feather="smile" class="noxss-icon" style="width: 60px; height: 60px; color: var(--noxss-accent-primary); margin-bottom: 25px"></i>
+                                <h3>Bem-vindo ao Template!</h3>
+                                <p class="text-secondary">Este app é agora construído 100% com a biblioteca Noxss.</p>
+                            </div>
+                        </div>
+
+                        <!-- Painel Void -->
+                        <div class="noxss-tabs__panel" id="panel-void">
+                            <div class="noxss-panel-container noxss-grid-container">
+                                <div class="noxss-card noxss-card--media-top">
+                                    <img src="https://i.pinimg.com/originals/fd/52/14/fd521441005da83e481974ad55ed8e06.gif" class="noxss-card__media" alt="Animação de um vale" />
+                                    <!-- ESTRUTURA CORRIGIDA: usando noxss-card__body -->
+                                    <div class="noxss-card__body">
+                                        <p><b>Jesus</b>, me quebre, quebre tudo em mim que possa me distanciar do <b>Senhor</b>. Pois eu não quero ser o mesmo.</p>
+                                    </div>
+                                </div>
+                                <div class="noxss-player-compact" id="myCustomPlayer">
+                                    <img src="" alt="Album Art" class="noxss-album-art" />
+                                    <div class="noxss-track-info">
+                                        <h3 class="noxss-title">Carregando...</h3>
+                                        <p class="noxss-artist"></p>
+                                    </div>
+                                    <div class="noxss-controls">
+                                        <button class="noxss-control-button noxss-prev-button" aria-label="Anterior" disabled><i data-feather="skip-back" class="noxss-icon"></i></button>
+                                        <button class="noxss-control-button noxss-play-pause" aria-label="Play" disabled></button>
+                                        <button class="noxss-control-button noxss-next-button" aria-label="Próximo" disabled><i data-feather="skip-forward" class="noxss-icon"></i></button>
+                                    </div>
+                                    <audio class="noxss-audio-player" style="display: none" crossorigin="anonymous"></audio>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Painel Bible -->
+                        <div class="noxss-tabs__panel" id="panel-bible" data-fab-visible data-fab-icon="search" data-fab-target="#modalSearchBible">
+                            <div class="noxss-panel-container" id="biblia"></div>
+                        </div>
+
+                        <!-- Painel Search -->
+                        <div class="noxss-tabs__panel" id="panel-search">
+                            <div class="noxss-panel-container">
+                                <h4><i data-feather="search" class="noxss-icon"></i> Página de Busca</h4>
+                                <form id="search-form" class="mb-4">
+                                    <!-- ESTRUTURA CORRIGIDA: usando noxss-input-group -->
+                                    <div class="noxss-input-group">
+                                        <input type="search" class="noxss-input" placeholder="O que você procura?" id="search-input" />
+                                        <button class="noxss-btn noxss-btn--primary" type="submit"><i data-feather="arrow-right-circle" class="noxss-icon"></i></button>
+                                    </div>
+                                </form>
+                                <div id="search-results-area"><p class="text-secondary">Use o campo acima para buscar.</p></div>
+                            </div>
+                        </div>
+
+                        <!-- Painel Settings -->
+                        <div class="noxss-tabs__panel" id="panel-settings">
+                            <div class="noxss-panel-container">
+                                <h4><i data-feather="sliders" class="noxss-icon"></i> Configurações</h4>
+                                <div class="noxss-form-group">
+                                    <label for="themeSelect" class="noxss-label">Preferência de Tema</label>
+                                    <select class="noxss-select" id="themeSelect">
+                                        <option value="dark">Tema Escuro</option>
+                                        <option value="light">Tema Claro</option>
+                                        <option value="papiro">Tema Papiro</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </main>
+
+            <!-- Barra de Navegação Inferior (Mobile) -->
+            <nav class="noxss-navbar noxss-navbar--bottom noxss-mobile-nav">
+                <button class="noxss-tabs__nav-button" data-tab-id="home" aria-label="Home"><i data-feather="home" class="noxss-icon"></i></button>
+                <button class="noxss-tabs__nav-button" data-tab-id="void" aria-label="Void"><i data-feather="codesandbox" class="noxss-icon"></i></button>
+                <button class="noxss-tabs__nav-button" data-tab-id="bible" aria-label="Bíblia"><i data-feather="book" class="noxss-icon"></i></button>
+                <button class="noxss-tabs__nav-button" data-tab-id="search" aria-label="Buscar"><i data-feather="search" class="noxss-icon"></i></button>
+                <button class="noxss-tabs__nav-button" data-tab-id="settings" aria-label="Ajustes"><i data-feather="settings" class="noxss-icon"></i></button>
+            </nav>
+        </div>
+
+        <!-- Botão de Ação Flutuante (FAB) -->
+        <button class="noxss-fab is-hidden" id="fabButton" aria-label="Nova Ação"></button>
+
+        <!-- Modal de pesquisa da Bíblia -->
+        <div class="noxss-modal" id="modalSearchBible" data-noxss-modal>
+            <div class="noxss-modal__dialog">
+                <div class="noxss-modal__header">
+                    <h3 class="noxss-modal__title">Pesquisar na Bíblia</h3>
+                    <button class="noxss-btn noxss-btn--icon noxss-modal__close-btn" data-noxss-modal-close><i data-feather="x" class="noxss-icon"></i></button>
+                </div>
+                <div class="noxss-modal__body">
+                    <div class="noxss-form-group">
+                        <label for="bookSelect" class="noxss-label">Selecione um livro</label>
+                        <select class="noxss-select" id="bookSelect"></select>
+                    </div>
+                    <div class="noxss-form-group">
+                        <label for="chapSelect" class="noxss-label">Selecione um capítulo</label>
+                        <select class="noxss-select" id="chapSelect"></select>
+                    </div>
+                </div>
+                <div class="noxss-modal__footer">
+                    <button class="noxss-btn noxss-btn--secondary" data-noxss-modal-close>Fechar</button>
+                    <button id="searchBibleBtn" class="noxss-btn noxss-btn--primary">Pesquisar</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- SCRIPTS DA BIBLIOTECA NOXSS -->
+        <script src="noxss/dist/noxss.js"></script>
+
+        <!-- SCRIPT PRINCIPAL DO APLICATIVO -->
+        <script type="module">
+            // Este helper deve estar no seu arquivo utils.js
+            // async function loadJson(path) {
+            //     const response = await fetch(path);
+            //     if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+            //     return await response.json();
+            // }
+            // import { loadJson } from "./js/utils.js"; // Supondo que você tem este arquivo
+
+            // Para este exemplo funcionar sem o arquivo, vamos simular a função
+            async function loadJson(path) {
+                const response = await fetch(path);
+                if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+                return await response.json();
+            }
+
+            // --- LÓGICA ESPECÍFICA DA BÍBLIA ---
+            const biblePaths = {
+                verses: "resources/biblia/versions/NTLH/verses.json",
+                stories: "resources/biblia/versions/NTLH/stories.json",
+                books: "resources/biblia/books.json"
+            };
+            async function getBook(bookID, chapter) {
+                const books = await loadJson(biblePaths.books);
+                const book = books.find(b => b.book_number === bookID);
+                return `<h1 class="text-center mt-5 mb-1"><b>${book.name.toUpperCase()} ${chapter}</b></h1><hr/>`;
+            }
+            async function getStories(bookID, chapter) {
+                const stories = await loadJson(biblePaths.stories);
+                return stories.filter(story => story.book_number === bookID && story.chapter === chapter && !story.title.includes("<x>"));
+            }
+            async function getChapterVerses(bookID, chapter) {
+                const verses = await loadJson(biblePaths.verses);
+                return verses.filter(verse => verse.book_number === bookID && verse.chapter === chapter && verse.text !== "");
+            }
+            function processChapterHtml(verses, stories) {
+                let chapterHtml = "";
+                for (const verse of verses) {
+                    const story = stories.find(s => s.verse === verse.verse);
+                    const verseNumberHtml = verse.text.includes("<n>") ? "" : `<n>${verse.verse}</n> `;
+                    const storyHtml = story ? `<p class="lead">${story.title}</p>` : "";
+                    chapterHtml += `${storyHtml}<p class="verse">${verseNumberHtml}${verse.text}</p>`;
+                }
+                return chapterHtml;
+            }
+            async function processModalSelect() {
+                const bookSelect = document.getElementById("bookSelect");
+                const chapSelect = document.getElementById("chapSelect");
+                const books = await loadJson(biblePaths.books);
+
+                bookSelect.innerHTML = books.map(book => `<option value="${book.book_number}">${book.name}</option>`).join("");
+
+                // Exemplo de como preencher capítulos (pode ser dinâmico no futuro)
+                chapSelect.innerHTML = Array.from({ length: 50 }, (_, i) => `<option value="${i + 1}">${i + 1}</option>`).join("");
+            }
+            async function selectChapter(bookID, chapter) {
+                try {
+                    const [verses, stories, header] = await Promise.all([getChapterVerses(bookID, chapter), getStories(bookID, chapter), getBook(bookID, chapter)]);
+                    document.getElementById("biblia").innerHTML = header + processChapterHtml(verses, stories) + "<fbr />";
+                } catch (error) {
+                    console.error("Erro ao carregar capítulo:", error);
+                    document.getElementById("biblia").innerHTML = "<p class='text-danger text-center'>Falha ao carregar conteúdo.</p>";
+                }
+            }
+
+            // --- INICIALIZAÇÃO E EVENT LISTENERS ---
+            document.addEventListener("DOMContentLoaded", () => {
+                // REMOVIDO: Waves.init() e Waves.attach()
+
+                // Inicializa Feather Icons
+                if (window.feather) {
+                    setTimeout(() => feather.replace(), 150);
+                }
+
+                // A biblioteca Noxss se auto-inicializa, então não há chamadas explícitas aqui.
+
+                // Configura o Player
+                const myPlaylist = ["resources/girasol.mp3", "resources/default.mp3"];
+                if (Noxss && Noxss.Player) {
+                    Noxss.Player.setPlaylist("myCustomPlayer", myPlaylist, false);
+                }
+
+                // Lógica do Modal da Bíblia
+                processModalSelect();
+                document.getElementById("searchBibleBtn").addEventListener("click", () => {
+                    const bookID = document.getElementById("bookSelect").value;
+                    const chapter = document.getElementById("chapSelect").value;
+                    selectChapter(Number(bookID), Number(chapter));
+                    if (Noxss.Modals) {
+                        Noxss.Modals.close(); // Fecha o modal aberto
+                    }
+                });
+
+                // Lógica do Formulário de Busca Geral
+                document.getElementById("search-form").addEventListener("submit", e => {
+                    e.preventDefault();
+                    // Sua lógica de busca aqui...
+                    alert(`Buscando por: ${document.getElementById("search-input").value}`);
+                });
+
+                // Lógica do Seletor de Tema nas Configurações
+                const themeSwitch = document.getElementById("themeSelect");
+                const htmlEl = document.documentElement;
+
+                // Sincroniza o seletor com o tema atual ao carregar
+                themeSwitch.value = htmlEl.dataset.theme || "dark";
+
+                themeSwitch.addEventListener("change", e => {
+                    htmlEl.dataset.theme = e.target.value;
+                });
+
+                // Carrega o capítulo padrão da Bíblia ao iniciar
+                selectChapter(40, 3); // João 3
+            });
+        </script>
+    </body>
+</html>

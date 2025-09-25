@@ -1,0 +1,120 @@
+/* ==========================================================================
+   Noxss Library: Player Component
+   - Estilos para o componente de player de música compacto.
+   - Depende de: core.css
+   ========================================================================== */
+
+.noxss-player-compact {
+    display: flex;
+    align-items: center;
+    gap: 15px; /* Espaçamento entre a arte, info e controles */
+
+    width: 100%;
+    max-width: 600px; /* Largura máxima padrão, pode ser sobrescrita */
+    padding: 12px;
+
+    font-family: var(--noxss-font-family-base);
+    color: var(--noxss-text-primary);
+    background-color: var(--noxss-bg-elements);
+
+    border: 1px solid var(--noxss-border-color);
+    border-radius: var(--noxss-border-radius-base);
+    box-shadow: var(--noxss-shadow-md);
+    overflow: hidden; /* Garante que nada vaze das bordas arredondadas */
+}
+
+/* --- Elementos do Player --- */
+
+.noxss-player-compact .noxss-album-art {
+    flex-shrink: 0; /* Impede que a imagem do álbum encolha */
+    width: 50px;
+    height: 50px;
+    object-fit: cover;
+    background-color: var(--noxss-bg-surface); /* Cor de fundo enquanto a imagem carrega */
+    border-radius: var(--noxss-border-radius-base);
+}
+
+.noxss-player-compact .noxss-track-info {
+    flex-grow: 1;  /* Faz esta div ocupar todo o espaço restante */
+    min-width: 0;  /* TRUQUE ESSENCIAL: Permite que o text-overflow funcione em um item flex */
+}
+
+.noxss-player-compact .noxss-track-info .noxss-title,
+.noxss-player-compact .noxss-track-info .noxss-artist {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis; /* Adiciona "..." se o texto for muito longo */
+}
+
+.noxss-player-compact .noxss-track-info .noxss-title {
+    font-size: 1em;
+    font-weight: 600;
+    color: var(--noxss-text-primary);
+    margin-bottom: 2px;
+}
+
+.noxss-player-compact .noxss-track-info .noxss-artist {
+    font-size: 0.85em;
+    color: var(--noxss-text-secondary);
+}
+
+.noxss-player-compact .noxss-controls {
+    display: flex;
+    align-items: center;
+    gap: 5px; /* Espaçamento entre os botões de controle */
+    flex-shrink: 0; /* Impede que os controles encolham */
+}
+
+.noxss-player-compact .noxss-controls .noxss-control-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 40px;
+    height: 40px;
+    padding: 8px;
+
+    background: transparent;
+    border: none;
+    border-radius: 50%; /* Botões de controle circulares */
+    color: var(--noxss-text-secondary);
+    cursor: pointer;
+
+    transition:
+        color 0.2s ease,
+        background-color 0.2s ease;
+}
+
+.noxss-player-compact .noxss-controls .noxss-control-button svg {
+    width: 20px;
+    height: 20px;
+}
+
+/* Botão principal de Play/Pause é um pouco maior */
+.noxss-player-compact .noxss-controls .noxss-play-pause svg {
+    width: 24px;
+    height: 24px;
+}
+
+/* --- Estados dos Controles --- */
+
+.noxss-player-compact .noxss-controls .noxss-control-button:hover:not(:disabled) {
+    color: var(--noxss-text-primary);
+    background-color: var(--noxss-bg-surface);
+}
+
+.noxss-player-compact .noxss-controls .noxss-control-button:focus-visible {
+    outline: 2px solid var(--noxss-focus-ring-color);
+    outline-offset: 2px;
+}
+
+.noxss-player-compact .noxss-controls .noxss-control-button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    background-color: transparent; /* Garante que não haja fundo no estado desabilitado */
+}
+
+/* Estado ativo para o botão de play/pause */
+.noxss-player-compact .noxss-controls .noxss-play-pause.noxss-active {
+    color: var(--noxss-accent-primary);
+}

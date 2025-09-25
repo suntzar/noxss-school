@@ -1,0 +1,192 @@
+/* ==========================================================================
+   Noxss Library: Buttons Component
+   - Versão: 2.0 (Inspirado no template "Tarefas Pro")
+   - Sistema de botões completo com múltiplas variantes e estados.
+   - Depende de: core.css
+   ========================================================================== */
+
+/* ---------------------------------- */
+/* Classe Base do Botão (.noxss-btn)  */
+/* ---------------------------------- */
+
+.noxss-btn {
+    /* Estrutura e Alinhamento */
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    vertical-align: middle;
+    gap: 0.6em; /* Espaço entre o ícone e o texto */
+
+    /* Espaçamento e Borda */
+    padding: 0.6em 1.2em;
+    border: 1px solid transparent;
+    border-radius: var(--noxss-border-radius-base);
+
+    /* Tipografia */
+    font-family: var(--noxss-font-family-base);
+    font-size: 0.95rem;
+    font-weight: 500; /* Um pouco mais leve que o anterior, como no template */
+    line-height: 1.5;
+    text-decoration: none;
+    white-space: nowrap;
+
+    /* Comportamento e Aparência */
+    cursor: pointer;
+    user-select: none;
+    transition:
+        color 150ms ease-in-out,
+        background-color 150ms ease-in-out,
+        border-color 150ms ease-in-out,
+        box-shadow 150ms ease-in-out,
+        transform 150ms ease-in-out;
+}
+
+/* Ícones dentro dos botões */
+.noxss-btn .noxss-icon {
+    width: 1.1em;
+    height: 1.1em;
+    stroke-width: 2;
+    vertical-align: text-bottom; /* Melhor alinhamento vertical */
+}
+
+/* --- Estados da Classe Base --- */
+
+.noxss-btn:hover:not(:disabled) {
+    transform: translateY(-2px); /* Efeito de elevação sutil */
+}
+
+.noxss-btn:active:not(:disabled) {
+    transform: translateY(0); /* Efeito de pressionar */
+}
+
+/* Foco acessível, aproveitando o anel de foco definido no core.css */
+.noxss-btn:focus-visible {
+    outline: 2px solid var(--noxss-focus-ring-color);
+    outline-offset: 2px;
+}
+
+.noxss-btn:disabled,
+.noxss-btn.disabled {
+    opacity: 0.65;
+    filter: grayscale(50%); /* Efeito visual para desabilitado */
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+}
+
+
+/* ---------------------------------- */
+/* Modificadores de Estilo            */
+/* ---------------------------------- */
+
+/* --- Modificador: Primário (Accent) --- */
+.noxss-btn--primary {
+    color: var(--noxss-text-on-accent);
+    background-color: var(--noxss-accent-primary);
+    border-color: var(--noxss-accent-primary);
+    box-shadow: var(--noxss-shadow-sm);
+}
+.noxss-btn--primary:hover:not(:disabled) {
+    background-color: var(--noxss-accent-primary-hover);
+    border-color: var(--noxss-accent-primary-hover);
+    box-shadow: 0 2px 5px rgba(var(--noxss-accent-primary-rgb), 0.3);
+}
+
+/* --- Modificador: Secundário (Ghost/Outline) --- */
+.noxss-btn--secondary {
+    color: var(--noxss-accent-primary); /* Usa a cor de destaque para o texto */
+    background-color: transparent;
+    border-color: var(--noxss-border-color);
+}
+.noxss-btn--secondary:hover:not(:disabled) {
+    color: var(--noxss-accent-primary-hover);
+    background-color: rgba(var(--noxss-accent-primary-rgb), 0.1); /* Fundo sutil com a cor de destaque */
+    border-color: var(--noxss-accent-primary);
+}
+
+/* --- Modificador: Sucesso --- */
+.noxss-btn--success {
+    color: var(--noxss-text-on-accent);
+    background-color: var(--noxss-color-success);
+    border-color: var(--noxss-color-success);
+}
+.noxss-btn--success:hover:not(:disabled) {
+    filter: brightness(115%); /* Efeito de brilho no hover */
+}
+
+/* --- Modificador: Perigo --- */
+.noxss-btn--danger {
+    color: var(--noxss-text-on-accent);
+    background-color: var(--noxss-color-danger);
+    border-color: var(--noxss-color-danger);
+}
+.noxss-btn--danger:hover:not(:disabled) {
+    filter: brightness(115%);
+}
+
+/* --- Modificador: Aviso --- */
+.noxss-btn--warning {
+    color: #000; /* Texto preto para melhor contraste com amarelo */
+    background-color: var(--noxss-color-warning);
+    border-color: var(--noxss-color-warning);
+}
+.noxss-btn--warning:hover:not(:disabled) {
+    filter: brightness(105%);
+}
+
+/* ---------------------------------- */
+/* Modificadores de Comportamento     */
+/* ---------------------------------- */
+
+/* --- Modificador: Link --- */
+.noxss-btn--link {
+    padding: 0;
+    color: var(--noxss-accent-primary);
+    background: none;
+    border: none;
+    font-weight: normal;
+    text-decoration: underline;
+    vertical-align: baseline;
+    box-shadow: none;
+    transform: none;
+}
+.noxss-btn--link:hover:not(:disabled) {
+    color: var(--noxss-accent-primary-hover);
+    transform: none;
+    filter: none;
+}
+.noxss-btn--link:disabled {
+    text-decoration: none;
+    filter: none;
+}
+
+/* --- Modificador: Ícone (Circular) --- */
+.noxss-btn--icon {
+    padding: 0;
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    color: var(--noxss-text-secondary);
+    background: transparent;
+    border-color: transparent;
+    box-shadow: none;
+    transform: none; /* Sobrescreve efeitos da classe base */
+}
+.noxss-btn--icon .noxss-icon {
+    width: 20px;
+    height: 20px;
+}
+.noxss-btn--icon:hover:not(:disabled) {
+    background-color: var(--noxss-bg-elements);
+    color: var(--noxss-text-primary);
+    transform: scale(1.05);
+    filter: none;
+}
+.noxss-btn--icon.active {
+    color: var(--noxss-accent-primary);
+    background-color: rgba(var(--noxss-accent-primary-rgb), 0.15);
+}
+/* Foco visível específico para botões de ícone circulares */
+.noxss-btn--icon:focus-visible {
+    outline-offset: 0;
+}

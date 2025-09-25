@@ -1,0 +1,2682 @@
+/*!
+ * Noxss v1.0
+ * Copyright 2025 [Seu Nome]
+ * Gerado em: 2025-07-15T06:25:47.492Z
+ */
+/* ==========================================================================
+   Noxss Library: Core
+   - Versão: 1.2.0 (Com suporte a temas Light/Dark)
+   ========================================================================== */
+
+:root {
+    /* ---------------------------------- */
+    /* 1. Variáveis de Layout e Tipografia (Universais) */
+    /* Estas variáveis não mudam entre os temas. */
+    /* ---------------------------------- */
+    --noxss-font-family-base: "Linotte-SemiBold", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    --noxss-font-family-monospace: "Fira Code", "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace;
+    --noxss-line-height-base: 1.6;
+    --noxss-border-radius-base: 8px;
+    --noxss-spacing-base: 1rem;
+    --noxss-shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.07);
+    --noxss-shadow-md: 0 4px 12px rgba(0, 0, 0, 0.1);
+    --noxss-shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.12);
+
+    /* ---------------------------------- */
+    /* 2. Variáveis de Cor (Tema Padrão: DARK) */
+    /* Os componentes usam estas variáveis semânticas. */
+    /* ---------------------------------- */
+
+    /* Fundos */
+    --noxss-bg-main: #181818;
+    --noxss-bg-surface: #202020;
+    --noxss-bg-elements: #262626;
+
+    /* Textos */
+    --noxss-text-primary: #c9d1d9;
+    --noxss-text-secondary: #8b949e;
+    --noxss-text-on-accent: #ffffff;
+
+    /* Bordas */
+    --noxss-border-color: #383838;
+
+    /* Destaque (Accent) - Mantemos o verde como cor da marca */
+    --noxss-accent-primary: #4caf50;
+    --noxss-accent-primary-hover: #66bb6a;
+    --noxss-accent-primary-rgb: 76, 175, 80;
+
+    /* Cores Semânticas de Feedback */
+    --noxss-color-success: #28a745;
+    --noxss-color-success-rgb: 40, 167, 69;
+    --noxss-color-danger: #dc3545;
+    --noxss-color-danger-rgb: 220, 53, 69;
+    --noxss-color-warning: #ffc107;
+    --noxss-color-warning-rgb: 255, 193, 7;
+    
+
+    /* Foco é dinâmico, baseado no accent */
+    --noxss-focus-ring-color: rgba(var(--noxss-accent-primary-rgb), 0.25);
+}
+
+
+/* ---------------------------------- */
+/* 3. Definição do Tema LIGHT         */
+/* Ativado com <html data-theme="light"> */
+/* Aqui, sobrescrevemos as variáveis de cor. */
+/* ---------------------------------- */
+
+[data-theme="light"] {
+    /* Fundos */
+    --noxss-bg-main: #f4f6f8;      /* Um branco suave, não ofuscante */
+    --noxss-bg-surface: #ffffff;   /* Cards e painéis brancos puros */
+    --noxss-bg-elements: #fdfdfd;  /* Navbar um pouco diferente da superfície */
+
+    /* Textos (invertidos) */
+    --noxss-text-primary: #212529;     /* Texto principal escuro */
+    --noxss-text-secondary: #6c757d;   /* Texto secundário cinza */
+    /* --noxss-text-on-accent permanece branco, pois o verde é escuro o suficiente */
+
+    /* Bordas */
+    --noxss-border-color: #dee2e6;     /* Borda cinza clara */
+
+    /* As cores de Destaque e Feedback podem ser mantidas para consistência de marca,
+       ou ajustadas se ficarem muito "berrantes" no tema claro.
+       Manter é uma boa prática inicial. */
+}
+
+/* ---------------------------------- */
+/* Reset Básico e Estilos Globais     */
+/* ---------------------------------- */
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+    font-family: var(--noxss-font-family-base);
+    line-height: var(--noxss-line-height-base);
+    color: var(--noxss-text-primary);
+    background-color: var(--noxss-bg-main);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    transition: background-color 0.3s ease, color 0.3s ease; /* Transição suave na troca de tema */
+}
+/* ==========================================================================
+   Noxss Library: Typography Component
+   - Versão: 3.1 (Estilos de tabela aprimorados)
+   - Estilos para todos os elementos de texto.
+   - Depende de: core.css, buttons.css
+   ========================================================================== */
+
+/* ---------------------------------- */
+/* Cabeçalhos (Headings)              */
+/* ---------------------------------- */
+
+h1, .h1, h2, .h2, h3, .h3, h4, .h4, h5, .h5, h6, .h6 {
+    margin-top: 0;
+    margin-bottom: 0.8em;
+    font-weight: 600;
+    line-height: 1.3;
+    color: var(--noxss-text-primary);
+}
+h1, .h1 { font-size: 2.2rem; letter-spacing: -0.02em; }
+h2, .h2 { font-size: 1.8rem; padding-bottom: 0.4em; border-bottom: 1px solid var(--noxss-border-color); }
+h3, .h3 { font-size: 1.5rem; color: var(--noxss-accent-primary); }
+h4, .h4 { font-size: 1.2rem; }
+h5, .h5 { font-size: 1rem; font-weight: 500; color: var(--noxss-text-secondary); text-transform: uppercase; letter-spacing: 0.05em; }
+h6, .h6 { font-size: 0.9rem; font-weight: 500; color: var(--noxss-text-secondary); }
+
+
+/* ---------------------------------- */
+/* Corpo de Texto e Links             */
+/* ---------------------------------- */
+
+p { margin-bottom: 1.2em; }
+a { color: var(--noxss-accent-primary); text-decoration: none; transition: color 0.2s ease-in-out; }
+a:hover { color: var(--noxss-accent-primary-hover); text-decoration: underline; }
+
+/* ---------------------------------- */
+/* Ênfase e Elementos Inline          */
+/* ---------------------------------- */
+
+/* APRIMORADO: strong agora usa a cor de destaque */
+strong, b {
+    color: var(--noxss-accent-primary);
+    font-weight: 600;
+}
+
+em, i { font-style: italic; }
+
+small { font-size: 85%; color: var(--noxss-text-secondary); }
+
+/* NOVO: Estilo para texto marcado */
+mark {
+    background-color: var(--noxss-color-warning);
+    color: #000; /* Texto preto para contraste com o amarelo */
+    padding: 0.15em 0.4em;
+    border-radius: 4px;
+}
+
+/* NOVO: Estilo para abreviações */
+abbr[title] {
+    text-decoration: underline dotted;
+    cursor: help;
+}
+
+/* NOVO: Estilo para entrada de teclado */
+kbd {
+    font-family: var(--noxss-font-family-monospace);
+    padding: 0.2em 0.45em;
+    font-size: 0.85em;
+    color: var(--noxss-text-primary);
+    background-color: var(--noxss-bg-elements);
+    border: 1px solid var(--noxss-border-color);
+    border-bottom-width: 2px;
+    border-radius: 4px;
+}
+
+
+/* ---------------------------------- */
+/* Elementos de Bloco                 */
+/* ---------------------------------- */
+
+blockquote {
+    margin: 1.5em 0;
+    padding: 0.8em 1.2em;
+    border-left: 4px solid var(--noxss-accent-primary);
+    background-color: var(--noxss-bg-elements);
+    color: var(--noxss-text-secondary);
+    font-style: italic;
+    border-radius: 0 var(--noxss-border-radius-base) var(--noxss-border-radius-base) 0;
+}
+blockquote p:last-child { margin-bottom: 0; }
+
+/* APRIMORADO: <hr> agora é tracejado */
+hr {
+    border: 0;
+    border-top: 2px dashed var(--noxss-border-color);
+    margin: 2.5em 0;
+    opacity: 0.5;
+}
+
+ul, ol {
+    padding-left: 25px;
+    margin-bottom: 1.2em;
+}
+li { margin-bottom: 0.5em; }
+/* APRIMORADO: Estilo para o marcador da lista */
+li::marker { color: var(--noxss-text-secondary); }
+
+
+/* ---------------------------------- */
+/* Tabelas (Estilo Aprimorado)        */
+/* ---------------------------------- */
+
+/*
+   NOVO ESTILO - MAIS ELEGANTE E MODERNO
+   - Foco em linhas horizontais para um visual mais limpo.
+   - Cabeçalho destacado para melhor hierarquia.
+   - Efeito de hover nas linhas para melhor usabilidade.
+*/
+table {
+    width: 100%;
+    margin: 2em 0; /* Aumenta a margem para mais espaço vertical */
+    border-collapse: collapse; /* Essencial para o estilo de bordas horizontais */
+    text-align: left;
+    font-size: 0.95rem; /* Leve ajuste no tamanho da fonte para conforto na leitura */
+    border-radius: var(--noxss-border-radius-base);
+    background-color: var(--noxss-bg-surface);
+    box-shadow: var(--noxss-shadow-sm);
+    overflow: hidden; /* Garante que o border-radius seja aplicado às células de canto */
+}
+
+th, td {
+    /* Aumenta o padding para mais "respiro" */
+    padding: 1em 1.2em;
+    border-bottom: 1px solid var(--noxss-border-color);
+}
+
+/* Estilo do cabeçalho da tabela */
+thead th {
+    font-weight: 600;
+    color: var(--noxss-text-primary);
+    background-color: var(--noxss-bg-elements);
+    text-transform: uppercase; /* Deixa o cabeçalho mais formal e destacado */
+    letter-spacing: 0.05em;
+    font-size: 0.85em;
+    /* Borda inferior mais espessa e com a cor de destaque para separar o cabeçalho */
+    border-bottom: 2px solid var(--noxss-accent-primary);
+}
+
+/* Remove a borda inferior da última linha para um visual mais limpo */
+tbody tr:last-child th,
+tbody tr:last-child td {
+    border-bottom: 0;
+}
+
+/* Efeito de zebrado sutil nas linhas do corpo da tabela */
+tbody tr:nth-child(even) {
+    background-color: var(--noxss-bg-elements);
+}
+
+/* APRIMORADO: Efeito de hover suave para destacar a linha ativa * /
+tbody tr:hover {
+    background-color: rgba(var(--noxss-accent-primary-rgb), 0.08);
+    transition: background-color 0.15s ease-in-out;
+}
+
+*/
+
+/* ---------------------------------- */
+/* Código (Inline e Bloco)            */
+/* ---------------------------------- */
+
+code {
+    font-family: var(--noxss-font-family-monospace);
+    color: var(--noxss-accent-primary);
+    background-color: rgba(var(--noxss-accent-primary-rgb), 0.1);
+    padding: 0.2em 0.4em;
+    border-radius: 4px;
+    font-size: 0.9em;
+}
+
+.noxss-code-block {
+    position: relative;
+    margin: 1.5em 0;
+}
+
+.noxss-code-block .noxss-copy-btn {
+    position: absolute;
+    top: 0.5em; right: 0.5em; z-index: 1;
+    display: inline-flex;
+    padding: 0.5rem;
+    background-color: transparent;
+    border: none;
+    border-radius: var(--noxss-border-radius-base);
+    cursor: pointer;
+    color: var(--noxss-text-secondary);
+    transition: color 150ms ease-in-out;
+}
+.noxss-code-block .noxss-copy-btn:hover { color: var(--noxss-text-primary); }
+.noxss-code-block .noxss-copy-btn:focus-visible { outline: 2px solid var(--noxss-focus-ring-color); outline-offset: 1px; }
+.noxss-code-block .noxss-copy-btn svg { width: 18px; height: 18px; stroke-width: 2.5; }
+.noxss-code-block .noxss-copy-btn.copied { color: var(--noxss-accent-primary); }
+
+.noxss-code-block pre {
+    margin: 0;
+    padding: 1.2em;
+    padding-top: 3em; padding-right: 3em;
+    font-family: var(--noxss-font-family-monospace);
+    font-size: 0.9rem;
+    line-height: 1.5;
+    border: 1px solid var(--noxss-border-color);
+    border-radius: var(--noxss-border-radius-base);
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+}
+
+.noxss-code-block pre code {
+    padding: 0; background: none; font-size: inherit; color: inherit; border-radius: 0;
+}
+/* ==========================================================================
+   Noxss Library: Buttons Component
+   - Versão: 2.0 (Inspirado no template "Tarefas Pro")
+   - Sistema de botões completo com múltiplas variantes e estados.
+   - Depende de: core.css
+   ========================================================================== */
+
+/* ---------------------------------- */
+/* Classe Base do Botão (.noxss-btn)  */
+/* ---------------------------------- */
+
+.noxss-btn {
+    /* Estrutura e Alinhamento */
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    vertical-align: middle;
+    gap: 0.6em; /* Espaço entre o ícone e o texto */
+
+    /* Espaçamento e Borda */
+    padding: 0.6em 1.2em;
+    border: 1px solid transparent;
+    border-radius: var(--noxss-border-radius-base);
+
+    /* Tipografia */
+    font-family: var(--noxss-font-family-base);
+    font-size: 0.95rem;
+    font-weight: 500; /* Um pouco mais leve que o anterior, como no template */
+    line-height: 1.5;
+    text-decoration: none;
+    white-space: nowrap;
+
+    /* Comportamento e Aparência */
+    cursor: pointer;
+    user-select: none;
+    transition:
+        color 150ms ease-in-out,
+        background-color 150ms ease-in-out,
+        border-color 150ms ease-in-out,
+        box-shadow 150ms ease-in-out,
+        transform 150ms ease-in-out;
+}
+
+/* Ícones dentro dos botões */
+.noxss-btn .noxss-icon {
+    width: 1.1em;
+    height: 1.1em;
+    stroke-width: 2;
+    vertical-align: text-bottom; /* Melhor alinhamento vertical */
+}
+
+/* --- Estados da Classe Base --- */
+
+.noxss-btn:hover:not(:disabled) {
+    transform: translateY(-2px); /* Efeito de elevação sutil */
+}
+
+.noxss-btn:active:not(:disabled) {
+    transform: translateY(0); /* Efeito de pressionar */
+}
+
+/* Foco acessível, aproveitando o anel de foco definido no core.css */
+.noxss-btn:focus-visible {
+    outline: 2px solid var(--noxss-focus-ring-color);
+    outline-offset: 2px;
+}
+
+.noxss-btn:disabled,
+.noxss-btn.disabled {
+    opacity: 0.65;
+    filter: grayscale(50%); /* Efeito visual para desabilitado */
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+}
+
+
+/* ---------------------------------- */
+/* Modificadores de Estilo            */
+/* ---------------------------------- */
+
+/* --- Modificador: Primário (Accent) --- */
+.noxss-btn--primary {
+    color: var(--noxss-text-on-accent);
+    background-color: var(--noxss-accent-primary);
+    border-color: var(--noxss-accent-primary);
+    box-shadow: var(--noxss-shadow-sm);
+}
+.noxss-btn--primary:hover:not(:disabled) {
+    background-color: var(--noxss-accent-primary-hover);
+    border-color: var(--noxss-accent-primary-hover);
+    box-shadow: 0 2px 5px rgba(var(--noxss-accent-primary-rgb), 0.3);
+}
+
+/* --- Modificador: Secundário (Ghost/Outline) --- */
+.noxss-btn--secondary {
+    color: var(--noxss-accent-primary); /* Usa a cor de destaque para o texto */
+    background-color: transparent;
+    border-color: var(--noxss-border-color);
+}
+.noxss-btn--secondary:hover:not(:disabled) {
+    color: var(--noxss-accent-primary-hover);
+    background-color: rgba(var(--noxss-accent-primary-rgb), 0.1); /* Fundo sutil com a cor de destaque */
+    border-color: var(--noxss-accent-primary);
+}
+
+/* --- Modificador: Sucesso --- */
+.noxss-btn--success {
+    color: var(--noxss-text-on-accent);
+    background-color: var(--noxss-color-success);
+    border-color: var(--noxss-color-success);
+}
+.noxss-btn--success:hover:not(:disabled) {
+    filter: brightness(115%); /* Efeito de brilho no hover */
+}
+
+/* --- Modificador: Perigo --- */
+.noxss-btn--danger {
+    color: var(--noxss-text-on-accent);
+    background-color: var(--noxss-color-danger);
+    border-color: var(--noxss-color-danger);
+}
+.noxss-btn--danger:hover:not(:disabled) {
+    filter: brightness(115%);
+}
+
+/* --- Modificador: Aviso --- */
+.noxss-btn--warning {
+    color: #000; /* Texto preto para melhor contraste com amarelo */
+    background-color: var(--noxss-color-warning);
+    border-color: var(--noxss-color-warning);
+}
+.noxss-btn--warning:hover:not(:disabled) {
+    filter: brightness(105%);
+}
+
+/* ---------------------------------- */
+/* Modificadores de Comportamento     */
+/* ---------------------------------- */
+
+/* --- Modificador: Link --- */
+.noxss-btn--link {
+    padding: 0;
+    color: var(--noxss-accent-primary);
+    background: none;
+    border: none;
+    font-weight: normal;
+    text-decoration: underline;
+    vertical-align: baseline;
+    box-shadow: none;
+    transform: none;
+}
+.noxss-btn--link:hover:not(:disabled) {
+    color: var(--noxss-accent-primary-hover);
+    transform: none;
+    filter: none;
+}
+.noxss-btn--link:disabled {
+    text-decoration: none;
+    filter: none;
+}
+
+/* --- Modificador: Ícone (Circular) --- */
+.noxss-btn--icon {
+    padding: 0;
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    color: var(--noxss-text-secondary);
+    background: transparent;
+    border-color: transparent;
+    box-shadow: none;
+    transform: none; /* Sobrescreve efeitos da classe base */
+}
+.noxss-btn--icon .noxss-icon {
+    width: 20px;
+    height: 20px;
+}
+.noxss-btn--icon:hover:not(:disabled) {
+    background-color: var(--noxss-bg-elements);
+    color: var(--noxss-text-primary);
+    transform: scale(1.05);
+    filter: none;
+}
+.noxss-btn--icon.active {
+    color: var(--noxss-accent-primary);
+    background-color: rgba(var(--noxss-accent-primary-rgb), 0.15);
+}
+/* Foco visível específico para botões de ícone circulares */
+.noxss-btn--icon:focus-visible {
+    outline-offset: 0;
+}
+/* ==========================================================================
+   Noxss Library: Player Component
+   - Estilos para o componente de player de música compacto.
+   - Depende de: core.css
+   ========================================================================== */
+
+.noxss-player-compact {
+    display: flex;
+    align-items: center;
+    gap: 15px; /* Espaçamento entre a arte, info e controles */
+
+    width: 100%;
+    max-width: 600px; /* Largura máxima padrão, pode ser sobrescrita */
+    padding: 12px;
+
+    font-family: var(--noxss-font-family-base);
+    color: var(--noxss-text-primary);
+    background-color: var(--noxss-bg-elements);
+
+    border: 1px solid var(--noxss-border-color);
+    border-radius: var(--noxss-border-radius-base);
+    box-shadow: var(--noxss-shadow-md);
+    overflow: hidden; /* Garante que nada vaze das bordas arredondadas */
+}
+
+/* --- Elementos do Player --- */
+
+.noxss-player-compact .noxss-album-art {
+    flex-shrink: 0; /* Impede que a imagem do álbum encolha */
+    width: 50px;
+    height: 50px;
+    object-fit: cover;
+    background-color: var(--noxss-bg-surface); /* Cor de fundo enquanto a imagem carrega */
+    border-radius: var(--noxss-border-radius-base);
+}
+
+.noxss-player-compact .noxss-track-info {
+    flex-grow: 1;  /* Faz esta div ocupar todo o espaço restante */
+    min-width: 0;  /* TRUQUE ESSENCIAL: Permite que o text-overflow funcione em um item flex */
+}
+
+.noxss-player-compact .noxss-track-info .noxss-title,
+.noxss-player-compact .noxss-track-info .noxss-artist {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis; /* Adiciona "..." se o texto for muito longo */
+}
+
+.noxss-player-compact .noxss-track-info .noxss-title {
+    font-size: 1em;
+    font-weight: 600;
+    color: var(--noxss-text-primary);
+    margin-bottom: 2px;
+}
+
+.noxss-player-compact .noxss-track-info .noxss-artist {
+    font-size: 0.85em;
+    color: var(--noxss-text-secondary);
+}
+
+.noxss-player-compact .noxss-controls {
+    display: flex;
+    align-items: center;
+    gap: 5px; /* Espaçamento entre os botões de controle */
+    flex-shrink: 0; /* Impede que os controles encolham */
+}
+
+.noxss-player-compact .noxss-controls .noxss-control-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 40px;
+    height: 40px;
+    padding: 8px;
+
+    background: transparent;
+    border: none;
+    border-radius: 50%; /* Botões de controle circulares */
+    color: var(--noxss-text-secondary);
+    cursor: pointer;
+
+    transition:
+        color 0.2s ease,
+        background-color 0.2s ease;
+}
+
+.noxss-player-compact .noxss-controls .noxss-control-button svg {
+    width: 20px;
+    height: 20px;
+}
+
+/* Botão principal de Play/Pause é um pouco maior */
+.noxss-player-compact .noxss-controls .noxss-play-pause svg {
+    width: 24px;
+    height: 24px;
+}
+
+/* --- Estados dos Controles --- */
+
+.noxss-player-compact .noxss-controls .noxss-control-button:hover:not(:disabled) {
+    color: var(--noxss-text-primary);
+    background-color: var(--noxss-bg-surface);
+}
+
+.noxss-player-compact .noxss-controls .noxss-control-button:focus-visible {
+    outline: 2px solid var(--noxss-focus-ring-color);
+    outline-offset: 2px;
+}
+
+.noxss-player-compact .noxss-controls .noxss-control-button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    background-color: transparent; /* Garante que não haja fundo no estado desabilitado */
+}
+
+/* Estado ativo para o botão de play/pause */
+.noxss-player-compact .noxss-controls .noxss-play-pause.noxss-active {
+    color: var(--noxss-accent-primary);
+}
+/* ==========================================================================
+   Noxss Library: Layout Component
+   - Versão: 2.1 (Com correção para viewport móvel)
+   - Define a estrutura principal de um aplicativo de tela cheia.
+   - Depende de: core.css
+   ========================================================================== */
+
+/*
+ * O corpo da página em modo "app".
+ * Configura o layout para ocupar 100% da viewport visível de forma segura,
+ * evitando problemas com as barras de interface em navegadores móveis.
+ */
+body[data-noxss-layout="app"] {
+    /* 1. Fallback principal para navegadores mais antigos. */
+    height: 100vh;
+
+    /* 2. Propriedade não-padrão que ajuda a resolver o problema no Safari/iOS.
+       Navegadores que entendem 'svh' ignorarão isso. */
+    height: -webkit-fill-available;
+
+    /* 3. A solução moderna e preferida. Usa a altura do "viewport pequeno",
+       garantindo que o layout caiba na tela mesmo com as barras de UI visíveis. */
+    height: 100svh;
+
+    overflow: hidden;
+}
+
+/*
+ * O contêiner principal do aplicativo.
+ * Usa flexbox para organizar a navbar, o conteúdo e a barra inferior verticalmente.
+ */
+.noxss-layout {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    background-color: var(--noxss-bg-main);
+}
+
+/* 
+ * Garante que o layout ocupe 100% da altura do seu contêiner (o body).
+ * A altura do body já foi corrigida para ser a altura visível real.
+ */
+body[data-noxss-layout="app"] .noxss-layout {
+    height: 100%;
+    overflow: hidden;
+}
+
+
+/*
+ * O wrapper de conteúdo principal.
+ * É projetado para crescer e ocupar todo o espaço vertical disponível
+ * entre a navbar superior e a inferior.
+ * O `min-height: 0` é uma correção crucial de flexbox que permite que
+ * filhos com overflow (como o sistema de abas) rolem corretamente.
+ */
+.noxss-layout__content {
+    flex: 1; /* Faz este elemento crescer */
+    display: flex; /* Permite que o filho (ex: .noxss-tabs) também use flex */
+    flex-direction: column;
+    overflow: hidden;
+    min-height: 0;
+}
+/* ==========================================================================
+   Noxss Library: Navbar Component
+   - Versão: 2.1 (Design minimalista e elegante para a navegação inferior)
+   - Estilos para as barras de navegação superior e inferior do aplicativo.
+   - Depende de: core.css
+   ========================================================================== */
+
+/* ---------------------------------- */
+/* 1. Navbar Superior (Header)        */
+/* (sem alterações)                   */
+/* ---------------------------------- */
+.noxss-navbar {
+    display: flex;
+    align-items: center;
+    padding: 0.8rem 1.2rem;
+    background-color: var(--noxss-bg-elements);
+    border-bottom: 1px solid var(--noxss-border-color);
+    flex-shrink: 0;
+    position: relative;
+    z-index: 10;
+}
+.noxss-navbar__brand {
+    font-size: 1.4em;
+    font-weight: 600;
+    color: var(--noxss-text-primary);
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6em;
+}
+.noxss-navbar__brand .noxss-icon {
+    color: var(--noxss-accent-primary);
+}
+
+/* ---------------------------------- */
+/* 2. Navbar Inferior (Bottom Nav)    */
+/* ---------------------------------- */
+.noxss-navbar--bottom {
+    border-bottom: none;
+    border-top: 1px solid var(--noxss-border-color);
+    justify-content: space-around;
+    padding: 0.3rem 0;
+    box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.2);
+}
+
+/*
+ * Botão da Navegação Inferior (Padrão: Apenas Ícone)
+ */
+.noxss-tabs__nav-button {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background: none;
+    border: none;
+    padding: 20px 15px;
+    color: var(--noxss-text-secondary);
+
+    position: relative;
+    overflow: hidden;
+
+    transition:
+        color 200ms ease-out,
+        transform 150ms ease-out,
+        opacity 200ms ease-out;
+}
+
+.noxss-tabs__nav-button .noxss-icon {
+    width: 24px;
+    height: 24px;
+    stroke-width: 2;
+    transition:
+        transform 200ms cubic-bezier(0.34, 1.56, 0.64, 1),
+        stroke-width 200ms ease;
+}
+
+/* Estilização experimental inspirada no material you e adaptação visual ao tema claro */
+.noxss-tabs__nav-button .noxss-icon {
+    width: auto;
+    height: auto;
+    padding: 10px 25px;
+    border-radius: 20px;
+    transition: 0.5s;
+}
+.noxss-active-bg-button > .noxss-tabs__nav-button.is-active .noxss-icon {
+    background: rgba(var(--noxss-accent-primary-rgb), 0.1);
+}
+.noxss-navbar--bottom {
+	box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.05);
+}
+.noxss-tabs__nav-button {
+	padding: 10px;
+} 
+/* Lembrando que o bloco de estilização acima ainda está em análise */
+
+/* --- Estados e Indicador --- */
+
+.noxss-tabs__nav-button:not(.is-active) {
+    opacity: 0.7; /* Ícones inativos são um pouco mais discretos */
+}
+.noxss-tabs__nav-button:not(.is-active):hover {
+    opacity: 1;
+    color: var(--noxss-text-primary);
+}
+
+/* O indicador agora é o próprio ícone mudando de estado */
+.noxss-tabs__nav-button.is-active {
+    color: var(--noxss-accent-primary);
+    opacity: 1;
+}
+
+.noxss-tabs__nav-button.is-active .noxss-icon {
+    stroke-width: 2.5; /* Ícone ativo fica um pouco mais "bold" */
+    transform: scale(1.1); /* Ícone ativo cresce um pouco */
+}
+
+.noxss-tabs__nav-button:active {
+    transform: scale(0.92); /* Feedback de toque sutil */
+    transition-duration: 50ms; /* Ação de toque é rápida */
+}
+
+/* --- Modificador Opcional para Rótulo --- */
+
+.noxss-tabs__nav-button--with-label {
+    flex-direction: column;
+    gap: 3px;
+    padding: 8px 4px;
+}
+
+.noxss-tabs__nav-button--with-label .noxss-icon {
+    width: 22px; /* Ícone um pouco menor quando tem texto */
+    height: 22px;
+}
+
+.noxss-tabs__nav-button-label {
+    font-size: 0.7rem;
+    font-weight: 500;
+    letter-spacing: 0.3px;
+    /* Oculto por padrão, visível apenas no botão com o modificador */
+    display: none;
+}
+
+.noxss-tabs__nav-button--with-label .noxss-tabs__nav-button-label {
+    display: block; /* Mostra o rótulo */
+}
+
+/* ==========================================================================
+   Noxss Library: FAB (Floating Action Button) Component
+   - Versão: 2.1 (Com animação de transição de conteúdo)
+   - Depende de: core.css
+   ========================================================================== */
+
+:root {
+    --noxss-fab-size: 56px;
+    --noxss-fab-margin: 1.25rem;
+    --noxss-safe-area-inset-bottom: 0px; 
+}
+
+.noxss-fab {
+    position: fixed;
+    z-index: 1040;
+    right: var(--noxss-fab-margin);
+    bottom: calc(var(--noxss-safe-area-inset-bottom) + var(--noxss-fab-margin));
+    width: var(--noxss-fab-size);
+    height: var(--noxss-fab-size);
+    background-color: var(--noxss-accent-primary);
+    color: var(--noxss-text-on-accent);
+    border: none;
+    border-radius: 35%;
+    box-shadow: var(--noxss-shadow-lg);
+    cursor: pointer;
+    
+    /* Prepara o FAB para posicionamento absoluto dos filhos e animações */
+    display: grid;
+    place-items: center;
+    overflow: hidden; /* Importante para as animações de entrada/saída */
+
+    transition: transform 250ms cubic-bezier(0.4, 0, 0.2, 1), background-color 200ms ease, box-shadow 200ms ease, opacity 250ms ease;
+}
+
+/* --- Wrapper para o conteúdo do FAB (permite a animação de troca) --- */
+.noxss-fab__content-wrapper {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    display: grid;
+    place-items: center;
+    
+    /* Estado inicial (invisível e encolhido) */
+    opacity: 0;
+    transform: scale(0.7);
+    
+    /* Animação suave de entrada/saída */
+    transition: transform 250ms cubic-bezier(0.4, 0, 0.2, 1), opacity 250ms ease;
+}
+
+/* A classe que torna o wrapper do conteúdo visível */
+.noxss-fab__content-wrapper.is-active {
+    opacity: 1;
+    transform: scale(1);
+}
+
+/* Estilo para o ícone dentro do wrapper */
+.noxss-fab .noxss-icon {
+    width: calc(var(--noxss-fab-size) * 0.5);
+    height: calc(var(--noxss-fab-size) * 0.5);
+    stroke-width: 2.5;
+}
+
+/* --- Estados de Interação e Visibilidade --- */
+.noxss-fab:hover {
+    background-color: var(--noxss-accent-primary-hover);
+    transform: scale(1.05) translateY(-2px);
+    box-shadow: 0 0 20px rgba(var(--noxss-accent-primary-rgb), 0.3);
+}
+.noxss-fab:active {
+    transform: scale(0.98);
+    box-shadow: var(--noxss-shadow-md);
+}
+.noxss-fab.is-hidden {
+    opacity: 0;
+    transform: scale(0.5);
+    pointer-events: none;
+}
+/* ==========================================================================
+   Noxss Library: Tabs Component (CSS)
+   - Versão: 1.2 (Estilo e acessibilidade refinados)
+   ========================================================================== */
+
+.noxss-tabs {
+    flex: 1; display: flex; flex-direction: column;
+    overflow: hidden; min-height: 0;
+}
+
+/* --- Cabeçalho de Abas (Desktop) --- */
+.noxss-tabs__header {
+    display: flex; justify-content: flex-start;
+    padding: 0 0.5rem; background-color: var(--noxss-bg-elements);
+    border-bottom: 1px solid var(--noxss-border-color);
+    flex-shrink: 0;
+}
+
+.noxss-tabs__header-button {
+    padding: 0.8rem 1.2rem;
+    border: none;
+    border-bottom: 3px solid transparent;
+    background: none; color: var(--noxss-text-secondary);
+    cursor: pointer; font-size: 0.95em; font-weight: 500;
+    transition: color 0.2s ease, border-color 0.2s ease, background-color 0.15s ease;
+    display: inline-flex; align-items: center; gap: 0.5em;
+    position: relative;
+}
+.noxss-tabs__header-button:hover {
+    color: var(--noxss-text-primary);
+}
+.noxss-tabs__header-button.is-active {
+    color: var(--noxss-accent-primary);
+    border-bottom-color: var(--noxss-accent-primary);
+}
+
+/* Acessibilidade de Foco Aprimorada */
+.noxss-tabs__header-button:focus-visible {
+    outline: none; /* Remove o outline padrão */
+    background-color: var(--noxss-bg-surface);
+    color: var(--noxss-accent-primary);
+}
+
+
+/* --- Área de Conteúdo --- */
+.noxss-tabs__content-area {
+    flex: 1; display: flex;
+    overflow-x: auto; overflow-y: hidden;
+    background-color: var(--noxss-bg-surface);
+    min-height: 0;
+    scroll-snap-type: x mandatory;
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
+    
+    /* REMOVIDO: Barra de rolagem visível agora está oculta */
+    scrollbar-width: none; /* Firefox */
+}
+.noxss-tabs__content-area::-webkit-scrollbar {
+    display: none; /* Chrome, Safari, e Edge */
+}
+
+/* --- Painel de Conteúdo --- */
+.noxss-tabs__panel {
+    flex: 0 0 100%; height: 100%;
+    padding: 1.5rem;
+    overflow-y: auto;
+    scroll-snap-align: start;
+    scroll-snap-stop: always;
+    opacity: 0;
+    transition: opacity 300ms ease-in-out;
+}
+.noxss-tabs__panel.is-visible {
+    opacity: 1;
+}
+/* ==========================================================================
+   Noxss Library: Forms Component
+   - Estilos para elementos de formulário (inputs, selects, checkboxes, etc.).
+   - Versão: 1.0
+   - Depende de: core.css
+   ========================================================================== */
+
+/* ---------------------------------- */
+/* 1. Estrutura e Labels              */
+/* ---------------------------------- */
+
+.noxss-form-group {
+    margin-bottom: 1.5rem; /* Espaçamento padrão entre campos */
+}
+
+.noxss-label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-size: 0.9em;
+    font-weight: 500;
+    color: var(--noxss-text-secondary);
+}
+
+/* ---------------------------------- */
+/* 2. Inputs, Textareas e Selects     */
+/* ---------------------------------- */
+
+.noxss-input,
+.noxss-select,
+.noxss-range,
+.noxss-textarea {
+    display: block;
+    width: 100%;
+    
+    padding: 0.8rem 1rem;
+    font-family: var(--noxss-font-family-base);
+    font-size: 1rem;
+    line-height: 1.5;
+    
+    color: var(--noxss-text-primary);
+    background-color: var(--noxss-bg-main);
+    background-clip: padding-box; /* Padrão do Bootstrap, bom para consistência */
+    
+    border: 1px solid var(--noxss-border-color);
+    border-radius: var(--noxss-border-radius-base);
+    
+    transition: border-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+    
+    /* Remove a aparência nativa, especialmente em iOS */
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+}
+
+.noxss-input::placeholder,
+.noxss-textarea::placeholder {
+    color: var(--noxss-text-secondary);
+    opacity: 0.7;
+}
+
+.noxss-input:focus,
+.noxss-select:focus,
+.noxss-textarea:focus {
+    outline: none;
+    border-color: var(--noxss-accent-primary);
+    box-shadow: 0 0 0 3px var(--noxss-focus-ring-color);
+}
+
+.noxss-textarea {
+    min-height: 120px;
+    resize: vertical; /* Permite redimensionamento apenas vertical */
+}
+
+/* Estilo específico para o <select> para adicionar a seta customizada */
+.noxss-select {
+    /* O SVG da seta é codificado em URL e usa 'currentColor' para herdar a cor do texto */
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='currentColor' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='m2 5 6 6 6-6'/%3e%3c/svg%3e");
+    background-repeat: no-repeat;
+    background-position: right 1rem center;
+    background-size: 16px 12px;
+    padding-right: 2.5rem; /* Espaço extra para a seta não sobrepor o texto */
+}
+
+/* ---------------------------------- */
+/* 3. Checkboxes e Radio Buttons      */
+/* ---------------------------------- */
+
+.noxss-check,
+.noxss-radio {
+    position: relative;
+    display: flex;
+    align-items: center;
+    padding-left: 2em; /* Espaço para o controle customizado */
+    margin-bottom: 0.75rem;
+    min-height: 1.5rem;
+    cursor: pointer;
+    user-select: none;
+}
+
+/* Esconde o input original */
+.noxss-check input,
+.noxss-radio input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
+}
+
+/* Cria o controle customizado (a "caixa" ou o "círculo") */
+.noxss-check .noxss-check-control,
+.noxss-radio .noxss-radio-control {
+    position: absolute;
+    top: 0.1em;
+    left: 0;
+    height: 1.3em;
+    width: 1.3em;
+    background-color: var(--noxss-bg-main);
+    border: 1px solid var(--noxss-border-color);
+    transition: all 150ms ease;
+}
+
+.noxss-radio .noxss-radio-control {
+    border-radius: 50%; /* Rádio é circular */
+}
+
+.noxss-check .noxss-check-control {
+    border-radius: 4px; /* Checkbox é quadrado com bordas suaves */
+}
+
+/* Estilo no hover */
+.noxss-check:hover input ~ .noxss-check-control,
+.noxss-radio:hover input ~ .noxss-radio-control {
+    border-color: var(--noxss-text-secondary);
+}
+
+/* Estilo quando o input está checado */
+.noxss-check input:checked ~ .noxss-check-control,
+.noxss-radio input:checked ~ .noxss-radio-control {
+    background-color: var(--noxss-accent-primary);
+    border-color: var(--noxss-accent-primary);
+}
+
+/* Cria o indicador (o "check" ou o "ponto") usando ::after */
+.noxss-check-control::after,
+.noxss-radio-control::after {
+    content: "";
+    position: absolute;
+    display: none; /* Oculto por padrão */
+}
+
+/* Mostra o indicador quando checado */
+.noxss-check input:checked ~ .noxss-check-control::after,
+.noxss-radio input:checked ~ .noxss-radio-control::after {
+    display: block;
+}
+
+/* Estilo do indicador do checkbox (um "V") */
+.noxss-check .noxss-check-control::after {
+    left: 0.4em;
+    top: 0.15em;
+    width: 0.3em;
+    height: 0.7em;
+    border: solid var(--noxss-text-on-accent);
+    border-width: 0 2px 2px 0;
+    transform: rotate(45deg);
+}
+
+/* Estilo do indicador do radio (um círculo) */
+.noxss-radio .noxss-radio-control::after {
+    top: 50%;
+    left: 50%;
+    width: 0.6em;
+    height: 0.6em;
+    border-radius: 50%;
+    background: var(--noxss-text-on-accent);
+    transform: translate(-50%, -50%);
+}
+
+/* ---------------------------------- */
+/* 4. Input Range Slider (Design Magnífico) */
+/* ---------------------------------- */
+
+.noxss-range-wrapper {
+    position: relative;
+    padding-top: 20px; /* Espaço para o tooltip */
+}
+
+.noxss-range {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 100%;
+    cursor: pointer;
+    outline: none;
+    border-radius: 50px;
+    height: 6px;
+    padding: 13px 3px;
+}
+
+/* --- Polegar (Thumb) - WebKit --- */
+.noxss-range::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: var(--noxss-accent-primary-hover);
+    border: 2px solid var(--noxss-accent-primary);
+    box-shadow: var(--noxss-shadow-md);
+    transition: transform 150ms cubic-bezier(0.4, 0, 0.2, 1), box-shadow 150ms ease;
+}
+.noxss-range:hover::-webkit-slider-thumb {
+    transform: scale(1.15);
+}
+.noxss-range:active::-webkit-slider-thumb {
+    transform: scale(1.3);
+    box-shadow: 0 0 0 6px rgba(var(--noxss-accent-primary-rgb), 0.2);
+}
+
+/* --- Polegar (Thumb) - Firefox --- */
+.noxss-range::-moz-range-thumb {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: var(--noxss-text-on-accent);
+    border: 2px solid var(--noxss-accent-primary);
+    box-shadow: var(--noxss-shadow-md);
+    transition: transform 150ms cubic-bezier(0.4, 0, 0.2, 1), box-shadow 150ms ease;
+}
+.noxss-range:hover::-moz-range-thumb {
+    transform: scale(1.15);
+}
+.noxss-range:active::-moz-range-thumb {
+    transform: scale(1.3);
+    box-shadow: 0 0 0 6px rgba(var(--noxss-accent-primary-rgb), 0.2);
+}
+
+/* --- Trilho (Track) - Firefox --- */
+/* Firefox precisa que o trilho seja estilizado separadamente. A cor de progresso é feita com ::-moz-range-progress */
+.noxss-range::-moz-range-track {
+    width: 100%;
+    height: 6px;
+    background: var(--noxss-bg-surface);
+    border-radius: 50px;
+}
+.noxss-range::-moz-range-progress {
+    height: 6px;
+    background: linear-gradient(to right, var(--noxss-accent-primary), var(--noxss-accent-primary-hover));
+    border-radius: 50px;
+}
+
+/* --- Tooltip (Opcional, controlado por JS) --- */
+.noxss-range-tooltip {
+    position: absolute;
+    top: -5px;
+    transform: translateX(-50%) scale(0);
+    transform-origin: bottom center;
+    background-color: var(--noxss-accent-primary);
+    color: var(--noxss-text-on-accent);
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    pointer-events: none;
+    transition: transform 150ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.noxss-range-wrapper.is-active .noxss-range-tooltip {
+    transform: translateX(-50%) scale(1);
+}
+/* ==========================================================================
+   Noxss Library: Cards Component
+   - Versão: 2.0 (Variedade expandida, tipografia interna e layout de grupo)
+   - Depende de: core.css
+   ========================================================================== */
+
+/* ---------------------------------- */
+/* 1. Card Base                       */
+/* ---------------------------------- */
+
+.noxss-card {
+    display: flex;
+    flex-direction: column;
+    background-color: var(--noxss-bg-surface);
+    border: 1px solid var(--noxss-border-color);
+    border-radius: var(--noxss-border-radius-base);
+    box-shadow: var(--noxss-shadow-md);
+    overflow: hidden;
+    transition: all 200ms ease-in-out; /* Transição base para todos os cards */
+}
+
+/* --- Partes Estruturais do Card --- */
+
+.noxss-card__header,
+.noxss-card__body,
+.noxss-card__footer {
+    padding: 1.25rem;
+}
+
+.noxss-card__header {
+    padding-bottom: 0.75rem;
+    border-bottom: 1px solid var(--noxss-border-color);
+}
+
+.noxss-card__footer {
+    padding-top: 0.75rem;
+    margin-top: auto; /* Empurra para o fundo */
+    border-top: 1px solid var(--noxss-border-color);
+}
+
+.noxss-card__media {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+    display: block;
+}
+
+/* --- Elementos de Conteúdo do Card --- */
+
+.noxss-card__title {
+    font-size: 1.25em;
+    font-weight: 600;
+    margin-bottom: 0.25rem;
+}
+
+.noxss-card__subtitle {
+    font-size: 0.9em;
+    color: var(--noxss-text-secondary);
+    margin-bottom: 1rem;
+}
+
+/* ---------------------------------- */
+/* 2. Modificadores de Estilo         */
+/* ---------------------------------- */
+
+/* -- Destaque com Cor de Acento -- */
+.noxss-card--accent { border-left: 5px solid var(--noxss-accent-primary); }
+.noxss-card--success { border-left: 5px solid var(--noxss-color-success); }
+.noxss-card--danger { border-left: 5px solid var(--noxss-color-danger); }
+.noxss-card--warning { border-left: 5px solid var(--noxss-color-warning); }
+
+/* -- Card Interativo (clicável) -- */
+.noxss-card--interactive:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--noxss-shadow-lg);
+    border-color: var(--noxss-text-secondary); /* Leve destaque na borda */
+}
+
+/* -- Card Fantasma (sem fundo) -- */
+.noxss-card--ghost {
+    background-color: transparent;
+    box-shadow: none;
+    border-style: dashed;
+    border-width: 2px;
+}
+/* No tema claro, a borda tracejada pode ser muito forte, então a tornamos sólida. */
+[data-theme="light"] .noxss-card--ghost {
+    border-style: solid;
+    border-width: 1px;
+}
+
+/* -- Card Plano (sem sombra) -- */
+.noxss-card--flat {
+    box-shadow: none;
+}
+
+
+/* ---------------------------------- */
+/* 3. Tipos de Card Específicos       */
+/* ---------------------------------- */
+
+/* -- Card de Estatística (Dashboard) -- */
+.noxss-card--stat {
+    padding: 1.25rem;
+}
+.noxss-card--stat .stat-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+.noxss-card--stat .stat-label {
+    font-size: 0.9em;
+    color: var(--noxss-text-secondary);
+    margin-bottom: 0.5rem;
+}
+.noxss-card--stat .stat-value {
+    font-size: 2.2em;
+    font-weight: 600;
+    line-height: 1;
+}
+.noxss-card--stat .stat-icon {
+    font-size: 2.5em;
+    color: var(--noxss-text-secondary);
+    opacity: 0.4;
+}
+
+/* -- Card com Mídia no Topo -- */
+.noxss-card--media-top .noxss-card__header,
+.noxss-card--media-top .noxss-card__body {
+    padding-top: 1.25rem;
+}
+.noxss-card--media-top .noxss-card__media {
+    border-radius: 0;
+}
+
+
+/* ---------------------------------- */
+/* 4. Layout de Grupo de Cards        */
+/* ---------------------------------- */
+
+.noxss-card-deck {
+    display: grid;
+    gap: 1.5rem; /* Espaçamento entre os cards */
+
+    /*
+     * Cria colunas responsivas:
+     * - Tenta criar colunas com no mínimo 300px de largura.
+     * - O `auto-fit` garante que, se não houver espaço, ele quebra para a próxima linha.
+     * - `1fr` garante que as colunas ocupem todo o espaço disponível.
+     */
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+}
+/* ==========================================================================
+   Noxss Library: Lists Component
+   - Componentes para exibir conjuntos de dados em formato de lista.
+   - Versão: 1.0
+   - Depende de: core.css
+   ========================================================================== */
+
+/* ---------------------------------- */
+/* 1. Contêiner de Lista              */
+/* ---------------------------------- */
+
+.noxss-list {
+    list-style: none; /* Remove marcadores de lista padrão */
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+/*
+ * Modificador para uma lista "embutida", com fundo e bordas próprias.
+ * Ideal para grupos de configurações ou menus.
+ */
+.noxss-list--inset {
+    background-color: var(--noxss-bg-surface);
+    border-radius: var(--noxss-border-radius-base);
+    border: 1px solid var(--noxss-border-color);
+    overflow: hidden; /* Garante que os filhos respeitem o border-radius */
+}
+
+
+/* ---------------------------------- */
+/* 2. Item da Lista                   */
+/* ---------------------------------- */
+
+.noxss-list-item {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 0.9rem 1.25rem;
+    width: 100%;
+    text-align: left; /* Garante alinhamento para itens que são <button> */
+
+    /* Divisor entre os itens */
+    border-bottom: 1px solid var(--noxss-border-color);
+}
+
+/* Remove a borda do último item para um visual mais limpo */
+.noxss-list-item:last-child {
+    border-bottom: none;
+}
+
+/* --- Partes Estruturais do Item --- */
+
+.noxss-list-item__leading,
+.noxss-list-item__trailing {
+    flex-shrink: 0; /* Impede que os slots de ícone/ação encolham */
+    display: flex;
+    align-items: center;
+}
+
+.noxss-list-item__content {
+    flex-grow: 1; /* Faz o conteúdo principal ocupar o espaço restante */
+    min-width: 0; /* Permite que o texto com ellipsis funcione corretamente */
+}
+
+/* --- Modificador Interativo --- */
+
+.noxss-list-item--interactive {
+    cursor: pointer;
+    transition: background-color 150ms ease-in-out;
+}
+
+.noxss-list-item--interactive:hover {
+    background-color: var(--noxss-bg-elements);
+}
+
+.noxss-list-item--interactive:active {
+    background-color: var(--noxss-bg-surface);
+}
+
+
+/* ---------------------------------- */
+/* 3. Estilos de Conteúdo do Item     */
+/* ---------------------------------- */
+
+.noxss-list-item__title {
+    font-weight: 500;
+    color: var(--noxss-text-primary);
+}
+
+.noxss-list-item__subtitle {
+    font-size: 0.85em;
+    color: var(--noxss-text-secondary);
+}
+
+/* Ícone no slot "leading" */
+.noxss-list-item__icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: var(--noxss-bg-elements);
+    color: var(--noxss-text-secondary);
+}
+/* Cores semânticas para ícones */
+.noxss-list-item__icon--success {
+    background-color: rgba(var(--noxss-color-success-rgb, 40, 167, 69), 0.15);
+    color: var(--noxss-color-success);
+}
+.noxss-list-item__icon--danger {
+    background-color: rgba(var(--noxss-color-danger-rgb, 220, 53, 69), 0.15);
+    color: var(--noxss-color-danger);
+}
+
+
+/* Avatar (imagem) no slot "leading" */
+.noxss-list-item__avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+/* Ícone de "chevron" no slot "trailing", indicando navegação */
+.noxss-list-item__trailing .noxss-icon {
+    color: var(--noxss-text-secondary);
+    opacity: 0.7;
+}
+/* ==========================================================================
+   Noxss Library: Modals Component
+   - Versão: 1.3 (Estilo refinado, mais leve e compacto)
+   - Depende de: core.css, buttons.css
+   ========================================================================== */
+
+/* ---------------------------------- */
+/* 1. O Contêiner/Backdrop do Modal   */
+/* (sem alterações)                 */
+/* ---------------------------------- */
+.noxss-modal {
+    position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 1050;
+    display: flex; align-items: center; justify-content: center; padding: 1rem;
+    background-color: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px); /* Blur um pouco mais sutil */
+    opacity: 0; visibility: hidden;
+    transition: opacity 250ms ease, visibility 250ms ease;
+}
+.noxss-modal.is-open { opacity: 1; visibility: visible; }
+
+/* ---------------------------------- */
+/* 2. A Janela de Diálogo             */
+/* ---------------------------------- */
+
+.noxss-modal__dialog {
+    display: flex; flex-direction: column;
+    width: 100%;
+    max-width: 440px; /* REDUZIDO: Largura máxima padrão mais contida */
+    max-height: 90vh;
+    background-color: var(--noxss-bg-elements);
+    border: 1px solid var(--noxss-border-color);
+    border-radius: var(--noxss-border-radius-base);
+    box-shadow: var(--noxss-shadow-lg);
+    overflow: hidden;
+    transform: scale(0.95);
+    transition: transform 250ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+.noxss-modal.is-open .noxss-modal__dialog { transform: scale(1); }
+
+
+/* ---------------------------------- */
+/* 3. Seções Internas do Modal        */
+/* ---------------------------------- */
+
+.noxss-modal__header {
+    display: flex; align-items: center; gap: 1rem;
+    padding: 0.9rem 1.1rem; /* REDUZIDO: Padding menos agressivo */
+    border-bottom: 1px solid var(--noxss-border-color);
+    flex-shrink: 0;
+    background-color: rgba(255, 255, 255, 0.03);
+}
+
+.noxss-modal__title {
+    flex-grow: 1; margin: 0;
+    font-size: 1.1rem; /* REDUZIDO: Título mais sutil */
+    font-weight: 600; line-height: 1.4;
+    white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+
+.noxss-modal__body {
+    padding: 1.2rem 1.1rem; /* REDUZIDO: Padding ajustado */
+    overflow-y: auto;
+    flex-grow: 1;
+}
+
+.noxss-modal__footer {
+    display: flex; justify-content: flex-end; gap: 0.75rem;
+    padding: 0.9rem 1.1rem; /* REDUZIDO: Padding consistente com o header */
+    border-top: 1px solid var(--noxss-border-color);
+    flex-shrink: 0;
+}
+
+
+/* ---------------------------------- */
+/* 4. Botão de Fechar                 */
+/* ---------------------------------- */
+
+.noxss-modal__close-btn {
+    flex-shrink: 0;
+    padding: 0;
+    width: 32px; /* REDUZIDO: Botão de fechar menor e mais discreto */
+    height: 32px;
+}
+.noxss-modal__close-btn .noxss-icon {
+    width: 20px;
+    height: 20px;
+}
+
+
+/* ---------------------------------- */
+/* 5. Modificadores                   */
+/* ---------------------------------- */
+
+/* Modificador para diálogos maiores (ex: com formulários) */
+.noxss-modal__dialog--large {
+    max-width: 600px;
+}
+
+/* Modificador para tela cheia (sem alterações) */
+.noxss-modal__dialog--fullscreen {
+    width: 100%; height: 100%; max-width: 100%; max-height: 100%;
+    border-radius: 0; border: none;
+}
+/* ==========================================================================
+   Noxss Library: Toasts/Snackbars Component
+   - Versão: 2.1 (Correção de centralização para posições 'center')
+   - Notificações não-intrusivas para feedback do usuário.
+   - Depende de: core.css
+   ========================================================================== */
+
+/* ---------------------------------- */
+/* 1. Contêiner de Toasts (Base)      */
+/* ---------------------------------- */
+.noxss-toast-container {
+    position: fixed;
+    z-index: 1100;
+    display: flex;
+    flex-direction: column;
+    width: -webkit-max-content;
+    width: -moz-max-content;
+    width: max-content;
+    max-width: calc(100% - 3rem);
+    pointer-events: none;
+    gap: 0.75rem;
+}
+
+/* ---------------------------------- */
+/* 2. O Toast Individual              */
+/* ---------------------------------- */
+.noxss-toast {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    
+    width: 100%;
+    max-width: 380px;
+    padding: 1rem 1.25rem;
+    
+    background-color: var(--noxss-bg-surface);
+    color: var(--noxss-text-primary);
+    border: 1px solid var(--noxss-border-color);
+    border-left-width: 5px;
+    border-left-color: var(--noxss-text-secondary);
+    border-radius: var(--noxss-border-radius-base);
+    box-shadow: var(--noxss-shadow-lg);
+    
+    pointer-events: auto;
+    /* A animação de entrada é aplicada pela classe de posição específica */
+}
+
+.noxss-toast.is-hiding {
+    /* A animação de saída também é aplicada pela classe de posição */
+}
+
+/* --- Partes Internas e Modificadores de Status --- */
+.noxss-toast__icon { flex-shrink: 0; font-size: 1.5rem; }
+.noxss-toast__message { flex-grow: 1; font-size: 0.95rem; line-height: 1.4; }
+.noxss-toast__close-btn { flex-shrink: 0; padding: 0; width: 28px; height: 28px; background: none; border: none; color: var(--noxss-text-secondary); cursor: pointer; opacity: 0.7; transition: opacity 150ms ease; }
+.noxss-toast__close-btn:hover { opacity: 1; }
+.noxss-toast__close-btn .noxss-icon { width: 18px; height: 18px; }
+.noxss-toast--success { border-left-color: var(--noxss-color-success); }
+.noxss-toast--success .noxss-toast__icon { color: var(--noxss-color-success); }
+.noxss-toast--danger { border-left-color: var(--noxss-color-danger); }
+.noxss-toast--danger .noxss-toast__icon { color: var(--noxss-color-danger); }
+.noxss-toast--warning { border-left-color: var(--noxss-color-warning); }
+.noxss-toast--warning .noxss-toast__icon { color: var(--noxss-color-warning); }
+.noxss-toast--info { border-left-color: var(--noxss-accent-primary); }
+.noxss-toast--info .noxss-toast__icon { color: var(--noxss-accent-primary); }
+
+
+/* ---------------------------------- */
+/* 3. Modificadores de Posição e Animação */
+/* ---------------------------------- */
+
+/* --- Canto Superior Direito --- */
+.noxss-toast-container--top-right { top: 1.5rem; right: 1.5rem; align-items: flex-end; }
+.noxss-toast-container--top-right .noxss-toast { animation: noxss-toast-in-right 0.4s cubic-bezier(0.21, 1.02, 0.73, 1); }
+.noxss-toast-container--top-right .noxss-toast.is-hiding { animation: noxss-toast-out-right 0.4s ease-out forwards; }
+
+/* --- Topo Central --- */
+.noxss-toast-container--top-center { top: 1.5rem; left: 50%; align-items: center; }
+.noxss-toast-container--top-center .noxss-toast { animation: noxss-toast-in-top 0.4s cubic-bezier(0.21, 1.02, 0.73, 1); }
+.noxss-toast-container--top-center .noxss-toast.is-hiding { animation: noxss-toast-out-top 0.4s ease-out forwards; }
+
+/* --- Canto Superior Esquerdo --- */
+.noxss-toast-container--top-left { top: 1.5rem; left: 1.5rem; align-items: flex-start; }
+.noxss-toast-container--top-left .noxss-toast { animation: noxss-toast-in-left 0.4s cubic-bezier(0.21, 1.02, 0.73, 1); }
+.noxss-toast-container--top-left .noxss-toast.is-hiding { animation: noxss-toast-out-left 0.4s ease-out forwards; }
+
+/* --- Canto Inferior Direito (Padrão) --- */
+.noxss-toast-container--bottom-right { bottom: 1.5rem; right: 1.5rem; align-items: flex-end; flex-direction: column-reverse; }
+.noxss-toast-container--bottom-right .noxss-toast { animation: noxss-toast-in-right 0.4s cubic-bezier(0.21, 1.02, 0.73, 1); }
+.noxss-toast-container--bottom-right .noxss-toast.is-hiding { animation: noxss-toast-out-right 0.4s ease-out forwards; }
+
+/* --- Fundo Central --- */
+.noxss-toast-container--bottom-center { bottom: 1.5rem; left: 50%; align-items: center; flex-direction: column-reverse; }
+.noxss-toast-container--bottom-center .noxss-toast { animation: noxss-toast-in-bottom 0.4s cubic-bezier(0.21, 1.02, 0.73, 1); }
+.noxss-toast-container--bottom-center .noxss-toast.is-hiding { animation: noxss-toast-out-bottom 0.4s ease-out forwards; }
+
+/* --- Canto Inferior Esquerdo --- */
+.noxss-toast-container--bottom-left { bottom: 1.5rem; left: 1.5rem; align-items: flex-start; flex-direction: column-reverse; }
+.noxss-toast-container--bottom-left .noxss-toast { animation: noxss-toast-in-left 0.4s cubic-bezier(0.21, 1.02, 0.73, 1); }
+.noxss-toast-container--bottom-left .noxss-toast.is-hiding { animation: noxss-toast-out-left 0.4s ease-out forwards; }
+
+
+/* ---------------------------------- */
+/* 4. Keyframes de Animação           */
+/* ---------------------------------- */
+
+@keyframes noxss-toast-in-top { from { opacity: 0; transform: translateY(-100%); } to { opacity: 1; transform: translateY(0); } }
+@keyframes noxss-toast-out-top { from { opacity: 1; transform: translateY(0); } to { opacity: 0; transform: translateY(-100%); } }
+
+@keyframes noxss-toast-in-right { from { opacity: 0; transform: translateX(100%); } to { opacity: 1; transform: translateX(0); } }
+@keyframes noxss-toast-out-right { from { opacity: 1; transform: translateX(0); } to { opacity: 0; transform: translateX(100%); } }
+
+@keyframes noxss-toast-in-bottom { from { opacity: 0; transform: translateY(100%); } to { opacity: 1; transform: translateY(0); } }
+@keyframes noxss-toast-out-bottom { from { opacity: 1; transform: translateY(0); } to { opacity: 0; transform: translateY(100%); } }
+
+@keyframes noxss-toast-in-left { from { opacity: 0; transform: translateX(-100%); } to { opacity: 1; transform: translateX(0); } }
+@keyframes noxss-toast-out-left { from { opacity: 1; transform: translateX(0); } to { opacity: 0; transform: translateX(-100%); } }
+
+/* Responsividade para telas pequenas */
+@media (max-width: 576px) {
+    .noxss-toast-container {
+        left: 1rem;
+        right: 1rem;
+        bottom: 1rem;
+        max-width: none;
+        width: auto;
+    }
+    /* Para posições no topo em mobile, ajusta o espaçamento */
+    .noxss-toast-container--top-left,
+    .noxss-toast-container--top-right,
+    .noxss-toast-container--top-center {
+        top: 1rem;
+    }
+}
+/* ==========================================================================
+   Noxss Library: Loaders Component
+   - Versão: 2.0 (Design e animação aprimorados para Spinners e Progress Bars)
+   - Indicadores de carregamento elegantes.
+   - Depende de: core.css
+   ========================================================================== */
+
+/* ---------------------------------- */
+/* 1. Spinner (Pontos Pulsantes)      */
+/* ---------------------------------- */
+
+@keyframes noxss-spinner-pulse {
+    0%, 80%, 100% {
+        transform: scale(0.5);
+        opacity: 0.5;
+    }
+    40% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+.noxss-spinner {
+    display: inline-flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 3.5em; /* Largura baseada na font-size */
+    height: 1.5em; /* Altura baseada na font-size */
+    font-size: 10px; /* Tamanho padrão dos pontos */
+    vertical-align: middle;
+}
+
+.noxss-spinner > div {
+    width: 1em;
+    height: 1em;
+    background-color: var(--noxss-accent-primary);
+    border-radius: 50%;
+    animation: noxss-spinner-pulse 1.4s infinite ease-in-out both;
+}
+
+/* Atraso na animação para cada ponto criar o efeito de onda */
+.noxss-spinner .noxss-spinner-point-1 { animation-delay: -0.32s; }
+.noxss-spinner .noxss-spinner-point-2 { animation-delay: -0.16s; }
+.noxss-spinner .noxss-spinner-point-3 { animation-delay: 0s; }
+
+
+/* -- Modificadores de Tamanho -- */
+.noxss-spinner--sm { font-size: 8px; }
+.noxss-spinner--lg { font-size: 14px; }
+
+/* -- Uso em Botões -- */
+.noxss-btn .noxss-spinner {
+    font-size: 7px;
+    color: currentColor; /* Permite que os pontos herdem a cor do texto do botão */
+}
+.noxss-btn .noxss-spinner > div {
+    background-color: currentColor;
+}
+.noxss-loading .is-loading-hidden { visibility: hidden; }
+.noxss-loading .noxss-spinner { position: absolute; }
+
+
+/* ---------------------------------- */
+/* 2. Barra de Progresso              */
+/* ---------------------------------- */
+
+@keyframes noxss-progress-stripes {
+    from { background-position: 1rem 0; }
+    to { background-position: 0 0; }
+}
+
+.noxss-progress {
+    display: flex;
+    height: 0.75rem; /* Um pouco mais alta para melhor visibilidade */
+    overflow: hidden;
+    background-color: var(--noxss-bg-surface);
+    border-radius: 50px; /* Bordas totalmente arredondadas */
+    border: 1px solid var(--noxss-border-color);
+    padding: 2px; /* Espaço interno para a barra */
+}
+
+.noxss-progress__bar {
+    display: flex;
+    justify-content: center;
+    color: var(--noxss-text-on-accent);
+    background-color: var(--noxss-accent-primary);
+    border-radius: 50px;
+    transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* -- Modificador Indeterminado (Listras Animadas) -- */
+.noxss-progress--indeterminate .noxss-progress__bar {
+    width: 100% !important;
+    background-image: linear-gradient(
+        45deg,
+        rgba(255, 255, 255, 0.15) 25%,
+        transparent 25%,
+        transparent 50%,
+        rgba(255, 255, 255, 0.15) 50%,
+        rgba(255, 255, 255, 0.15) 75%,
+        transparent 75%,
+        transparent
+    );
+    background-size: 1rem 1rem;
+    animation: noxss-progress-stripes 1s linear infinite;
+}
+
+/* -- Modificador com Rótulo (Aumenta a altura) -- */
+.noxss-progress--labeled {
+    height: 1.5rem;
+    font-size: 0.75rem;
+    font-weight: 500;
+}
+/* ==========================================================================
+   Noxss Library: Alerts Component
+   - Mensagens contextuais para feedback do usuário.
+   - Versão: 1.0
+   - Depende de: core.css
+   ========================================================================== */
+
+@keyframes noxss-alert-fade-out {
+    from {
+        opacity: 1;
+        transform: scaleY(1);
+        max-height: 150px; /* Altura aproximada para a animação */
+    }
+    to {
+        opacity: 0;
+        transform: scaleY(0.8);
+        max-height: 0;
+        padding-top: 0;
+        padding-bottom: 0;
+        margin-bottom: 0;
+        border-width: 0;
+    }
+}
+
+.noxss-alert {
+    display: flex;
+    align-items: flex-start; /* Alinha ícone com a primeira linha de texto */
+    gap: 1rem;
+    
+    padding: 1rem 1.25rem;
+    margin-bottom: 1.5rem; /* Espaçamento padrão abaixo do alerta */
+    
+    border-radius: var(--noxss-border-radius-base);
+    border: 1px solid transparent;
+    border-left-width: 5px; /* Borda de status proeminente */
+}
+
+/* Animação de saída quando a classe .is-hiding é adicionada pelo JS */
+.noxss-alert.is-hiding {
+    animation: noxss-alert-fade-out 350ms ease-out forwards;
+    overflow: hidden;
+}
+
+/* --- Partes Internas do Alerta --- */
+
+.noxss-alert__icon {
+    flex-shrink: 0;
+    margin-top: 0.15em; /* Ajuste fino para alinhar com o texto */
+    font-size: 1.25rem;
+}
+
+.noxss-alert__content {
+    flex-grow: 1;
+}
+
+.noxss-alert__title {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 0.4rem;
+}
+
+/* Garante que links dentro dos alertas tenham a cor correta */
+.noxss-alert a {
+    font-weight: 600;
+    text-decoration: underline;
+}
+
+.noxss-alert__close-btn {
+    flex-shrink: 0;
+    background: none;
+    border: none;
+    padding: 0;
+    margin: 0 -0.5rem 0 0.5rem; /* Margem negativa para alinhar visualmente */
+    color: inherit; /* Herda a cor do texto do alerta */
+    opacity: 0.7;
+    cursor: pointer;
+    transition: opacity 150ms ease;
+}
+.noxss-alert__close-btn:hover {
+    opacity: 1;
+}
+.noxss-alert__close-btn .noxss-icon {
+    width: 20px;
+    height: 20px;
+}
+
+/* ---------------------------------- */
+/* Modificadores de Status            */
+/* ---------------------------------- */
+
+/* Padrão (Info) */
+.noxss-alert,
+.noxss-alert--info {
+    background-color: rgba(var(--noxss-accent-primary-rgb), 0.1);
+    border-color: var(--noxss-accent-primary);
+    color: var(--noxss-text-primary);
+}
+.noxss-alert a,
+.noxss-alert--info a {
+    color: var(--noxss-accent-primary);
+}
+
+/* Sucesso */
+.noxss-alert--success {
+    background-color: rgba(var(--noxss-color-success-rgb), 0.1);
+    border-color: var(--noxss-color-success);
+}
+.noxss-alert--success .noxss-alert__icon,
+.noxss-alert--success .noxss-alert__title,
+.noxss-alert--success a {
+    color: var(--noxss-color-success);
+}
+
+/* Aviso */
+.noxss-alert--warning {
+    background-color: rgba(var(--noxss-color-warning-rgb, 255, 193, 7), 0.1);
+    border-color: var(--noxss-color-warning);
+}
+/* No tema claro, o texto amarelo pode ser difícil de ler. */
+[data-theme="light"] .noxss-alert--warning {
+    color: #664d03; /* Cor mais escura para contraste */
+}
+.noxss-alert--warning .noxss-alert__icon,
+.noxss-alert--warning .noxss-alert__title,
+.noxss-alert--warning a {
+    color: var(--noxss-color-warning);
+}
+[data-theme="light"] .noxss-alert--warning .noxss-alert__icon,
+[data-theme="light"] .noxss-alert--warning .noxss-alert__title,
+[data-theme="light"] .noxss-alert--warning a {
+    color: #664d03;
+}
+
+
+/* Perigo */
+.noxss-alert--danger {
+    background-color: rgba(var(--noxss-color-danger-rgb), 0.1);
+    border-color: var(--noxss-color-danger);
+}
+.noxss-alert--danger .noxss-alert__icon,
+.noxss-alert--danger .noxss-alert__title,
+.noxss-alert--danger a {
+    color: var(--noxss-color-danger);
+}
+/* ==========================================================================
+   Noxss Library: Mathematical Typesetting Component
+   - Estilos para MathML nativo e integração com KaTeX (LaTeX).
+   - Versão: 1.0
+   - Depende de: core.css
+   ========================================================================== */
+
+/* ---------------------------------- */
+/* 1. Variáveis e Estilos de Base     */
+/* ---------------------------------- */
+
+:root {
+    /* Define uma família de fontes otimizada para matemática. */
+    /* O navegador tentará usar a primeira que encontrar. */
+    --noxss-font-family-math: "Latin Modern Math", "Cambria Math", "STIX Two Math", "Times New Roman", serif;
+}
+
+/* Estilo base para elementos matemáticos inline e em bloco */
+math, .katex {
+    font-family: var(--noxss-font-family-math);
+    font-size: 1.1em; /* Fórmulas um pouco maiores para legibilidade */
+    color: var(--noxss-text-primary);
+}
+
+
+/* ---------------------------------- */
+/* 2. Estilização para MathML Nativo  */
+/* ---------------------------------- */
+
+/* Garante que o MathML em modo display se comporte como um bloco */
+math[display="block"] {
+    display: block;
+    overflow-x: auto;
+    overflow-y: hidden;
+    padding: 1.5em;
+    margin: 1.5rem 0;
+    text-align: center;
+    background-color: var(--noxss-bg-surface);
+    border-radius: var(--noxss-border-radius-base);
+}
+
+/* Identificadores (variáveis) em itálico, como é o costume */
+mi {
+    font-style: italic;
+}
+
+/* Operadores com uma cor sutilmente diferente para destaque */
+mo {
+    color: var(--noxss-accent-primary);
+    padding: 0 0.25em;
+}
+
+
+/* ---------------------------------- */
+/* 3. Estilização para KaTeX (LaTeX)  */
+/* ---------------------------------- */
+
+/* -- Fórmulas Inline -- */
+.katex {
+    /* Ajusta o alinhamento vertical para não quebrar a linha do texto */
+    display: inline-flex;
+    align-items: baseline;
+    vertical-align: -0.1em;
+}
+
+/* -- Fórmulas em Bloco (Display) -- */
+.katex-display {
+    display: block;
+    overflow-x: auto;
+    overflow-y: hidden;
+    padding: 1.5rem;
+    margin: 1.5rem 0;
+    text-align: center;
+
+    background-color: var(--noxss-bg-surface);
+    border: 1px solid var(--noxss-border-color);
+    border-radius: var(--noxss-border-radius-base);
+}
+
+/* Ajusta o padding interno gerado pelo KaTeX */
+.katex-display > .katex {
+    display: inline-block;
+    white-space: nowrap;
+    text-align: initial;
+}
+
+/*
+ * Sobrescreve as cores padrão do KaTeX para usar as variáveis do tema Noxss.
+ * Isso garante que as equações se adaptem aos temas Light/Dark.
+ */
+
+/* Linhas de fração e raiz quadrada */
+.katex .frac-line,
+.katex .sqrt-line,
+.katex .overline-line,
+.katex .underline-line {
+    border-bottom-color: currentColor; /* Usa a cor do texto atual */
+}
+
+/* Símbolos que o KaTeX pode renderizar de forma diferente */
+.katex .op-symbol {
+    color: var(--noxss-accent-primary);
+}
+
+/* Corrigindo a cor de fundo de alguns ambientes, se necessário */
+.katex .mtable {
+    border-color: var(--noxss-border-color);
+}
+/* ==========================================================================
+   Noxss Library: Utility Classes (AUTO-GENERATED)
+   - Do not edit this file directly. It is generated by 'build/generate-utilities.js'.
+   - Versão: 1.0
+   ========================================================================== */
+
+.u-d-none { display: none !important; }
+.u-d-block { display: block !important; }
+.u-d-inline-block { display: inline-block !important; }
+.u-d-flex { display: flex !important; }
+.u-d-inline-flex { display: inline-flex !important; }
+.u-d-grid { display: grid !important; }
+.u-flex-row { flex-direction: row !important; }
+.u-flex-col { flex-direction: column !important; }
+.u-justify-start { justify-content: flex-start !important; }
+.u-justify-center { justify-content: center !important; }
+.u-justify-end { justify-content: flex-end !important; }
+.u-justify-between { justify-content: space-between !important; }
+.u-align-start { align-items: flex-start !important; }
+.u-align-center { align-items: center !important; }
+.u-align-end { align-items: flex-end !important; }
+.u-align-stretch { align-items: stretch !important; }
+.u-flex-wrap-wrap { flex-wrap: wrap !important; }
+.u-flex-wrap-nowrap { flex-wrap: nowrap !important; }
+.u-m-0 { margin: 0 !important; }
+.u-m-1 { margin: 0.25rem !important; }
+.u-m-2 { margin: 0.5rem !important; }
+.u-m-3 { margin: 1rem !important; }
+.u-m-4 { margin: 1.5rem !important; }
+.u-m-5 { margin: 3rem !important; }
+.u-m-auto { margin: auto !important; }
+.u-mt-0 { margin-top: 0 !important; }
+.u-mt-1 { margin-top: 0.25rem !important; }
+.u-mt-2 { margin-top: 0.5rem !important; }
+.u-mt-3 { margin-top: 1rem !important; }
+.u-mt-4 { margin-top: 1.5rem !important; }
+.u-mt-5 { margin-top: 3rem !important; }
+.u-mt-auto { margin-top: auto !important; }
+.u-mb-0 { margin-bottom: 0 !important; }
+.u-mb-1 { margin-bottom: 0.25rem !important; }
+.u-mb-2 { margin-bottom: 0.5rem !important; }
+.u-mb-3 { margin-bottom: 1rem !important; }
+.u-mb-4 { margin-bottom: 1.5rem !important; }
+.u-mb-5 { margin-bottom: 3rem !important; }
+.u-mb-auto { margin-bottom: auto !important; }
+.u-ms-0 { margin-left: 0 !important; }
+.u-ms-1 { margin-left: 0.25rem !important; }
+.u-ms-2 { margin-left: 0.5rem !important; }
+.u-ms-3 { margin-left: 1rem !important; }
+.u-ms-4 { margin-left: 1.5rem !important; }
+.u-ms-5 { margin-left: 3rem !important; }
+.u-ms-auto { margin-left: auto !important; }
+.u-me-0 { margin-right: 0 !important; }
+.u-me-1 { margin-right: 0.25rem !important; }
+.u-me-2 { margin-right: 0.5rem !important; }
+.u-me-3 { margin-right: 1rem !important; }
+.u-me-4 { margin-right: 1.5rem !important; }
+.u-me-5 { margin-right: 3rem !important; }
+.u-me-auto { margin-right: auto !important; }
+.u-mx-0 { margin-left: 0 !important; margin-right: 0 !important; }
+.u-mx-1 { margin-left: 0.25rem !important; margin-right: 0.25rem !important; }
+.u-mx-2 { margin-left: 0.5rem !important; margin-right: 0.5rem !important; }
+.u-mx-3 { margin-left: 1rem !important; margin-right: 1rem !important; }
+.u-mx-4 { margin-left: 1.5rem !important; margin-right: 1.5rem !important; }
+.u-mx-5 { margin-left: 3rem !important; margin-right: 3rem !important; }
+.u-mx-auto { margin-left: auto !important; margin-right: auto !important; }
+.u-my-0 { margin-top: 0 !important; margin-bottom: 0 !important; }
+.u-my-1 { margin-top: 0.25rem !important; margin-bottom: 0.25rem !important; }
+.u-my-2 { margin-top: 0.5rem !important; margin-bottom: 0.5rem !important; }
+.u-my-3 { margin-top: 1rem !important; margin-bottom: 1rem !important; }
+.u-my-4 { margin-top: 1.5rem !important; margin-bottom: 1.5rem !important; }
+.u-my-5 { margin-top: 3rem !important; margin-bottom: 3rem !important; }
+.u-my-auto { margin-top: auto !important; margin-bottom: auto !important; }
+.u-p-0 { padding: 0 !important; }
+.u-p-1 { padding: 0.25rem !important; }
+.u-p-2 { padding: 0.5rem !important; }
+.u-p-3 { padding: 1rem !important; }
+.u-p-4 { padding: 1.5rem !important; }
+.u-p-5 { padding: 3rem !important; }
+.u-p-auto { padding: auto !important; }
+.u-pt-0 { padding-top: 0 !important; }
+.u-pt-1 { padding-top: 0.25rem !important; }
+.u-pt-2 { padding-top: 0.5rem !important; }
+.u-pt-3 { padding-top: 1rem !important; }
+.u-pt-4 { padding-top: 1.5rem !important; }
+.u-pt-5 { padding-top: 3rem !important; }
+.u-pt-auto { padding-top: auto !important; }
+.u-pb-0 { padding-bottom: 0 !important; }
+.u-pb-1 { padding-bottom: 0.25rem !important; }
+.u-pb-2 { padding-bottom: 0.5rem !important; }
+.u-pb-3 { padding-bottom: 1rem !important; }
+.u-pb-4 { padding-bottom: 1.5rem !important; }
+.u-pb-5 { padding-bottom: 3rem !important; }
+.u-pb-auto { padding-bottom: auto !important; }
+.u-ps-0 { padding-left: 0 !important; }
+.u-ps-1 { padding-left: 0.25rem !important; }
+.u-ps-2 { padding-left: 0.5rem !important; }
+.u-ps-3 { padding-left: 1rem !important; }
+.u-ps-4 { padding-left: 1.5rem !important; }
+.u-ps-5 { padding-left: 3rem !important; }
+.u-ps-auto { padding-left: auto !important; }
+.u-pe-0 { padding-right: 0 !important; }
+.u-pe-1 { padding-right: 0.25rem !important; }
+.u-pe-2 { padding-right: 0.5rem !important; }
+.u-pe-3 { padding-right: 1rem !important; }
+.u-pe-4 { padding-right: 1.5rem !important; }
+.u-pe-5 { padding-right: 3rem !important; }
+.u-pe-auto { padding-right: auto !important; }
+.u-px-0 { padding-left: 0 !important; padding-right: 0 !important; }
+.u-px-1 { padding-left: 0.25rem !important; padding-right: 0.25rem !important; }
+.u-px-2 { padding-left: 0.5rem !important; padding-right: 0.5rem !important; }
+.u-px-3 { padding-left: 1rem !important; padding-right: 1rem !important; }
+.u-px-4 { padding-left: 1.5rem !important; padding-right: 1.5rem !important; }
+.u-px-5 { padding-left: 3rem !important; padding-right: 3rem !important; }
+.u-px-auto { padding-left: auto !important; padding-right: auto !important; }
+.u-py-0 { padding-top: 0 !important; padding-bottom: 0 !important; }
+.u-py-1 { padding-top: 0.25rem !important; padding-bottom: 0.25rem !important; }
+.u-py-2 { padding-top: 0.5rem !important; padding-bottom: 0.5rem !important; }
+.u-py-3 { padding-top: 1rem !important; padding-bottom: 1rem !important; }
+.u-py-4 { padding-top: 1.5rem !important; padding-bottom: 1.5rem !important; }
+.u-py-5 { padding-top: 3rem !important; padding-bottom: 3rem !important; }
+.u-py-auto { padding-top: auto !important; padding-bottom: auto !important; }
+.u-gap-0 { gap: 0 !important; }
+.u-gap-1 { gap: 0.25rem !important; }
+.u-gap-2 { gap: 0.5rem !important; }
+.u-gap-3 { gap: 1rem !important; }
+.u-gap-4 { gap: 1.5rem !important; }
+.u-gap-5 { gap: 3rem !important; }
+.u-gap-auto { gap: auto !important; }
+.u-text-left { text-align: left !important; }
+.u-text-center { text-align: center !important; }
+.u-text-right { text-align: right !important; }
+.u-font-normal { font-weight: normal !important; }
+.u-font-medium { font-weight: 500 !important; }
+.u-font-semibold { font-weight: 600 !important; }
+.u-font-bold { font-weight: 700 !important; }
+.u-text-primary { color: var(--noxss-text-primary) !important; }
+.u-text-secondary { color: var(--noxss-text-secondary) !important; }
+.u-text-accent { color: var(--noxss-accent-primary) !important; }
+.u-text-success { color: var(--noxss-color-success) !important; }
+.u-text-danger { color: var(--noxss-color-danger) !important; }
+.u-text-warning { color: var(--noxss-color-warning) !important; }
+.u-rounded { border-radius: var(--noxss-border-radius-base) !important; }
+.u-rounded-full { border-radius: 9999px !important; }
+.u-shadow-sm { box-shadow: var(--noxss-shadow-sm) !important; }
+.u-shadow-md { box-shadow: var(--noxss-shadow-md) !important; }
+.u-shadow-lg { box-shadow: var(--noxss-shadow-lg) !important; }
+.u-shadow-none { box-shadow: none !important; }
+
+@media (min-width: 768px) {
+    .md\:u-d-none { display: none !important; }
+    .md\:u-d-block { display: block !important; }
+    .md\:u-d-inline-block { display: inline-block !important; }
+    .md\:u-d-flex { display: flex !important; }
+    .md\:u-d-inline-flex { display: inline-flex !important; }
+    .md\:u-d-grid { display: grid !important; }
+    .md\:u-flex-row { flex-direction: row !important; }
+    .md\:u-flex-col { flex-direction: column !important; }
+    .md\:u-justify-start { justify-content: flex-start !important; }
+    .md\:u-justify-center { justify-content: center !important; }
+    .md\:u-justify-end { justify-content: flex-end !important; }
+    .md\:u-justify-between { justify-content: space-between !important; }
+    .md\:u-align-start { align-items: flex-start !important; }
+    .md\:u-align-center { align-items: center !important; }
+    .md\:u-align-end { align-items: flex-end !important; }
+    .md\:u-align-stretch { align-items: stretch !important; }
+    .md\:u-flex-wrap-wrap { flex-wrap: wrap !important; }
+    .md\:u-flex-wrap-nowrap { flex-wrap: nowrap !important; }
+    .md\:u-m-0 { margin: 0 !important; }
+    .md\:u-m-1 { margin: 0.25rem !important; }
+    .md\:u-m-2 { margin: 0.5rem !important; }
+    .md\:u-m-3 { margin: 1rem !important; }
+    .md\:u-m-4 { margin: 1.5rem !important; }
+    .md\:u-m-5 { margin: 3rem !important; }
+    .md\:u-m-auto { margin: auto !important; }
+    .md\:u-mt-0 { margin-top: 0 !important; }
+    .md\:u-mt-1 { margin-top: 0.25rem !important; }
+    .md\:u-mt-2 { margin-top: 0.5rem !important; }
+    .md\:u-mt-3 { margin-top: 1rem !important; }
+    .md\:u-mt-4 { margin-top: 1.5rem !important; }
+    .md\:u-mt-5 { margin-top: 3rem !important; }
+    .md\:u-mt-auto { margin-top: auto !important; }
+    .md\:u-mb-0 { margin-bottom: 0 !important; }
+    .md\:u-mb-1 { margin-bottom: 0.25rem !important; }
+    .md\:u-mb-2 { margin-bottom: 0.5rem !important; }
+    .md\:u-mb-3 { margin-bottom: 1rem !important; }
+    .md\:u-mb-4 { margin-bottom: 1.5rem !important; }
+    .md\:u-mb-5 { margin-bottom: 3rem !important; }
+    .md\:u-mb-auto { margin-bottom: auto !important; }
+    .md\:u-ms-0 { margin-left: 0 !important; }
+    .md\:u-ms-1 { margin-left: 0.25rem !important; }
+    .md\:u-ms-2 { margin-left: 0.5rem !important; }
+    .md\:u-ms-3 { margin-left: 1rem !important; }
+    .md\:u-ms-4 { margin-left: 1.5rem !important; }
+    .md\:u-ms-5 { margin-left: 3rem !important; }
+    .md\:u-ms-auto { margin-left: auto !important; }
+    .md\:u-me-0 { margin-right: 0 !important; }
+    .md\:u-me-1 { margin-right: 0.25rem !important; }
+    .md\:u-me-2 { margin-right: 0.5rem !important; }
+    .md\:u-me-3 { margin-right: 1rem !important; }
+    .md\:u-me-4 { margin-right: 1.5rem !important; }
+    .md\:u-me-5 { margin-right: 3rem !important; }
+    .md\:u-me-auto { margin-right: auto !important; }
+    .md\:u-mx-0 { margin-left: 0 !important; margin-right: 0 !important; }
+    .md\:u-mx-1 { margin-left: 0.25rem !important; margin-right: 0.25rem !important; }
+    .md\:u-mx-2 { margin-left: 0.5rem !important; margin-right: 0.5rem !important; }
+    .md\:u-mx-3 { margin-left: 1rem !important; margin-right: 1rem !important; }
+    .md\:u-mx-4 { margin-left: 1.5rem !important; margin-right: 1.5rem !important; }
+    .md\:u-mx-5 { margin-left: 3rem !important; margin-right: 3rem !important; }
+    .md\:u-mx-auto { margin-left: auto !important; margin-right: auto !important; }
+    .md\:u-my-0 { margin-top: 0 !important; margin-bottom: 0 !important; }
+    .md\:u-my-1 { margin-top: 0.25rem !important; margin-bottom: 0.25rem !important; }
+    .md\:u-my-2 { margin-top: 0.5rem !important; margin-bottom: 0.5rem !important; }
+    .md\:u-my-3 { margin-top: 1rem !important; margin-bottom: 1rem !important; }
+    .md\:u-my-4 { margin-top: 1.5rem !important; margin-bottom: 1.5rem !important; }
+    .md\:u-my-5 { margin-top: 3rem !important; margin-bottom: 3rem !important; }
+    .md\:u-my-auto { margin-top: auto !important; margin-bottom: auto !important; }
+    .md\:u-p-0 { padding: 0 !important; }
+    .md\:u-p-1 { padding: 0.25rem !important; }
+    .md\:u-p-2 { padding: 0.5rem !important; }
+    .md\:u-p-3 { padding: 1rem !important; }
+    .md\:u-p-4 { padding: 1.5rem !important; }
+    .md\:u-p-5 { padding: 3rem !important; }
+    .md\:u-p-auto { padding: auto !important; }
+    .md\:u-pt-0 { padding-top: 0 !important; }
+    .md\:u-pt-1 { padding-top: 0.25rem !important; }
+    .md\:u-pt-2 { padding-top: 0.5rem !important; }
+    .md\:u-pt-3 { padding-top: 1rem !important; }
+    .md\:u-pt-4 { padding-top: 1.5rem !important; }
+    .md\:u-pt-5 { padding-top: 3rem !important; }
+    .md\:u-pt-auto { padding-top: auto !important; }
+    .md\:u-pb-0 { padding-bottom: 0 !important; }
+    .md\:u-pb-1 { padding-bottom: 0.25rem !important; }
+    .md\:u-pb-2 { padding-bottom: 0.5rem !important; }
+    .md\:u-pb-3 { padding-bottom: 1rem !important; }
+    .md\:u-pb-4 { padding-bottom: 1.5rem !important; }
+    .md\:u-pb-5 { padding-bottom: 3rem !important; }
+    .md\:u-pb-auto { padding-bottom: auto !important; }
+    .md\:u-ps-0 { padding-left: 0 !important; }
+    .md\:u-ps-1 { padding-left: 0.25rem !important; }
+    .md\:u-ps-2 { padding-left: 0.5rem !important; }
+    .md\:u-ps-3 { padding-left: 1rem !important; }
+    .md\:u-ps-4 { padding-left: 1.5rem !important; }
+    .md\:u-ps-5 { padding-left: 3rem !important; }
+    .md\:u-ps-auto { padding-left: auto !important; }
+    .md\:u-pe-0 { padding-right: 0 !important; }
+    .md\:u-pe-1 { padding-right: 0.25rem !important; }
+    .md\:u-pe-2 { padding-right: 0.5rem !important; }
+    .md\:u-pe-3 { padding-right: 1rem !important; }
+    .md\:u-pe-4 { padding-right: 1.5rem !important; }
+    .md\:u-pe-5 { padding-right: 3rem !important; }
+    .md\:u-pe-auto { padding-right: auto !important; }
+    .md\:u-px-0 { padding-left: 0 !important; padding-right: 0 !important; }
+    .md\:u-px-1 { padding-left: 0.25rem !important; padding-right: 0.25rem !important; }
+    .md\:u-px-2 { padding-left: 0.5rem !important; padding-right: 0.5rem !important; }
+    .md\:u-px-3 { padding-left: 1rem !important; padding-right: 1rem !important; }
+    .md\:u-px-4 { padding-left: 1.5rem !important; padding-right: 1.5rem !important; }
+    .md\:u-px-5 { padding-left: 3rem !important; padding-right: 3rem !important; }
+    .md\:u-px-auto { padding-left: auto !important; padding-right: auto !important; }
+    .md\:u-py-0 { padding-top: 0 !important; padding-bottom: 0 !important; }
+    .md\:u-py-1 { padding-top: 0.25rem !important; padding-bottom: 0.25rem !important; }
+    .md\:u-py-2 { padding-top: 0.5rem !important; padding-bottom: 0.5rem !important; }
+    .md\:u-py-3 { padding-top: 1rem !important; padding-bottom: 1rem !important; }
+    .md\:u-py-4 { padding-top: 1.5rem !important; padding-bottom: 1.5rem !important; }
+    .md\:u-py-5 { padding-top: 3rem !important; padding-bottom: 3rem !important; }
+    .md\:u-py-auto { padding-top: auto !important; padding-bottom: auto !important; }
+    .md\:u-gap-0 { gap: 0 !important; }
+    .md\:u-gap-1 { gap: 0.25rem !important; }
+    .md\:u-gap-2 { gap: 0.5rem !important; }
+    .md\:u-gap-3 { gap: 1rem !important; }
+    .md\:u-gap-4 { gap: 1.5rem !important; }
+    .md\:u-gap-5 { gap: 3rem !important; }
+    .md\:u-gap-auto { gap: auto !important; }
+    .md\:u-text-left { text-align: left !important; }
+    .md\:u-text-center { text-align: center !important; }
+    .md\:u-text-right { text-align: right !important; }
+}
+
+@media (min-width: 992px) {
+    .lg\:u-d-none { display: none !important; }
+    .lg\:u-d-block { display: block !important; }
+    .lg\:u-d-inline-block { display: inline-block !important; }
+    .lg\:u-d-flex { display: flex !important; }
+    .lg\:u-d-inline-flex { display: inline-flex !important; }
+    .lg\:u-d-grid { display: grid !important; }
+    .lg\:u-flex-row { flex-direction: row !important; }
+    .lg\:u-flex-col { flex-direction: column !important; }
+    .lg\:u-justify-start { justify-content: flex-start !important; }
+    .lg\:u-justify-center { justify-content: center !important; }
+    .lg\:u-justify-end { justify-content: flex-end !important; }
+    .lg\:u-justify-between { justify-content: space-between !important; }
+    .lg\:u-align-start { align-items: flex-start !important; }
+    .lg\:u-align-center { align-items: center !important; }
+    .lg\:u-align-end { align-items: flex-end !important; }
+    .lg\:u-align-stretch { align-items: stretch !important; }
+    .lg\:u-flex-wrap-wrap { flex-wrap: wrap !important; }
+    .lg\:u-flex-wrap-nowrap { flex-wrap: nowrap !important; }
+    .lg\:u-m-0 { margin: 0 !important; }
+    .lg\:u-m-1 { margin: 0.25rem !important; }
+    .lg\:u-m-2 { margin: 0.5rem !important; }
+    .lg\:u-m-3 { margin: 1rem !important; }
+    .lg\:u-m-4 { margin: 1.5rem !important; }
+    .lg\:u-m-5 { margin: 3rem !important; }
+    .lg\:u-m-auto { margin: auto !important; }
+    .lg\:u-mt-0 { margin-top: 0 !important; }
+    .lg\:u-mt-1 { margin-top: 0.25rem !important; }
+    .lg\:u-mt-2 { margin-top: 0.5rem !important; }
+    .lg\:u-mt-3 { margin-top: 1rem !important; }
+    .lg\:u-mt-4 { margin-top: 1.5rem !important; }
+    .lg\:u-mt-5 { margin-top: 3rem !important; }
+    .lg\:u-mt-auto { margin-top: auto !important; }
+    .lg\:u-mb-0 { margin-bottom: 0 !important; }
+    .lg\:u-mb-1 { margin-bottom: 0.25rem !important; }
+    .lg\:u-mb-2 { margin-bottom: 0.5rem !important; }
+    .lg\:u-mb-3 { margin-bottom: 1rem !important; }
+    .lg\:u-mb-4 { margin-bottom: 1.5rem !important; }
+    .lg\:u-mb-5 { margin-bottom: 3rem !important; }
+    .lg\:u-mb-auto { margin-bottom: auto !important; }
+    .lg\:u-ms-0 { margin-left: 0 !important; }
+    .lg\:u-ms-1 { margin-left: 0.25rem !important; }
+    .lg\:u-ms-2 { margin-left: 0.5rem !important; }
+    .lg\:u-ms-3 { margin-left: 1rem !important; }
+    .lg\:u-ms-4 { margin-left: 1.5rem !important; }
+    .lg\:u-ms-5 { margin-left: 3rem !important; }
+    .lg\:u-ms-auto { margin-left: auto !important; }
+    .lg\:u-me-0 { margin-right: 0 !important; }
+    .lg\:u-me-1 { margin-right: 0.25rem !important; }
+    .lg\:u-me-2 { margin-right: 0.5rem !important; }
+    .lg\:u-me-3 { margin-right: 1rem !important; }
+    .lg\:u-me-4 { margin-right: 1.5rem !important; }
+    .lg\:u-me-5 { margin-right: 3rem !important; }
+    .lg\:u-me-auto { margin-right: auto !important; }
+    .lg\:u-mx-0 { margin-left: 0 !important; margin-right: 0 !important; }
+    .lg\:u-mx-1 { margin-left: 0.25rem !important; margin-right: 0.25rem !important; }
+    .lg\:u-mx-2 { margin-left: 0.5rem !important; margin-right: 0.5rem !important; }
+    .lg\:u-mx-3 { margin-left: 1rem !important; margin-right: 1rem !important; }
+    .lg\:u-mx-4 { margin-left: 1.5rem !important; margin-right: 1.5rem !important; }
+    .lg\:u-mx-5 { margin-left: 3rem !important; margin-right: 3rem !important; }
+    .lg\:u-mx-auto { margin-left: auto !important; margin-right: auto !important; }
+    .lg\:u-my-0 { margin-top: 0 !important; margin-bottom: 0 !important; }
+    .lg\:u-my-1 { margin-top: 0.25rem !important; margin-bottom: 0.25rem !important; }
+    .lg\:u-my-2 { margin-top: 0.5rem !important; margin-bottom: 0.5rem !important; }
+    .lg\:u-my-3 { margin-top: 1rem !important; margin-bottom: 1rem !important; }
+    .lg\:u-my-4 { margin-top: 1.5rem !important; margin-bottom: 1.5rem !important; }
+    .lg\:u-my-5 { margin-top: 3rem !important; margin-bottom: 3rem !important; }
+    .lg\:u-my-auto { margin-top: auto !important; margin-bottom: auto !important; }
+    .lg\:u-p-0 { padding: 0 !important; }
+    .lg\:u-p-1 { padding: 0.25rem !important; }
+    .lg\:u-p-2 { padding: 0.5rem !important; }
+    .lg\:u-p-3 { padding: 1rem !important; }
+    .lg\:u-p-4 { padding: 1.5rem !important; }
+    .lg\:u-p-5 { padding: 3rem !important; }
+    .lg\:u-p-auto { padding: auto !important; }
+    .lg\:u-pt-0 { padding-top: 0 !important; }
+    .lg\:u-pt-1 { padding-top: 0.25rem !important; }
+    .lg\:u-pt-2 { padding-top: 0.5rem !important; }
+    .lg\:u-pt-3 { padding-top: 1rem !important; }
+    .lg\:u-pt-4 { padding-top: 1.5rem !important; }
+    .lg\:u-pt-5 { padding-top: 3rem !important; }
+    .lg\:u-pt-auto { padding-top: auto !important; }
+    .lg\:u-pb-0 { padding-bottom: 0 !important; }
+    .lg\:u-pb-1 { padding-bottom: 0.25rem !important; }
+    .lg\:u-pb-2 { padding-bottom: 0.5rem !important; }
+    .lg\:u-pb-3 { padding-bottom: 1rem !important; }
+    .lg\:u-pb-4 { padding-bottom: 1.5rem !important; }
+    .lg\:u-pb-5 { padding-bottom: 3rem !important; }
+    .lg\:u-pb-auto { padding-bottom: auto !important; }
+    .lg\:u-ps-0 { padding-left: 0 !important; }
+    .lg\:u-ps-1 { padding-left: 0.25rem !important; }
+    .lg\:u-ps-2 { padding-left: 0.5rem !important; }
+    .lg\:u-ps-3 { padding-left: 1rem !important; }
+    .lg\:u-ps-4 { padding-left: 1.5rem !important; }
+    .lg\:u-ps-5 { padding-left: 3rem !important; }
+    .lg\:u-ps-auto { padding-left: auto !important; }
+    .lg\:u-pe-0 { padding-right: 0 !important; }
+    .lg\:u-pe-1 { padding-right: 0.25rem !important; }
+    .lg\:u-pe-2 { padding-right: 0.5rem !important; }
+    .lg\:u-pe-3 { padding-right: 1rem !important; }
+    .lg\:u-pe-4 { padding-right: 1.5rem !important; }
+    .lg\:u-pe-5 { padding-right: 3rem !important; }
+    .lg\:u-pe-auto { padding-right: auto !important; }
+    .lg\:u-px-0 { padding-left: 0 !important; padding-right: 0 !important; }
+    .lg\:u-px-1 { padding-left: 0.25rem !important; padding-right: 0.25rem !important; }
+    .lg\:u-px-2 { padding-left: 0.5rem !important; padding-right: 0.5rem !important; }
+    .lg\:u-px-3 { padding-left: 1rem !important; padding-right: 1rem !important; }
+    .lg\:u-px-4 { padding-left: 1.5rem !important; padding-right: 1.5rem !important; }
+    .lg\:u-px-5 { padding-left: 3rem !important; padding-right: 3rem !important; }
+    .lg\:u-px-auto { padding-left: auto !important; padding-right: auto !important; }
+    .lg\:u-py-0 { padding-top: 0 !important; padding-bottom: 0 !important; }
+    .lg\:u-py-1 { padding-top: 0.25rem !important; padding-bottom: 0.25rem !important; }
+    .lg\:u-py-2 { padding-top: 0.5rem !important; padding-bottom: 0.5rem !important; }
+    .lg\:u-py-3 { padding-top: 1rem !important; padding-bottom: 1rem !important; }
+    .lg\:u-py-4 { padding-top: 1.5rem !important; padding-bottom: 1.5rem !important; }
+    .lg\:u-py-5 { padding-top: 3rem !important; padding-bottom: 3rem !important; }
+    .lg\:u-py-auto { padding-top: auto !important; padding-bottom: auto !important; }
+    .lg\:u-gap-0 { gap: 0 !important; }
+    .lg\:u-gap-1 { gap: 0.25rem !important; }
+    .lg\:u-gap-2 { gap: 0.5rem !important; }
+    .lg\:u-gap-3 { gap: 1rem !important; }
+    .lg\:u-gap-4 { gap: 1.5rem !important; }
+    .lg\:u-gap-5 { gap: 3rem !important; }
+    .lg\:u-gap-auto { gap: auto !important; }
+    .lg\:u-text-left { text-align: left !important; }
+    .lg\:u-text-center { text-align: center !important; }
+    .lg\:u-text-right { text-align: right !important; }
+}
+
+@media (min-width: 1200px) {
+    .xl\:u-d-none { display: none !important; }
+    .xl\:u-d-block { display: block !important; }
+    .xl\:u-d-inline-block { display: inline-block !important; }
+    .xl\:u-d-flex { display: flex !important; }
+    .xl\:u-d-inline-flex { display: inline-flex !important; }
+    .xl\:u-d-grid { display: grid !important; }
+    .xl\:u-flex-row { flex-direction: row !important; }
+    .xl\:u-flex-col { flex-direction: column !important; }
+    .xl\:u-justify-start { justify-content: flex-start !important; }
+    .xl\:u-justify-center { justify-content: center !important; }
+    .xl\:u-justify-end { justify-content: flex-end !important; }
+    .xl\:u-justify-between { justify-content: space-between !important; }
+    .xl\:u-align-start { align-items: flex-start !important; }
+    .xl\:u-align-center { align-items: center !important; }
+    .xl\:u-align-end { align-items: flex-end !important; }
+    .xl\:u-align-stretch { align-items: stretch !important; }
+    .xl\:u-flex-wrap-wrap { flex-wrap: wrap !important; }
+    .xl\:u-flex-wrap-nowrap { flex-wrap: nowrap !important; }
+    .xl\:u-m-0 { margin: 0 !important; }
+    .xl\:u-m-1 { margin: 0.25rem !important; }
+    .xl\:u-m-2 { margin: 0.5rem !important; }
+    .xl\:u-m-3 { margin: 1rem !important; }
+    .xl\:u-m-4 { margin: 1.5rem !important; }
+    .xl\:u-m-5 { margin: 3rem !important; }
+    .xl\:u-m-auto { margin: auto !important; }
+    .xl\:u-mt-0 { margin-top: 0 !important; }
+    .xl\:u-mt-1 { margin-top: 0.25rem !important; }
+    .xl\:u-mt-2 { margin-top: 0.5rem !important; }
+    .xl\:u-mt-3 { margin-top: 1rem !important; }
+    .xl\:u-mt-4 { margin-top: 1.5rem !important; }
+    .xl\:u-mt-5 { margin-top: 3rem !important; }
+    .xl\:u-mt-auto { margin-top: auto !important; }
+    .xl\:u-mb-0 { margin-bottom: 0 !important; }
+    .xl\:u-mb-1 { margin-bottom: 0.25rem !important; }
+    .xl\:u-mb-2 { margin-bottom: 0.5rem !important; }
+    .xl\:u-mb-3 { margin-bottom: 1rem !important; }
+    .xl\:u-mb-4 { margin-bottom: 1.5rem !important; }
+    .xl\:u-mb-5 { margin-bottom: 3rem !important; }
+    .xl\:u-mb-auto { margin-bottom: auto !important; }
+    .xl\:u-ms-0 { margin-left: 0 !important; }
+    .xl\:u-ms-1 { margin-left: 0.25rem !important; }
+    .xl\:u-ms-2 { margin-left: 0.5rem !important; }
+    .xl\:u-ms-3 { margin-left: 1rem !important; }
+    .xl\:u-ms-4 { margin-left: 1.5rem !important; }
+    .xl\:u-ms-5 { margin-left: 3rem !important; }
+    .xl\:u-ms-auto { margin-left: auto !important; }
+    .xl\:u-me-0 { margin-right: 0 !important; }
+    .xl\:u-me-1 { margin-right: 0.25rem !important; }
+    .xl\:u-me-2 { margin-right: 0.5rem !important; }
+    .xl\:u-me-3 { margin-right: 1rem !important; }
+    .xl\:u-me-4 { margin-right: 1.5rem !important; }
+    .xl\:u-me-5 { margin-right: 3rem !important; }
+    .xl\:u-me-auto { margin-right: auto !important; }
+    .xl\:u-mx-0 { margin-left: 0 !important; margin-right: 0 !important; }
+    .xl\:u-mx-1 { margin-left: 0.25rem !important; margin-right: 0.25rem !important; }
+    .xl\:u-mx-2 { margin-left: 0.5rem !important; margin-right: 0.5rem !important; }
+    .xl\:u-mx-3 { margin-left: 1rem !important; margin-right: 1rem !important; }
+    .xl\:u-mx-4 { margin-left: 1.5rem !important; margin-right: 1.5rem !important; }
+    .xl\:u-mx-5 { margin-left: 3rem !important; margin-right: 3rem !important; }
+    .xl\:u-mx-auto { margin-left: auto !important; margin-right: auto !important; }
+    .xl\:u-my-0 { margin-top: 0 !important; margin-bottom: 0 !important; }
+    .xl\:u-my-1 { margin-top: 0.25rem !important; margin-bottom: 0.25rem !important; }
+    .xl\:u-my-2 { margin-top: 0.5rem !important; margin-bottom: 0.5rem !important; }
+    .xl\:u-my-3 { margin-top: 1rem !important; margin-bottom: 1rem !important; }
+    .xl\:u-my-4 { margin-top: 1.5rem !important; margin-bottom: 1.5rem !important; }
+    .xl\:u-my-5 { margin-top: 3rem !important; margin-bottom: 3rem !important; }
+    .xl\:u-my-auto { margin-top: auto !important; margin-bottom: auto !important; }
+    .xl\:u-p-0 { padding: 0 !important; }
+    .xl\:u-p-1 { padding: 0.25rem !important; }
+    .xl\:u-p-2 { padding: 0.5rem !important; }
+    .xl\:u-p-3 { padding: 1rem !important; }
+    .xl\:u-p-4 { padding: 1.5rem !important; }
+    .xl\:u-p-5 { padding: 3rem !important; }
+    .xl\:u-p-auto { padding: auto !important; }
+    .xl\:u-pt-0 { padding-top: 0 !important; }
+    .xl\:u-pt-1 { padding-top: 0.25rem !important; }
+    .xl\:u-pt-2 { padding-top: 0.5rem !important; }
+    .xl\:u-pt-3 { padding-top: 1rem !important; }
+    .xl\:u-pt-4 { padding-top: 1.5rem !important; }
+    .xl\:u-pt-5 { padding-top: 3rem !important; }
+    .xl\:u-pt-auto { padding-top: auto !important; }
+    .xl\:u-pb-0 { padding-bottom: 0 !important; }
+    .xl\:u-pb-1 { padding-bottom: 0.25rem !important; }
+    .xl\:u-pb-2 { padding-bottom: 0.5rem !important; }
+    .xl\:u-pb-3 { padding-bottom: 1rem !important; }
+    .xl\:u-pb-4 { padding-bottom: 1.5rem !important; }
+    .xl\:u-pb-5 { padding-bottom: 3rem !important; }
+    .xl\:u-pb-auto { padding-bottom: auto !important; }
+    .xl\:u-ps-0 { padding-left: 0 !important; }
+    .xl\:u-ps-1 { padding-left: 0.25rem !important; }
+    .xl\:u-ps-2 { padding-left: 0.5rem !important; }
+    .xl\:u-ps-3 { padding-left: 1rem !important; }
+    .xl\:u-ps-4 { padding-left: 1.5rem !important; }
+    .xl\:u-ps-5 { padding-left: 3rem !important; }
+    .xl\:u-ps-auto { padding-left: auto !important; }
+    .xl\:u-pe-0 { padding-right: 0 !important; }
+    .xl\:u-pe-1 { padding-right: 0.25rem !important; }
+    .xl\:u-pe-2 { padding-right: 0.5rem !important; }
+    .xl\:u-pe-3 { padding-right: 1rem !important; }
+    .xl\:u-pe-4 { padding-right: 1.5rem !important; }
+    .xl\:u-pe-5 { padding-right: 3rem !important; }
+    .xl\:u-pe-auto { padding-right: auto !important; }
+    .xl\:u-px-0 { padding-left: 0 !important; padding-right: 0 !important; }
+    .xl\:u-px-1 { padding-left: 0.25rem !important; padding-right: 0.25rem !important; }
+    .xl\:u-px-2 { padding-left: 0.5rem !important; padding-right: 0.5rem !important; }
+    .xl\:u-px-3 { padding-left: 1rem !important; padding-right: 1rem !important; }
+    .xl\:u-px-4 { padding-left: 1.5rem !important; padding-right: 1.5rem !important; }
+    .xl\:u-px-5 { padding-left: 3rem !important; padding-right: 3rem !important; }
+    .xl\:u-px-auto { padding-left: auto !important; padding-right: auto !important; }
+    .xl\:u-py-0 { padding-top: 0 !important; padding-bottom: 0 !important; }
+    .xl\:u-py-1 { padding-top: 0.25rem !important; padding-bottom: 0.25rem !important; }
+    .xl\:u-py-2 { padding-top: 0.5rem !important; padding-bottom: 0.5rem !important; }
+    .xl\:u-py-3 { padding-top: 1rem !important; padding-bottom: 1rem !important; }
+    .xl\:u-py-4 { padding-top: 1.5rem !important; padding-bottom: 1.5rem !important; }
+    .xl\:u-py-5 { padding-top: 3rem !important; padding-bottom: 3rem !important; }
+    .xl\:u-py-auto { padding-top: auto !important; padding-bottom: auto !important; }
+    .xl\:u-gap-0 { gap: 0 !important; }
+    .xl\:u-gap-1 { gap: 0.25rem !important; }
+    .xl\:u-gap-2 { gap: 0.5rem !important; }
+    .xl\:u-gap-3 { gap: 1rem !important; }
+    .xl\:u-gap-4 { gap: 1.5rem !important; }
+    .xl\:u-gap-5 { gap: 3rem !important; }
+    .xl\:u-gap-auto { gap: auto !important; }
+    .xl\:u-text-left { text-align: left !important; }
+    .xl\:u-text-center { text-align: center !important; }
+    .xl\:u-text-right { text-align: right !important; }
+}
+

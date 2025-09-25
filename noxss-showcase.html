@@ -1,0 +1,271 @@
+<!doctype html>
+<html lang="pt-br">
+    <!-- O tema padrão (Dark) é aplicado aqui -->
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Noxss Library - Vitrine de Componentes</title>
+
+        <!-- BIBLIOTECAS DE TERCEIROS (VENDORS) -->
+        <link rel="stylesheet" href="packages/css/bootstrap.min.css" />
+        <link rel="stylesheet" href="packages/css/animate.min.css" />
+        <link rel="stylesheet" href="packages/css/waves.min.css" />
+        <link rel="stylesheet" href="packages/highlight/styles/atom-one-dark.min.css" />
+
+        <!-- SUA BIBLIOTECA NOXSS (O CORAÇÃO DO PROJETO) -->
+        <link rel="stylesheet" href="noxss/dist/noxss.css" />
+
+        <!-- Estilos específicos APENAS para esta página de preview -->
+        <style>
+            body {
+                background-color: var(--noxss-bg-main);
+                padding: 40px 20px;
+                transition: background-color 0.3s ease;
+            }
+            .preview-header {
+                text-align: center;
+                margin-bottom: 4rem;
+            }
+            .preview-header h1 .feather {
+                width: 1.2em;
+                height: 1.2em;
+                vertical-align: -0.15em;
+            }
+            .demo-section {
+                background-color: var(--noxss-bg-surface);
+                padding: 30px;
+                border-radius: var(--noxss-border-radius-base);
+                margin-bottom: 30px;
+                border: 1px solid var(--noxss-border-color);
+                transition:
+                    background-color 0.3s ease,
+                    border-color 0.3s ease;
+            }
+            .demo-section h2 {
+                margin-top: 0;
+                padding-bottom: 0.5em;
+                border-bottom: 1px solid var(--noxss-border-color);
+                margin-bottom: 1.5em;
+                display: flex;
+                align-items: center;
+                gap: 0.5em;
+                transition: border-color 0.3s ease;
+            }
+            .demo-section h2 .feather {
+                width: 1em;
+                height: 1em;
+            }
+            .demo-section .showcase-title {
+                font-size: 1rem;
+                color: var(--noxss-text-secondary);
+                text-transform: uppercase;
+                letter-spacing: 0.05em;
+                margin-bottom: 1em;
+                margin-top: 2em;
+                font-weight: 500;
+            }
+            .demo-showcase {
+                display: flex;
+                flex-wrap: wrap;
+                align-items: center;
+                gap: 15px;
+            }
+            .typography-content {
+                max-width: 720px;
+                margin: 0 auto;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="container">
+            <header class="preview-header">
+                <h1 class="h1 animate__animated animate__fadeInDown"><i class="noxss-icon" data-feather="box"></i> Noxss Library</h1>
+                <p class="lead text-secondary animate__animated animate__fadeInUp">Vitrine completa de componentes e estilos</p>
+            </header>
+
+            <!-- Seção: Seletor de Tema -->
+            <section class="demo-section">
+                <h2><i class="noxss-icon" data-feather="sun"></i><i class="noxss-icon" data-feather="moon"></i> Seletor de Tema</h2>
+                <div class="demo-showcase">
+                    <button id="theme-toggle" class="noxss-btn noxss-btn--primary waves-effect waves-light">
+                        <i class="noxss-icon" data-feather="moon" class="icon-dark"></i>
+                        <i class="noxss-icon" data-feather="sun" class="icon-light" style="display: none"></i>
+                        <span id="theme-toggle-text">Mudar para Tema Claro</span>
+                    </button>
+                </div>
+            </section>
+
+            <!-- Seção: Tipografia e Conteúdo Completo -->
+            <section class="demo-section">
+                <h2><i class="noxss-icon" data-feather="type"></i> Tipografia e Conteúdo</h2>
+                <div class="typography-content">
+                    <h1>Guia de Estilo de Conteúdo da Noxss</h1>
+                    <p class="text-secondary">Este guia demonstra a aparência de todos os elementos de texto e conteúdo estilizados pela biblioteca, desde títulos e parágrafos até tabelas e blocos de código interativos.</p>
+
+                    <h2>Hierarquia e Ênfase</h2>
+                    <p>A clareza visual é fundamental. Use <strong>texto forte</strong> para dar importância, <em>itálico</em> para ênfase, e <mark>marcar</mark> trechos essenciais. Para atalhos, use <kbd>Ctrl</kbd> + <kbd>S</kbd>. A tag <abbr title="Define um estilo consistente para a sua aplicação">Noxss</abbr> é um exemplo de abreviação.</p>
+                    <blockquote>"A tipografia é a arte de dar forma à linguagem escrita. É a voz silenciosa que guia o leitor."</blockquote>
+
+                    <hr />
+
+                    <h2>Estruturas de Dados</h2>
+                    <h3>Listas</h3>
+                    <p>Para organizar informações de forma eficaz:</p>
+                    <ul>
+                        <li>Item não ordenado.</li>
+                        <li>
+                            Outro item.
+                            <ul>
+                                <li>Item aninhado.</li>
+                            </ul>
+                        </li>
+                    </ul>
+                    <h3>Tabelas</h3>
+                    <p>As tabelas são responsivas e se adaptam aos temas Light/Dark.</p>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Componente</th>
+                                <th>Versão Atual</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Tipografia</strong></td>
+                                <td>v3.0</td>
+                                <td><mark>Estável</mark></td>
+                            </tr>
+                            <tr>
+                                <td>Botões</td>
+                                <td>v2.0</td>
+                                <td>Estável</td>
+                            </tr>
+                            <tr>
+                                <td>Player</td>
+                                <td>v2.0</td>
+                                <td>Estável</td>
+                            </tr>
+                            <tr>
+                                <td>Formulários</td>
+                                <td>v1.0</td>
+                                <td><small>Planejado</small></td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <hr />
+
+                    <h2>Blocos de Código Interativos</h2>
+                    <p>Blocos de código com realce de sintaxe via <code>highlight.js</code>. Passe o mouse para copiar.</p>
+                    <div class="noxss-code-block">
+                        <pre><code class="language-javascript">// Exemplo de como usar a API do Player Noxss
+if (Noxss && Noxss.Player) {
+  const playlist = ['song1.mp3', 'song2.mp3'];
+  Noxss.Player.setPlaylist('previewPlayer', playlist, false);
+}</code></pre>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Seção: Botões -->
+            <section class="demo-section">
+                <h2><i class="noxss-icon" data-feather="mouse-pointer"></i> Botões</h2>
+                <div class="showcase-title">Ações Principais e Semânticas</div>
+                <div class="demo-showcase">
+                    <button class="noxss-btn noxss-btn--primary waves-effect waves-light"><i class="noxss-icon" data-feather="check"></i> Primário</button>
+                    <button class="noxss-btn noxss-btn--secondary waves-effect waves-light">Secundário</button>
+                    <button class="noxss-btn noxss-btn--success waves-effect waves-light">Sucesso</button>
+                    <button class="noxss-btn noxss-btn--danger waves-effect waves-light">Perigo</button>
+                    <button class="noxss-btn noxss-btn--warning waves-effect waves-light">Aviso</button>
+                </div>
+                <div class="showcase-title">Estilos Especiais e Estados</div>
+                <div class="demo-showcase">
+                    <button class="noxss-btn noxss-btn--link waves-effect">Estilo Link</button>
+                    <button class="noxss-btn noxss-btn--icon waves-effect waves-circle" aria-label="Configurações"><i class="noxss-icon" data-feather="settings"></i></button>
+                    <button class="noxss-btn noxss-btn--primary" disabled><i class="noxss-icon" data-feather="pause-circle"></i> Desabilitado</button>
+                </div>
+            </section>
+
+            <!-- Seção: Player de Música -->
+            <section class="demo-section">
+                <h2><i class="noxss-icon" data-feather="music"></i> Componente Player</h2>
+                <div class="noxss-player-compact" id="previewPlayer">
+                    <img src="" alt="Album Art" class="noxss-album-art" />
+                    <div class="noxss-track-info">
+                        <h3 class="noxss-title">Carregando...</h3>
+                        <p class="noxss-artist"></p>
+                    </div>
+                    <div class="noxss-controls">
+                        <button class="noxss-control-button noxss-prev-button waves-effect waves-light" aria-label="Anterior" disabled><i class="noxss-icon" data-feather="skip-back"></i></button>
+                        <button class="noxss-control-button noxss-play-pause waves-effect waves-light" aria-label="Play" disabled></button>
+                        <button class="noxss-control-button noxss-next-button waves-effect waves-light" aria-label="Próximo" disabled><i class="noxss-icon" data-feather="skip-forward"></i></button>
+                    </div>
+                    <audio class="noxss-audio-player" style="display: none"></audio>
+                </div>
+            </section>
+        </div>
+
+        <!-- SCRIPTS -->
+        <!-- Vendors -->
+        <script src="packages/js/bootstrap.bundle.min.js"></script>
+        <script src="packages/js/waves.min.js"></script>
+        <script defer src="https://unpkg.com/feather-icons"></script>
+        <script src="packages/js/jsmediatags.min.js"></script>
+        <script src="packages/highlight/highlight.min.js"></script>
+
+        <!-- Noxss Library -->
+        <script src="noxss/dist/noxss.js"></script>
+
+        <!-- Script de Inicialização da Página -->
+        <script>
+            document.addEventListener("DOMContentLoaded", () => {
+                // Inicializa bibliotecas de terceiros
+                Waves.init();
+                setTimeout(() => {
+                    Waves.attach(".waves-effect");
+                    feather.replace();
+                }, 100);
+
+                // Lógica do seletor de temas Light/Dark
+                const themeToggleButton = document.getElementById("theme-toggle");
+                const htmlElement = document.documentElement;
+
+                function applyTheme(theme) {
+                    const themeToggleText = document.getElementById("theme-toggle-text");
+                    const iconDark = themeToggleButton.querySelector(".icon-dark");
+                    const iconLight = themeToggleButton.querySelector(".icon-light");
+
+                    if (theme === "light") {
+                        htmlElement.setAttribute("data-theme", "light");
+                        if (iconDark) iconDark.style.display = "none";
+                        if (iconLight) iconLight.style.display = "inline-block";
+                        if (themeToggleText) themeToggleText.textContent = "Mudar para Tema Escuro";
+                    } else {
+                        htmlElement.removeAttribute("data-theme");
+                        if (iconDark) iconDark.style.display = "inline-block";
+                        if (iconLight) iconLight.style.display = "none";
+                        if (themeToggleText) themeToggleText.textContent = "Mudar para Tema Claro";
+                    }
+                    feather.replace();
+                }
+
+                const savedTheme = localStorage.getItem("theme") || (window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
+                applyTheme(savedTheme);
+
+                themeToggleButton.addEventListener("click", () => {
+                    const currentTheme = htmlElement.hasAttribute("data-theme") ? "light" : "dark";
+                    const newTheme = currentTheme === "light" ? "dark" : "light";
+                    applyTheme(newTheme);
+                    localStorage.setItem("theme", newTheme);
+                });
+
+                // Configura o player da página de preview
+                const myPlaylist = ["resources/girasol.mp3", "resources/default.mp3", "resources/heart-to-heart.mp3"];
+                if (Noxss && Noxss.Player) {
+                    Noxss.Player.setPlaylist("previewPlayer", myPlaylist, false, "all");
+                }
+            });
+        </script>
+    </body>
+</html>
