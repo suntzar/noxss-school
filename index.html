@@ -636,22 +636,32 @@
           const activeFemale = activeStudents.filter(s => s.sexo === 'Feminino').length;
           const activeNotInformed = active - activeMale - activeFemale;
 
-          // Gênero - Total Geral
-          const totalMale = students.filter(s => s.sexo === 'Masculino').length;
-          const totalFemale = students.filter(s => s.sexo === 'Feminino').length;
-          const totalNotInformed = total - totalMale - totalFemale;
-
-          // Agrupamentos
-          const byTurma = students.reduce((acc, s) => {
-            const key = s.turma || "Sem Turma";
+          // Agrupamentos por status
+          const byStatus = students.reduce((acc, s) => {
+            const key = s.status || "Ativo";
             acc[key] = (acc[key] || 0) + 1;
             return acc;
           }, {});
+
+          // Agrupamentos
+          const byTurmaTurno = students.reduce((acc, s) => {
+            const turma = s.turma || "Sem Turma";
+            const turno = s.turno || "Sem Turno";
+            const key = `${turma} - ${turno}`;
+            acc[key] = (acc[key] || 0) + 1;
+            return acc;
+          }, {});          
           const byTurno = students.reduce((acc, s) => {
             const key = s.turno || "Sem Turno";
             acc[key] = (acc[key] || 0) + 1;
             return acc;
           }, {});
+
+          // Remove chaves "Sem Turma" e "Sem Turno" se existirem
+          delete byTurmaTurno['Sem Turma - Sem Turno'];
+          delete byTurmaTurno['Sem Turma']; // Legado, caso ainda exista
+          delete byTurno['Sem Turno'];
+
 
           const createListItems = (data) =>
             Object.entries(data)
@@ -662,27 +672,27 @@
               )
               .join("");
 
+          const activeNotInformedCard = activeNotInformed > 0 ? `
+                            <div class="noxss-card noxss-card--stat"><div class="stat-content"><div><div class="stat-label">Ativos (Não Inf.)</div><div class="stat-value">${activeNotInformed}</div></div><i class="noxss-icon stat-icon" data-feather="help-circle"></i></div></div>
+                        ` : '';
+
           dashboardContent.innerHTML = `
                         <h3 class="turma-title" style="margin-top:0; font-size: 1.2rem; color: var(--noxss-text-secondary);">Visão Geral dos Alunos Ativos</h3>
                         <div class="noxss-card-deck" style="grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));">
                             <div class="noxss-card noxss-card--stat"><div class="stat-content"><div><div class="stat-label">Alunos Ativos</div><div class="stat-value">${active}</div></div><i class="noxss-icon stat-icon" data-feather="user-check"></i></div></div>
                             <div class="noxss-card noxss-card--stat"><div class="stat-content"><div><div class="stat-label">Ativos (Masculino)</div><div class="stat-value">${activeMale}</div></div><i class="noxss-icon stat-icon" data-feather="user"></i></div></div>
                             <div class="noxss-card noxss-card--stat"><div class="stat-content"><div><div class="stat-label">Ativos (Feminino)</div><div class="stat-value">${activeFemale}</div></div><i class="noxss-icon stat-icon" data-feather="user"></i></div></div>
-                            <div class="noxss-card noxss-card--stat"><div class="stat-content"><div><div class="stat-label">Ativos (Não Inf.)</div><div class="stat-value">${activeNotInformed}</div></div><i class="noxss-icon stat-icon" data-feather="help-circle"></i></div></div>
+                            ${activeNotInformedCard}
                         </div>
 
                         <h3 class="turma-title" style="margin-top: 2.5rem; font-size: 1.2rem; color: var(--noxss-text-secondary);">Estatísticas Gerais</h3>
                         <div class="noxss-card-deck" style="grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));">
                             <div class="noxss-card noxss-card--stat"><div class="stat-content"><div><div class="stat-label">Total de Alunos</div><div class="stat-value">${total}</div></div><i class="noxss-icon stat-icon" data-feather="users"></i></div></div>
-                            <div class="noxss-card noxss-card--stat"><div class="stat-content"><div><div class="stat-label">Inativos/Transferidos</div><div class="stat-value">${inactive}</div></div><i class="noxss-icon stat-icon" data-feather="user-x"></i></div></div>
-                            <div class="noxss-card noxss-card--stat"><div class="stat-content"><div><div class="stat-label">Total (Masculino)</div><div class="stat-value">${totalMale}</div></div><i class="noxss-icon stat-icon" data-feather="user"></i></div></div>
-                            <div class="noxss-card noxss-card--stat"><div class="stat-content"><div><div class="stat-label">Total (Feminino)</div><div class="stat-value">${totalFemale}</div></div><i class="noxss-icon stat-icon" data-feather="user"></i></div></div>
                         </div>
 
                         <div class="noxss-card-deck mt-4">
-                            <div class="noxss-card"><div class="noxss-card__header"><h3 class="noxss-card__title">Alunos por Turma</h3></div><ul class="noxss-list">${createListItems(
-                              byTurma
-                            )}</ul></div>
+                            <div class="noxss-card"><div class="noxss-card__header"><h3 class="noxss-card__title">Alunos por Status</h3></div><ul class="noxss-list">${createListItems(byStatus)}</ul></div>
+                            <div class="noxss-card"><div class="noxss-card__header"><h3 class="noxss-card__title">Alunos por Turma e Turno</h3></div><ul class="noxss-list">${createListItems(byTurmaTurno)}</ul></div>
                             <div class="noxss-card"><div class="noxss-card__header"><h3 class="noxss-card__title">Alunos por Turno</h3></div><ul class="noxss-list">${createListItems(
                               byTurno
                             )}</ul></div>
