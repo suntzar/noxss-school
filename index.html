@@ -185,6 +185,9 @@
             <button class="noxss-tabs__header-button" data-tab-id="alunos">
               <i class="noxss-icon" data-feather="users"></i> Alunos
             </button>
+            <button class="noxss-tabs__header-button" data-tab-id="settings">
+              <i class="noxss-icon" data-feather="settings"></i> Configurações
+            </button>
           </div>
 
           <div class="noxss-tabs__content-area">
@@ -255,6 +258,20 @@
               </div>
             </div>
 
+            <!-- Painel: Configurações -->
+            <div class="noxss-tabs__panel" id="panel-settings">
+              <div class="content-panel">
+                <h2 class="turma-title" style="margin-top: 0; border: none">
+                  Configurações
+                </h2>
+                <div class="noxss-form-group">
+                  <label for="palette-select" class="noxss-label">Paleta de Cores de Destaque</label>
+                  <select id="palette-select" class="noxss-select">
+                    <!-- Opções de paleta serão geradas aqui -->
+                  </select>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </main>
@@ -275,6 +292,13 @@
           aria-label="Alunos"
         >
           <i class="noxss-icon" data-feather="users"></i>
+        </button>
+        <button
+          class="noxss-tabs__nav-button"
+          data-tab-id="settings"
+          aria-label="Configurações"
+        >
+          <i class="noxss-icon" data-feather="settings"></i>
         </button>
       </nav>
     </div>
@@ -440,45 +464,67 @@
     <script src="https://cdn.jsdelivr.net/gh/suntzar/noxss-base@main/noxss/dist/noxss.js"></script>
     <script>
       // --- GERENCIADOR DE TEMA ---
-      const themeSwitcher = document.getElementById("theme-switcher");
       const htmlElement = document.documentElement;
-      const THEME_KEY = "schoolAppTheme";
-      const themePalettes = {
-        // Adicionei paletas para os temas estáticos da Noxss
-        // para que o gerador dinâmico possa criar variações se desejado.
-        // A cor foi escolhida para combinar com o tema original.
-        light: { color: "#1d768c" },
-        dark: { color: "#8ecddd" },
-        dark: { color: "#4caf50" }, // Verde padrão da Noxss
-        light: { color: "#4caf50" },
+      const MODE_KEY = "schoolAppThemeMode";
+      const PALETTE_KEY = "schoolAppPalette";
+
+      const palettes = {
+        "Azul Noxss": "#8ecddd",
+        "Verde Noxss": "#4caf50",
+        "Roxo Void": "#818cf8",
+        "Laranja Quente": "#f97316",
+        "Rosa Magenta": "#d946ef",
       };
 
-      const applyTheme = (mode) => {
-        const theme = themePalettes[mode];
-        if (!theme) return;
+      const applyTheme = (mode, paletteColor) => {
+        const themeSwitcher = document.getElementById("theme-switcher");
+
         htmlElement.setAttribute("data-noxss-theme-gen", mode);
-        htmlElement.setAttribute("data-noxss-palette-gen", theme.color);
-        themeSwitcher.innerHTML =
-          mode === "dark"
-            ? `<i data-feather="sun" class="noxss-icon"></i>`
-            : `<i data-feather="moon" class="noxss-icon"></i>`;
-        if (window.feather) feather.replace();
-        localStorage.setItem(THEME_KEY, mode);
-      };
+        htmlElement.setAttribute("data-noxss-palette-gen", paletteColor);
 
-      themeSwitcher.addEventListener("click", () => {
-        const currentTheme = localStorage.getItem(THEME_KEY) || "light";
-        applyTheme(currentTheme === "dark" ? "light" : "dark");
-      });
+        if (themeSwitcher) {
+            themeSwitcher.innerHTML =
+              mode === "dark"
+                ? `<i data-feather="sun" class="noxss-icon"></i>`
+                : `<i data-feather="moon" class="noxss-icon"></i>`;
+        }
+
+        if (window.feather) feather.replace();
+
+        localStorage.setItem(MODE_KEY, mode);
+        localStorage.setItem(PALETTE_KEY, paletteColor);
+      };
 
       // --- LÓGICA PRINCIPAL DO APLICATIVO ---
       document.addEventListener("DOMContentLoaded", () => {
-        const savedTheme = localStorage.getItem(THEME_KEY);
+        // --- Lógica de Tema ---
+        const themeSwitcher = document.getElementById("theme-switcher");
+        const paletteSelect = document.getElementById("palette-select");
+
+        // Preenche o seletor de paletas
+        paletteSelect.innerHTML = Object.entries(palettes)
+          .map(([name, color]) => `<option value="${color}">${name}</option>`)
+          .join("");
+
+        // Carrega tema e paleta salvos ou define padrões
+        const savedMode = localStorage.getItem(MODE_KEY);
+        const savedPalette = localStorage.getItem(PALETTE_KEY) || palettes["Azul Noxss"];
         const prefersDark = window.matchMedia(
           "(prefers-color-scheme: dark)"
         ).matches;
-        // Corrigido para usar o tema salvo ou o padrão do sistema
-        applyTheme(savedTheme || (prefersDark ? "dark" : "light"));
+        const currentMode = savedMode || (prefersDark ? "dark" : "light");
+
+        applyTheme(currentMode, savedPalette);
+        paletteSelect.value = savedPalette;
+
+        themeSwitcher.addEventListener("click", () => {
+            const newMode = (localStorage.getItem(MODE_KEY) || "light") === "dark" ? "light" : "dark";
+            applyTheme(newMode, localStorage.getItem(PALETTE_KEY));
+        });
+
+        paletteSelect.addEventListener("change", (e) => {
+            applyTheme(localStorage.getItem(MODE_KEY), e.target.value);
+        });
 
         let students = [];
         const DB_KEY = "schoolAppStudents";
@@ -494,7 +540,6 @@
         const studentForm = document.getElementById("studentForm");
         const fileInput = document.getElementById("jsonFileInput");
         const clearSearchBtn = document.getElementById("clearSearchBtn");
-        const dashboardContent = document.getElementById("dashboard-content");
 
         // --- Novas Funções de API (jsonbin.io) ---
         async function fetchFromJSONBin() {
@@ -619,6 +664,7 @@
         };
 
         const renderDashboard = () => {
+          const dashboardContent = document.getElementById("dashboard-content");
           if (students.length === 0) {
             dashboardContent.innerHTML = `<div id="placeholder" class="text-secondary"><i data-feather="pie-chart" style="width: 3rem; height: 3rem;"></i><p class="mt-3">Não há dados para exibir. Adicione alunos ou carregue uma lista.</p></div>`;
             feather.replace();
@@ -893,16 +939,18 @@
         // --- LÓGICA DE INICIALIZAÇÃO MODIFICADA ---
         (async () => {
           const cloudStudents = await fetchFromJSONBin();
-          if (cloudStudents) {
+          if (cloudStudents && cloudStudents.length > 0) {
             students = cloudStudents;
             saveStudents('cloud'); // Salva na localStorage (fonte 'cloud' para não reenviar)
-            renderDashboard(); // Renderiza o dashboard inicial
           } else {
             // Se a nuvem falhar, carrega do localStorage como fallback
             students = JSON.parse(localStorage.getItem(DB_KEY) || "[]");
-            renderDashboard();
           }
           // A renderização da lista de alunos será feita pelo evento de mudança de aba
+          // Força a renderização da aba inicial (dashboard)
+          if (document.querySelector('.noxss-tabs__panel.is-visible')?.id === 'panel-dashboard') {
+              renderDashboard();
+          }
         })();
 
       });
