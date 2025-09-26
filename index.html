@@ -84,6 +84,10 @@
         min-width: 90px;
         display: inline-block;
       }
+      .student-card .card-text-inline {
+        display: flex;
+        gap: 1.5rem;
+      }
       .student-card-actions {
         display: flex;
         gap: 0.5rem;
@@ -322,15 +326,23 @@
                 </div>
               </div>
             </div>
-            <div class="noxss-form-group">
-              <label for="nascimento" class="noxss-label"
-                >Data de Nascimento</label
-              ><input
-                type="text"
-                class="noxss-input"
-                id="nascimento"
-                placeholder="dd/mm/aaaa"
-              />
+            <div class="row">
+              <div class="col-md-6">
+                <div class="noxss-form-group">
+                  <label for="nascimento" class="noxss-label">Data de Nascimento</label>
+                  <input type="text" class="noxss-input" id="nascimento" placeholder="dd/mm/aaaa" />
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="noxss-form-group">
+                  <label for="sexo" class="noxss-label">Sexo</label>
+                  <select id="sexo" class="noxss-select">
+                    <option value="" selected>Não informado</option>
+                    <option value="Masculino">Masculino</option>
+                    <option value="Feminino">Feminino</option>
+                  </select>
+                </div>
+              </div>
             </div>
             <div class="noxss-form-group">
               <label for="mae" class="noxss-label">Nome da Mãe</label
@@ -523,6 +535,8 @@
             student.telefone && student.telefone.length
               ? student.telefone.join(", ")
               : "Não informado";
+          const sexo = student.sexo || "Não informado";
+          const nascimento = student.nascimento || "Não informado";
           return `
                         <div class="noxss-card__body">
                             <div class="d-flex justify-content-between align-items-start">
@@ -539,7 +553,7 @@
                               student.mae
                             )}</p><p class="card-text"><strong>Pai:</strong> ${safeText(
             student.pai
-          )}</p><p class="card-text"><strong>Telefone(s):</strong> ${phones}</p>
+          )}</p><div class="card-text-inline"><p class="card-text"><strong>Nascimento:</strong> ${nascimento}</p><p class="card-text"><strong>Sexo:</strong> ${sexo}</p></div><p class="card-text"><strong>Telefone(s):</strong> ${phones}</p>
                         </div>`;
         };
 
@@ -664,6 +678,7 @@
               "turma",
               "turno",
               "nascimento",
+              "sexo",
               "mae",
               "pai",
               "endereco",
@@ -695,6 +710,7 @@
             turma: document.getElementById("turma").value.trim().toUpperCase(),
             turno: document.getElementById("turno").value.trim().toUpperCase(),
             nascimento: document.getElementById("nascimento").value.trim(),
+            sexo: document.getElementById("sexo").value,
             mae: document.getElementById("mae").value.trim(),
             pai: document.getElementById("pai").value.trim(),
             telefone: document
