@@ -420,8 +420,13 @@
       const htmlElement = document.documentElement;
       const THEME_KEY = "schoolAppTheme";
       const themePalettes = {
+        // Adicionei paletas para os temas estáticos da Noxss
+        // para que o gerador dinâmico possa criar variações se desejado.
+        // A cor foi escolhida para combinar com o tema original.
         light: { color: "#1d768c" },
         dark: { color: "#8ecddd" },
+        dark: { color: "#4caf50" }, // Verde padrão da Noxss
+        light: { color: "#4caf50" },
       };
 
       const applyTheme = (mode) => {
@@ -448,10 +453,14 @@
         const prefersDark = window.matchMedia(
           "(prefers-color-scheme: dark)"
         ).matches;
+        // Corrigido para usar o tema salvo ou o padrão do sistema
         applyTheme(savedTheme || (prefersDark ? "dark" : "light"));
 
         let students = [];
         const DB_KEY = "schoolAppStudents";
+        const JSONBIN_API_KEY = "$2a$10$s976JjTPuXOZQ.kCH7E6i.FdOJ0R2vLsy9rqYrlBLSMRXxmHnA552"; // <-- IMPORTANTE!
+        const JSONBIN_BIN_ID = "68d5a70e43b1c97be9501077"; // <-- IMPORTANTE!
+        const JSONBIN_URL = `https://api.jsonbin.io/v3/b/${JSONBIN_BIN_ID}`;
 
         const studentListContainer = document.getElementById(
           "student-list-container"
@@ -462,6 +471,40 @@
         const fileInput = document.getElementById("jsonFileInput");
         const clearSearchBtn = document.getElementById("clearSearchBtn");
         const dashboardContent = document.getElementById("dashboard-content");
+
+        // --- Novas Funções de API (jsonbin.io) ---
+        async function fetchFromJSONBin() {
+          if (!JSONBIN_API_KEY.startsWith("$2") || !JSONBIN_BIN_ID) {
+            console.warn("Chave de API ou ID do Bin do jsonbin.io não configurados.");
+            return null;
+          }
+          try {
+            const response = await fetch(`${JSONBIN_URL}/latest`, {
+              headers: { "X-Master-Key": JSONBIN_API_KEY },
+            });
+            if (!response.ok) throw new Error(`Erro na API: ${response.statusText}`);
+            const data = await response.json();
+            Noxss.Toasts.show({ message: "Dados sincronizados da nuvem.", status: "info", duration: 2000 });
+            return data.record; // A API v3 retorna os dados dentro de 'record'
+          } catch (error) {
+            console.error("Falha ao buscar dados do jsonbin.io:", error);
+            Noxss.Toasts.show({ message: "Falha ao conectar à nuvem. Usando dados locais.", status: "warning" });
+            return null;
+          }
+        }
+
+        async function saveToJSONBin(data) {
+          if (!JSONBIN_API_KEY.startsWith("$2") || !JSONBIN_BIN_ID) return;
+          try {
+            const response = await fetch(JSONBIN_URL, {
+              method: 'PUT',
+              headers: { 'Content-Type': 'application/json', 'X-Master-Key': JSONBIN_API_KEY },
+              body: JSON.stringify(data),
+            });
+            if (!response.ok) throw new Error(`Erro na API ao salvar: ${response.statusText}`);
+            console.log("Dados salvos na nuvem com sucesso.");
+          } catch (error) { console.error("Falha ao salvar dados no jsonbin.io:", error); }
+        }
 
         // --- UI & Rendering ---
         const getStatusBadge = (status = "Ativo") => {
@@ -601,10 +644,11 @@
         };
 
         // --- Data Logic & Events ---
-        const saveStudents = () => {
+        const saveStudents = (source = 'local') => {
           localStorage.setItem(DB_KEY, JSON.stringify(students));
           renderStudentList();
           renderDashboard();
+          if (source !== 'cloud') saveToJSONBin(students); // Evita loop de salvamento
         };
 
         const openStudentModal = (student = null, index = -1) => {
@@ -736,8 +780,8 @@
                 if (!Array.isArray(newStudents))
                   throw new Error("JSON não é um array.");
                 students = newStudents;
-                saveStudents();
-                Noxss.Toasts.show({
+                saveStudents(); // Salva localmente e envia para a nuvem
+                Noxss.Toasts.show({ 
                   message: "Lista de alunos carregada!",
                   status: "success",
                 });
@@ -780,11 +824,20 @@
             if (e.detail.activeTabId === "dashboard") renderDashboard();
           });
 
-        (() => {
-          students = JSON.parse(localStorage.getItem(DB_KEY) || "[]");
-          renderStudentList();
-          renderDashboard();
+        // --- LÓGICA DE INICIALIZAÇÃO MODIFICADA ---
+        (async () => {
+          const cloudStudents = await fetchFromJSONBin();
+          if (cloudStudents) {
+            students = cloudStudents;
+            saveStudents('cloud'); // Salva na localStorage (fonte 'cloud' para não reenviar)
+          } else {
+            // Se a nuvem falhar, carrega do localStorage como fallback
+            students = JSON.parse(localStorage.getItem(DB_KEY) || "[]");
+            renderStudentList();
+            renderDashboard();
+          }
         })();
+
       });
     </script>
   </body>
