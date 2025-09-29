@@ -90,6 +90,17 @@ document.addEventListener("DOMContentLoaded", () => {
         const key = `${(turma.turma || "").trim().toUpperCase()}-${(turma.turno || "").trim().toUpperCase()}`;
         turmaMap.set(key, newId);
       });
+      migrationPerformed = true;
+    }
+
+    // Migração do campo de professor único para professor1 e professor2
+    if (db.metadata.turmas.length > 0 && db.metadata.turmas.some((t) => t.hasOwnProperty("professor"))) {
+      console.log("Iniciando migração de dados de professores...");
+      db.metadata.turmas.forEach((turma) => {
+        turma.professor1 = turma.professor || "";
+        turma.professor2 = turma.professor2 || ""; // Garante que o campo exista
+        delete turma.professor;
+      });
 
       // 2. Atualiza os alunos para usar turma_id
       db.alunos.forEach((aluno) => {
@@ -334,20 +345,24 @@ document.addEventListener("DOMContentLoaded", () => {
     turmasListEl.innerHTML =
       database.metadata.turmas
         .sort((a, b) => `${a.turma}-${a.turno}`.localeCompare(`${b.turma}-${b.turno}`))
-        .map(
-          (t) => `
+        .map((t) => {
+          const prof1 = t.professor1 || "Não definido";
+          const prof2 = t.professor2 ? ` / ${t.professor2}` : "";
+          const professores = `${prof1}${prof2}`;
+
+          return `
                 <li class="noxss-list-item">
                     <div class="noxss-list-item__content">
                         <div class="noxss-list-item__title">${t.turma} - ${t.turno}</div>
-                        <div class="noxss-list-item__subtitle">Professor(a): ${t.professor || "Não definido"}</div>
+                        <div class="noxss-list-item__subtitle">Professor(es): ${professores}</div>
                     </div>
                     <div class="noxss-list-item__trailing">
                         <button class="noxss-btn noxss-btn--icon edit-turma-btn" data-id="${t.id}" title="Editar Turma"><i data-feather="edit-2" class="noxss-icon"></i></button>
                         <button class="noxss-btn noxss-btn--icon delete-btn" data-type="turma" data-id="${t.id}" title="Remover Turma"><i data-feather="trash-2" class="noxss-icon"></i></button>
                     </div>
                 </li>
-            `
-        )
+            `;
+        })
         .join("") || '<p class="text-secondary text-center p-3">Nenhuma turma registrada.</p>';
     feather.replace();
   };
@@ -392,7 +407,8 @@ document.addEventListener("DOMContentLoaded", () => {
     if (turma) {
       document.getElementById("turma-nome").value = turma.turma;
       document.getElementById("turma-turno").value = turma.turno;
-      document.getElementById("turma-professor").value = turma.professor;
+      document.getElementById("turma-professor1").value = turma.professor1 || "";
+      document.getElementById("turma-professor2").value = turma.professor2 || "";
     }
     Noxss.Modals.open("turmaModal");
     setTimeout(() => document.getElementById("turma-nome").focus(), 400);
@@ -441,7 +457,8 @@ document.addEventListener("DOMContentLoaded", () => {
       id: id || generateId(),
       turma: document.getElementById("turma-nome").value.trim().toUpperCase(),
       turno: document.getElementById("turma-turno").value.trim().toUpperCase(),
-      professor: document.getElementById("turma-professor").value.trim(),
+      professor1: document.getElementById("turma-professor1").value.trim(),
+      professor2: document.getElementById("turma-professor2").value.trim(),
     };
 
     if (!turmaData.turma || !turmaData.turno) {
