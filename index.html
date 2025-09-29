@@ -45,16 +45,7 @@
             <div class="noxss-tabs__panel" id="panel-alunos">
               <div class="content-panel">
                 <div class="action-bar">
-                  <button id="add-student-btn" class="noxss-btn noxss-btn--primary">
-                    <i data-feather="plus-circle" class="noxss-icon"></i>
-                    Adicionar Aluno
-                  </button>
-                  <button id="load-list-btn" class="noxss-btn noxss-btn--secondary">
-                    <i data-feather="folder-plus" class="noxss-icon"></i>
-                    Carregar Lista
-                  </button>
-                  <input type="file" id="jsonFileInput" accept=".json" />
-                  <button id="download-list-btn" class="noxss-btn noxss-btn--secondary"><i data-feather="download" class="noxss-icon"></i> Baixar Lista</button>
+                  <button id="add-student-btn" class="noxss-btn noxss-btn--primary"><i data-feather="plus-circle" class="noxss-icon"></i> Adicionar Aluno</button>
                 </div>
                 <div class="search-bar">
                   <i data-feather="search" class="noxss-icon search-icon"></i>
@@ -118,6 +109,18 @@
                   </div>
                   <div class="noxss-card__footer">
                     <button id="add-turma-btn" class="noxss-btn noxss-btn--primary w-100"><i data-feather="plus" class="noxss-icon"></i> Adicionar Nova Turma</button>
+                  </div>
+                </div>
+                <!-- Gerenciamento de Dados -->
+                <div class="noxss-card mt-4">
+                  <div class="noxss-card__header"><h3 class="noxss-card__title">Gerenciamento de Dados</h3></div>
+                  <div class="noxss-card__body">
+                    <p class="text-secondary">Carregue ou baixe uma cópia completa do banco de dados (inclui alunos, turmas e metadados).</p>
+                    <div class="d-flex gap-2 mt-3">
+                      <button id="load-list-btn" class="noxss-btn noxss-btn--secondary"><i data-feather="folder-plus" class="noxss-icon"></i> Carregar JSON</button>
+                      <input type="file" id="jsonFileInput" accept=".json" />
+                      <button id="download-list-btn" class="noxss-btn noxss-btn--secondary"><i data-feather="download" class="noxss-icon"></i> Baixar JSON</button>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -256,6 +259,23 @@
         <div class="noxss-modal__footer">
           <button type="button" class="noxss-btn noxss-btn--secondary" data-noxss-modal-close>Cancelar</button>
           <button type="button" id="confirmDeleteBtn" class="noxss-btn noxss-btn--danger">Confirmar Exclusão</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Modal de Confirmação de Carregamento de JSON -->
+    <div class="noxss-modal" id="loadConfirmModal" data-noxss-modal>
+      <div class="noxss-modal__dialog">
+        <div class="noxss-modal__header">
+          <h3 class="noxss-modal__title">Confirmar Carregamento de Dados</h3>
+        </div>
+        <div class="noxss-modal__body">
+          <p>Você tem certeza que deseja carregar este arquivo? Esta ação <strong class="text-danger">substituirá permanentemente</strong> todos os dados atuais (alunos, turmas e configurações).</p>
+          <p>Recomenda-se baixar uma cópia de segurança antes de continuar.</p>
+        </div>
+        <div class="noxss-modal__footer">
+          <button type="button" class="noxss-btn noxss-btn--secondary" data-noxss-modal-close>Cancelar</button>
+          <button type="button" id="confirmLoadBtn" class="noxss-btn noxss-btn--danger">Sim, substituir dados</button>
         </div>
       </div>
     </div>

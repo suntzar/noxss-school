@@ -71,6 +71,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const metadataForm = document.getElementById("metadataForm");
   const turmaForm = document.getElementById("turmaForm");
   const turmasListEl = document.getElementById("turmas-list");
+  const confirmLoadBtn = document.getElementById("confirmLoadBtn");
 
   // --- FUNÇÕES AUXILIARES ---
   const generateId = () => "_" + Math.random().toString(36).substr(2, 9);
@@ -555,26 +556,37 @@ document.addEventListener("DOMContentLoaded", () => {
     searchInput.dispatchEvent(new Event("input"));
   });
 
+  let fileToLoad = null;
+
   document.getElementById("load-list-btn").addEventListener("click", () => fileInput.click());
+
   fileInput.addEventListener("change", (event) => {
     const file = event.target.files[0];
     if (!file) return;
+
+    fileToLoad = file; // Armazena o arquivo para ser usado depois
+    Noxss.Modals.open("loadConfirmModal"); // Abre o modal de confirmação
+    fileInput.value = ""; // Limpa o input para permitir selecionar o mesmo arquivo novamente
+  });
+
+  confirmLoadBtn.addEventListener("click", () => {
+    if (!fileToLoad) return;
+
     const reader = new FileReader();
     reader.onload = (e) => {
-      if (confirm("Isso substituirá o banco de dados atual. Deseja continuar?")) {
-        try {
-          const loadedData = JSON.parse(e.target.result);
-          database = processLoadedData(loadedData);
-          saveDatabase();
-          Noxss.Toasts.show({ message: "Banco de dados carregado!", status: "success" });
-          document.querySelector(".noxss-tabs").dispatchEvent(new CustomEvent("noxss:tab:change", { detail: { activeTabId: "dashboard" } }));
-        } catch (error) {
-          Noxss.Toasts.show({ message: `Arquivo JSON inválido: ${error.message}`, status: "danger" });
-        }
+      try {
+        const loadedData = JSON.parse(e.target.result);
+        database = processLoadedData(loadedData);
+        saveDatabase();
+        Noxss.Toasts.show({ message: "Banco de dados carregado com sucesso!", status: "success" });
+        document.querySelector(".noxss-tabs").dispatchEvent(new CustomEvent("noxss:tab:change", { detail: { activeTabId: "dashboard" } }));
+      } catch (error) {
+        Noxss.Toasts.show({ message: `Arquivo JSON inválido: ${error.message}`, status: "danger" });
       }
-      fileInput.value = "";
     };
-    reader.readAsText(file);
+    reader.readAsText(fileToLoad);
+    Noxss.Modals.close("loadConfirmModal");
+    fileToLoad = null; // Limpa a referência ao arquivo
   });
 
   document.getElementById("download-list-btn").addEventListener("click", () => {
