@@ -347,7 +347,7 @@ document.addEventListener("DOMContentLoaded", () => {
         .sort((a, b) => `${a.turma}-${a.turno}`.localeCompare(`${b.turma}-${b.turno}`))
         .map((t) => {
           const prof1 = t.professor1 || "Não definido";
-          const prof2 = t.professor2 ? ` / ${t.professor2}` : "";
+          const prof2 = t.professor2 ? ` e ${t.professor2}` : "";
           const professores = `${prof1}${prof2}`;
 
           return `
