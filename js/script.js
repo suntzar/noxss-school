@@ -247,6 +247,24 @@ document.addEventListener("DOMContentLoaded", () => {
     feather.replace();
   };
 
+  // Função auxiliar para calcular a idade a partir da data de nascimento (dd/mm/aaaa)
+  const calculateAge = (dobString) => {
+    if (!dobString) return null;
+    const parts = dobString.split("/");
+    if (parts.length !== 3) return null;
+    const day = parseInt(parts[0], 10);
+    const month = parseInt(parts[1], 10) - 1; // Mês é 0-indexado
+    const year = parseInt(parts[2], 10);
+    if (isNaN(day) || isNaN(month) || isNaN(year)) return null;
+
+    const birthDate = new Date(year, month, day);
+    const today = new Date();
+    let age = today.getFullYear() - birthDate.getFullYear();
+    const m = today.getMonth() - birthDate.getMonth();
+    if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) age--;
+    return age;
+  };
+
   const renderDashboard = () => {
     const dashboardContent = document.getElementById("dashboard-content");
     const students = database.alunos;
@@ -255,8 +273,21 @@ document.addEventListener("DOMContentLoaded", () => {
       feather.replace();
       return;
     }
+
+    // Novas estatísticas
     const total = students.length;
-    const activeStudents = students.filter((s) => (s.status || "Ativo") === "Ativo").length;
+    const activeStudentList = students.filter((s) => (s.status || "Ativo") === "Ativo");
+    const activeStudentsCount = activeStudentList.length;
+    const transferredStudents = students.filter((s) => s.status === "Transferido").length;
+    const inactiveStudents = students.filter((s) => s.status === "Inativo").length;
+
+    // Contagem de gênero apenas para alunos ativos
+    const activeStudentsByGender = activeStudentList.reduce((acc, s) => {
+      const gender = s.sexo || "Não informado";
+      acc[gender] = (acc[gender] || 0) + 1;
+      return acc;
+    }, {});
+
     const turmaMap = new Map(database.metadata.turmas.map((t) => [t.id, t]));
     const byTurma = students.reduce((acc, s) => {
       const turma = turmaMap.get(s.turma_id) || { turma: "Sem Turma", turno: "" };
@@ -273,7 +304,21 @@ document.addEventListener("DOMContentLoaded", () => {
     dashboardContent.innerHTML = `
             <div class="noxss-card-deck" style="grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));">
                 <div class="noxss-card noxss-card--stat"><div class="stat-content"><div><div class="stat-label">Total de Alunos</div><div class="stat-value">${total}</div></div><i class="noxss-icon stat-icon" data-feather="users"></i></div></div>
-                <div class="noxss-card noxss-card--stat"><div class="stat-content"><div><div class="stat-label">Alunos Ativos</div><div class="stat-value">${activeStudents}</div></div><i class="noxss-icon stat-icon" data-feather="user-check"></i></div></div>
+                <div class="noxss-card noxss-card--stat"><div class="stat-content"><div><div class="stat-label">Alunos Ativos</div><div class="stat-value">${activeStudentsCount}</div></div><i class="noxss-icon stat-icon" data-feather="user-check"></i></div></div>
+                <div class="noxss-card noxss-card--stat"><div class="stat-content"><div><div class="stat-label">Alunos Transferidos</div><div class="stat-value">${transferredStudents}</div></div><i class="noxss-icon stat-icon" data-feather="user-x"></i></div></div>
+                <div class="noxss-card noxss-card--stat"><div class="stat-content"><div><div class="stat-label">Alunos Inativos</div><div class="stat-value">${inactiveStudents}</div></div><i class="noxss-icon stat-icon" data-feather="user-minus"></i></div></div>
+                <div class="noxss-card noxss-card--stat">
+                    <div class="stat-content">
+                        <div><div class="stat-label">Meninos (Ativos)</div><div class="stat-value">${activeStudentsByGender["Masculino"] || 0}</div></div>
+                        <i class="noxss-icon stat-icon" data-feather="user"></i>
+                    </div>
+                </div>
+                <div class="noxss-card noxss-card--stat">
+                    <div class="stat-content">
+                        <div><div class="stat-label">Meninas (Ativas)</div><div class="stat-value">${activeStudentsByGender["Feminino"] || 0}</div></div>
+                        <i class="noxss-icon stat-icon" data-feather="user"></i>
+                    </div>
+                </div>
             </div>
             <div class="noxss-card-deck mt-4">
                 <div class="noxss-card"><div class="noxss-card__header"><h3 class="noxss-card__title">Alunos por Turma</h3></div><ul class="noxss-list">${createListItems(byTurma)}</ul></div>

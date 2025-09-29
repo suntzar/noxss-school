@@ -104,6 +104,17 @@
   color: var(--noxss-accent-primary);
   opacity: 0.6;
 }
+.dashboard-heading {
+  color: var(--noxss-text-primary);
+  font-size: 1.8rem;
+  margin-top: 0;
+  margin-bottom: 1.5rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid var(--noxss-border-color);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
 
 /* Estilos de Scrollbar Personalizados */
 .noxss-tabs__panel,
