@@ -68,6 +68,12 @@
   display: flex;
   gap: 1.5rem;
 }
+.noxss-card__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+}
 .student-card-actions {
   display: flex;
   gap: 0.5rem;

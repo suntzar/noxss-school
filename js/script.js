@@ -289,7 +289,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }, {});
 
     const turmaMap = new Map(database.metadata.turmas.map((t) => [t.id, t]));
-    const byTurma = students.reduce((acc, s) => {
+    const byTurma = activeStudentList.reduce((acc, s) => {
       const turma = turmaMap.get(s.turma_id) || { turma: "Sem Turma", turno: "" };
       const key = `${turma.turma} - ${turma.turno}`;
       acc[key] = (acc[key] || 0) + 1;
@@ -321,7 +321,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 </div>
             </div>
             <div class="noxss-card-deck mt-4">
-                <div class="noxss-card"><div class="noxss-card__header"><h3 class="noxss-card__title">Alunos por Turma</h3></div><ul class="noxss-list">${createListItems(byTurma)}</ul></div>
+                <div class="noxss-card"><div class="noxss-card__header"><h3 class="noxss-card__title">Alunos Ativos por Turma</h3></div><ul class="noxss-list">${createListItems(byTurma)}</ul></div>
             </div>`;
     feather.replace();
   };
