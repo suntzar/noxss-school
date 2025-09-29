@@ -1,0 +1,131 @@
+.noxss-navbar {
+  justify-content: space-between;
+  align-items: center;
+}
+#theme-switcher {
+  cursor: pointer;
+  transition: transform 0.4s ease-in-out, color 0.3s ease;
+}
+#theme-switcher:hover {
+  transform: rotate(180deg);
+  color: var(--noxss-accent-primary);
+}
+.content-panel {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 1.5rem;
+}
+.action-bar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-bottom: 1.5rem;
+}
+.search-bar {
+  position: relative;
+  margin-bottom: 2rem;
+}
+.search-bar .search-icon {
+  position: absolute;
+  left: 1rem;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--noxss-text-secondary);
+  pointer-events: none;
+}
+.search-bar .clear-search-btn {
+  position: absolute;
+  right: 1rem;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+  color: var(--noxss-text-secondary);
+  background: none;
+  border: none;
+  padding: 0.5rem;
+  display: none;
+}
+#searchInput {
+  padding-left: 3rem;
+  padding-right: 3rem;
+}
+.turma-title {
+  color: var(--noxss-accent-primary);
+  font-size: 1.5rem;
+  margin-top: 2rem;
+}
+.student-card {
+  margin-bottom: 1.5rem;
+}
+.student-card .noxss-card__subtitle {
+  margin-bottom: 0;
+}
+.student-card .card-text strong {
+  min-width: 90px;
+  display: inline-block;
+}
+.student-card .card-text-inline {
+  display: flex;
+  gap: 1.5rem;
+}
+.student-card-actions {
+  display: flex;
+  gap: 0.5rem;
+}
+.badge-status {
+  font-size: 0.8em;
+  padding: 0.4em 0.8em;
+  border-radius: var(--noxss-border-radius-base);
+  font-weight: 600;
+  color: var(--noxss-text-on-accent);
+}
+.badge-status--success {
+  background-color: var(--noxss-color-success);
+}
+.badge-status--warning {
+  background-color: var(--noxss-color-warning);
+  color: #333;
+}
+.badge-status--secondary {
+  background-color: var(--noxss-text-secondary);
+}
+#placeholder {
+  text-align: center;
+  padding: 3rem;
+  border: 2px dashed var(--noxss-border-color);
+  border-radius: var(--noxss-border-radius-base);
+}
+#jsonFileInput {
+  display: none;
+}
+
+/* Estilos para o Dashboard */
+#dashboard-content .noxss-card--stat .stat-icon {
+  color: var(--noxss-accent-primary);
+  opacity: 0.6;
+}
+
+/* Estilos de Scrollbar Personalizados */
+.noxss-tabs__panel,
+.noxss-modal__body {
+  scrollbar-width: thin;
+  scrollbar-color: var(--noxss-accent-primary) var(--noxss-bg-elements);
+}
+.noxss-tabs__panel::-webkit-scrollbar,
+.noxss-modal__body::-webkit-scrollbar {
+  width: 10px;
+}
+.noxss-tabs__panel::-webkit-scrollbar-track,
+.noxss-modal__body::-webkit-scrollbar-track {
+  background: var(--noxss-bg-elements);
+}
+.noxss-tabs__panel::-webkit-scrollbar-thumb,
+.noxss-modal__body::-webkit-scrollbar-thumb {
+  background-color: var(--noxss-accent-primary);
+  border-radius: var(--noxss-border-radius-base);
+  border: 2px solid var(--noxss-bg-elements);
+}
+.noxss-tabs__panel::-webkit-scrollbar-thumb:hover,
+.noxss-modal__body::-webkit-scrollbar-thumb:hover {
+  background-color: var(--noxss-accent-primary-hover);
+}

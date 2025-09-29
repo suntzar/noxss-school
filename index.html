@@ -6,189 +6,34 @@
     <title>Gerenciador de Alunos - Noxss v1.6</title>
 
     <!-- DEPENDÊNCIAS (VIA CDN PARA PORTABILIDADE) -->
-    <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
-    />
-    <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/gh/suntzar/noxss-base@main/noxss/dist/noxss.css"
-    />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/suntzar/noxss-base@main/noxss/dist/noxss.css" />
     <script defer src="https://unpkg.com/feather-icons"></script>
 
     <!-- ESTILOS DO TEMPLATE -->
-    <style>
-      .noxss-navbar {
-        justify-content: space-between;
-        align-items: center;
-      }
-      #theme-switcher {
-        cursor: pointer;
-        transition: transform 0.4s ease-in-out, color 0.3s ease;
-      }
-      #theme-switcher:hover {
-        transform: rotate(180deg);
-        color: var(--noxss-accent-primary);
-      }
-      .content-panel {
-        max-width: 960px;
-        margin: 0 auto;
-        padding: 1.5rem;
-      }
-      .action-bar {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 0.75rem;
-        margin-bottom: 1.5rem;
-      }
-      .search-bar {
-        position: relative;
-        margin-bottom: 2rem;
-      }
-      .search-bar .search-icon {
-        position: absolute;
-        left: 1rem;
-        top: 50%;
-        transform: translateY(-50%);
-        color: var(--noxss-text-secondary);
-        pointer-events: none;
-      }
-      .search-bar .clear-search-btn {
-        position: absolute;
-        right: 1rem;
-        top: 50%;
-        transform: translateY(-50%);
-        cursor: pointer;
-        color: var(--noxss-text-secondary);
-        background: none;
-        border: none;
-        padding: 0.5rem;
-        display: none;
-      }
-      #searchInput {
-        padding-left: 3rem;
-        padding-right: 3rem;
-      }
-      .turma-title {
-        color: var(--noxss-accent-primary);
-        font-size: 1.5rem;
-        margin-top: 2rem;
-      }
-      .student-card {
-        margin-bottom: 1.5rem;
-      }
-      .student-card .noxss-card__subtitle {
-        margin-bottom: 0;
-      }
-      .student-card .card-text strong {
-        min-width: 90px;
-        display: inline-block;
-      }
-      .student-card .card-text-inline {
-        display: flex;
-        gap: 1.5rem;
-      }
-      .student-card-actions {
-        display: flex;
-        gap: 0.5rem;
-      }
-      .badge-status {
-        font-size: 0.8em;
-        padding: 0.4em 0.8em;
-        border-radius: var(--noxss-border-radius-base);
-        font-weight: 600;
-        color: var(--noxss-text-on-accent);
-      }
-      .badge-status--success {
-        background-color: var(--noxss-color-success);
-      }
-      .badge-status--warning {
-        background-color: var(--noxss-color-warning);
-        color: #333;
-      }
-      .badge-status--secondary {
-        background-color: var(--noxss-text-secondary);
-      }
-      #placeholder {
-        text-align: center;
-        padding: 3rem;
-        border: 2px dashed var(--noxss-border-color);
-        border-radius: var(--noxss-border-radius-base);
-      }
-      #jsonFileInput {
-        display: none;
-      }
-
-      /* Estilos para o Dashboard */
-      #dashboard-content .noxss-card--stat .stat-icon {
-        color: var(--noxss-accent-primary);
-        opacity: 0.6;
-      }
-
-      /* Estilos de Scrollbar Personalizados */
-      .noxss-tabs__panel,
-      .noxss-modal__body {
-        scrollbar-width: thin;
-        scrollbar-color: var(--noxss-accent-primary) var(--noxss-bg-elements);
-      }
-      .noxss-tabs__panel::-webkit-scrollbar,
-      .noxss-modal__body::-webkit-scrollbar {
-        width: 10px;
-      }
-      .noxss-tabs__panel::-webkit-scrollbar-track,
-      .noxss-modal__body::-webkit-scrollbar-track {
-        background: var(--noxss-bg-elements);
-      }
-      .noxss-tabs__panel::-webkit-scrollbar-thumb,
-      .noxss-modal__body::-webkit-scrollbar-thumb {
-        background-color: var(--noxss-accent-primary);
-        border-radius: var(--noxss-border-radius-base);
-        border: 2px solid var(--noxss-bg-elements);
-      }
-      .noxss-tabs__panel::-webkit-scrollbar-thumb:hover,
-      .noxss-modal__body::-webkit-scrollbar-thumb:hover {
-        background-color: var(--noxss-accent-primary-hover);
-      }
-    </style>
+    <link rel="stylesheet" href="css/style.css" />
   </head>
   <body data-noxss-layout="app">
     <div class="noxss-layout">
       <nav class="noxss-navbar">
-        <a class="noxss-navbar__brand" href="#"
-          ><i data-feather="book-open" class="noxss-icon"></i>
-          <span>Gerenciador de Alunos</span></a
-        >
-        <button
-          id="theme-switcher"
-          class="noxss-btn noxss-btn--icon"
-          title="Mudar tema"
-        ></button>
+        <a class="noxss-navbar__brand" href="#"><i data-feather="book-open" class="noxss-icon"></i> <span>Gerenciador de Alunos</span></a>
+        <button id="theme-switcher" class="noxss-btn noxss-btn--icon" title="Mudar tema"></button>
       </nav>
 
       <main class="noxss-layout__content">
         <div class="noxss-tabs" data-default-tab="dashboard">
           <div class="noxss-tabs__header d-none d-md-flex">
-            <button class="noxss-tabs__header-button" data-tab-id="dashboard">
-              <i class="noxss-icon" data-feather="pie-chart"></i> Dashboard
-            </button>
-            <button class="noxss-tabs__header-button" data-tab-id="alunos">
-              <i class="noxss-icon" data-feather="users"></i> Alunos
-            </button>
-            <button class="noxss-tabs__header-button" data-tab-id="settings">
-              <i class="noxss-icon" data-feather="settings"></i> Configurações
-            </button>
-            <button class="noxss-tabs__header-button" data-tab-id="metadata">
-              <i class="noxss-icon" data-feather="database"></i> Metadados
-            </button>
+            <button class="noxss-tabs__header-button" data-tab-id="dashboard"><i class="noxss-icon" data-feather="pie-chart"></i> Dashboard</button>
+            <button class="noxss-tabs__header-button" data-tab-id="alunos"><i class="noxss-icon" data-feather="users"></i> Alunos</button>
+            <button class="noxss-tabs__header-button" data-tab-id="settings"><i class="noxss-icon" data-feather="settings"></i> Configurações</button>
+            <button class="noxss-tabs__header-button" data-tab-id="metadata"><i class="noxss-icon" data-feather="database"></i> Metadados</button>
           </div>
 
           <div class="noxss-tabs__content-area">
             <!-- Painel: Dashboard -->
             <div class="noxss-tabs__panel" id="panel-dashboard">
               <div class="content-panel">
-                <h2 class="turma-title" style="margin-top: 0; border: none">
-                  Dashboard
-                </h2>
+                <h2 class="turma-title" style="margin-top: 0; border: none">Dashboard</h2>
                 <div id="dashboard-content">
                   <!-- Conteúdo do dashboard será gerado aqui -->
                 </div>
@@ -199,51 +44,27 @@
             <div class="noxss-tabs__panel" id="panel-alunos">
               <div class="content-panel">
                 <div class="action-bar">
-                  <button
-                    id="add-student-btn"
-                    class="noxss-btn noxss-btn--primary"
-                  >
+                  <button id="add-student-btn" class="noxss-btn noxss-btn--primary">
                     <i data-feather="plus-circle" class="noxss-icon"></i>
                     Adicionar Aluno
                   </button>
-                  <button
-                    id="load-list-btn"
-                    class="noxss-btn noxss-btn--secondary"
-                  >
+                  <button id="load-list-btn" class="noxss-btn noxss-btn--secondary">
                     <i data-feather="folder-plus" class="noxss-icon"></i>
                     Carregar Lista
                   </button>
                   <input type="file" id="jsonFileInput" accept=".json" />
-                  <button
-                    id="download-list-btn"
-                    class="noxss-btn noxss-btn--secondary"
-                  >
-                    <i data-feather="download" class="noxss-icon"></i> Baixar
-                    Lista
-                  </button>
+                  <button id="download-list-btn" class="noxss-btn noxss-btn--secondary"><i data-feather="download" class="noxss-icon"></i> Baixar Lista</button>
                 </div>
                 <div class="search-bar">
                   <i data-feather="search" class="noxss-icon search-icon"></i>
-                  <input
-                    type="text"
-                    id="searchInput"
-                    class="noxss-input"
-                    placeholder="Pesquisar por nome, CPF, mãe ou pai..."
-                  />
-                  <button
-                    class="clear-search-btn"
-                    id="clearSearchBtn"
-                    title="Limpar busca"
-                  >
+                  <input type="text" id="searchInput" class="noxss-input" placeholder="Pesquisar por nome, CPF, mãe ou pai..." />
+                  <button class="clear-search-btn" id="clearSearchBtn" title="Limpar busca">
                     <i data-feather="x" class="noxss-icon"></i>
                   </button>
                 </div>
                 <div id="student-list-container">
                   <div id="placeholder" class="text-secondary">
-                    <i
-                      data-feather="users"
-                      style="width: 3rem; height: 3rem"
-                    ></i>
+                    <i data-feather="users" style="width: 3rem; height: 3rem"></i>
                     <p class="mt-3">Nenhum aluno na lista.</p>
                   </div>
                 </div>
@@ -253,9 +74,7 @@
             <!-- Painel: Configurações -->
             <div class="noxss-tabs__panel" id="panel-settings">
               <div class="content-panel">
-                <h2 class="turma-title" style="margin-top: 0; border: none">
-                  Configurações
-                </h2>
+                <h2 class="turma-title" style="margin-top: 0; border: none">Configurações</h2>
                 <div class="noxss-form-group">
                   <label for="palette-select" class="noxss-label">Paleta de Cores de Destaque</label>
                   <select id="palette-select" class="noxss-select">
@@ -268,9 +87,7 @@
             <!-- Painel: Metadados -->
             <div class="noxss-tabs__panel" id="panel-metadata">
               <div class="content-panel">
-                <h2 class="turma-title" style="margin-top: 0; border: none">
-                  Metadados do Banco de Dados
-                </h2>
+                <h2 class="turma-title" style="margin-top: 0; border: none">Metadados do Banco de Dados</h2>
                 <form id="metadataForm">
                   <div class="noxss-card">
                     <div class="noxss-card__header"><h3 class="noxss-card__title">Informações da Escola</h3></div>
@@ -289,9 +106,7 @@
                       </div>
                     </div>
                     <div class="noxss-card__footer">
-                      <button type="submit" class="noxss-btn noxss-btn--primary">
-                        <i data-feather="save" class="noxss-icon"></i> Salvar Metadados
-                      </button>
+                      <button type="submit" class="noxss-btn noxss-btn--primary"><i data-feather="save" class="noxss-icon"></i> Salvar Metadados</button>
                     </div>
                   </div>
                 </form>
@@ -299,7 +114,7 @@
                   <div class="noxss-card__header">
                     <h3 class="noxss-card__title">Turmas Registradas</h3>
                     <button id="add-turma-btn" class="noxss-btn noxss-btn--primary noxss-btn--icon" title="Adicionar nova turma">
-                        <i data-feather="plus" class="noxss-icon"></i>
+                      <i data-feather="plus" class="noxss-icon"></i>
                     </button>
                   </div>
                   <div class="noxss-card__body">
@@ -314,35 +129,17 @@
         </div>
       </main>
 
-      <nav
-        class="noxss-navbar noxss-navbar--bottom noxss-active-bg-button d-md-none"
-      >
-        <button
-          class="noxss-tabs__nav-button"
-          data-tab-id="dashboard"
-          aria-label="Dashboard"
-        >
+      <nav class="noxss-navbar noxss-navbar--bottom noxss-active-bg-button d-md-none">
+        <button class="noxss-tabs__nav-button" data-tab-id="dashboard" aria-label="Dashboard">
           <i class="noxss-icon" data-feather="pie-chart"></i>
         </button>
-        <button
-          class="noxss-tabs__nav-button"
-          data-tab-id="alunos"
-          aria-label="Alunos"
-        >
+        <button class="noxss-tabs__nav-button" data-tab-id="alunos" aria-label="Alunos">
           <i class="noxss-icon" data-feather="users"></i>
         </button>
-        <button
-          class="noxss-tabs__nav-button"
-          data-tab-id="settings"
-          aria-label="Configurações"
-        >
+        <button class="noxss-tabs__nav-button" data-tab-id="settings" aria-label="Configurações">
           <i class="noxss-icon" data-feather="settings"></i>
         </button>
-        <button
-          class="noxss-tabs__nav-button"
-          data-tab-id="metadata"
-          aria-label="Metadados"
-        >
+        <button class="noxss-tabs__nav-button" data-tab-id="metadata" aria-label="Metadados">
           <i class="noxss-icon" data-feather="database"></i>
         </button>
       </nav>
@@ -352,35 +149,18 @@
     <div class="noxss-modal" id="studentModal" data-noxss-modal>
       <div class="noxss-modal__dialog noxss-modal__dialog--large">
         <div class="noxss-modal__header">
-          <h3 class="noxss-modal__title" id="studentModalLabel">
-            Dados do Aluno
-          </h3>
-          <button
-            type="button"
-            class="noxss-btn noxss-btn--icon noxss-modal__close-btn"
-            data-noxss-modal-close
-          >
+          <h3 class="noxss-modal__title" id="studentModalLabel">Dados do Aluno</h3>
+          <button type="button" class="noxss-btn noxss-btn--icon noxss-modal__close-btn" data-noxss-modal-close>
             <i class="noxss-icon" data-feather="x"></i>
           </button>
         </div>
         <div class="noxss-modal__body">
           <form id="studentForm">
             <input type="hidden" id="studentIndex" />
-            <div class="noxss-form-group">
-              <label for="nome" class="noxss-label">Nome Completo</label
-              ><input type="text" class="noxss-input" id="nome" required />
-            </div>
+            <div class="noxss-form-group"><label for="nome" class="noxss-label">Nome Completo</label><input type="text" class="noxss-input" id="nome" required /></div>
             <div class="row">
               <div class="col-md-7">
-                <div class="noxss-form-group">
-                  <label for="cpf" class="noxss-label">CPF (Opcional)</label
-                  ><input
-                    type="text"
-                    class="noxss-input"
-                    id="cpf"
-                    placeholder="000.000.000-00"
-                  />
-                </div>
+                <div class="noxss-form-group"><label for="cpf" class="noxss-label">CPF (Opcional)</label><input type="text" class="noxss-input" id="cpf" placeholder="000.000.000-00" /></div>
               </div>
               <div class="col-md-5">
                 <div class="noxss-form-group">
@@ -395,10 +175,10 @@
             </div>
             <hr class="my-3" />
             <div class="noxss-form-group">
-                <label for="turma_id" class="noxss-label">Turma</label>
-                <select id="turma_id" class="noxss-select" required>
-                    <!-- Opções de turma serão geradas aqui -->
-                </select>
+              <label for="turma_id" class="noxss-label">Turma</label>
+              <select id="turma_id" class="noxss-select" required>
+                <!-- Opções de turma serão geradas aqui -->
+              </select>
             </div>
             <div class="row">
               <div class="col-md-6">
@@ -418,83 +198,51 @@
                 </div>
               </div>
             </div>
-            <div class="noxss-form-group">
-              <label for="mae" class="noxss-label">Nome da Mãe</label
-              ><input type="text" class="noxss-input" id="mae" />
-            </div>
-            <div class="noxss-form-group">
-              <label for="pai" class="noxss-label">Nome do Pai</label
-              ><input type="text" class="noxss-input" id="pai" />
-            </div>
-            <div class="noxss-form-group">
-              <label for="telefone" class="noxss-label">Telefone(s)</label
-              ><input
-                type="text"
-                class="noxss-input"
-                id="telefone"
-                placeholder="Separe com vírgula: 98..., 99..."
-              />
-            </div>
-            <div class="noxss-form-group">
-              <label for="endereco" class="noxss-label">Endereço</label
-              ><input type="text" class="noxss-input" id="endereco" />
-            </div>
-            <div class="noxss-form-group">
-              <label for="cor" class="noxss-label">Cor/Raça</label
-              ><input type="text" class="noxss-input" id="cor" />
-            </div>
+            <div class="noxss-form-group"><label for="mae" class="noxss-label">Nome da Mãe</label><input type="text" class="noxss-input" id="mae" /></div>
+            <div class="noxss-form-group"><label for="pai" class="noxss-label">Nome do Pai</label><input type="text" class="noxss-input" id="pai" /></div>
+            <div class="noxss-form-group"><label for="telefone" class="noxss-label">Telefone(s)</label><input type="text" class="noxss-input" id="telefone" placeholder="Separe com vírgula: 98..., 99..." /></div>
+            <div class="noxss-form-group"><label for="endereco" class="noxss-label">Endereço</label><input type="text" class="noxss-input" id="endereco" /></div>
+            <div class="noxss-form-group"><label for="cor" class="noxss-label">Cor/Raça</label><input type="text" class="noxss-input" id="cor" /></div>
           </form>
         </div>
         <div class="noxss-modal__footer">
-          <button
-            type="button"
-            class="noxss-btn noxss-btn--secondary"
-            data-noxss-modal-close
-          >
-            <i class="noxss-icon" data-feather="x"></i> Cancelar
-          </button>
-          <button
-            type="submit"
-            form="studentForm"
-            class="noxss-btn noxss-btn--primary"
-          >
-            <i class="noxss-icon" data-feather="check"></i> Salvar
-          </button>
+          <button type="button" class="noxss-btn noxss-btn--secondary" data-noxss-modal-close><i class="noxss-icon" data-feather="x"></i> Cancelar</button>
+          <button type="submit" form="studentForm" class="noxss-btn noxss-btn--primary"><i class="noxss-icon" data-feather="check"></i> Salvar</button>
         </div>
       </div>
     </div>
 
     <!-- Modal de Turma -->
     <div class="noxss-modal" id="turmaModal" data-noxss-modal>
-        <div class="noxss-modal__dialog">
-            <div class="noxss-modal__header">
-                <h3 class="noxss-modal__title" id="turmaModalLabel">Dados da Turma</h3>
-                <button type="button" class="noxss-btn noxss-btn--icon noxss-modal__close-btn" data-noxss-modal-close>
-                    <i class="noxss-icon" data-feather="x"></i>
-                </button>
-            </div>
-            <div class="noxss-modal__body">
-                <form id="turmaForm">
-                    <input type="hidden" id="turmaId" />
-                    <div class="noxss-form-group">
-                        <label for="turma-nome" class="noxss-label">Nome da Turma</label>
-                        <input type="text" class="noxss-input" id="turma-nome" required placeholder="Ex: 1º ANO, INFANTIL II" />
-                    </div>
-                    <div class="noxss-form-group">
-                        <label for="turma-turno" class="noxss-label">Turno</label>
-                        <input type="text" class="noxss-input" id="turma-turno" required placeholder="Ex: MATUTINO, VESPERTINO" />
-                    </div>
-                    <div class="noxss-form-group">
-                        <label for="turma-professor" class="noxss-label">Professor(a)</label>
-                        <input type="text" class="noxss-input" id="turma-professor" placeholder="Nome do(a) professor(a)" />
-                    </div>
-                </form>
-            </div>
-            <div class="noxss-modal__footer">
-                <button type="button" class="noxss-btn noxss-btn--secondary" data-noxss-modal-close>Cancelar</button>
-                <button type="submit" form="turmaForm" class="noxss-btn noxss-btn--primary">Salvar</button>
-            </div>
+      <div class="noxss-modal__dialog">
+        <div class="noxss-modal__header">
+          <h3 class="noxss-modal__title" id="turmaModalLabel">Dados da Turma</h3>
+          <button type="button" class="noxss-btn noxss-btn--icon noxss-modal__close-btn" data-noxss-modal-close>
+            <i class="noxss-icon" data-feather="x"></i>
+          </button>
         </div>
+        <div class="noxss-modal__body">
+          <form id="turmaForm">
+            <input type="hidden" id="turmaId" />
+            <div class="noxss-form-group">
+              <label for="turma-nome" class="noxss-label">Nome da Turma</label>
+              <input type="text" class="noxss-input" id="turma-nome" required placeholder="Ex: 1º ANO, INFANTIL II" />
+            </div>
+            <div class="noxss-form-group">
+              <label for="turma-turno" class="noxss-label">Turno</label>
+              <input type="text" class="noxss-input" id="turma-turno" required placeholder="Ex: MATUTINO, VESPERTINO" />
+            </div>
+            <div class="noxss-form-group">
+              <label for="turma-professor" class="noxss-label">Professor(a)</label>
+              <input type="text" class="noxss-input" id="turma-professor" placeholder="Nome do(a) professor(a)" />
+            </div>
+          </form>
+        </div>
+        <div class="noxss-modal__footer">
+          <button type="button" class="noxss-btn noxss-btn--secondary" data-noxss-modal-close>Cancelar</button>
+          <button type="submit" form="turmaForm" class="noxss-btn noxss-btn--primary">Salvar</button>
+        </div>
+      </div>
     </div>
 
     <!-- Modal de Confirmação -->
@@ -505,582 +253,16 @@
         </div>
         <div class="noxss-modal__body">
           <p id="deleteConfirmText"></p>
-          <p
-            class="text-danger"
-            id="deleteConfirmName"
-            style="font-weight: bold"
-          ></p>
+          <p class="text-danger" id="deleteConfirmName" style="font-weight: bold"></p>
         </div>
         <div class="noxss-modal__footer">
-          <button
-            type="button"
-            class="noxss-btn noxss-btn--secondary"
-            data-noxss-modal-close
-          >
-            Cancelar
-          </button>
-          <button
-            type="button"
-            id="confirmDeleteBtn"
-            class="noxss-btn noxss-btn--danger"
-          >
-            Confirmar Exclusão
-          </button>
+          <button type="button" class="noxss-btn noxss-btn--secondary" data-noxss-modal-close>Cancelar</button>
+          <button type="button" id="confirmDeleteBtn" class="noxss-btn noxss-btn--danger">Confirmar Exclusão</button>
         </div>
       </div>
     </div>
 
     <script src="https://cdn.jsdelivr.net/gh/suntzar/noxss-base@main/noxss/dist/noxss.js"></script>
-    <script>
-      // --- GERENCIADOR DE TEMA ---
-      const htmlElement = document.documentElement;
-      const MODE_KEY = "schoolAppThemeMode";
-      const PALETTE_KEY = "schoolAppPalette";
-
-      const palettes = {
-        "Azul Céu": "#60a5fa",
-        "Verde Esmeralda": "#10b981",
-        "Roxo Violeta": "#8b5cf6",
-        "Âmbar Dourado": "#f59e0b",
-        "Rosa Moderno": "#f43f5e",
-        "Ciano Fresco": "#22d3ee",
-      };
-
-      const applyTheme = (mode, paletteColor) => {
-        const themeSwitcher = document.getElementById("theme-switcher");
-        htmlElement.setAttribute("data-noxss-theme-gen", mode);
-        htmlElement.setAttribute("data-noxss-palette-gen", paletteColor);
-        if (themeSwitcher) {
-          themeSwitcher.innerHTML =
-            mode === "dark"
-              ? `<i data-feather="sun" class="noxss-icon"></i>`
-              : `<i data-feather="moon" class="noxss-icon"></i>`;
-        }
-        if (window.feather) feather.replace();
-        localStorage.setItem(MODE_KEY, mode);
-        localStorage.setItem(PALETTE_KEY, paletteColor);
-      };
-
-      // --- LÓGICA PRINCIPAL DO APLICATIVO ---
-      document.addEventListener("DOMContentLoaded", () => {
-        // --- Lógica de Tema ---
-        const themeSwitcher = document.getElementById("theme-switcher");
-        const paletteSelect = document.getElementById("palette-select");
-        paletteSelect.innerHTML = Object.entries(palettes)
-          .map(([name, color]) => `<option value="${color}">${name}</option>`)
-          .join("");
-        const savedMode = localStorage.getItem(MODE_KEY);
-        const savedPalette =
-          localStorage.getItem(PALETTE_KEY) || palettes["Azul Céu"];
-        const prefersDark = window.matchMedia(
-          "(prefers-color-scheme: dark)"
-        ).matches;
-        const currentMode = savedMode || (prefersDark ? "dark" : "light");
-        applyTheme(currentMode, savedPalette);
-        paletteSelect.value = savedPalette;
-        themeSwitcher.addEventListener("click", () => {
-          const newMode =
-            (localStorage.getItem(MODE_KEY) || "light") === "dark"
-              ? "light"
-              : "dark";
-          applyTheme(newMode, localStorage.getItem(PALETTE_KEY));
-        });
-        paletteSelect.addEventListener("change", (e) => {
-          applyTheme(localStorage.getItem(MODE_KEY), e.target.value);
-        });
-
-        // --- ESTRUTURA DE DADOS ---
-        let database = {
-          metadata: {
-            escola: "Nome da Escola",
-            localizacao: "Endereço da Escola",
-            contato: "Telefone/Email",
-            turmas: [],
-          },
-          alunos: [],
-        };
-        const DB_KEY = "schoolAppDatabase_v2";
-        const JSONBIN_API_KEY =
-          "$2a$10$s976JjTPuXOZQ.kCH7E6i.FdOJ0R2vLsy9rqYrlBLSMRXxmHnA552";
-        const JSONBIN_BIN_ID = "68d5a70e43b1c97be9501077";
-        const JSONBIN_URL = `https://api.jsonbin.io/v3/b/${JSONBIN_BIN_ID}`;
-
-        // --- REFERÊNCIAS DE ELEMENTOS ---
-        const studentListContainer = document.getElementById("student-list-container");
-        const placeholder = document.getElementById("placeholder");
-        const searchInput = document.getElementById("searchInput");
-        const studentForm = document.getElementById("studentForm");
-        const fileInput = document.getElementById("jsonFileInput");
-        const clearSearchBtn = document.getElementById("clearSearchBtn");
-        const metadataForm = document.getElementById("metadataForm");
-        const turmaForm = document.getElementById("turmaForm");
-        const turmasListEl = document.getElementById("turmas-list");
-
-        // --- FUNÇÕES AUXILIARES ---
-        const generateId = () => '_' + Math.random().toString(36).substr(2, 9);
-
-        // --- MIGRAÇÃO E COMPATIBILIDADE ---
-        function migrateData(db) {
-            let migrationPerformed = false;
-            // Verifica se a migração é necessária (turmas sem ID)
-            if (db.metadata.turmas.length > 0 && !db.metadata.turmas[0].id) {
-                console.log("Iniciando migração de dados para o novo formato de turmas...");
-                const turmaMap = new Map();
-
-                // 1. Adiciona IDs às turmas existentes e cria um mapa de lookup
-                db.metadata.turmas.forEach(turma => {
-                    const newId = generateId();
-                    turma.id = newId;
-                    const key = `${(turma.turma || '').trim().toUpperCase()}-${(turma.turno || '').trim().toUpperCase()}`;
-                    turmaMap.set(key, newId);
-                });
-
-                // 2. Atualiza os alunos para usar turma_id
-                db.alunos.forEach(aluno => {
-                    if (aluno.turma && aluno.turno) {
-                        const key = `${(aluno.turma || '').trim().toUpperCase()}-${(aluno.turno || '').trim().toUpperCase()}`;
-                        if (turmaMap.has(key)) {
-                            aluno.turma_id = turmaMap.get(key);
-                        }
-                        delete aluno.turma;
-                        delete aluno.turno;
-                    }
-                });
-                migrationPerformed = true;
-            }
-             // Verifica se a migração de alunos é necessária (alunos com turma/turno)
-            if (db.alunos.length > 0 && db.alunos[0].turma) {
-                 console.log("Iniciando migração de dados de alunos...");
-                 const turmaMap = new Map(db.metadata.turmas.map(t => {
-                     const key = `${(t.turma || '').trim().toUpperCase()}-${(t.turno || '').trim().toUpperCase()}`;
-                     return [key, t.id];
-                 }));
-
-                 db.alunos.forEach(aluno => {
-                    if (aluno.turma && aluno.turno) {
-                        const key = `${(aluno.turma || '').trim().toUpperCase()}-${(aluno.turno || '').trim().toUpperCase()}`;
-                        if (turmaMap.has(key)) {
-                            aluno.turma_id = turmaMap.get(key);
-                        }
-                        delete aluno.turma;
-                        delete aluno.turno;
-                    }
-                });
-                migrationPerformed = true;
-            }
-
-
-            if (migrationPerformed) {
-                Noxss.Toasts.show({
-                    message: "Banco de dados atualizado para o novo formato.",
-                    status: "info",
-                });
-                console.log("Migração concluída.", db);
-            }
-            return db;
-        }
-
-        function processLoadedData(data) {
-          let db = { metadata: { escola: "Nova Escola", localizacao: "", contato: "", turmas: [] }, alunos: [] };
-          if (Array.isArray(data)) { // Formato mais antigo (só array de alunos)
-            db.alunos = data;
-          } else if (data && typeof data === 'object' && data.alunos) { // Formato novo ou intermediário
-            db = data;
-          }
-          return migrateData(db);
-        }
-
-        // --- API (jsonbin.io) ---
-        async function fetchFromJSONBin() {
-          if (!JSONBIN_API_KEY.startsWith("$2") || !JSONBIN_BIN_ID) return null;
-          try {
-            const res = await fetch(`${JSONBIN_URL}/latest`, { headers: { "X-Master-Key": JSONBIN_API_KEY } });
-            if (!res.ok) throw new Error(`Erro na API: ${res.statusText}`);
-            const data = await res.json();
-            Noxss.Toasts.show({ message: "Dados sincronizados da nuvem.", status: "info", duration: 2000 });
-            return data.record;
-          } catch (error) {
-            console.error("Falha ao buscar dados do jsonbin.io:", error);
-            Noxss.Toasts.show({ message: "Falha ao conectar à nuvem. Usando dados locais.", status: "warning" });
-            return null;
-          }
-        }
-
-        async function saveToJSONBin(data) {
-          if (!JSONBIN_API_KEY.startsWith("$2") || !JSONBIN_BIN_ID) return;
-          try {
-            const res = await fetch(JSONBIN_URL, {
-              method: "PUT",
-              headers: { "Content-Type": "application/json", "X-Master-Key": JSONBIN_API_KEY },
-              body: JSON.stringify(data),
-            });
-            if (!res.ok) throw new Error(`Erro na API ao salvar: ${res.statusText}`);
-          } catch (error) {
-            console.error("Falha ao salvar dados no jsonbin.io:", error);
-          }
-        }
-
-        // --- UI & RENDERIZAÇÃO ---
-        const getStatusBadge = (status = "Ativo") => {
-          const statusClass = { Ativo: "badge-status--success", Transferido: "badge-status--warning", Inativo: "badge-status--secondary" }[status] || "badge-status--secondary";
-          return `<span class="badge-status ${statusClass}">${status}</span>`;
-        };
-
-        const createStudentCardHTML = (student, index) => {
-          const safe = (text) => text || "Não informado";
-          return `
-            <div class="noxss-card__body">
-                <div class="d-flex justify-content-between align-items-start">
-                    <div><h3 class="noxss-card__title">${safe(student.nome)}</h3><p class="noxss-card__subtitle text-secondary"><strong>Status:</strong> ${getStatusBadge(student.status)}</p></div>
-                    <div class="student-card-actions">
-                        <button class="noxss-btn noxss-btn--icon edit-btn" data-index="${index}" title="Editar"><i data-feather="edit-2" class="noxss-icon"></i></button>
-                        <button class="noxss-btn noxss-btn--icon delete-btn" data-type="student" data-index="${index}" title="Excluir"><i data-feather="trash-2" class="noxss-icon"></i></button>
-                    </div>
-                </div><hr>
-                <p class="card-text"><strong>Mãe:</strong> ${safe(student.mae)}</p>
-                <p class="card-text"><strong>Pai:</strong> ${safe(student.pai)}</p>
-                <div class="card-text-inline">
-                    <p class="card-text"><strong>Nascimento:</strong> ${safe(student.nascimento)}</p>
-                    <p class="card-text"><strong>Sexo:</strong> ${safe(student.sexo)}</p>
-                </div>
-                <p class="card-text"><strong>Telefone(s):</strong> ${student.telefone?.join(", ") || "Não informado"}</p>
-            </div>`;
-        };
-
-        const renderStudentList = (studentList = database.alunos) => {
-          const searchTerm = searchInput.value.toLowerCase();
-          const isSearching = searchTerm.length > 0;
-          studentListContainer.innerHTML = "";
-
-          if (studentList.length === 0) {
-            placeholder.innerHTML = isSearching
-              ? `<i data-feather="search" style="width: 3rem; height: 3rem;"></i><p class="mt-3">Nenhum aluno encontrado.</p>`
-              : `<i data-feather="users" style="width: 3rem; height: 3rem;"></i><p class="mt-3">Nenhum aluno na lista.</p>`;
-            studentListContainer.appendChild(placeholder);
-          } else {
-            const turmaMap = new Map(database.metadata.turmas.map(t => [t.id, t]));
-            const grouped = studentList.reduce((acc, student) => {
-              const turma = turmaMap.get(student.turma_id) || { turma: "Sem Turma", turno: "" };
-              const key = `${turma.turma} - ${turma.turno}`;
-              if (!acc[key]) acc[key] = [];
-              acc[key].push(student);
-              return acc;
-            }, {});
-
-            Object.keys(grouped).sort().forEach((groupKey) => {
-                if (!isSearching) {
-                  const title = document.createElement("h2");
-                  title.className = "turma-title";
-                  title.textContent = groupKey;
-                  studentListContainer.appendChild(title);
-                }
-                grouped[groupKey]
-                  .sort((a, b) => (a.nome || "").localeCompare(b.nome || ""))
-                  .forEach((student) => {
-                    const originalIndex = database.alunos.indexOf(student);
-                    const card = document.createElement("div");
-                    card.className = "noxss-card noxss-card--interactive student-card";
-                    card.innerHTML = createStudentCardHTML(student, originalIndex);
-                    studentListContainer.appendChild(card);
-                  });
-              });
-          }
-          feather.replace();
-        };
-
-        const renderDashboard = () => {
-          const dashboardContent = document.getElementById("dashboard-content");
-          const students = database.alunos;
-          if (students.length === 0) {
-            dashboardContent.innerHTML = `<div id="placeholder" class="text-secondary"><i data-feather="pie-chart" style="width: 3rem; height: 3rem;"></i><p class="mt-3">Não há dados para exibir.</p></div>`;
-            feather.replace();
-            return;
-          }
-          const total = students.length;
-          const activeStudents = students.filter(s => (s.status || "Ativo") === "Ativo").length;
-          const turmaMap = new Map(database.metadata.turmas.map(t => [t.id, t]));
-          const byTurma = students.reduce((acc, s) => {
-            const turma = turmaMap.get(s.turma_id) || { turma: "Sem Turma", turno: "" };
-            const key = `${turma.turma} - ${turma.turno}`;
-            acc[key] = (acc[key] || 0) + 1;
-            return acc;
-          }, {});
-          const createListItems = (data) => Object.entries(data).sort((a, b) => b[1] - a[1]).map(([key, value]) => `<li class="noxss-list-item"><div class="noxss-list-item__content">${key}</div><strong class="noxss-list-item__trailing">${value}</strong></li>`).join("");
-          
-          dashboardContent.innerHTML = `
-            <div class="noxss-card-deck" style="grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));">
-                <div class="noxss-card noxss-card--stat"><div class="stat-content"><div><div class="stat-label">Total de Alunos</div><div class="stat-value">${total}</div></div><i class="noxss-icon stat-icon" data-feather="users"></i></div></div>
-                <div class="noxss-card noxss-card--stat"><div class="stat-content"><div><div class="stat-label">Alunos Ativos</div><div class="stat-value">${activeStudents}</div></div><i class="noxss-icon stat-icon" data-feather="user-check"></i></div></div>
-            </div>
-            <div class="noxss-card-deck mt-4">
-                <div class="noxss-card"><div class="noxss-card__header"><h3 class="noxss-card__title">Alunos por Turma</h3></div><ul class="noxss-list">${createListItems(byTurma)}</ul></div>
-            </div>`;
-          feather.replace();
-        };
-
-        const renderMetadata = () => {
-            document.getElementById('meta-escola').value = database.metadata.escola || '';
-            document.getElementById('meta-localizacao').value = database.metadata.localizacao || '';
-            document.getElementById('meta-contato').value = database.metadata.contato || '';
-            
-            turmasListEl.innerHTML = database.metadata.turmas
-                .sort((a,b) => `${a.turma}-${a.turno}`.localeCompare(`${b.turma}-${b.turno}`))
-                .map(t => `
-                <li class="noxss-list-item">
-                    <div class="noxss-list-item__content">
-                        <div class="noxss-list-item__title">${t.turma} - ${t.turno}</div>
-                        <div class="noxss-list-item__subtitle">Professor(a): ${t.professor || 'Não definido'}</div>
-                    </div>
-                    <div class="noxss-list-item__trailing">
-                        <button class="noxss-btn noxss-btn--icon edit-turma-btn" data-id="${t.id}" title="Editar Turma"><i data-feather="edit-2" class="noxss-icon"></i></button>
-                        <button class="noxss-btn noxss-btn--icon delete-btn" data-type="turma" data-id="${t.id}" title="Remover Turma"><i data-feather="trash-2" class="noxss-icon"></i></button>
-                    </div>
-                </li>
-            `).join('') || '<p class="text-secondary text-center p-3">Nenhuma turma registrada.</p>';
-            feather.replace();
-        };
-
-        // --- LÓGICA DE DADOS E EVENTOS ---
-        const saveDatabase = (source = "local") => {
-          localStorage.setItem(DB_KEY, JSON.stringify(database));
-          if (source !== "cloud") saveToJSONBin(database);
-          // Re-render all relevant views
-          renderMetadata();
-          if (document.querySelector('#panel-alunos.is-visible')) renderStudentList();
-          if (document.querySelector('#panel-dashboard.is-visible')) renderDashboard();
-        };
-
-        const openStudentModal = (student = null, index = -1) => {
-          studentForm.reset();
-          document.getElementById("studentIndex").value = index;
-          document.getElementById("studentModalLabel").textContent = index === -1 ? "Adicionar Novo Aluno" : "Editar Aluno";
-          
-          const turmaSelect = document.getElementById('turma_id');
-          turmaSelect.innerHTML = '<option value="">Selecione uma turma...</option>' + database.metadata.turmas
-            .sort((a,b) => `${a.turma}-${a.turno}`.localeCompare(`${b.turma}-${b.turno}`))
-            .map(t => `<option value="${t.id}">${t.turma} - ${t.turno}</option>`).join('');
-
-          if (student) {
-            Object.keys(student).forEach(key => {
-                const input = document.getElementById(key);
-                if (input) input.value = Array.isArray(student[key]) ? student[key].join(', ') : student[key];
-            });
-          }
-          Noxss.Modals.open("studentModal");
-          setTimeout(() => document.getElementById("nome").focus(), 400);
-        };
-
-        const openTurmaModal = (turma = null) => {
-            turmaForm.reset();
-            document.getElementById('turmaId').value = turma ? turma.id : '';
-            document.getElementById('turmaModalLabel').textContent = turma ? 'Editar Turma' : 'Adicionar Nova Turma';
-            if (turma) {
-                document.getElementById('turma-nome').value = turma.turma;
-                document.getElementById('turma-turno').value = turma.turno;
-                document.getElementById('turma-professor').value = turma.professor;
-            }
-            Noxss.Modals.open('turmaModal');
-            setTimeout(() => document.getElementById('turma-nome').focus(), 400);
-        };
-
-        studentForm.addEventListener("submit", (e) => {
-          e.preventDefault();
-          const index = parseInt(document.getElementById("studentIndex").value, 10);
-          const studentData = {
-            nome: document.getElementById("nome").value.trim(),
-            cpf: document.getElementById("cpf").value.trim(),
-            status: document.getElementById("status").value,
-            turma_id: document.getElementById("turma_id").value,
-            nascimento: document.getElementById("nascimento").value.trim(),
-            sexo: document.getElementById("sexo").value,
-            mae: document.getElementById("mae").value.trim(),
-            pai: document.getElementById("pai").value.trim(),
-            telefone: document.getElementById("telefone").value.split(",").map((t) => t.trim()).filter(Boolean),
-            endereco: document.getElementById("endereco").value.trim(),
-            cor: document.getElementById("cor").value.trim(),
-          };
-          if (index === -1) database.alunos.push(studentData);
-          else database.alunos[index] = studentData;
-          saveDatabase();
-          Noxss.Modals.close();
-          Noxss.Toasts.show({ message: "Aluno salvo!", status: "success" });
-        });
-
-        metadataForm.addEventListener('submit', (e) => {
-            e.preventDefault();
-            database.metadata.escola = document.getElementById('meta-escola').value;
-            database.metadata.localizacao = document.getElementById('meta-localizacao').value;
-            database.metadata.contato = document.getElementById('meta-contato').value;
-            saveDatabase();
-            Noxss.Toasts.show({ message: "Metadados salvos!", status: "success" });
-        });
-
-        turmaForm.addEventListener('submit', e => {
-            e.preventDefault();
-            const id = document.getElementById('turmaId').value;
-            const turmaData = {
-                id: id || generateId(),
-                turma: document.getElementById('turma-nome').value.trim().toUpperCase(),
-                turno: document.getElementById('turma-turno').value.trim().toUpperCase(),
-                professor: document.getElementById('turma-professor').value.trim()
-            };
-
-            if (!turmaData.turma || !turmaData.turno) {
-                Noxss.Toasts.show({ message: "Nome da turma e turno são obrigatórios.", status: "danger" });
-                return;
-            }
-
-            const existingIndex = database.metadata.turmas.findIndex(t => t.id === id);
-            if (existingIndex > -1) {
-                database.metadata.turmas[existingIndex] = turmaData;
-            } else {
-                database.metadata.turmas.push(turmaData);
-            }
-            saveDatabase();
-            Noxss.Modals.close('turmaModal');
-            Noxss.Toasts.show({ message: "Turma salva!", status: "success" });
-        });
-
-        document.getElementById("add-student-btn").addEventListener("click", () => openStudentModal());
-        document.getElementById("add-turma-btn").addEventListener("click", () => openTurmaModal());
-
-        turmasListEl.addEventListener('click', e => {
-            const editBtn = e.target.closest('.edit-turma-btn');
-            if (editBtn) {
-                const turma = database.metadata.turmas.find(t => t.id === editBtn.dataset.id);
-                if (turma) openTurmaModal(turma);
-            }
-        });
-
-        document.body.addEventListener("click", (e) => {
-          const deleteBtn = e.target.closest(".delete-btn");
-          if (!deleteBtn) return;
-
-          const type = deleteBtn.dataset.type;
-          const modalTitle = document.getElementById('deleteConfirmTitle');
-          const modalText = document.getElementById('deleteConfirmText');
-          const modalName = document.getElementById('deleteConfirmName');
-          const confirmBtn = document.getElementById("confirmDeleteBtn");
-
-          if (type === 'student') {
-              const index = parseInt(deleteBtn.dataset.index, 10);
-              const student = database.alunos[index];
-              modalTitle.textContent = 'Confirmar Exclusão de Aluno';
-              modalText.textContent = 'Você tem certeza que deseja remover este aluno? Esta ação não pode ser desfeita.';
-              modalName.textContent = student.nome;
-              Noxss.Modals.open("deleteConfirmModal");
-              confirmBtn.onclick = () => {
-                database.alunos.splice(index, 1);
-                saveDatabase();
-                Noxss.Modals.close();
-                Noxss.Toasts.show({ message: "Aluno removido.", status: "danger" });
-              };
-          } else if (type === 'turma') {
-              const id = deleteBtn.dataset.id;
-              const turma = database.metadata.turmas.find(t => t.id === id);
-              const studentCount = database.alunos.filter(s => s.turma_id === id).length;
-
-              modalTitle.textContent = 'Confirmar Exclusão de Turma';
-              modalName.textContent = `${turma.turma} - ${turma.turno}`;
-              
-              if (studentCount > 0) {
-                  modalText.innerHTML = `Não é possível remover esta turma, pois existem <strong>${studentCount} aluno(s)</strong> vinculados a ela.`;
-                  confirmBtn.style.display = 'none';
-              } else {
-                  modalText.textContent = 'Você tem certeza que deseja remover esta turma? Esta ação não pode ser desfeita.';
-                  confirmBtn.style.display = 'inline-flex';
-              }
-              
-              Noxss.Modals.open("deleteConfirmModal");
-              confirmBtn.onclick = () => {
-                const turmaIndex = database.metadata.turmas.findIndex(t => t.id === id);
-                if (turmaIndex > -1) database.metadata.turmas.splice(turmaIndex, 1);
-                saveDatabase();
-                Noxss.Modals.close();
-                Noxss.Toasts.show({ message: "Turma removida.", status: "danger" });
-              };
-          }
-        });
-
-        studentListContainer.addEventListener("click", (e) => {
-          const editBtn = e.target.closest(".edit-btn");
-          if (editBtn) openStudentModal(database.alunos[editBtn.dataset.index], editBtn.dataset.index);
-        });
-
-        searchInput.addEventListener("input", (e) => {
-          const term = e.target.value.toLowerCase();
-          clearSearchBtn.style.display = term ? "block" : "none";
-          const filtered = database.alunos.filter(
-            (s) =>
-              (s.nome || "").toLowerCase().includes(term) ||
-              (s.cpf || "").includes(term) ||
-              (s.mae || "").toLowerCase().includes(term) ||
-              (s.pai || "").toLowerCase().includes(term)
-          );
-          renderStudentList(filtered);
-        });
-
-        clearSearchBtn.addEventListener("click", () => {
-          searchInput.value = "";
-          searchInput.dispatchEvent(new Event("input"));
-        });
-
-        document.getElementById("load-list-btn").addEventListener("click", () => fileInput.click());
-        fileInput.addEventListener("change", (event) => {
-          const file = event.target.files[0];
-          if (!file) return;
-          const reader = new FileReader();
-          reader.onload = (e) => {
-            if (confirm("Isso substituirá o banco de dados atual. Deseja continuar?")) {
-              try {
-                const loadedData = JSON.parse(e.target.result);
-                database = processLoadedData(loadedData);
-                saveDatabase();
-                Noxss.Toasts.show({ message: "Banco de dados carregado!", status: "success" });
-                document.querySelector('.noxss-tabs').dispatchEvent(new CustomEvent('noxss:tab:change', { detail: { activeTabId: 'dashboard' } }));
-              } catch (error) {
-                Noxss.Toasts.show({ message: `Arquivo JSON inválido: ${error.message}`, status: "danger" });
-              }
-            }
-            fileInput.value = "";
-          };
-          reader.readAsText(file);
-        });
-
-        document.getElementById("download-list-btn").addEventListener("click", () => {
-            const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(database, null, 2));
-            const dl = document.createElement("a");
-            dl.setAttribute("href", dataStr);
-            dl.setAttribute("download", `database_alunos_${new Date().toISOString().split("T")[0]}.json`);
-            dl.click();
-            dl.remove();
-            Noxss.Toasts.show({ message: "Download iniciado.", status: "info" });
-          });
-
-        document.querySelector(".noxss-tabs").addEventListener("noxss:tab:change", (event) => {
-            const activeTabId = event.detail.activeTabId;
-            if (activeTabId === 'dashboard') renderDashboard();
-            if (activeTabId === 'alunos') renderStudentList();
-            if (activeTabId === 'metadata') renderMetadata();
-          });
-
-        // --- INICIALIZAÇÃO ---
-        (async () => {
-          const cloudData = await fetchFromJSONBin();
-          let dataToProcess = cloudData || JSON.parse(localStorage.getItem(DB_KEY) || "null");
-          
-          if (!dataToProcess) { // Fallback para o formato mais antigo
-              const oldData = JSON.parse(localStorage.getItem("schoolAppStudents") || "null");
-              if (oldData) dataToProcess = oldData;
-          }
-
-          database = processLoadedData(dataToProcess);
-          saveDatabase(cloudData ? 'cloud' : 'local');
-          
-          const initialTab = document.querySelector('.noxss-tabs__panel.is-visible')?.id.replace('panel-', '') || 'dashboard';
-          document.querySelector('.noxss-tabs').dispatchEvent(new CustomEvent('noxss:tab:change', { detail: { activeTabId: initialTab } }));
-        })();
-      });
-    </script>
+    <script src="js/script.js"></script>
   </body>
 </html>
