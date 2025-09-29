@@ -574,7 +574,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const activeTabId = event.detail.activeTabId;
     if (activeTabId === "dashboard") renderDashboard();
     if (activeTabId === "alunos") renderStudentList();
-    if (activeTabId === "metadata") renderMetadata();
+    if (activeTabId === "settings") renderMetadata(); // Renderiza metadados na aba de configurações
   });
 
   // --- INICIALIZAÇÃO ---
