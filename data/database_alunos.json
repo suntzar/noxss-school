@@ -1,0 +1,2085 @@
+{
+  "metadata": {
+    "escola": "Escola (Importado)",
+    "localizacao": "",
+    "contato": "",
+    "turmas": [
+      {
+        "id": "_f2e9qkzo2",
+        "turma": "1º ANO",
+        "turno": "MATUTINO",
+        "professor": ""
+      },
+      {
+        "id": "_498iffqew",
+        "turma": "1º ANO",
+        "turno": "VESPERTINO",
+        "professor": ""
+      },
+      {
+        "id": "_teok9ezmo",
+        "turma": "CRECHE III",
+        "turno": "VESPERTINO",
+        "professor": ""
+      },
+      {
+        "id": "_xgvrvq5gm",
+        "turma": "CRECHE III",
+        "turno": "MATUTINO",
+        "professor": ""
+      },
+      {
+        "id": "_j4ony85tv",
+        "turma": "INFANTIL I",
+        "turno": "VESPERTINO",
+        "professor": ""
+      },
+      {
+        "id": "_91fwgzfjx",
+        "turma": "INFANTIL I",
+        "turno": "MATUTINO",
+        "professor": ""
+      },
+      {
+        "id": "_7sx549f62",
+        "turma": "INFANTIL II",
+        "turno": "VESPERTINO",
+        "professor": ""
+      },
+      {
+        "id": "_zvb95auij",
+        "turma": "INFANTIL II",
+        "turno": "MATUTINO",
+        "professor": ""
+      }
+    ]
+  },
+  "alunos": [
+    {
+      "nome": "Antônio Gabriel Castro Lopes",
+      "nascimento": "19/01/2022",
+      "mae": "Denise Alves Lopes",
+      "pai": "Gilson Cardoso Castro",
+      "telefone": [
+        "970118469",
+        "985195417"
+      ],
+      "endereco": "Rua do Morango Qd A, número 22, Lima Verde",
+      "cor": "Pardo",
+      "sexo": "Masculino",
+      "turma_id": "_teok9ezmo"
+    },
+    {
+      "nome": "Aylla Beatriz Paz",
+      "nascimento": "25/11/2021",
+      "mae": "Deyse Delgado Paz",
+      "pai": "",
+      "telefone": [
+        "985775925"
+      ],
+      "endereco": "Rua 01, Nº 06, Qd B, Residencial Saramanta",
+      "cor": "Parda",
+      "sexo": "Feminino",
+      "turma_id": "_teok9ezmo"
+    },
+    {
+      "nome": "Christopher Alex Ferreira da Silva",
+      "nascimento": "20/05/2021",
+      "mae": "Eliziane Ferreira da Sialva",
+      "pai": "",
+      "telefone": [
+        "984413049"
+      ],
+      "endereco": "Rua do Murici, Nº 43, Lima Verde",
+      "cor": "Parda",
+      "sexo": "Masculino",
+      "turma_id": "_teok9ezmo"
+    },
+    {
+      "nome": "Heitor Felipe Pinheiro Cardoso",
+      "nascimento": "01/03/2022",
+      "mae": "Taynara da Silva Cardoso",
+      "pai": "Filipe André Pinheiro Serra",
+      "telefone": [
+        "985424093",
+        "984617103"
+      ],
+      "endereco": "Rua 41, Qd 41, Residencial Safira",
+      "cor": "Pardo",
+      "sexo": "Masculino",
+      "turma_id": "_teok9ezmo"
+    },
+    {
+      "nome": "Lucas Matheus Santos e Santos",
+      "nascimento": "30/09/2021",
+      "mae": "Alessandra Paloma dos Santos",
+      "pai": "Mateus Sousa dos Santos",
+      "telefone": [
+        "992064493",
+        "987376710"
+      ],
+      "endereco": "Rua 37, Nº04, Qd33, Residencial Safira",
+      "cor": "Pardo",
+      "sexo": "Masculino",
+      "turma_id": "_teok9ezmo"
+    },
+    {
+      "nome": "Luiza Hinata Aguiar Souza",
+      "nascimento": "25/11/2021",
+      "mae": "Kessia Aguiar Silva",
+      "pai": "Alberto da Paixão Sousa",
+      "telefone": [
+        "981362529",
+        "988019390"
+      ],
+      "endereco": "Rua 19, N° 02, Estrada de Ribamar",
+      "cor": "Branca",
+      "sexo": "Feminino",
+      "turma_id": "_teok9ezmo"
+    },
+    {
+      "nome": "Noah Pietro Pereira Araújo",
+      "nascimento": "27/08/2021",
+      "mae": "Francimaire dos Santos Pereira",
+      "pai": "Jarilson Rodrigues Araújo",
+      "telefone": [
+        "983370322",
+        "984295431"
+      ],
+      "endereco": "Av. Laranja, Nº 20, Qd02, Lima Verde - Desterro",
+      "cor": "Pardo",
+      "sexo": "Masculino",
+      "turma_id": "_teok9ezmo"
+    },
+    {
+      "nome": "Sarah Moraes Diniz (28/08/2025)",
+      "cpf": "",
+      "status": "Transferido",
+      "nascimento": "16/12/2021",
+      "mae": "Meryllin Cristine da Luz Moraes Diniz",
+      "pai": "Dewon Jonnys Everton Diniz",
+      "telefone": [
+        "987315292",
+        "982226197"
+      ],
+      "endereco": "Rua da Jaca, Nº 51, Lima Verde",
+      "cor": "Pàrda",
+      "sexo": "Feminino",
+      "turma_id": "_teok9ezmo"
+    },
+    {
+      "nome": "Sophia Loren Nogueira Menezes",
+      "cpf": "",
+      "status": "Transferido",
+      "nascimento": "05/11/2021",
+      "mae": "Emanuelli Nogueira Silva",
+      "pai": "César Augusto Silva Menezes",
+      "telefone": [
+        "981037825",
+        "981827590"
+      ],
+      "endereco": "Rua 03, Nº 02, Qd 05, Estrada de Ribamar",
+      "cor": "Branca",
+      "sexo": "Feminino",
+      "turma_id": "_teok9ezmo"
+    },
+    {
+      "nome": "Thamara Jasmyne Amaral Matos",
+      "nascimento": "28/04/2021",
+      "mae": "Samya Cristina da Silva Amaral",
+      "pai": "David Matos Novais",
+      "telefone": [
+        "985003739"
+      ],
+      "endereco": "",
+      "cor": "Pardo",
+      "sexo": "Feminino",
+      "turma_id": "_teok9ezmo"
+    },
+    {
+      "nome": "Thaylla Sophia Moraes Aguiar (SEM DOSSIÊ)",
+      "cpf": "",
+      "status": "Ativo",
+      "nascimento": "03/08/2021",
+      "mae": "Talia Louzeiro Moraes",
+      "pai": "José Werllirson Ribeiro Aguiar",
+      "telefone": [
+        "970120517",
+        "992289255"
+      ],
+      "endereco": "Rua NA41, 46, Maiobão",
+      "cor": "Pardo",
+      "sexo": "Feminino",
+      "turma_id": "_teok9ezmo"
+    },
+    {
+      "nome": "Theo Henrique de Ataíde Rabello",
+      "nascimento": "14/07/2021",
+      "mae": "Raíssa Oliveira de Ataíde",
+      "pai": "Paulo Henrique Marques Rabello",
+      "telefone": [
+        "981164764",
+        "981548085"
+      ],
+      "endereco": "Bom Negócio",
+      "cor": "Pardo",
+      "sexo": "Masculino",
+      "turma_id": "_teok9ezmo"
+    },
+    {
+      "nome": "Vitor Lucas de Brito Ferreira",
+      "nascimento": "18/09/2021",
+      "mae": "Iziane Silva de Brito",
+      "pai": "Joberth Diemerson Costa Ferreira",
+      "telefone": [
+        "985723899"
+      ],
+      "endereco": "Bom Negócio, N° 20, Lima Verde",
+      "cor": "",
+      "sexo": "Masculino",
+      "turma_id": "_teok9ezmo"
+    },
+    {
+      "nome": "Yan Victor da Silva Sousa",
+      "nascimento": "26/02/2022",
+      "mae": "Maria Luziane Miranda da Silva",
+      "pai": "Domingos Lima Sousa",
+      "telefone": [
+        "988876690",
+        "985850645"
+      ],
+      "endereco": "Rua Muricis, S/N, Lima Verde",
+      "cor": "Pardo",
+      "sexo": "Masculino",
+      "turma_id": "_teok9ezmo"
+    },
+    {
+      "nome": "Yanne Melissa Armendariz Fonseca",
+      "nascimento": "27/06/2021",
+      "mae": "Maysa Emiliana dos Santos Armendariz",
+      "pai": "Edinaldo Italo Fonseca Silva",
+      "telefone": [
+        "97204927",
+        "981815417"
+      ],
+      "endereco": "Avenida Marcele Cardoso N° 04, Qd 05, Morada Nova",
+      "cor": "Parda",
+      "sexo": "Feminino",
+      "turma_id": "_teok9ezmo"
+    },
+    {
+      "nome": "Bella Cristina Serra Soares",
+      "nascimento": "21/07/2020",
+      "mae": "Ariana de Jesus Serra Soares",
+      "pai": "",
+      "telefone": [
+        "987882474",
+        "999090930"
+      ],
+      "endereco": "Rua do Roman, Qd 14, numero 08, Lima Verde",
+      "cor": "Parda",
+      "sexo": "Feminino",
+      "turma_id": "_j4ony85tv"
+    },
+    {
+      "nome": "Brendo Leonardo Campos de Sousa",
+      "cpf": "",
+      "status": "Transferido",
+      "nascimento": "27/209/2020",
+      "mae": "Tabda Czampos de Sousa",
+      "pai": "Eudes de Sousa Viana",
+      "telefone": [
+        "988906654",
+        "986121609"
+      ],
+      "endereco": "Rua da Manga, Nº 01B, Lima Verde",
+      "cor": "Branco",
+      "sexo": "Masculino",
+      "turma_id": "_j4ony85tv"
+    },
+    {
+      "nome": "Davi dos Santos Oliveira",
+      "nascimento": "05/06/2020",
+      "mae": "Maria de Jesus Vieira dos Santos",
+      "pai": "José Romário Vieira Costa",
+      "telefone": [
+        "985540691",
+        "970113063"
+      ],
+      "endereco": "Rua Princesa Isabel, Nº 01, Qd 19, Kiola",
+      "cor": "Pardo",
+      "sexo": "Masculino",
+      "turma_id": "_j4ony85tv"
+    },
+    {
+      "nome": "Eduardo Daniel Rocha Nogueira",
+      "nascimento": "14/11/2020",
+      "mae": "Ana Claudia Sousa Rocha",
+      "pai": "Francisco Daniel Silva Nogueira",
+      "telefone": [
+        "987153111",
+        "988474853"
+      ],
+      "endereco": "Rua Princesa Fabiana, Nº 12, Qd 32, Vila Kiola",
+      "cor": "Pardo",
+      "sexo": "Masculino",
+      "turma_id": "_j4ony85tv"
+    },
+    {
+      "nome": "Edson Junior Silva Sousa",
+      "nascimento": "04/03/2021",
+      "mae": "Nailsa Reis Silva",
+      "pai": "Edson Jorge Marques Sousa",
+      "telefone": [
+        "985946421",
+        "985061997"
+      ],
+      "endereco": "Rua do Cupuaçú, N° 26, Lima Verde",
+      "cor": "Negro",
+      "sexo": "Masculino",
+      "turma_id": "_j4ony85tv"
+    },
+    {
+      "nome": "Eloah Silva Mendonça",
+      "nascimento": "08/05/2020",
+      "mae": "Bianca Pinheiro Silva",
+      "pai": "Paulo Henrique Tavares Mendonça Filho",
+      "telefone": [
+        "982170138",
+        "982521177"
+      ],
+      "endereco": "Rua da Figueira, Nº20, Qd 09, Cond. Dr. Amaral de Matos, Açaizal Grande",
+      "cor": "Parda",
+      "sexo": "Feminino",
+      "turma_id": "_j4ony85tv"
+    },
+    {
+      "nome": "Gilvan Guilherme Silva Rabelo",
+      "nascimento": "10/06/2020",
+      "mae": "Gabriela Lima Silva",
+      "pai": "Jouberth Maber Rabelo Cirino",
+      "telefone": [
+        "984728979",
+        "984870998"
+      ],
+      "endereco": "Rua da Manga, Nº13, Qd 04, Lima Verde",
+      "cor": "Branco",
+      "sexo": "Masculino",
+      "turma_id": "_j4ony85tv"
+    },
+    {
+      "nome": "Hadassa Saldanha Abreu",
+      "cpf": "",
+      "status": "Inativo",
+      "nascimento": "15/12/2020",
+      "mae": "Rosália Betânia Saldanha Abreu",
+      "pai": "Elivanildo Pontes Abreu Saldanha",
+      "telefone": [
+        "987022905",
+        "988550458"
+      ],
+      "endereco": "Rua 20, Qd 17,Residencial Safira",
+      "cor": "Parda",
+      "sexo": "Feminino",
+      "turma_id": "_j4ony85tv"
+    },
+    {
+      "nome": "Letícia de Morais Castro",
+      "nascimento": "18/10/2020",
+      "mae": "Djanira Sousa de Morais",
+      "pai": "Josafá Castro Monteiro",
+      "telefone": [
+        "984430282",
+        "986284837"
+      ],
+      "endereco": "Rua da Jaca, Nº 44, Qd 04, N° 44, Lima Verde",
+      "cor": "Parda",
+      "sexo": "Feminino",
+      "turma_id": "_j4ony85tv"
+    },
+    {
+      "nome": "Luna Santos de Jesus",
+      "nascimento": "30/01/2021",
+      "mae": "Andreia Mendes Santos",
+      "pai": "Marcio de Jesus da Silva",
+      "telefone": [
+        "987818700"
+      ],
+      "endereco": "Rua 02, QD C, Bom Negócio",
+      "cor": "Parda",
+      "sexo": "Feminino",
+      "turma_id": "_j4ony85tv"
+    },
+    {
+      "nome": "Manuella Lopes Silva Miranda",
+      "nascimento": "20/12/2020",
+      "mae": "Anne Caroline Lopes Silva Miranda",
+      "pai": "Eliel Miranda Sousa Júnior",
+      "telefone": [
+        "981185875",
+        "982493302"
+      ],
+      "endereco": "Rua da Manga, Nº 46, Qd 02, Lima Verde",
+      "cor": "Parda",
+      "sexo": "Feminino",
+      "turma_id": "_j4ony85tv"
+    },
+    {
+      "nome": "Maria Laura Soares Santos",
+      "nascimento": "05/02/2021",
+      "mae": "Amanda de Jesus Serra Santos",
+      "pai": "Tercio Lamartine Vieira Santos",
+      "telefone": [
+        "987066439",
+        "983072048"
+      ],
+      "endereco": "Rua Roman, numero 18, Lima Verde",
+      "cor": "Parda",
+      "sexo": "Feminino",
+      "turma_id": "_j4ony85tv"
+    },
+    {
+      "nome": "Maria Manuela Ribeiro de Sousa",
+      "cpf": "",
+      "status": "Transferido",
+      "nascimento": "23/09/2020",
+      "mae": "Raissa de Cássia Mateus Souza",
+      "pai": "Paulo Henrique da Silva",
+      "telefone": [
+        "9892139112",
+        "9891664506"
+      ],
+      "endereco": "Rua Cajá, número 24, Qd 30",
+      "cor": "",
+      "sexo": "Feminino",
+      "turma_id": "_j4ony85tv"
+    },
+    {
+      "nome": "Paulo Ravy Reis de Almeida",
+      "cpf": "",
+      "status": "Transferido",
+      "nascimento": "18/05/2020",
+      "mae": "Marcia Regina Santos Reis",
+      "pai": "Paulo Fernando Cardoso de Almeida",
+      "telefone": [
+        "983646590"
+      ],
+      "endereco": "Rua da Ata, N°22, QD 12, Lima Verde",
+      "cor": "Pardo",
+      "sexo": "Masculino",
+      "turma_id": "_j4ony85tv"
+    },
+    {
+      "nome": "Pedro Henrique Oliveira dos Santos",
+      "nascimento": "16/11/2020",
+      "mae": "Jucinara Cristina Alves Oliveira",
+      "pai": "Diego dos Santos",
+      "telefone": [
+        "981582744",
+        "981586936"
+      ],
+      "endereco": "Rua 04, Nº 22, Residencial Bom Negócio",
+      "cor": "Pardo",
+      "sexo": "Masculino",
+      "turma_id": "_j4ony85tv"
+    },
+    {
+      "nome": "Pietro Kauã Oliveira Silva",
+      "nascimento": "22/12/2020",
+      "mae": "Jainara França Oliveira",
+      "pai": "Rony Reis Silva",
+      "telefone": [
+        "981838983"
+      ],
+      "endereco": "Rua Cupuaçú, Nº 25, Lima Verde",
+      "cor": "",
+      "sexo": "Masculino",
+      "turma_id": "_j4ony85tv"
+    },
+    {
+      "nome": "Rebeca Ohanna de Castro Barros",
+      "nascimento": "03/07/2020",
+      "mae": "Bruna Fontes de Castro",
+      "pai": "Carlos Alberto Barros Neto",
+      "telefone": [
+        "981476310",
+        "987806162"
+      ],
+      "endereco": "Rua 09,Qd 11, N° 15, Res. Safira",
+      "cor": "Parda",
+      "sexo": "Feminino",
+      "turma_id": "_j4ony85tv"
+    },
+    {
+      "nome": "Rui Guilherme Carvalho de Jesus Silva",
+      "nascimento": "21/10/2020",
+      "mae": "Emanuely silva de Carvalho",
+      "pai": "Rui Mailde de Jesus Silva",
+      "telefone": [
+        "981196277",
+        "981441452"
+      ],
+      "endereco": "Travessa do Bacuri. Nº01, Lima Verde",
+      "cor": "Pardo",
+      "sexo": "Masculino",
+      "turma_id": "_j4ony85tv"
+    },
+    {
+      "nome": "Arthur Hazael Santos França",
+      "cpf": "",
+      "status": "Ativo",
+      "nascimento": "08/06/2019",
+      "mae": "Amanda Santos França",
+      "pai": "",
+      "telefone": [
+        "970104519",
+        "987356363"
+      ],
+      "endereco": "Avenida da Laranja, Nº 77, Qs 15, Limka Verde",
+      "cor": "Pardo",
+      "sexo": "Masculino",
+      "turma_id": "_7sx549f62"
+    },
+    {
+      "nome": "Brayan Dominic Gomes Aguiar",
+      "nascimento": "17/02/2020",
+      "mae": "Nagila dos Santos Alves Gomes",
+      "pai": "Adriano Ribeiro Aguiar",
+      "telefone": [
+        "988500975",
+        "988010270"
+      ],
+      "endereco": "Rua do Cupuaçú, S/N, Lima Verde",
+      "cor": "Pardo",
+      "sexo": "Masculino",
+      "turma_id": "_7sx549f62"
+    },
+    {
+      "nome": "Davi Luis Oliveira de Jesus",
+      "nascimento": "25/06/2019",
+      "mae": "Lidiane Silva Oliveira",
+      "pai": "Luis Carlos dos Santos de Jesus",
+      "telefone": [
+        "988208346",
+        "988709782"
+      ],
+      "endereco": "Rua 41, Nº41 A, Res. Safira",
+      "cor": "Branco",
+      "sexo": "Masculino",
+      "turma_id": "_7sx549f62"
+    },
+    {
+      "nome": "Evelyn Beatriz dos Santos Ribeiro",
+      "nascimento": "08/11/2019",
+      "mae": "Brenda do Vale Santos",
+      "pai": "José Werllirson Ribeiro Aguiar",
+      "telefone": [
+        "984337000",
+        "988934779"
+      ],
+      "endereco": "Rua Açai, Nº 12 , QD 34, Lima Verde",
+      "cor": "Parda",
+      "sexo": "Feminino",
+      "turma_id": "_7sx549f62"
+    },
+    {
+      "nome": "Iza Moana Aguiar Menezes",
+      "nascimento": "23/09/2019",
+      "mae": "Raquel dos Passos Aguiar",
+      "pai": "Carlos Henrique Miranda Menezes",
+      "telefone": [
+        "987707373",
+        "984743137"
+      ],
+      "endereco": "Rua 11, N°19, Qd 13, Residencial Safira",
+      "cor": "Parda",
+      "sexo": "Feminino",
+      "turma_id": "_7sx549f62"
+    },
+    {
+      "nome": "Jessé Carlos Lindoso Souza",
+      "nascimento": "03/07/2019",
+      "mae": "Nadja Rayanne Froz",
+      "pai": "Luis Carlos Viegas Souza",
+      "telefone": [
+        "987711447",
+        "984129170"
+      ],
+      "endereco": "Rua Girassol,N° 11A, Lima Verde",
+      "cor": "Branco",
+      "sexo": "Masculino",
+      "turma_id": "_7sx549f62"
+    },
+    {
+      "nome": "Júlia Sophia Alves Cidrini",
+      "nascimento": "25/12/2019",
+      "mae": "Rayanne Alves Soares",
+      "pai": "Lucas Nunes Cidrini",
+      "telefone": [
+        "983446558",
+        "988963202"
+      ],
+      "endereco": "Rua 33,Nº 20, Qd 29, Res. Safira",
+      "cor": "Branca",
+      "sexo": "Feminino",
+      "turma_id": "_7sx549f62"
+    },
+    {
+      "nome": "Karlos Antonio Lima Oliveira",
+      "nascimento": "08/06/2019",
+      "mae": "Ozana Teodora Lima",
+      "pai": "Antonio Karlos Oliveira da Silva",
+      "telefone": [
+        "981935567"
+      ],
+      "endereco": "Rua do Açaí, Nº 22, Lima Verde",
+      "cor": "Pardo",
+      "sexo": "Masculino",
+      "turma_id": "_7sx549f62"
+    },
+    {
+      "nome": "Maria Alice Silva dos Santos",
+      "nascimento": "10/11/2019",
+      "mae": "Joelma da Luz Santos",
+      "pai": "Alan Silva",
+      "telefone": [
+        "984813444",
+        "970123701"
+      ],
+      "endereco": "Rua da Manga, Nº 32, Lima Verde",
+      "cor": "Parda",
+      "sexo": "Feminino",
+      "turma_id": "_7sx549f62"
+    },
+    {
+      "nome": "Maria Emanuelly da Silva Diniz",
+      "nascimento": "16/06/2019",
+      "mae": "Maria da Conceição Santos da Silva",
+      "pai": "Welliton Gomes Diniz",
+      "telefone": [
+        "99885658821",
+        "985810521"
+      ],
+      "endereco": "Rua Açai, Nº09,Qd34,Lima Verde,",
+      "cor": "Parda",
+      "sexo": "Feminino",
+      "turma_id": "_7sx549f62"
+    },
+    {
+      "nome": "Micaela Ferreira Matos",
+      "nascimento": "24/06/2019",
+      "mae": "Joisiara da Luz Ferreira",
+      "pai": "Maxwell Pereira Matos",
+      "telefone": [
+        "981360385",
+        "981811958"
+      ],
+      "endereco": "Rua do Cupuaçú, N° 14, QD17, Lima Verde",
+      "cor": "Branca",
+      "sexo": "Feminino",
+      "turma_id": "_7sx549f62"
+    },
+    {
+      "nome": "Moises Jesus de Moraes",
+      "nascimento": "05/02/2020",
+      "mae": "Moizana Jesus da Silva",
+      "pai": "Marcelo Ribeiro de Moraes",
+      "telefone": [
+        "983009960"
+      ],
+      "endereco": "Rua Bom Negócio, nº20 ,Cajueiro",
+      "cor": "Pardo",
+      "sexo": "Masculino",
+      "turma_id": "_7sx549f62"
+    },
+    {
+      "nome": "Olívia Aguiar Souza",
+      "nascimento": "11/01/2020",
+      "mae": "Kessia Aguiar Silva",
+      "pai": "Alberto da Paixão Sousa",
+      "telefone": [
+        "981362529"
+      ],
+      "endereco": "Rua 03, Nº11, Qda 05, Residencial Safira",
+      "cor": "Branca",
+      "sexo": "Feminino",
+      "turma_id": "_7sx549f62"
+    },
+    {
+      "nome": "Rebeca Lopes Pavão",
+      "nascimento": "21/04//2019",
+      "mae": "Luciana de Jesus Martins Lopes Pavão",
+      "pai": "Marcos Aurelio Fernandes Pavão",
+      "telefone": [
+        "987460454"
+      ],
+      "endereco": "Rua 08,Nº07,QD 16, Morada Nova",
+      "cor": "Parda",
+      "sexo": "Feminino",
+      "turma_id": "_7sx549f62"
+    },
+    {
+      "nome": "Agatha Rebeca de Paula Santos",
+      "nascimento": "08/09/2018",
+      "mae": "Martha Joyce de Paula Romão",
+      "pai": "Adriano Oliveira Santos",
+      "telefone": [
+        "984411817",
+        "988328797"
+      ],
+      "endereco": "Rua 20,QD21,nº58,Res.Safira",
+      "cor": "Parda",
+      "sexo": "Feminino",
+      "turma_id": "_498iffqew"
+    },
+    {
+      "nome": "Clecio Levy Santos Ramos",
+      "cpf": "",
+      "status": "Inativo",
+      "nascimento": "06/05/2018",
+      "mae": "Gisele Maria Sousa Santos",
+      "pai": "Antonio Clesio da Conceição Ramos",
+      "telefone": [
+        "996135499",
+        "991957587"
+      ],
+      "endereco": "Rua 37, Nº 04, Qd 33, Res. Safira",
+      "cor": "Pardo",
+      "sexo": "Masculino",
+      "turma_id": "_498iffqew"
+    },
+    {
+      "nome": "Daniely Sophia Pinheiro",
+      "nascimento": "04/11/2018",
+      "mae": "Adriana Santos Alves Pinheiro",
+      "pai": "",
+      "telefone": [
+        "983147986"
+      ],
+      "endereco": "Rua 03,S/N, Lot. Renascer",
+      "cor": "Parda",
+      "sexo": "Feminino",
+      "turma_id": "_498iffqew"
+    },
+    {
+      "nome": "Enzo Gabriel Rubim Sá Menezes",
+      "cpf": "",
+      "status": "Ativo",
+      "nascimento": "09/10/2018",
+      "mae": "Luzimaria Rubim Piedade",
+      "pai": "José Ribamar Silva As Menezes",
+      "telefone": [
+        "987248446",
+        "981488319",
+        "981968903"
+      ],
+      "endereco": "Paraiso Rosa, Estrada de Ribamar",
+      "cor": "Parda",
+      "sexo": "Masculino",
+      "turma_id": "_498iffqew"
+    },
+    {
+      "nome": "Ericka Vitoria Barbosa da Silva",
+      "nascimento": "25/08/2018",
+      "mae": "Ana Karine Barbosa Amorim",
+      "pai": "Francivaldo Pereira da Silva",
+      "telefone": [
+        "981232828"
+      ],
+      "endereco": "Ana Karine Barbosa Amorim",
+      "cor": "Parda",
+      "sexo": "Feminino",
+      "turma_id": "_498iffqew"
+    },
+    {
+      "nome": "Gabriel Jesus Mendes dos Santos",
+      "nascimento": "01/04/2018",
+      "mae": "Tamara dos Santos Mendes",
+      "pai": "Nilson Carlos Costa dos Santos",
+      "telefone": [
+        "981644521"
+      ],
+      "endereco": "",
+      "cor": "Parda",
+      "sexo": "Masculino",
+      "turma_id": "_498iffqew"
+    },
+    {
+      "nome": "Helena Valentina França Martins",
+      "cpf": "11147021376",
+      "status": "Inativo",
+      "nascimento": "11/12/2019",
+      "mae": "Erica França Martins",
+      "pai": "",
+      "telefone": [
+        "996092436"
+      ],
+      "endereco": "Rua Pitanga, Lima Verde, 65130000",
+      "cor": "",
+      "sexo": "Feminino",
+      "turma_id": "_498iffqew"
+    },
+    {
+      "nome": "Heitor Samuel Estrela Rodriguês",
+      "cpf": "",
+      "status": "Transferido",
+      "nascimento": "12/11/2018",
+      "mae": "Evelyn Brenda Ribeiro Estrela",
+      "pai": "Raimundo Nonato Rodrigues",
+      "telefone": [
+        "985190577",
+        "988262326"
+      ],
+      "endereco": "Evelyn Brenda Ribeiro Estrela",
+      "cor": "Negro",
+      "sexo": "Masculino",
+      "turma_id": "_498iffqew"
+    },
+    {
+      "nome": "Icaro Diogo da Silva Sousa",
+      "nascimento": "01/12/2018",
+      "mae": "Maria Luziane Miranda da Silva",
+      "pai": "Domingos Lima Sousa",
+      "telefone": [
+        "988876690",
+        "985850645"
+      ],
+      "endereco": "Rua Muricis,Ap105,Lima Verde",
+      "cor": "Pardo",
+      "sexo": "Masculino",
+      "turma_id": "_498iffqew"
+    },
+    {
+      "nome": "Juliana Castelo Branco Araújo Pinheiro",
+      "nascimento": "25/05/2018",
+      "mae": "Benedita Fernanda Castelo Branco Araújo Pinheiro",
+      "pai": "Militão Caredoso Pinheiro Junior",
+      "telefone": [
+        "988370106"
+      ],
+      "endereco": "Estrada de Ribamar, Condominio Riviera 1, Sítio Saramanta,",
+      "cor": "Negra",
+      "sexo": "Feminino",
+      "turma_id": "_498iffqew"
+    },
+    {
+      "nome": "José Gustavo Marley de Jesus Sousa",
+      "cpf": "",
+      "status": "Ativo",
+      "nascimento": "03/11/2018",
+      "mae": "Erica Marly de Jesus Sousa",
+      "pai": "José de Sousa",
+      "telefone": [
+        "984007987"
+      ],
+      "endereco": "Rua do Morango, nº43D, Res. Ariostra, Morada Nova",
+      "cor": "Pardo",
+      "sexo": "Masculino",
+      "turma_id": "_498iffqew"
+    },
+    {
+      "nome": "Kauã Victor Lindoso Caldas",
+      "nascimento": "09/08/2018",
+      "mae": "Priscyla Harrison Lindoso Caldas Dutra",
+      "pai": "",
+      "telefone": [
+        "996028252"
+      ],
+      "endereco": "Rua da Manga,QD08,nº08B,Lima Verde",
+      "cor": "Branco",
+      "sexo": "Masculino",
+      "turma_id": "_498iffqew"
+    },
+    {
+      "nome": "Lucas Manoel Ramos Nascimento",
+      "nascimento": "15/10/2018",
+      "mae": "Gilmara Ramos de Deus",
+      "pai": "Ailton Monteiro Nascimento",
+      "telefone": [
+        "988576227",
+        "984423396"
+      ],
+      "endereco": "Rua 05, Qd 07, N° 01, Residencial Safira",
+      "cor": "Pardo",
+      "sexo": "Masculino",
+      "turma_id": "_498iffqew"
+    },
+    {
+      "nome": "Nathércia Madeira dos Santos",
+      "nascimento": "07/10/2018",
+      "mae": "Natalia Pinto Madeira",
+      "pai": "Pedro Alves dos Santos",
+      "telefone": [
+        "985593788",
+        "992120864"
+      ],
+      "endereco": "Av. Princesa Diana , N°27, QD 37, Vila kiola",
+      "cor": "Negra",
+      "sexo": "Feminino",
+      "turma_id": "_498iffqew"
+    },
+    {
+      "nome": "Paulo Sergio Santos Samines",
+      "cpf": "",
+      "status": "Ativo",
+      "nascimento": "03/12/2020",
+      "mae": "Ana Sergia Santos e Santos",
+      "pai": "José Ribamar Oliveira Samines",
+      "telefone": [
+        "91018920"
+      ],
+      "endereco": "Est. Cajueiro, S/N, Ap304, Bl19, Cond. Riviera 3, Cajueiro",
+      "cor": "Pardo",
+      "sexo": "Masculino",
+      "turma_id": "_498iffqew"
+    },
+    {
+      "nome": "Pérola Ferreira da Silva",
+      "nascimento": "18/09/2018",
+      "mae": "Luana Ferreira da Silva",
+      "pai": "Willyam Ferreira da Silva",
+      "telefone": [
+        "984047796",
+        "985965609"
+      ],
+      "endereco": "Rua Princesa Anastácia, Nº12, Kiola",
+      "cor": "Parda",
+      "sexo": "Feminino",
+      "turma_id": "_498iffqew"
+    },
+    {
+      "nome": "Stefhanny Lorrany Silva Pereira",
+      "nascimento": "25/01/2019",
+      "mae": "Joselma de Matos Silva",
+      "pai": "Luis Celio Pereira",
+      "telefone": [
+        "985119209"
+      ],
+      "endereco": "Rua 06,Qd 09, Nº07, Morada Nova",
+      "cor": "Parda",
+      "sexo": "Feminino",
+      "turma_id": "_498iffqew"
+    },
+    {
+      "nome": "Stella Silva e Silva",
+      "nascimento": "29/09/2018",
+      "mae": "Ester Silva Mendonça",
+      "pai": "Raul de Sousa Silva",
+      "telefone": [
+        "984254645",
+        "988684557"
+      ],
+      "endereco": "Rua Açaí, número 02, Lima Verde",
+      "cor": "Parda",
+      "sexo": "Feminino",
+      "turma_id": "_498iffqew"
+    },
+    {
+      "nome": "Valentina Beatriz da Silva Araújo",
+      "nascimento": "15/03/2019",
+      "mae": "Byanca Darlen Santos da Silva",
+      "pai": "Raul Araújo Silva",
+      "telefone": [],
+      "endereco": "Est. de Ribamar,1,Bloco 15,, Cond. Riviera I,Açaizal Grande",
+      "cor": "Parda",
+      "sexo": "Feminino",
+      "turma_id": "_498iffqew"
+    },
+    {
+      "nome": "Alícia Endely Pereira Serejo",
+      "nascimento": "02/05/2021",
+      "mae": "Ana Alice Lica Pereira",
+      "pai": "David Matheus Moraes Serejo",
+      "telefone": [
+        "984022626",
+        "981216956"
+      ],
+      "endereco": "Rua Princesa Tatiane, Nº 27, Qd 37, Vila Kiola",
+      "cor": "Parda",
+      "sexo": "Feminino",
+      "turma_id": "_xgvrvq5gm"
+    },
+    {
+      "nome": "Anthonny Levi Araujo Gomes",
+      "cpf": "",
+      "status": "Transferido",
+      "nascimento": "07/08/2021",
+      "mae": "Denise Araújo Sousa",
+      "pai": "Romário José da Cruz Gomes",
+      "telefone": [
+        "984990306",
+        "984641374"
+      ],
+      "endereco": "Estrada de Ribamar, Km 07, Nº 04, Kiola",
+      "cor": "Pardo",
+      "sexo": "Masculino",
+      "turma_id": "_xgvrvq5gm"
+    },
+    {
+      "nome": "Davi Lucas Costa Frazão",
+      "nascimento": "16/04/2021",
+      "mae": "Cassiele Pinheiro Costa",
+      "pai": "Jeovan Pinheiro Frazão",
+      "telefone": [
+        "988128647"
+      ],
+      "endereco": "Rua 19,Qd 39, N° 16, Residencial Safira",
+      "cor": "Parda",
+      "sexo": "Masculino",
+      "turma_id": "_xgvrvq5gm"
+    },
+    {
+      "nome": "Davi Lucas Ribeiro Barbosa",
+      "nascimento": "10/08/2021",
+      "mae": "Drielle Rodrigues Ribeiro",
+      "pai": "Rodrigo ribeiro Barbosa",
+      "telefone": [
+        "982888242",
+        "981421927"
+      ],
+      "endereco": "Rua Maria, Nº 07,Qd 32, Lima Verde",
+      "cor": "Branco",
+      "sexo": "Masculino",
+      "turma_id": "_xgvrvq5gm"
+    },
+    {
+      "nome": "Ennzo Mhyguel Sá Fonseca",
+      "cpf": "",
+      "status": "Inativo",
+      "nascimento": "23/11/2021",
+      "mae": "Marília Luiza Mendes Sá",
+      "pai": "José Ricardo Alves Fonseca",
+      "telefone": [
+        "970046723",
+        "986256798"
+      ],
+      "endereco": "Estrada de Ribamar, Nº 53, Ubatuba",
+      "cor": "Negro",
+      "sexo": "Masculino",
+      "turma_id": "_xgvrvq5gm"
+    },
+    {
+      "nome": "Hagi Guilherme dos Santos",
+      "cpf": "",
+      "status": "Inativo",
+      "nascimento": "16/12/2021",
+      "mae": "Geovana Ribeiro Reis",
+      "pai": "Carlos Alberto Ferreira dos Santos Júnior",
+      "telefone": [
+        "970192804",
+        "987851615"
+      ],
+      "endereco": "Rua do Girassol, N° 07, Rua 06, Morada Nova",
+      "cor": "Pardo",
+      "sexo": "Masculino",
+      "turma_id": "_xgvrvq5gm"
+    },
+    {
+      "nome": "Isabellah Saphyra Macedo Castro",
+      "nascimento": "06/05/2021",
+      "mae": "Valéria Macedo Silva",
+      "pai": "Leandro Santos Castro",
+      "telefone": [
+        "98985857199"
+      ],
+      "endereco": "Rua da Manga, Nº 09, Qd 04, Lima Verde",
+      "cor": "Negro",
+      "sexo": "Feminino",
+      "turma_id": "_xgvrvq5gm"
+    },
+    {
+      "nome": "Isis Arielly Menezes Sampaio",
+      "nascimento": "23/11/2021",
+      "mae": "Carla Daniela Ferreira Menezes",
+      "pai": "Raimundo da Silva Sampaio",
+      "telefone": [
+        "985268207",
+        "985754623"
+      ],
+      "endereco": "Rua 06, Qd 09, Nº 07, Morada Nova",
+      "cor": "Parda",
+      "sexo": "Feminino",
+      "turma_id": "_xgvrvq5gm"
+    },
+    {
+      "nome": "Lunna Raphise Serra de Lima",
+      "nascimento": "10/06/2021",
+      "mae": "Patrícia Carneiro Serra",
+      "pai": "Raimundo Leonardo Vieira Lima",
+      "telefone": [
+        "996116465"
+      ],
+      "endereco": "Rua Princesa Tatiana, N° 01, Vila Kiola",
+      "cor": "Parda",
+      "sexo": "Feminino",
+      "turma_id": "_xgvrvq5gm"
+    },
+    {
+      "nome": "Lara Helena Silva Gonçalves",
+      "nascimento": "18/02/2022",
+      "mae": "Mirian Silva Novaes",
+      "pai": "Gilvan Cardoso Gonçalves",
+      "telefone": [
+        "984900933",
+        "985992416"
+      ],
+      "endereco": "Rua 02, Residencial Bom Sucesso, Lima Verde",
+      "cor": "Parda",
+      "sexo": "Feminino",
+      "turma_id": "_xgvrvq5gm"
+    },
+    {
+      "nome": "Luís Benício Cruz Menezes",
+      "nascimento": "15/02/2022",
+      "mae": "Daliane da Silva Cruz Menezes",
+      "pai": "Wellington Luís Ribeiro Menezes",
+      "telefone": [
+        "985004168",
+        "987741142"
+      ],
+      "endereco": "Rua 31, Nº 16, Qd 27, Lot. Safira",
+      "cor": "Pardo",
+      "sexo": "Masculino",
+      "turma_id": "_xgvrvq5gm"
+    },
+    {
+      "nome": "Luis Felipe Samenezes Eloi Belfort",
+      "cpf": "",
+      "status": "Transferido",
+      "nascimento": "03/05/2021",
+      "mae": "Sthefanny Madallena da Silva Samenezes",
+      "pai": "Francisco Luis Eloi Belfort",
+      "telefone": [
+        "98981923016",
+        "98982261228"
+      ],
+      "endereco": "Rua Açai, Nº09, Qd 34, Lima Verde",
+      "cor": "Pardo",
+      "sexo": "Masculino",
+      "turma_id": "_xgvrvq5gm"
+    },
+    {
+      "nome": "Pethos Castiel Rabelo Corrêa",
+      "nascimento": "09/10/2021",
+      "mae": "Soraya Almeida Rabelo",
+      "pai": "Adriano Rodrigues Correa",
+      "telefone": [
+        "985121974",
+        "985666973"
+      ],
+      "endereco": "Rua da Jaca, número 45. QD 08, Lima Verde",
+      "cor": "Parda",
+      "sexo": "Masculino",
+      "turma_id": "_xgvrvq5gm"
+    },
+    {
+      "nome": "Samira Eloá Mendes dos Santos",
+      "nascimento": "30/05/2021",
+      "mae": "Tamara dos Santos Mendes",
+      "pai": "Nilson Carlos Costa dos Santos",
+      "telefone": [
+        "981644521",
+        "984814766"
+      ],
+      "endereco": "Rua Laranjeira, Nº 09, Qd17, Lima Verde",
+      "cor": "Parda",
+      "sexo": "Feminino",
+      "turma_id": "_xgvrvq5gm"
+    },
+    {
+      "nome": "Samuel Carvalho Rabelo",
+      "nascimento": "09/05/2021",
+      "mae": "Aleine Carvalho Silva",
+      "pai": "Irivaldo Rabelo Ferreira",
+      "telefone": [
+        "984254461",
+        "985802264"
+      ],
+      "endereco": "Av. 02, Nº 742, Novo Paço",
+      "cor": "Pardo",
+      "sexo": "Masculino",
+      "turma_id": "_xgvrvq5gm"
+    },
+    {
+      "nome": "Zaion Luís Silva Soares",
+      "nascimento": "29/07/2021",
+      "mae": "Anna Clea Guimarães Silva",
+      "pai": "Aercio Luis Martins Soares",
+      "telefone": [
+        "985147191",
+        "988661737"
+      ],
+      "endereco": "Av. Princesa Diana, S/N, Qd 36",
+      "cor": "Branco",
+      "sexo": "Masculino",
+      "turma_id": "_xgvrvq5gm"
+    },
+    {
+      "nome": "Alice Costa dos Santos",
+      "nascimento": "26/05/2020",
+      "mae": "Maria da Anunciação Costa",
+      "pai": "Antônio José Gomes dos Santos",
+      "telefone": [
+        "988766449"
+      ],
+      "endereco": "Rua 02, Qd M, Lote Saramanta",
+      "cor": "Preta",
+      "sexo": "Feminino",
+      "turma_id": "_91fwgzfjx"
+    },
+    {
+      "nome": "Arthur Serra Ferreira",
+      "nascimento": "20/04/2020",
+      "mae": "Jaciane Carneiro Serra",
+      "pai": "Nilelson Santos Ferreira",
+      "telefone": [
+        "988942443",
+        "985130933"
+      ],
+      "endereco": "Rua princesa Silvana, N°14, Vila Kiola",
+      "cor": "Pardo",
+      "sexo": "Masculino",
+      "turma_id": "_91fwgzfjx"
+    },
+    {
+      "nome": "Caio Duarte Everton",
+      "nascimento": "24/12/2020",
+      "mae": "Francyene Matos Duarte",
+      "pai": "Edvaldo das Neves Mendes Everton",
+      "telefone": [
+        "986040791",
+        "984776239"
+      ],
+      "endereco": "Rua do Saputi, Nº 12, Lima verde",
+      "cor": "Pardo",
+      "sexo": "Masculino",
+      "turma_id": "_91fwgzfjx"
+    },
+    {
+      "nome": "Clara Sophia Salazar Pereira",
+      "nascimento": "24/03/2021",
+      "mae": "Francisca dos Santos Salazar",
+      "pai": "José Pedro Ribeiro Pereira",
+      "telefone": [
+        "996190646"
+      ],
+      "endereco": "Rua Princesa Silvana, S/N, QD 31, Vila kiola",
+      "cor": "Preta",
+      "sexo": "Feminino",
+      "turma_id": "_91fwgzfjx"
+    },
+    {
+      "nome": "Emilly Beatriz de Jesus Vales",
+      "nascimento": "17/06/2020",
+      "mae": "Valeria Beatriz Silva de Jesus",
+      "pai": "Clenilson Frazão Vales",
+      "telefone": [
+        "987149873",
+        "988487208"
+      ],
+      "endereco": "Rua Muricis, N° 29, Qd 30, Lima Verde",
+      "cor": "Parda",
+      "sexo": "Feminino",
+      "turma_id": "_91fwgzfjx"
+    },
+    {
+      "nome": "Gael Gomes Moreno",
+      "nascimento": "03/03/2021",
+      "mae": "Cleudiane Maria Barbosa Gomes",
+      "pai": "Francisco dos Santos Carvalho Moreno",
+      "telefone": [
+        "996215567",
+        "987331076"
+      ],
+      "endereco": "Rua Bom Negócio, N°05,Lt05, Qd 25, Cajueiro",
+      "cor": "Branco",
+      "sexo": "Masculino",
+      "turma_id": "_91fwgzfjx"
+    },
+    {
+      "nome": "Heitor Marques de Oliveira",
+      "nascimento": "06/11/2020",
+      "mae": "Irlanda Fernanda Rios Marques",
+      "pai": "Antônio Jayme Silva de Oliveira",
+      "telefone": [
+        "984698617",
+        "981565222"
+      ],
+      "endereco": "Rua da Manga, Qd 04, N°09, Lima Verde",
+      "cor": "Pardo",
+      "sexo": "Masculino",
+      "turma_id": "_91fwgzfjx"
+    },
+    {
+      "nome": "Heitor Pereira Duarte",
+      "nascimento": "17/07/2020",
+      "mae": "Soraia Fátima Moreira Pereira",
+      "pai": "José Luis Silva Duarte Junior",
+      "telefone": [
+        "992281672"
+      ],
+      "endereco": "Rua 47, nº 71, Residencial Safira",
+      "cor": "Branco",
+      "sexo": "Masculino",
+      "turma_id": "_91fwgzfjx"
+    },
+    {
+      "nome": "Ícáro Roberto Costa dos Santos",
+      "nascimento": "18/09/2020",
+      "mae": "Rosimar de Sousa Costa",
+      "pai": "Igor Roberto dos Santos",
+      "telefone": [
+        "984881815",
+        "984977938"
+      ],
+      "endereco": "Rua 04, S/N, Residencial Bom Negócio",
+      "cor": "Negro",
+      "sexo": "Masculino",
+      "turma_id": "_91fwgzfjx"
+    },
+    {
+      "nome": "Jonas Júnior Miguens Pinheiro",
+      "nascimento": "26/02/2021",
+      "mae": "Soraia de Jesus Miguens de Sousa Pinheiro",
+      "pai": "Jonas de Jesus Pinheiro Cruz",
+      "telefone": [
+        "987079079",
+        "987898092"
+      ],
+      "endereco": "Condominio Arthur José, Rua 01, Qd 05,N°1315, Morada Nova 01",
+      "cor": "Branco",
+      "sexo": "Masculino",
+      "turma_id": "_91fwgzfjx"
+    },
+    {
+      "nome": "Kemilly Sophia Silva de Carvalho",
+      "nascimento": "06/02/2021",
+      "mae": "Keila Maria Pereira Silva",
+      "pai": "Manoel Antonio de Carvalho",
+      "telefone": [
+        "981441452"
+      ],
+      "endereco": "Travessa do Bacuri, Lima Verde",
+      "cor": "Branca",
+      "sexo": "Feminino",
+      "turma_id": "_91fwgzfjx"
+    },
+    {
+      "nome": "Nicolas Daniel Pereira Luna",
+      "nascimento": "09/04/2020",
+      "mae": "Thais Luna dos Santos",
+      "pai": "Daniel Pereira da Rocha",
+      "telefone": [
+        "99995285341"
+      ],
+      "endereco": "Rua do Girassol, QD H, Nº 12, Lima Verde",
+      "cor": "Pardo",
+      "sexo": "Masculino",
+      "turma_id": "_91fwgzfjx"
+    },
+    {
+      "nome": "Nicolle Sophia Martins Silva",
+      "nascimento": "17/09/2020",
+      "mae": "Rosilene dos Santos Martins",
+      "pai": "Raimundo Nonato Silva",
+      "telefone": [
+        "987215601",
+        "991507498"
+      ],
+      "endereco": "Rua Princesa Estefane, Nº16, Vila Kiola",
+      "cor": "Parda",
+      "sexo": "Feminino",
+      "turma_id": "_91fwgzfjx"
+    },
+    {
+      "nome": "Pedro Ataíde de Jesus da Silva Viana",
+      "nascimento": "25/09/2020",
+      "mae": "Conceição de Maria Gomes da Silva",
+      "pai": "Edgard de Sousa Viana",
+      "telefone": [
+        "996112567",
+        "985665292"
+      ],
+      "endereco": "Rua da Manga, Nº 01, Qd 01, Lima Verde",
+      "cor": "Branco",
+      "sexo": "Masculino",
+      "turma_id": "_91fwgzfjx"
+    },
+    {
+      "nome": "Samuel Santiago dos Santos",
+      "cpf": "",
+      "status": "Inativo",
+      "nascimento": "18/08/2020",
+      "mae": "Mirella Santiago dos Santos",
+      "pai": "Itanael Italo dos Santos Silva",
+      "telefone": [
+        "988190629",
+        "992514343"
+      ],
+      "endereco": "Est. Cajueiro, S/N, Ap 03, Bl 19, Cond.Res. Riviera",
+      "cor": "Branco",
+      "sexo": "Masculino",
+      "turma_id": "_91fwgzfjx"
+    },
+    {
+      "nome": "Acsa Vitória Sampaio Cardoso",
+      "nascimento": "23/01/2020",
+      "mae": "Marileia Aroucha Sampaio",
+      "pai": "Carlos Alberto Nunes Cardoso",
+      "telefone": [
+        "999670462"
+      ],
+      "endereco": "Rua da Ata, nº02, QD12, Lima Verde",
+      "cor": "Branca",
+      "sexo": "Feminino",
+      "turma_id": "_zvb95auij"
+    },
+    {
+      "nome": "Aércio Luís Martins Soares Filho",
+      "nascimento": "16/01/2020",
+      "mae": "Anna Clea Guimarães Silva",
+      "pai": "Aercio Luís Martins Soares",
+      "telefone": [
+        "985147191",
+        "982032055"
+      ],
+      "endereco": "Av. Princesa Diana S/N, QD 36, Kiola",
+      "cor": "Branco",
+      "sexo": "Masculino",
+      "turma_id": "_zvb95auij"
+    },
+    {
+      "nome": "Bruna Fernanda Gomes Barbosa",
+      "nascimento": "06/12/2019",
+      "mae": "Aline Fernanda Freitas Gomes",
+      "pai": "Kairon Bruno dos Santos Barbosa",
+      "telefone": [
+        "98984913768",
+        "986044636"
+      ],
+      "endereco": "Avenida da Laranja, N° 12, Lima Verde",
+      "cor": "",
+      "sexo": "Feminino",
+      "turma_id": "_zvb95auij"
+    },
+    {
+      "nome": "Débora Castro de Almeida",
+      "nascimento": "05/12/2019",
+      "mae": "Giesa Greisy Lopes Castro",
+      "pai": "Robson Lee Martins de Almeida",
+      "telefone": [
+        "982468633",
+        "982468635",
+        "984549016"
+      ],
+      "endereco": "Est. De Ribamar, Ap 202,BL18,Cond. Praias Belas, Maiobinha.",
+      "cor": "Parda",
+      "sexo": "Feminino",
+      "turma_id": "_zvb95auij"
+    },
+    {
+      "nome": "Gael Youssef Castro Araújo",
+      "nascimento": "26/05/2019",
+      "mae": "Luciêda Leite Castro",
+      "pai": "Edu Silva de Araujo",
+      "telefone": [
+        "982714671",
+        "982667897"
+      ],
+      "endereco": "Rua 19, Nº 03, QD 41Residencial Safira",
+      "cor": "Pardo",
+      "sexo": "Masculino",
+      "turma_id": "_zvb95auij"
+    },
+    {
+      "nome": "Helize Sousa dos Santos",
+      "nascimento": "14/11/2019",
+      "mae": "Karla Rayane Sousa dos Santos",
+      "pai": "Heldai Almeida dos Santos",
+      "telefone": [
+        "985247685",
+        "984803171"
+      ],
+      "endereco": "Rua Muricis, nº12, Lima Verde",
+      "cor": "Branca",
+      "sexo": "Feminino",
+      "turma_id": "_zvb95auij"
+    },
+    {
+      "nome": "Iris Emanuelly Menezes Sampaio",
+      "nascimento": "12/04/2019",
+      "mae": "Carla Daniela Ferreira Menezes",
+      "pai": "Raimundo da Silva Sampaio",
+      "telefone": [
+        "985754623",
+        "985268207"
+      ],
+      "endereco": "Rua 06, Qd 09, N° 07, Morada Nova",
+      "cor": "Branca",
+      "sexo": "Feminino",
+      "turma_id": "_zvb95auij"
+    },
+    {
+      "nome": "João Gabriel Araújo Pereira",
+      "nascimento": "01/10/2019",
+      "mae": "Oclesia Alves de Araujo",
+      "pai": "Suelton Pereira de Sousa",
+      "telefone": [
+        "999564240",
+        "992512523"
+      ],
+      "endereco": "Estrada de Ribamar, nº 04, Ap 01, Bl 01, Kiola",
+      "cor": "Parda",
+      "sexo": "Masculino",
+      "turma_id": "_zvb95auij"
+    },
+    {
+      "nome": "Jonathan Veloso Morais",
+      "cpf": "",
+      "status": "Transferido",
+      "nascimento": "14/10/2019",
+      "mae": "Elizangela Silva Veloso",
+      "pai": "Dione Morais Costa",
+      "telefone": [
+        "985096593",
+        "985100269"
+      ],
+      "endereco": "Av. Laranja, Loteamento Safira, Nº 160, Lima Verde",
+      "cor": "Pardo",
+      "sexo": "Masculino",
+      "turma_id": "_zvb95auij"
+    },
+    {
+      "nome": "Lais Cândida Diniz Silva",
+      "nascimento": "19/08/2019",
+      "mae": "Francisca Rosa Marques Diniz",
+      "pai": "José Miguel Abreu Silva Júnior",
+      "telefone": [
+        "988772510",
+        "999095099"
+      ],
+      "endereco": "Rua Açai, Nº28 A, Lima Verde",
+      "cor": "Branca",
+      "sexo": "Feminino",
+      "turma_id": "_zvb95auij"
+    },
+    {
+      "nome": "Luis Miguel Carvalho Mendonça Ferreira",
+      "nascimento": "16/07/2019",
+      "mae": "Enasio Ferreira",
+      "pai": "Luciana Carvalho Mendonça Ferreira",
+      "telefone": [
+        "981038777",
+        "988173221"
+      ],
+      "endereco": "Rua Cupuaçú, QD 34, Nº 20, Lima Verde",
+      "cor": "Branco",
+      "sexo": "Masculino",
+      "turma_id": "_zvb95auij"
+    },
+    {
+      "nome": "Pedro Lucca do Nascimento Rocha",
+      "nascimento": "28/06/2019",
+      "mae": "Aleksandra dos Anjos do Nascimento",
+      "pai": "Jean Karlos Rocha",
+      "telefone": [
+        "991219384",
+        "988394927"
+      ],
+      "endereco": "Rua Limão, QD 24, Nº 28, Lima Verde",
+      "cor": "Branco",
+      "sexo": "Masculino",
+      "turma_id": "_zvb95auij"
+    },
+    {
+      "nome": "Rubens de Jesus Silva Costa",
+      "nascimento": "07/07/2019",
+      "mae": "Thays Cristina Ferreira da Silva",
+      "pai": "Hyago Fernandes da Costa",
+      "telefone": [
+        "981950667",
+        "98981496427"
+      ],
+      "endereco": "Rua 04 A, QD 14, Morada Nova",
+      "cor": "Pardo",
+      "sexo": "Masculino",
+      "turma_id": "_zvb95auij"
+    },
+    {
+      "nome": "Thayla Sophia Santos de Sousa",
+      "nascimento": "02/07/2019",
+      "mae": "Tainara Santos Pereira",
+      "pai": "Thayson Milhomem de Sousa",
+      "telefone": [
+        "984560813",
+        "985448762"
+      ],
+      "endereco": "Rua Cajueiro, Lt 06, Lima Verde, Nº06",
+      "cor": "Parda",
+      "sexo": "Feminino",
+      "turma_id": "_zvb95auij"
+    },
+    {
+      "nome": "Ycaro Gabriel Marreiros Vieira",
+      "cpf": "",
+      "status": "Ativo",
+      "nascimento": "11/06/2019",
+      "mae": "Daylane da Silva Marreiros Vieira",
+      "pai": "Marcelo Cantanhede Vieira",
+      "telefone": [
+        "981790845",
+        "988327784"
+      ],
+      "endereco": "Rua da Laranja, Nº 09, Lima Verde",
+      "cor": "Pardo",
+      "sexo": "Masculino",
+      "turma_id": "_zvb95auij"
+    },
+    {
+      "nome": "Aghata Emanuelly Serra Costa",
+      "cpf": "",
+      "status": "Ativo",
+      "nascimento": "08/03/2019",
+      "sexo": "Feminino",
+      "mae": "Cristiane Carneiro Serra",
+      "pai": "Ferdinan Vieira Costa",
+      "telefone": [
+        "99711019"
+      ],
+      "endereco": "Rua Princesa Tatiana, Nº02, Vila Kiola",
+      "cor": "Parda",
+      "turma_id": "_f2e9qkzo2"
+    },
+    {
+      "nome": "Aghatha Valentina Pereira Rodrigues",
+      "cpf": "",
+      "status": "Ativo",
+      "nascimento": "07/02/2019",
+      "sexo": "Feminino",
+      "mae": "Yasmin Rodrigues Ribeiro",
+      "pai": "Tarlyson Viegas Pereira",
+      "telefone": [
+        "987152608",
+        "988405872"
+      ],
+      "endereco": "Rua 15, N° 11, QD 39, Res. Safira",
+      "cor": "Parda",
+      "turma_id": "_f2e9qkzo2"
+    },
+    {
+      "nome": "Arthur Alejandro Viegas Nina",
+      "cpf": "",
+      "status": "Ativo",
+      "nascimento": "22/05/2018",
+      "sexo": "Masculino",
+      "mae": "Anne Carine Silva Viegas",
+      "pai": "Alessandro Magno Barros Nina",
+      "telefone": [
+        "982829574"
+      ],
+      "endereco": "Rua Girassol,nº18,Lima Verde",
+      "cor": "Branco",
+      "turma_id": "_f2e9qkzo2"
+    },
+    {
+      "nome": "Arthur Eduardo Santos Ferreira",
+      "cpf": "",
+      "status": "Ativo",
+      "nascimento": "26/05/2018",
+      "sexo": "Masculino",
+      "mae": "Maiandra da Silva Santos",
+      "pai": "Eduardo Felipe Araujo Ferreira",
+      "telefone": [
+        "985701482",
+        "984025713"
+      ],
+      "endereco": "Rua 31,QD 29,nº17 Res. Safira",
+      "cor": "Pardo",
+      "turma_id": "_f2e9qkzo2"
+    },
+    {
+      "nome": "Aylla Emanuelle da Silva Malheiros",
+      "nascimento": "14/09/2018",
+      "mae": "Ellayne Fernanda Silva da Silva",
+      "pai": "Daniel dos Santos Reis Malheiros",
+      "telefone": [
+        "985246957",
+        "983159621",
+        "991259902"
+      ],
+      "endereco": "Av.Laranja,nº08,QD20,Lima Verde",
+      "cor": "Parda",
+      "sexo": "Feminino",
+      "turma_id": "_f2e9qkzo2"
+    },
+    {
+      "nome": "Benjamim Lukas de Paula Santos",
+      "nascimento": "06/08/2018",
+      "mae": "Martha Joyce de Paula Romão",
+      "pai": "Adriano Oliveira Santos",
+      "telefone": [
+        "98944411817",
+        "988328797"
+      ],
+      "endereco": "Rua 20, Qd 21, Nº 58, Residencial Safira",
+      "cor": "Pardo",
+      "sexo": "Masculino",
+      "turma_id": "_f2e9qkzo2"
+    },
+    {
+      "nome": "Benjamin Moreira Alves",
+      "nascimento": "27/10/2018",
+      "mae": "Patrícia Sampaio Moreira",
+      "pai": "Jhonnattan Izidoro Silva Alves",
+      "telefone": [
+        "985416534",
+        "991416926"
+      ],
+      "endereco": "Rua Princesa Isabela, Vila Kiola",
+      "cor": "Branco",
+      "sexo": "Masculino",
+      "turma_id": "_f2e9qkzo2"
+    },
+    {
+      "nome": "Davi Guilherme França Viana",
+      "nascimento": "24/04/2018",
+      "mae": "Neidinaura França",
+      "pai": "Wendles Viana da Conceição",
+      "telefone": [
+        "981593620"
+      ],
+      "endereco": "Rua 01,QD01,nº34,Res.São João",
+      "cor": "Parda",
+      "sexo": "Masculino",
+      "turma_id": "_f2e9qkzo2"
+    },
+    {
+      "nome": "Gustavo Costa Silva",
+      "nascimento": "08/02/2019",
+      "mae": "Rosana da Costa Silva",
+      "pai": "",
+      "telefone": [
+        "984010256",
+        "984673390"
+      ],
+      "endereco": "",
+      "cor": "Pardo",
+      "sexo": "Masculino",
+      "turma_id": "_f2e9qkzo2"
+    },
+    {
+      "nome": "Hyanara Vitória Reis Silva",
+      "nascimento": "30/07/2018",
+      "mae": "Suely da Silva Reis",
+      "pai": "Hygor Leonardo Costa Silva",
+      "telefone": [
+        "985536614",
+        "983430377"
+      ],
+      "endereco": "Av. Princesa Diana, Cond. Led II, Vila Kiola",
+      "cor": "Parda",
+      "sexo": "Feminino",
+      "turma_id": "_f2e9qkzo2"
+    },
+    {
+      "nome": "João Guilherme da Silva Martins",
+      "nascimento": "16/10/2018",
+      "mae": "Laryssa Stephanne da Silva Borges",
+      "pai": "Guilherme Silveira Martins",
+      "telefone": [
+        "981082762",
+        "985924883"
+      ],
+      "endereco": "Travessa 13, Qd I, Lot. Saramanta",
+      "cor": "Pardo",
+      "sexo": "Masculino",
+      "turma_id": "_f2e9qkzo2"
+    },
+    {
+      "nome": "José Denilson de Sousa Silva",
+      "cpf": "",
+      "status": "Transferido",
+      "nascimento": "11/09/2018",
+      "mae": "Auricleia de Sousa Silva",
+      "pai": "Joelson Fonseca da Silva",
+      "telefone": [
+        "984031371",
+        "988312169"
+      ],
+      "endereco": "Rua 05,nº10,QD14,Morada Nova",
+      "cor": "Pardo",
+      "sexo": "Masculino",
+      "turma_id": "_f2e9qkzo2"
+    },
+    {
+      "nome": "Kemilly de Moraes Rocha",
+      "nascimento": "29/12/2018",
+      "mae": "Jossâmia Pereira de Moraes Rocha",
+      "pai": "José Márcio Santos de Morais",
+      "telefone": [
+        "981404950",
+        "981007271"
+      ],
+      "endereco": "Rua 01, Qd C, Nº 29, Residencial Saramanta",
+      "cor": "Parda",
+      "sexo": "Feminino",
+      "turma_id": "_f2e9qkzo2"
+    },
+    {
+      "nome": "Maria Heloisa Dutra Evangelista",
+      "nascimento": "05/12/2018",
+      "mae": "Angra Cristina dos Santos Dutra",
+      "pai": "Laecio Teixeira Evangelista",
+      "telefone": [
+        "999753394",
+        "984423151"
+      ],
+      "endereco": "Rua 06,QD03,nº09,Morada Nova",
+      "cor": "Branca",
+      "sexo": "Feminino",
+      "turma_id": "_f2e9qkzo2"
+    },
+    {
+      "nome": "Maria Júlia Mendes Trindade",
+      "nascimento": "13/04/2019",
+      "mae": "Giselle Ramos Mendes",
+      "pai": "Daniel Rocha Trindade",
+      "telefone": [
+        "988450621",
+        "988615834"
+      ],
+      "endereco": "Rua da Jaca, Nº04,QD 16,Lima Verde",
+      "cor": "Parda",
+      "sexo": "Feminino",
+      "turma_id": "_f2e9qkzo2"
+    },
+    {
+      "nome": "Maria Luiza Marques de Oliveira",
+      "nascimento": "19/05/2018",
+      "mae": "Irlanda Fernanda Rios Marques",
+      "pai": "",
+      "telefone": [
+        "984698617",
+        "981565222"
+      ],
+      "endereco": "Rua da Manga, Qd04, N° 25, Lima Verde",
+      "cor": "Parda",
+      "sexo": "Feminino",
+      "turma_id": "_f2e9qkzo2"
+    },
+    {
+      "nome": "Miguel Magalhães Furtado do Nascimento",
+      "nascimento": "19/02/2019",
+      "mae": "Evelyn Magalhães Ferreira",
+      "pai": "Marqueison Furtado do Nascimento",
+      "telefone": [
+        "981494281",
+        "987510237"
+      ],
+      "endereco": "Rua Mariana Sousa, N°04, Res.Buriti, Maiobinha",
+      "cor": "Pardo",
+      "sexo": "Masculino",
+      "turma_id": "_f2e9qkzo2"
+    },
+    {
+      "nome": "Pedro Miguel Souza da Silva",
+      "nascimento": "02/04/2018",
+      "mae": "Cleidiane Souza Alves",
+      "pai": "Herbeth do Nascimento da Silva",
+      "telefone": [
+        "985551021",
+        "970168544"
+      ],
+      "endereco": "Rua Paulo Brandão Nº09,Parque Jair",
+      "cor": "Pardo",
+      "sexo": "Masculino",
+      "turma_id": "_f2e9qkzo2"
+    },
+    {
+      "nome": "Pedro Samuel Silva Moraes",
+      "nascimento": "21/02/2019",
+      "mae": "Taynara Alves da Silva",
+      "pai": "Daniel Abelardo Serejo Moraes",
+      "telefone": [
+        "981982390",
+        "981242154"
+      ],
+      "endereco": "Rua Princesa Margarida, nº 15, Qd 11, Kiola",
+      "cor": "Pardo",
+      "sexo": "Masculino",
+      "turma_id": "_f2e9qkzo2"
+    },
+    {
+      "nome": "Poliana Gomes de Franco",
+      "nascimento": "06/11/2018",
+      "mae": "Cassandra Gomes Lindoso",
+      "pai": "Matheus Mendonça de Franco",
+      "telefone": [
+        "984521636",
+        "986904167"
+      ],
+      "endereco": "Rua Princesa Angela, Nº 31, QD 28, Vila Kiola",
+      "cor": "Parda",
+      "sexo": "Feminino",
+      "turma_id": "_f2e9qkzo2"
+    },
+    {
+      "nome": "Vithor Hugo Soledade Gonçalves",
+      "nascimento": "02/01/2019",
+      "mae": "Antonira Soledade",
+      "pai": "Amauri da Paz Gonçalves",
+      "telefone": [
+        "985355924",
+        "984006113"
+      ],
+      "endereco": "Rua Bom Negócio, nº02, LimaVerde",
+      "cor": "Pardo",
+      "sexo": "Masculino",
+      "turma_id": "_f2e9qkzo2"
+    },
+    {
+      "nome": "Rebeca Míriam Silva Rodrigues",
+      "cpf": "10794513158",
+      "status": "Ativo",
+      "nascimento": "03/06/2020",
+      "mae": "Derlyhara Mayan Silva Rodrigues",
+      "pai": "Cleiton Rodrigues Costa",
+      "telefone": [
+        "63991228209",
+        "63992462039"
+      ],
+      "endereco": "Rua do Morango, 16B, Qd. B, Lima Verde, 65130000",
+      "cor": "Parda",
+      "sexo": "Feminino",
+      "turma_id": "_j4ony85tv"
+    },
+    {
+      "nome": "Eduardo Gael Ferreira Cardoso",
+      "cpf": "12282826337",
+      "status": "Ativo",
+      "nascimento": "04/02/2022",
+      "mae": "Edna Maria Sousa Ferreira Cardoso",
+      "pai": "Misael dos Santos Cardoso",
+      "telefone": [
+        "985198962",
+        "985009148"
+      ],
+      "endereco": "R. 31, 14, Qd. 27, N 14, Lot. Safira",
+      "cor": "Parda",
+      "sexo": "Masculino",
+      "turma_id": "_xgvrvq5gm"
+    },
+    {
+      "nome": "Paulo Arthur Oliveira Guimarães",
+      "cpf": "",
+      "status": "Ativo",
+      "nascimento": "02/06/2018",
+      "mae": "Joviana Evangelista de Oliveira",
+      "pai": "Pouliram Mascarenhas Guimarães",
+      "telefone": [
+        "988202458",
+        "988478962"
+      ],
+      "endereco": "Rua Mamão, N° 28, Qd. 1",
+      "cor": "Branco",
+      "sexo": "Masculino",
+      "turma_id": "_f2e9qkzo2"
+    },
+    {
+      "nome": "Sthella Wendy Melo de Sousa",
+      "cpf": "12067680374",
+      "status": "Ativo",
+      "nascimento": "27092021",
+      "mae": "Hellen Beatriz Melo Braga",
+      "pai": "Franciel Carvalho de Sousa",
+      "telefone": [
+        "982656810",
+        "991912194"
+      ],
+      "endereco": "Avenida da Laranja, número 125 B, Lima Verde",
+      "cor": "Branca",
+      "sexo": "Feminino",
+      "turma_id": "_xgvrvq5gm"
+    },
+    {
+      "nome": "Laura Helena Rabelo Diniz Soares",
+      "cpf": "10004962362",
+      "status": "Ativo",
+      "nascimento": "21/09/2018",
+      "mae": "Lurdenilce Rabelo Diniz",
+      "pai": "Carlos Magno Soares",
+      "telefone": [
+        "987895789",
+        "981928446"
+      ],
+      "endereco": "Rua Graviola, N 08, Qd. H",
+      "cor": "branca",
+      "sexo": "Feminino",
+      "turma_id": "_f2e9qkzo2"
+    },
+    {
+      "nome": "Júlia Vitória Santos Cunha",
+      "cpf": "63377715320",
+      "status": "Ativo",
+      "nascimento": "30/05/2018",
+      "mae": "Juliane Carvalho Santos",
+      "pai": "Leonardo Rocha Cunha",
+      "telefone": [
+        "996212719",
+        "985065599",
+        "985338416"
+      ],
+      "endereco": "Rua Projetada 203, Bl 23, Ap 203, Bairro Cajueiro, CEP 65110000",
+      "cor": "parda",
+      "sexo": "Feminino",
+      "turma_id": "_f2e9qkzo2"
+    },
+    {
+      "nome": "Lorena Heloyse Santos Cunha",
+      "cpf": "11423475321",
+      "status": "Ativo",
+      "nascimento": "11423475321",
+      "mae": "Juliane Carvalho Santos",
+      "pai": "Leonardo Rocha Cunha",
+      "telefone": [
+        "996212719",
+        "985065599",
+        "985338416"
+      ],
+      "endereco": "Rua Projetada 203, Bl 23, Ap 203, Bairro Cajueiro, CEP 65110000",
+      "cor": "branca",
+      "sexo": "Feminino",
+      "turma_id": "_91fwgzfjx"
+    },
+    {
+      "nome": "Louise Vitória Delmondes Lopes",
+      "cpf": "10258703369",
+      "status": "Ativo",
+      "nascimento": "12/01/2019",
+      "mae": "Lucelia Delmondes da Silva",
+      "pai": "Josenilson Pinheiro Lopes",
+      "telefone": [
+        "981779707"
+      ],
+      "endereco": "Estrada de Ribamar, Recanto Verde IV, AP 203, BL 2B, Bairro Paraíso das Rosas, CEP: 65130000",
+      "cor": "Parda",
+      "sexo": "Feminino",
+      "turma_id": "_498iffqew"
+    },
+    {
+      "nome": "Thamily Vitória Alves Brito",
+      "cpf": "09446296102",
+      "status": "Ativo",
+      "nascimento": "18/07/2018",
+      "mae": "Thyella Mylandra Brito Silva",
+      "pai": "",
+      "telefone": [
+        "98999839254"
+      ],
+      "endereco": "Rua 02, Nº 38, Residencial Bom Sucesso, CEP: 65130000",
+      "cor": "Parda",
+      "sexo": "Feminino",
+      "turma_id": "_498iffqew"
+    }
+  ]
+}
