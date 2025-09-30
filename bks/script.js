@@ -10,15 +10,6 @@ const palettes = {
   "Âmbar Dourado": { light: "#d97706", dark: "#f59e0b" },
   "Rosa Moderno": { light: "#e11d48", dark: "#f43f5e" },
   "Ciano Fresco": { light: "#06b6d4", dark: "#22d3ee" },
-  "Vermelho Rubi": { light: "#dc2626", dark: "#f87171" },
-  "Índigo Profundo": { light: "#4f46e5", dark: "#818cf8" },
-  "Verde-azulado (Teal)": { light: "#0d9488", dark: "#2dd4bf" },
-  "Lima Vibrante": { light: "#65a30d", dark: "#a3e635" },
-  "Laranja Entardecer": { light: "#f97316", dark: "#fb923c" },
-  "Magenta Elétrico": { light: "#d946ef", dark: "#f0abfc" },
-  "Verde Floresta": { light: "#16a34a", dark: "#4ade80" },
-  "Azul Cobalto": { light: "#0ea5e9", dark: "#7dd3fc" },
-  "Grafite Sóbrio": { light: "#6b7280", dark: "#d1d5db" },
 };
 
 const applyTheme = (mode, paletteName) => {
