@@ -557,6 +557,12 @@ document.addEventListener("DOMContentLoaded", () => {
     feather.replace();
   };
 
+  const renderHomeTab = () => {
+    const { escola, localizacao } = database.metadata;
+    document.getElementById("home-school-name").textContent = escola || "Nome da Escola";
+    document.getElementById("home-school-location").textContent = localizacao || "Endereço não configurado";
+  };
+
   const renderMetadata = () => {
     document.getElementById("meta-escola").value = database.metadata.escola || "";
     document.getElementById("meta-localizacao").value = database.metadata.localizacao || "";
@@ -969,6 +975,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   document.querySelector(".noxss-tabs").addEventListener("noxss:tab:change", (event) => {
     const activeTabId = event.detail.activeTabId;
+    if (activeTabId === "inicio") renderHomeTab();
     if (activeTabId === "dashboard") renderDashboard();
     if (activeTabId === "alunos") renderStudentList();
     if (activeTabId === "settings") renderMetadata(); // Renderiza metadados na aba de configurações
@@ -988,7 +995,7 @@ document.addEventListener("DOMContentLoaded", () => {
     database = processLoadedData(dataToProcess);
     saveDatabase(cloudData ? "cloud" : "local");
 
-    const initialTab = document.querySelector(".noxss-tabs__panel.is-visible")?.id.replace("panel-", "") || "dashboard";
+    const initialTab = document.querySelector(".noxss-tabs").dataset.defaultTab || "inicio";
     document.querySelector(".noxss-tabs").dispatchEvent(new CustomEvent("noxss:tab:change", { detail: { activeTabId: initialTab } }));
   })();
 });

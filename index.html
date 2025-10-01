@@ -23,14 +23,27 @@
       </nav>
 
       <main class="noxss-layout__content">
-        <div class="noxss-tabs" data-default-tab="dashboard">
+        <div class="noxss-tabs" data-default-tab="inicio">
           <div class="noxss-tabs__header d-none d-md-flex">
+            <button class="noxss-tabs__header-button" data-tab-id="inicio"><i class="noxss-icon" data-feather="home"></i> Início</button>
             <button class="noxss-tabs__header-button" data-tab-id="dashboard"><i class="noxss-icon" data-feather="pie-chart"></i> Dashboard</button>
             <button class="noxss-tabs__header-button" data-tab-id="alunos"><i class="noxss-icon" data-feather="users"></i> Alunos</button>
             <button class="noxss-tabs__header-button" data-tab-id="settings"><i class="noxss-icon" data-feather="settings"></i> Configurações</button>
           </div>
 
           <div class="noxss-tabs__content-area">
+            <!-- Painel: Início -->
+            <div class="noxss-tabs__panel" id="panel-inicio">
+              <div class="content-panel">
+                <div class="home-hero">
+                  <img src="assets/school-material.svg" alt="Logo da Escola" class="home-hero__logo" />
+                  <h1 id="home-school-name" class="home-hero__title">Carregando...</h1>
+                  <p id="home-school-location" class="home-hero__subtitle">Carregando...</p>
+                </div>
+                <p class="text-center text-secondary mt-5">Bem-vindo ao Sistema de Gerenciamento Escolar. Use a navegação para acessar as funcionalidades.</p>
+              </div>
+            </div>
+
             <!-- Painel: Dashboard -->
             <div class="noxss-tabs__panel" id="panel-dashboard">
               <div class="content-panel">
@@ -136,6 +149,9 @@
       </main>
 
       <nav class="noxss-navbar noxss-navbar--bottom noxss-active-bg-button d-md-none">
+        <button class="noxss-tabs__nav-button" data-tab-id="inicio" aria-label="Início">
+          <i class="noxss-icon" data-feather="home"></i>
+        </button>
         <button class="noxss-tabs__nav-button" data-tab-id="dashboard" aria-label="Dashboard">
           <i class="noxss-icon" data-feather="pie-chart"></i>
         </button>
