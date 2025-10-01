@@ -249,9 +249,6 @@
 }
 
 /* Estilos do Modal de Visualização de Aluno */
-#viewStudentModalBody {
-  background-color: var(--noxss-bg-main);
-}
 
 .student-details-header {
   display: flex;
