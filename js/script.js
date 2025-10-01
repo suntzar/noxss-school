@@ -93,9 +93,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const formatCPF = (cpf) => {
     if (!cpf) return "CPF não informado";
-    const cpfDigits = cpf.replace(/\D/g, '');
+    const cpfDigits = cpf.replace(/\D/g, "");
     if (cpfDigits.length === 11) {
-      return cpfDigits.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, '$1.$2.$3-$4');
+      return cpfDigits.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, "$1.$2.$3-$4");
     }
     return cpf; // Retorna o original se não for formatável
   };
@@ -216,16 +216,31 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   // --- UI & RENDERIZAÇÃO ---
-  const createStudentCardHTML = (student, index) => {
+  const highlightText = (text, term) => {
+    if (!term) return text;
+    const regex = new RegExp(`(${term})`, "gi");
+    return text.replace(regex, `<mark class="search-highlight">$1</mark>`);
+  };
+
+  const createStudentCardHTML = (student, index, searchTerm = "") => {
     const safe = (text) => text || "Não informado";
 
     const turmaMap = new Map(database.metadata.turmas.map((t) => [t.id, t]));
     const turma = turmaMap.get(student.turma_id) || { turma: "Sem Turma", turno: "" };
     const turmaNome = turma.turma === "Sem Turma" ? "Sem Turma" : `${turma.turma} - ${turma.turno}`;
 
+    const unformattedCpf = (student.cpf || "").replace(/\D/g, "");
+    const isCpfMatch = searchTerm && unformattedCpf.includes(searchTerm.replace(/\D/g, ""));
+
+    const highlightedNome = highlightText(safe(student.nome), searchTerm);
+    const highlightedMae = highlightText(safe(student.mae), searchTerm);
+    const highlightedPai = highlightText(safe(student.pai), searchTerm);
+    const highlightedObservacoes = highlightText(safe(student.observacoes), searchTerm);
+    const cpfDisplay = isCpfMatch ? highlightText(formatCPF(student.cpf), searchTerm) : formatCPF(student.cpf);
+
     return `
       <div class="noxss-card__header">
-        <h3 class="noxss-card__title">${safe(student.nome)}</h3>
+        <h3 class="noxss-card__title">${highlightedNome}</h3>
         <div class="student-card-actions">
           <button class="noxss-btn noxss-btn--icon view-btn" data-index="${index}" title="Visualizar"><i data-feather="eye" class="noxss-icon"></i></button>
           <button class="noxss-btn noxss-btn--icon edit-btn" data-index="${index}" title="Editar"><i data-feather="edit-2" class="noxss-icon"></i></button>
@@ -234,15 +249,19 @@ document.addEventListener("DOMContentLoaded", () => {
       </div>
       <div class="noxss-card__body student-card-body">
         <div class="student-card-main-info">
-          <div class="student-status status-${(student.status || 'ativo').toLowerCase().replace(' ', '-')}">
+          <div class="student-status status-${(student.status || "ativo").toLowerCase().replace(" ", "-")}">
             <span class="status-dot"></span>
             <span class="status-text">${safe(student.status)}</span>
           </div>
-          ${student.status === 'Transferido' && student.data_transferencia ? `
+          ${
+            student.status === "Transferido" && student.data_transferencia
+              ? `
           <div class="info-item">
               <i data-feather="arrow-right-circle" class="noxss-icon"></i>
               <span>Transf. em: ${safe(student.data_transferencia)}</span>
-          </div>` : ''}
+          </div>`
+              : ""
+          }
           <div class="info-item">
             <i data-feather="calendar" class="noxss-icon"></i>
             <span>Matrícula: ${safe(student.data_matricula)}</span>
@@ -253,7 +272,7 @@ document.addEventListener("DOMContentLoaded", () => {
           </div>
           <div class="info-item">
             <i data-feather="hash" class="noxss-icon"></i>
-            <span>${formatCPF(student.cpf)}</span>
+            <span>${cpfDisplay}</span>
           </div>
           <div class="info-item">
             <i data-feather="gift" class="noxss-icon"></i>
@@ -266,10 +285,10 @@ document.addEventListener("DOMContentLoaded", () => {
         </div>
         <div class="student-card-secondary-info">
           <div class="info-item">
-            <strong>Mãe:</strong> ${safe(student.mae)}
+            <span><strong>Mãe:</strong> ${highlightedMae}</span>
           </div>
           <div class="info-item">
-            <strong>Pai:</strong> ${safe(student.pai)}
+            <span><strong>Pai:</strong> ${highlightedPai}</span>
           </div>
           <div class="info-item">
             <strong>Telefone(s):</strong> ${Array.isArray(student.telefone) ? student.telefone.join(", ") : "Não informado"}
@@ -282,13 +301,17 @@ document.addEventListener("DOMContentLoaded", () => {
           </div>
         </div>
       </div>
-      ${student.observacoes ? `
+      ${
+        student.observacoes
+          ? `
       <div class="noxss-card__footer student-card-footer">
         <div class="info-item">
             <i data-feather="message-square" class="noxss-icon"></i>
-            <span class="text-wrap">${student.observacoes}</span>
+            <span class="text-wrap">${highlightedObservacoes}</span>
         </div>
-      </div>` : ''}`;
+      </div>`
+          : ""
+      }`;
   };
 
   const renderStudentList = (studentList = database.alunos) => {
@@ -324,7 +347,7 @@ document.addEventListener("DOMContentLoaded", () => {
               const originalIndex = database.alunos.indexOf(student);
               const card = document.createElement("div");
               card.className = "noxss-card noxss-card--interactive student-card";
-              card.innerHTML = createStudentCardHTML(student, originalIndex);
+              card.innerHTML = createStudentCardHTML(student, originalIndex, isSearching ? searchTerm : "");
               studentListContainer.appendChild(card);
             });
         });
@@ -634,20 +657,20 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   const renderStudentDetailsModal = (student) => {
-    const modalBody = document.getElementById('viewStudentModalBody');
-    const safe = (text, fallback = 'Não informado') => text || fallback;
+    const modalBody = document.getElementById("viewStudentModalBody");
+    const safe = (text, fallback = "Não informado") => text || fallback;
 
-    const turmaMap = new Map(database.metadata.turmas.map(t => [t.id, t]));
+    const turmaMap = new Map(database.metadata.turmas.map((t) => [t.id, t]));
     const turma = turmaMap.get(student.turma_id) || {};
 
     const createStatusAlert = (status) => {
-        const statusMap = {
-            'Ativo': { icon: 'check-circle', cssClass: 'success', text: 'Este aluno está frequentando as aulas normalmente.' },
-            'Inativo': { icon: 'minus-circle', cssClass: 'secondary', text: 'Este aluno não está mais ativo no sistema.' },
-            'Transferido': { icon: 'arrow-right-circle', cssClass: 'warning', text: `Este aluno foi transferido na data: ${safe(student.data_transferencia)}.` }
-        };
-        const config = statusMap[status] || statusMap['Inativo'];
-        return `
+      const statusMap = {
+        Ativo: { icon: "check-circle", cssClass: "success", text: "Este aluno está frequentando as aulas normalmente." },
+        Inativo: { icon: "minus-circle", cssClass: "secondary", text: "Este aluno não está mais ativo no sistema." },
+        Transferido: { icon: "arrow-right-circle", cssClass: "warning", text: `Este aluno foi transferido na data: ${safe(student.data_transferencia)}.` },
+      };
+      const config = statusMap[status] || statusMap["Inativo"];
+      return `
             <div class="noxss-alert noxss-alert--${config.cssClass} mb-4">
                 <div class="noxss-alert__icon">
                     <i data-feather="${config.icon}" class="noxss-icon"></i>
@@ -661,8 +684,8 @@ document.addEventListener("DOMContentLoaded", () => {
     };
 
     const createListItem = (icon, label, value) => {
-        if (!value || value === 'Não informado' || value === 'CPF não informado') return '';
-        return `
+      if (!value || value === "Não informado" || value === "CPF não informado") return "";
+      return `
             <li class="noxss-list-item">
                 <div class="noxss-list-item__leading">
                     <div class="noxss-list-item__icon">
@@ -690,41 +713,45 @@ document.addEventListener("DOMContentLoaded", () => {
         <div class="noxss-card noxss-card--flat">
             <div class="noxss-card__header"><h3 class="noxss-card__title">Dados Pessoais</h3></div>
             <ul class="noxss-list">
-                ${createListItem('hash', 'CPF', formatCPF(student.cpf))}
-                ${createListItem('gift', 'Nascimento', safe(student.nascimento))}
-                ${createListItem('user', 'Sexo', safe(student.sexo))}
-                ${createListItem('aperture', 'Cor/Raça', safe(student.cor))}
+                ${createListItem("hash", "CPF", formatCPF(student.cpf))}
+                ${createListItem("gift", "Nascimento", safe(student.nascimento))}
+                ${createListItem("user", "Sexo", safe(student.sexo))}
+                ${createListItem("aperture", "Cor/Raça", safe(student.cor))}
             </ul>
         </div>
 
         <div class="noxss-card noxss-card--flat mt-3">
             <div class="noxss-card__header"><h3 class="noxss-card__title">Dados Escolares</h3></div>
             <ul class="noxss-list">
-                ${createListItem('award', 'Turma', `${safe(turma.turma, 'N/A')} - ${safe(turma.turno, 'N/A')}`)}
-                ${createListItem('user', 'Professor(a) titular 1', safe(turma.professor1))}
-                ${createListItem('user', 'Professor(a) titular 2', safe(turma.professor2))}
-                ${createListItem('calendar', 'Data de Matrícula', safe(student.data_matricula))}
+                ${createListItem("award", "Turma", `${safe(turma.turma, "N/A")} - ${safe(turma.turno, "N/A")}`)}
+                ${createListItem("user", "Professor(a) titular 1", safe(turma.professor1))}
+                ${createListItem("user", "Professor(a) titular 2", safe(turma.professor2))}
+                ${createListItem("calendar", "Data de Matrícula", safe(student.data_matricula))}
             </ul>
         </div>
 
         <div class="noxss-card noxss-card--flat mt-3">
             <div class="noxss-card__header"><h3 class="noxss-card__title">Filiação e Contato</h3></div>
             <ul class="noxss-list">
-                ${createListItem('user', 'Mãe', safe(student.mae))}
-                ${createListItem('user', 'Pai', safe(student.pai))}
-                ${createListItem('phone', 'Telefone(s)', (student.telefone && student.telefone.length) ? student.telefone.join(", ") : "")}
-                ${createListItem('map-pin', 'Endereço', safe(student.endereco))}
+                ${createListItem("user", "Mãe", safe(student.mae))}
+                ${createListItem("user", "Pai", safe(student.pai))}
+                ${createListItem("phone", "Telefone(s)", student.telefone && student.telefone.length ? student.telefone.join(", ") : "")}
+                ${createListItem("map-pin", "Endereço", safe(student.endereco))}
             </ul>
         </div>
 
-        ${student.observacoes ? `
+        ${
+          student.observacoes
+            ? `
         <div class="noxss-card noxss-card--flat mt-3">
             <div class="noxss-card__header"><h3 class="noxss-card__title">Observações</h3></div>
             <div class="noxss-card__body">
                 <p class="text-secondary" style="white-space: pre-wrap;">${safe(student.observacoes)}</p>
             </div>
         </div>
-        ` : ''}
+        `
+            : ""
+        }
       </div>
     `;
     modalBody.innerHTML = html;
