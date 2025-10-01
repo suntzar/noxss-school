@@ -248,3 +248,84 @@
   line-height: 1.4;
 }
 
+/* Estilos do Modal de Visualização de Aluno */
+#viewStudentModalBody {
+  background-color: var(--noxss-bg-main);
+}
+
+.student-details-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 1rem;
+  padding-bottom: 1rem;
+  margin-bottom: 1.5rem;
+  border-bottom: 1px solid var(--noxss-border-color);
+}
+
+.student-details-header .student-name {
+  margin: 0;
+  color: var(--noxss-text-primary);
+  font-size: 1.75rem;
+}
+
+.student-details-header .student-status {
+  flex-shrink: 0;
+  margin-top: 4px;
+}
+
+.details-section-title {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--noxss-accent-primary);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-top: 0;
+  margin-bottom: 1rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid var(--noxss-border-color);
+}
+
+.details-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 0.75rem 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.detail-item {
+  display: flex;
+  flex-direction: column;
+  gap: 0.1rem;
+  font-size: 0.9rem;
+}
+
+.detail-item strong {
+  color: var(--noxss-text-secondary);
+  font-weight: 500;
+  font-size: 0.8rem;
+}
+
+.detail-item span {
+  color: var(--noxss-text-primary);
+  font-weight: 500;
+  font-size: 1rem;
+}
+
+.detail-item-full {
+  grid-column: 1 / -1;
+}
+
+.details-obs {
+  background-color: var(--noxss-bg-elements);
+  border-radius: var(--noxss-border-radius-base);
+  padding: 1rem;
+}
+
+.details-obs p {
+  margin: 0;
+  white-space: pre-wrap;
+  word-break: break-word;
+  color: var(--noxss-text-secondary);
+}
+

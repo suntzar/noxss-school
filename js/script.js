@@ -91,6 +91,15 @@ document.addEventListener("DOMContentLoaded", () => {
   // --- FUNÇÕES AUXILIARES ---
   const generateId = () => "_" + Math.random().toString(36).substr(2, 9);
 
+  const formatCPF = (cpf) => {
+    if (!cpf) return "CPF não informado";
+    const cpfDigits = cpf.replace(/\D/g, '');
+    if (cpfDigits.length === 11) {
+      return cpfDigits.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, '$1.$2.$3-$4');
+    }
+    return cpf; // Retorna o original se não for formatável
+  };
+
   // --- MIGRAÇÃO E COMPATIBILIDADE ---
   function migrateData(db) {
     let migrationPerformed = false;
@@ -210,15 +219,6 @@ document.addEventListener("DOMContentLoaded", () => {
   const createStudentCardHTML = (student, index) => {
     const safe = (text) => text || "Não informado";
 
-    const formatCPF = (cpf) => {
-      if (!cpf) return "CPF não informado";
-      const cpfDigits = cpf.replace(/\D/g, '');
-      if (cpfDigits.length === 11) {
-        return cpfDigits.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, '$1.$2.$3-$4');
-      }
-      return cpf; // Retorna o original se não for formatável
-    };
-
     const turmaMap = new Map(database.metadata.turmas.map((t) => [t.id, t]));
     const turma = turmaMap.get(student.turma_id) || { turma: "Sem Turma", turno: "" };
     const turmaNome = turma.turma === "Sem Turma" ? "Sem Turma" : `${turma.turma} - ${turma.turno}`;
@@ -227,6 +227,7 @@ document.addEventListener("DOMContentLoaded", () => {
       <div class="noxss-card__header">
         <h3 class="noxss-card__title">${safe(student.nome)}</h3>
         <div class="student-card-actions">
+          <button class="noxss-btn noxss-btn--icon view-btn" data-index="${index}" title="Visualizar"><i data-feather="eye" class="noxss-icon"></i></button>
           <button class="noxss-btn noxss-btn--icon edit-btn" data-index="${index}" title="Editar"><i data-feather="edit-2" class="noxss-icon"></i></button>
           <button class="noxss-btn noxss-btn--icon delete-btn" data-type="student" data-index="${index}" title="Excluir"><i data-feather="trash-2" class="noxss-icon"></i></button>
         </div>
@@ -632,9 +633,72 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 
+  const renderStudentDetailsModal = (student) => {
+    const modalBody = document.getElementById('viewStudentModalBody');
+    const safe = (text, fallback = 'Não informado') => text || fallback;
+
+    const turmaMap = new Map(database.metadata.turmas.map(t => [t.id, t]));
+    const turma = turmaMap.get(student.turma_id) || {};
+
+    const html = `
+      <div class="student-details-container">
+        <div class="student-details-header">
+          <h2 class="student-name">${safe(student.nome)}</h2>
+          <div class="student-status status-${(student.status || 'ativo').toLowerCase().replace(' ', '-')}">
+            <span class="status-dot"></span>
+            <span class="status-text">${safe(student.status)}</span>
+          </div>
+        </div>
+
+        <h4 class="details-section-title">Dados Pessoais</h4>
+        <div class="details-grid">
+          <div class="detail-item"><strong>CPF:</strong><span>${formatCPF(student.cpf)}</span></div>
+          <div class="detail-item"><strong>Nascimento:</strong><span>${safe(student.nascimento)}</span></div>
+          <div class="detail-item"><strong>Sexo:</strong><span>${safe(student.sexo)}</span></div>
+          <div class="detail-item"><strong>Cor/Raça:</strong><span>${safe(student.cor)}</span></div>
+        </div>
+
+        <h4 class="details-section-title">Filiação e Contato</h4>
+        <div class="details-grid">
+          <div class="detail-item"><strong>Mãe:</strong><span>${safe(student.mae)}</span></div>
+          <div class="detail-item"><strong>Pai:</strong><span>${safe(student.pai)}</span></div>
+          <div class="detail-item detail-item-full"><strong>Telefone(s):</strong><span>${(student.telefone && student.telefone.length) ? student.telefone.join(", ") : "Não informado"}</span></div>
+          <div class="detail-item detail-item-full"><strong>Endereço:</strong><span>${safe(student.endereco)}</span></div>
+        </div>
+
+        <h4 class="details-section-title">Dados Escolares</h4>
+        <div class="details-grid">
+          <div class="detail-item"><strong>Matrícula:</strong><span>${safe(student.data_matricula)}</span></div>
+          ${student.status === 'Transferido' && student.data_transferencia ? `<div class="detail-item"><strong>Transferência:</strong><span>${safe(student.data_transferencia)}</span></div>` : ''}
+          <div class="detail-item detail-item-full"><strong>Turma:</strong><span>${safe(turma.turma, 'N/A')} - ${safe(turma.turno, 'N/A')}</span></div>
+          <div class="detail-item"><strong>Professor(a) 1:</strong><span>${safe(turma.professor1)}</span></div>
+          <div class="detail-item"><strong>Professor(a) 2:</strong><span>${safe(turma.professor2)}</span></div>
+        </div>
+
+        ${student.observacoes ? `
+        <h4 class="details-section-title">Observações</h4>
+        <div class="details-obs">
+          <p>${safe(student.observacoes)}</p>
+        </div>
+        ` : ''}
+      </div>
+    `;
+    modalBody.innerHTML = html;
+  };
+
   studentListContainer.addEventListener("click", (e) => {
     const editBtn = e.target.closest(".edit-btn");
-    if (editBtn) openStudentModal(database.alunos[editBtn.dataset.index], editBtn.dataset.index);
+    if (editBtn) {
+      openStudentModal(database.alunos[editBtn.dataset.index], editBtn.dataset.index);
+      return;
+    }
+
+    const viewBtn = e.target.closest(".view-btn");
+    if (viewBtn) {
+      const student = database.alunos[viewBtn.dataset.index];
+      renderStudentDetailsModal(student);
+      Noxss.Modals.open("viewStudentModal");
+    }
   });
 
   searchInput.addEventListener("input", (e) => {
