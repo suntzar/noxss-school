@@ -65,6 +65,7 @@ document.addEventListener("DOMContentLoaded", () => {
       escola: "Nome da Escola",
       localizacao: "Endereço da Escola",
       contato: "Telefone/Email",
+      studentsPerPage: 20,
       turmas: [],
     },
     alunos: [],
@@ -73,6 +74,9 @@ document.addEventListener("DOMContentLoaded", () => {
   const JSONBIN_API_KEY = "$2a$10$s976JjTPuXOZQ.kCH7E6i.FdOJ0R2vLsy9rqYrlBLSMRXxmHnA552";
   const JSONBIN_BIN_ID = "68d5a70e43b1c97be9501077";
   const JSONBIN_URL = `https://api.jsonbin.io/v3/b/${JSONBIN_BIN_ID}`;
+
+  // --- ESTADO DA UI ---
+  let currentPage = 1;
 
   // --- REFERÊNCIAS DE ELEMENTOS ---
   const studentListContainer = document.getElementById("student-list-container");
@@ -86,6 +90,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const turmasListEl = document.getElementById("turmas-list");
   const confirmLoadBtn = document.getElementById("confirmLoadBtn");
   const statusSelect = document.getElementById("status");
+  const paginationContainer = document.getElementById("pagination-container");
   const transferenciaWrapper = document.getElementById("transferencia-field-wrapper");
 
   // --- FUNÇÕES AUXILIARES ---
@@ -174,7 +179,7 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   function processLoadedData(data) {
-    let db = { metadata: { escola: "Nova Escola", localizacao: "", contato: "", turmas: [] }, alunos: [] };
+    let db = { metadata: { escola: "Nova Escola", localizacao: "", contato: "", turmas: [], studentsPerPage: 20 }, alunos: [] };
     if (Array.isArray(data)) {
       // Formato mais antigo (só array de alunos)
       db.alunos = data;
@@ -346,14 +351,53 @@ document.addEventListener("DOMContentLoaded", () => {
       }`;
   };
 
+  const renderPaginationControls = (totalItems, itemsPerPage) => {
+    paginationContainer.innerHTML = "";
+    const totalPages = Math.ceil(totalItems / itemsPerPage);
+
+    if (totalPages <= 1) return;
+
+    const createButton = (text, page, isDisabled = false, isActive = false) => {
+      const btn = document.createElement("button");
+      btn.className = `noxss-btn noxss-btn--icon page-btn ${isActive ? "is-active" : ""}`;
+      btn.innerHTML = text;
+      btn.disabled = isDisabled;
+      btn.dataset.page = page;
+      return btn;
+    };
+
+    // Botão "Anterior"
+    const prevBtn = createButton('<i data-feather="chevron-left" class="noxss-icon"></i>', currentPage - 1, currentPage === 1);
+    paginationContainer.appendChild(prevBtn);
+
+    // Botões de página
+    for (let i = 1; i <= totalPages; i++) {
+      const pageBtn = createButton(i, i, false, i === currentPage);
+      paginationContainer.appendChild(pageBtn);
+    }
+
+    // Botão "Próximo"
+    const nextBtn = createButton('<i data-feather="chevron-right" class="noxss-icon"></i>', currentPage + 1, currentPage === totalPages);
+    paginationContainer.appendChild(nextBtn);
+
+    feather.replace();
+  };
+
   const renderStudentList = (studentList = database.alunos) => {
     const searchTerm = searchInput.value.toLowerCase();
     const isSearching = searchTerm.length > 0;
     studentListContainer.innerHTML = "";
 
+    const studentsPerPage = database.metadata.studentsPerPage || 20;
+    const startIndex = (currentPage - 1) * studentsPerPage;
+    const endIndex = startIndex + studentsPerPage;
+    const paginatedStudents = studentList.slice(startIndex, endIndex);
+
+    // Se não houver alunos na lista inteira (antes da paginação)
     if (studentList.length === 0) {
       placeholder.innerHTML = isSearching ? `<i data-feather="search" style="width: 3rem; height: 3rem;"></i><p class="mt-3">Nenhum aluno encontrado.</p>` : `<i data-feather="users" style="width: 3rem; height: 3rem;"></i><p class="mt-3">Nenhum aluno na lista.</p>`;
       studentListContainer.appendChild(placeholder);
+      paginationContainer.innerHTML = ""; // Limpa a paginação
     } else {
       const turmaMap = new Map(database.metadata.turmas.map((t) => [t.id, t]));
       const grouped = studentList.reduce((acc, student) => {
@@ -364,25 +408,42 @@ document.addEventListener("DOMContentLoaded", () => {
         return acc;
       }, {});
 
-      Object.keys(grouped)
-        .sort()
-        .forEach((groupKey) => {
-          if (!isSearching) {
+      if (isSearching) {
+        paginatedStudents.forEach((student) => {
+          const originalIndex = database.alunos.indexOf(student);
+          const card = document.createElement("div");
+          card.className = "noxss-card noxss-card--interactive student-card";
+          card.innerHTML = createStudentCardHTML(student, originalIndex, searchTerm);
+          studentListContainer.appendChild(card);
+        });
+      } else {
+        // Lógica de agrupamento por turma (aplicada à lista paginada)
+        const paginatedGrouped = paginatedStudents.reduce((acc, student) => {
+          const turma = turmaMap.get(student.turma_id) || { turma: "Sem Turma", turno: "" };
+          const key = `${turma.turma} - ${turma.turno}`;
+          if (!acc[key]) acc[key] = [];
+          acc[key].push(student);
+          return acc;
+        }, {});
+
+        Object.keys(paginatedGrouped)
+          .sort()
+          .forEach((groupKey) => {
             const title = document.createElement("h2");
             title.className = "turma-title";
             title.textContent = groupKey;
             studentListContainer.appendChild(title);
-          }
-          grouped[groupKey]
-            .sort((a, b) => (a.nome || "").localeCompare(b.nome || ""))
-            .forEach((student) => {
+
+            paginatedGrouped[groupKey].forEach((student) => {
               const originalIndex = database.alunos.indexOf(student);
               const card = document.createElement("div");
               card.className = "noxss-card noxss-card--interactive student-card";
-              card.innerHTML = createStudentCardHTML(student, originalIndex, isSearching ? searchTerm : "");
+              card.innerHTML = createStudentCardHTML(student, originalIndex, "");
               studentListContainer.appendChild(card);
             });
-        });
+          });
+      }
+      renderPaginationControls(studentList.length, studentsPerPage);
     }
     feather.replace();
   };
@@ -470,6 +531,7 @@ document.addEventListener("DOMContentLoaded", () => {
     document.getElementById("meta-escola").value = database.metadata.escola || "";
     document.getElementById("meta-localizacao").value = database.metadata.localizacao || "";
     document.getElementById("meta-contato").value = database.metadata.contato || "";
+    document.getElementById("meta-students-per-page").value = database.metadata.studentsPerPage || 20;
 
     turmasListEl.innerHTML =
       database.metadata.turmas
@@ -596,6 +658,7 @@ document.addEventListener("DOMContentLoaded", () => {
     database.metadata.escola = document.getElementById("meta-escola").value;
     database.metadata.localizacao = document.getElementById("meta-localizacao").value;
     database.metadata.contato = document.getElementById("meta-contato").value;
+    database.metadata.studentsPerPage = parseInt(document.getElementById("meta-students-per-page").value, 10) || 20;
     saveDatabase();
     Noxss.Toasts.show({ message: "Metadados salvos!", status: "success" });
   });
@@ -809,9 +872,21 @@ document.addEventListener("DOMContentLoaded", () => {
 
   searchInput.addEventListener("input", (e) => {
     const term = e.target.value.toLowerCase();
+    currentPage = 1; // Reseta para a primeira página a cada nova busca
     clearSearchBtn.style.display = term ? "block" : "none";
     const filtered = database.alunos.filter((s) => (s.nome || "").toLowerCase().includes(term) || (s.cpf || "").includes(term) || (s.mae || "").toLowerCase().includes(term) || (s.pai || "").toLowerCase().includes(term) || (s.observacoes || "").toLowerCase().includes(term));
     renderStudentList(filtered);
+  });
+
+  paginationContainer.addEventListener("click", (e) => {
+    const btn = e.target.closest(".page-btn");
+    if (!btn || btn.disabled) return;
+
+    currentPage = parseInt(btn.dataset.page, 10);
+    // Re-renderiza a lista com a nova página, mantendo o filtro de busca se houver
+    const term = searchInput.value.toLowerCase();
+    const listToRender = term ? database.alunos.filter((s) => (s.nome || "").toLowerCase().includes(term) || (s.cpf || "").includes(term) || (s.mae || "").toLowerCase().includes(term) || (s.pai || "").toLowerCase().includes(term) || (s.observacoes || "").toLowerCase().includes(term)) : database.alunos;
+    renderStudentList(listToRender);
   });
 
   clearSearchBtn.addEventListener("click", () => {

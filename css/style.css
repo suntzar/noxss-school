@@ -188,6 +188,25 @@
   display: none;
 }
 
+/* Estilos para a Paginação */
+.pagination-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.page-btn {
+  min-width: 40px;
+}
+
+.page-btn.is-active {
+  background-color: var(--noxss-accent-primary);
+  color: var(--noxss-text-on-accent);
+  font-weight: bold;
+  pointer-events: none;
+}
+
 /* Estilos para o Dashboard */
 #dashboard-content .noxss-card--stat .stat-icon {
   color: var(--noxss-accent-primary);
