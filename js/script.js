@@ -496,7 +496,12 @@ document.addEventListener("DOMContentLoaded", () => {
     return age;
   };
 
-  const renderDashboard = () => {
+  const renderInicio = () => {
+    // Atualiza o cabeçalho da escola (conteúdo da antiga aba 'Início')
+    const { escola, localizacao } = database.metadata;
+    document.getElementById("home-school-name").textContent = escola || "Nome da Escola";
+    document.getElementById("home-school-location").textContent = localizacao || "Endereço não configurado";
+
     const dashboardContent = document.getElementById("dashboard-content");
     const students = database.alunos;
     if (students.length === 0) {
@@ -557,12 +562,6 @@ document.addEventListener("DOMContentLoaded", () => {
     feather.replace();
   };
 
-  const renderHomeTab = () => {
-    const { escola, localizacao } = database.metadata;
-    document.getElementById("home-school-name").textContent = escola || "Nome da Escola";
-    document.getElementById("home-school-location").textContent = localizacao || "Endereço não configurado";
-  };
-
   const renderMetadata = () => {
     document.getElementById("meta-escola").value = database.metadata.escola || "";
     document.getElementById("meta-localizacao").value = database.metadata.localizacao || "";
@@ -599,9 +598,9 @@ document.addEventListener("DOMContentLoaded", () => {
     localStorage.setItem(DB_KEY, JSON.stringify(database));
     if (source !== "cloud") saveToJSONBin(database);
     // Re-render all relevant views
-    renderMetadata();
+    if (document.querySelector("#panel-settings.is-visible")) renderMetadata();
     if (document.querySelector("#panel-alunos.is-visible")) renderStudentList();
-    if (document.querySelector("#panel-dashboard.is-visible")) renderDashboard();
+    if (document.querySelector("#panel-inicio.is-visible")) renderInicio();
   };
 
   const openStudentModal = (student = null, index = -1) => {
@@ -975,8 +974,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   document.querySelector(".noxss-tabs").addEventListener("noxss:tab:change", (event) => {
     const activeTabId = event.detail.activeTabId;
-    if (activeTabId === "inicio") renderHomeTab();
-    if (activeTabId === "dashboard") renderDashboard();
+    if (activeTabId === "inicio") renderInicio();
     if (activeTabId === "alunos") renderStudentList();
     if (activeTabId === "settings") renderMetadata(); // Renderiza metadados na aba de configurações
   });

@@ -20,8 +20,8 @@
 .home-hero {
   text-align: center;
   padding: 3rem 1rem;
-  background-color: var(--noxss-bg-surface);
-  border-radius: var(--noxss-border-radius-lg);
+  background-color: var(--noxss-bg-elements);
+  border-radius: var(--noxss-border-radius-base);
   border: 1px solid var(--noxss-border-color);
 }
 
@@ -250,7 +250,8 @@
   color: var(--noxss-accent-primary);
   opacity: 0.6;
 }
-.dashboard-heading {
+.dashboard-heading,
+.home-heading {
   color: var(--noxss-text-primary);
   font-size: 1.8rem;
   margin-top: 0;
