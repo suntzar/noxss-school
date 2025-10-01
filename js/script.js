@@ -357,28 +357,58 @@ document.addEventListener("DOMContentLoaded", () => {
 
     if (totalPages <= 1) return;
 
-    const createButton = (text, page, isDisabled = false, isActive = false) => {
+    const createPageElement = (content, page, isDisabled = false, isActive = false) => {
+      if (content === "...") {
+        const ellipsis = document.createElement("span");
+        ellipsis.className = "page-ellipsis";
+        ellipsis.innerHTML = "&hellip;";
+        return ellipsis;
+      }
+
       const btn = document.createElement("button");
       btn.className = `noxss-btn noxss-btn--icon page-btn ${isActive ? "is-active" : ""}`;
-      btn.innerHTML = text;
+      btn.innerHTML = content;
       btn.disabled = isDisabled;
       btn.dataset.page = page;
       return btn;
     };
 
     // Botão "Anterior"
-    const prevBtn = createButton('<i data-feather="chevron-left" class="noxss-icon"></i>', currentPage - 1, currentPage === 1);
-    paginationContainer.appendChild(prevBtn);
+    paginationContainer.appendChild(createPageElement('<i data-feather="chevron-left" class="noxss-icon"></i>', currentPage - 1, currentPage === 1));
 
-    // Botões de página
-    for (let i = 1; i <= totalPages; i++) {
-      const pageBtn = createButton(i, i, false, i === currentPage);
-      paginationContainer.appendChild(pageBtn);
+    // Lógica para exibir os botões de página com reticências
+    const maxVisibleButtons = 7; // Total máximo de botões (incluindo reticências)
+    if (totalPages <= maxVisibleButtons) {
+      for (let i = 1; i <= totalPages; i++) {
+        paginationContainer.appendChild(createPageElement(i, i, false, i === currentPage));
+      }
+    } else {
+      // Sempre mostrar a primeira página
+      paginationContainer.appendChild(createPageElement(1, 1, false, currentPage === 1));
+
+      // Reticências no início
+      if (currentPage > 3) {
+        paginationContainer.appendChild(createPageElement("..."));
+      }
+
+      // Páginas ao redor da página atual
+      const startPage = Math.max(2, currentPage - 1);
+      const endPage = Math.min(totalPages - 1, currentPage + 1);
+      for (let i = startPage; i <= endPage; i++) {
+        paginationContainer.appendChild(createPageElement(i, i, false, i === currentPage));
+      }
+
+      // Reticências no final
+      if (currentPage < totalPages - 2) {
+        paginationContainer.appendChild(createPageElement("..."));
+      }
+
+      // Sempre mostrar a última página
+      paginationContainer.appendChild(createPageElement(totalPages, totalPages, false, currentPage === totalPages));
     }
 
     // Botão "Próximo"
-    const nextBtn = createButton('<i data-feather="chevron-right" class="noxss-icon"></i>', currentPage + 1, currentPage === totalPages);
-    paginationContainer.appendChild(nextBtn);
+    paginationContainer.appendChild(createPageElement('<i data-feather="chevron-right" class="noxss-icon"></i>', currentPage + 1, currentPage === totalPages));
 
     feather.replace();
   };

@@ -207,6 +207,16 @@
   pointer-events: none;
 }
 
+.page-ellipsis {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 40px;
+  padding: 0 0.5rem;
+  color: var(--noxss-text-secondary);
+  font-weight: bold;
+}
+
 /* Estilos para o Dashboard */
 #dashboard-content .noxss-card--stat .stat-icon {
   color: var(--noxss-accent-primary);
