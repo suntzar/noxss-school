@@ -639,51 +639,98 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const turmaMap = new Map(database.metadata.turmas.map(t => [t.id, t]));
     const turma = turmaMap.get(student.turma_id) || {};
+    const professores = [turma.professor1, turma.professor2].filter(Boolean).join(' e ') || 'Não informado';
+
+    const createStatusAlert = (status) => {
+        const statusMap = {
+            'Ativo': { icon: 'check-circle', cssClass: 'success', text: 'Este aluno está frequentando as aulas normalmente.' },
+            'Inativo': { icon: 'minus-circle', cssClass: 'secondary', text: 'Este aluno não está mais ativo no sistema.' },
+            'Transferido': { icon: 'arrow-right-circle', cssClass: 'warning', text: `Este aluno foi transferido na data: ${safe(student.data_transferencia)}.` }
+        };
+        const config = statusMap[status] || statusMap['Inativo'];
+        return `
+            <div class="noxss-alert noxss-alert--${config.cssClass} mb-4">
+                <div class="noxss-alert__icon">
+                    <i data-feather="${config.icon}" class="noxss-icon"></i>
+                </div>
+                <div class="noxss-alert__content">
+                    <strong class="noxss-alert__title">Status: ${status}</strong>
+                    ${config.text}
+                </div>
+            </div>
+        `;
+    };
+
+    const createListItem = (icon, label, value) => {
+        if (!value || value === 'Não informado' || value === 'CPF não informado') return '';
+        return `
+            <li class="noxss-list-item">
+                <div class="noxss-list-item__leading">
+                    <div class="noxss-list-item__icon">
+                        <i data-feather="${icon}" class="noxss-icon"></i>
+                    </div>
+                </div>
+                <div class="noxss-list-item__content">
+                    <div class="noxss-list-item__title">${label}</div>
+                </div>
+                <div class="noxss-list-item__trailing">
+                    <span class="detail-value">${value}</span>
+                </div>
+            </li>
+        `;
+    };
 
     const html = `
       <div class="student-details-container">
         <div class="student-details-header">
           <h2 class="student-name">${safe(student.nome)}</h2>
-          <div class="student-status status-${(student.status || 'ativo').toLowerCase().replace(' ', '-')}">
-            <span class="status-dot"></span>
-            <span class="status-text">${safe(student.status)}</span>
-          </div>
         </div>
 
-        <h4 class="details-section-title">Dados Pessoais</h4>
-        <div class="details-grid">
-          <div class="detail-item"><strong>CPF:</strong><span>${formatCPF(student.cpf)}</span></div>
-          <div class="detail-item"><strong>Nascimento:</strong><span>${safe(student.nascimento)}</span></div>
-          <div class="detail-item"><strong>Sexo:</strong><span>${safe(student.sexo)}</span></div>
-          <div class="detail-item"><strong>Cor/Raça:</strong><span>${safe(student.cor)}</span></div>
+        ${createStatusAlert(student.status)}
+
+        <div class="noxss-card noxss-card--flat">
+            <div class="noxss-card__header"><h3 class="noxss-card__title">Dados Pessoais</h3></div>
+            <ul class="noxss-list">
+                ${createListItem('hash', 'CPF', formatCPF(student.cpf))}
+                ${createListItem('gift', 'Nascimento', safe(student.nascimento))}
+                ${createListItem('user', 'Sexo', safe(student.sexo))}
+                ${createListItem('aperture', 'Cor/Raça', safe(student.cor))}
+            </ul>
         </div>
 
-        <h4 class="details-section-title">Filiação e Contato</h4>
-        <div class="details-grid">
-          <div class="detail-item"><strong>Mãe:</strong><span>${safe(student.mae)}</span></div>
-          <div class="detail-item"><strong>Pai:</strong><span>${safe(student.pai)}</span></div>
-          <div class="detail-item detail-item-full"><strong>Telefone(s):</strong><span>${(student.telefone && student.telefone.length) ? student.telefone.join(", ") : "Não informado"}</span></div>
-          <div class="detail-item detail-item-full"><strong>Endereço:</strong><span>${safe(student.endereco)}</span></div>
+        <div class="noxss-card noxss-card--flat mt-3">
+            <div class="noxss-card__header"><h3 class="noxss-card__title">Dados Escolares</h3></div>
+            <ul class="noxss-list">
+                ${createListItem('award', 'Turma', `${safe(turma.turma, 'N/A')} - ${safe(turma.turno, 'N/A')}`)}
+                ${createListItem('users', 'Professor(es)', professores)}
+                ${createListItem('calendar', 'Data de Matrícula', safe(student.data_matricula))}
+            </ul>
         </div>
 
-        <h4 class="details-section-title">Dados Escolares</h4>
-        <div class="details-grid">
-          <div class="detail-item"><strong>Matrícula:</strong><span>${safe(student.data_matricula)}</span></div>
-          ${student.status === 'Transferido' && student.data_transferencia ? `<div class="detail-item"><strong>Transferência:</strong><span>${safe(student.data_transferencia)}</span></div>` : ''}
-          <div class="detail-item detail-item-full"><strong>Turma:</strong><span>${safe(turma.turma, 'N/A')} - ${safe(turma.turno, 'N/A')}</span></div>
-          <div class="detail-item"><strong>Professor(a) 1:</strong><span>${safe(turma.professor1)}</span></div>
-          <div class="detail-item"><strong>Professor(a) 2:</strong><span>${safe(turma.professor2)}</span></div>
+        <div class="noxss-card noxss-card--flat mt-3">
+            <div class="noxss-card__header"><h3 class="noxss-card__title">Filiação e Contato</h3></div>
+            <ul class="noxss-list">
+                ${createListItem('user', 'Mãe', safe(student.mae))}
+                ${createListItem('user', 'Pai', safe(student.pai))}
+                ${createListItem('phone', 'Telefone(s)', (student.telefone && student.telefone.length) ? student.telefone.join(", ") : "")}
+                ${createListItem('map-pin', 'Endereço', safe(student.endereco))}
+            </ul>
         </div>
 
         ${student.observacoes ? `
-        <h4 class="details-section-title">Observações</h4>
-        <div class="details-obs">
-          <p>${safe(student.observacoes)}</p>
+        <div class="noxss-card noxss-card--flat mt-3">
+            <div class="noxss-card__header"><h3 class="noxss-card__title">Observações</h3></div>
+            <div class="noxss-card__body">
+                <p class="text-secondary" style="white-space: pre-wrap;">${safe(student.observacoes)}</p>
+            </div>
         </div>
         ` : ''}
       </div>
     `;
     modalBody.innerHTML = html;
+    if (window.feather) {
+      feather.replace();
+    }
   };
 
   studentListContainer.addEventListener("click", (e) => {
