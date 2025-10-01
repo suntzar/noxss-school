@@ -269,7 +269,14 @@ document.addEventListener("DOMContentLoaded", () => {
             <strong>Cor/Raça:</strong> ${safe(student.cor)}
           </div>
         </div>
-      </div>`;
+      </div>
+      ${student.observacoes ? `
+      <div class="noxss-card__footer student-card-footer">
+        <div class="info-item">
+            <i data-feather="message-square" class="noxss-icon"></i>
+            <span class="text-wrap">${student.observacoes}</span>
+        </div>
+      </div>` : ''}`;
   };
 
   const renderStudentList = (studentList = database.alunos) => {
@@ -488,6 +495,7 @@ document.addEventListener("DOMContentLoaded", () => {
         .filter(Boolean),
       endereco: document.getElementById("endereco").value.trim(),
       cor: document.getElementById("cor").value.trim(),
+      observacoes: document.getElementById("observacoes").value.trim(),
     };
     if (index === -1) database.alunos.push(studentData);
     else database.alunos[index] = studentData;
@@ -601,7 +609,7 @@ document.addEventListener("DOMContentLoaded", () => {
   searchInput.addEventListener("input", (e) => {
     const term = e.target.value.toLowerCase();
     clearSearchBtn.style.display = term ? "block" : "none";
-    const filtered = database.alunos.filter((s) => (s.nome || "").toLowerCase().includes(term) || (s.cpf || "").includes(term) || (s.mae || "").toLowerCase().includes(term) || (s.pai || "").toLowerCase().includes(term));
+    const filtered = database.alunos.filter((s) => (s.nome || "").toLowerCase().includes(term) || (s.cpf || "").includes(term) || (s.mae || "").toLowerCase().includes(term) || (s.pai || "").toLowerCase().includes(term) || (s.observacoes || "").toLowerCase().includes(term));
     renderStudentList(filtered);
   });
 
