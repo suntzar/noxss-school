@@ -256,11 +256,13 @@
   gap: 1rem;
   padding-bottom: 1rem;
   margin-bottom: 1.5rem;
-  border-bottom: 1px solid var(--noxss-border-color);
+  border-bottom: 2px dashed var(--noxss-border-color);
 }
 
 .student-details-header .student-name {
   margin: 0;
+  padding: 0;
+  border: none;
   color: var(--noxss-text-primary);
   font-size: 1.75rem;
 }
@@ -282,4 +284,3 @@
     border: 1px solid var(--noxss-border-color);
     background-color: transparent;
 }
-
