@@ -222,6 +222,38 @@ document.addEventListener("DOMContentLoaded", () => {
     return text.replace(regex, `<mark class="search-highlight">$1</mark>`);
   };
 
+  const highlightCpfMatch = (formattedCpf, unformattedCpf, searchTerm) => {
+    const cleanSearchTerm = searchTerm.replace(/\D/g, "");
+    if (!cleanSearchTerm) return formattedCpf;
+
+    const matchIndex = unformattedCpf.indexOf(cleanSearchTerm);
+    if (matchIndex === -1) return formattedCpf;
+
+    const matchEndIndex = matchIndex + cleanSearchTerm.length;
+
+    let result = "";
+    let digitCount = 0;
+    let inHighlight = false;
+
+    for (const char of formattedCpf) {
+      const isDigit = /\d/.test(char);
+
+      if (isDigit) {
+        const wasInHighlight = inHighlight;
+        inHighlight = digitCount >= matchIndex && digitCount < matchEndIndex;
+
+        if (inHighlight && !wasInHighlight) result += `<mark class="search-highlight">`;
+        if (!inHighlight && wasInHighlight) result += `</mark>`;
+
+        digitCount++;
+      }
+      result += char;
+    }
+
+    if (inHighlight) result += `</mark>`;
+    return result;
+  };
+
   const createStudentCardHTML = (student, index, searchTerm = "") => {
     const safe = (text) => text || "Não informado";
 
@@ -236,7 +268,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const highlightedMae = highlightText(safe(student.mae), searchTerm);
     const highlightedPai = highlightText(safe(student.pai), searchTerm);
     const highlightedObservacoes = highlightText(safe(student.observacoes), searchTerm);
-    const cpfDisplay = isCpfMatch ? highlightText(formatCPF(student.cpf), searchTerm) : formatCPF(student.cpf);
+    const cpfDisplay = isCpfMatch ? highlightCpfMatch(formatCPF(student.cpf), unformattedCpf, searchTerm) : formatCPF(student.cpf);
 
     return `
       <div class="noxss-card__header">
