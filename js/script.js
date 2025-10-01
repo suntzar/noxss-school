@@ -207,6 +207,16 @@ document.addEventListener("DOMContentLoaded", () => {
   // --- UI & RENDERIZAÇÃO ---
   const createStudentCardHTML = (student, index) => {
     const safe = (text) => text || "Não informado";
+
+    const formatCPF = (cpf) => {
+      if (!cpf) return "CPF não informado";
+      const cpfDigits = cpf.replace(/\D/g, '');
+      if (cpfDigits.length === 11) {
+        return cpfDigits.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, '$1.$2.$3-$4');
+      }
+      return cpf; // Retorna o original se não for formatável
+    };
+
     const turmaMap = new Map(database.metadata.turmas.map((t) => [t.id, t]));
     const turma = turmaMap.get(student.turma_id) || { turma: "Sem Turma", turno: "" };
     const turmaNome = turma.turma === "Sem Turma" ? "Sem Turma" : `${turma.turma} - ${turma.turno}`;
@@ -230,6 +240,10 @@ document.addEventListener("DOMContentLoaded", () => {
             <span>${turmaNome}</span>
           </div>
           <div class="info-item">
+            <i data-feather="hash" class="noxss-icon"></i>
+            <span>${formatCPF(student.cpf)}</span>
+          </div>
+          <div class="info-item">
             <i data-feather="gift" class="noxss-icon"></i>
             <span>${safe(student.nascimento)}</span>
           </div>
@@ -250,6 +264,9 @@ document.addEventListener("DOMContentLoaded", () => {
           </div>
           <div class="info-item">
             <strong>Endereço:</strong> ${safe(student.endereco)}
+          </div>
+          <div class="info-item">
+            <strong>Cor/Raça:</strong> ${safe(student.cor)}
           </div>
         </div>
       </div>`;
