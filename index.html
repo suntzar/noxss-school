@@ -156,17 +156,28 @@
             <input type="hidden" id="studentIndex" />
             <div class="noxss-form-group"><label for="nome" class="noxss-label">Nome Completo</label><input type="text" class="noxss-input" id="nome" required /></div>
             <div class="row">
-              <div class="col-md-7">
+              <div class="col-md-6">
                 <div class="noxss-form-group"><label for="cpf" class="noxss-label">CPF (Opcional)</label><input type="text" class="noxss-input" id="cpf" placeholder="000.000.000-00" /></div>
               </div>
-              <div class="col-md-5">
+              <div class="col-md-6">
+                <div class="noxss-form-group"><label for="data_matricula" class="noxss-label">Data de Matrícula</label><input type="text" class="noxss-input" id="data_matricula" placeholder="dd/mm/aaaa" /></div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-6">
                 <div class="noxss-form-group">
-                  <label for="status" class="noxss-label">Status</label
-                  ><select id="status" class="noxss-select">
+                  <label for="status" class="noxss-label">Status</label>
+                  <select id="status" class="noxss-select">
                     <option value="Ativo" selected>Ativo</option>
                     <option value="Transferido">Transferido</option>
                     <option value="Inativo">Inativo</option>
                   </select>
+                </div>
+              </div>
+              <div class="col-md-6" id="transferencia-field-wrapper" style="display: none;">
+                <div class="noxss-form-group">
+                  <label for="data_transferencia" class="noxss-label">Data de Transferência</label>
+                  <input type="text" class="noxss-input" id="data_transferencia" placeholder="dd/mm/aaaa" />
                 </div>
               </div>
             </div>

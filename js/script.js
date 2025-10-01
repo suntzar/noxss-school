@@ -85,6 +85,8 @@ document.addEventListener("DOMContentLoaded", () => {
   const turmaForm = document.getElementById("turmaForm");
   const turmasListEl = document.getElementById("turmas-list");
   const confirmLoadBtn = document.getElementById("confirmLoadBtn");
+  const statusSelect = document.getElementById("status");
+  const transferenciaWrapper = document.getElementById("transferencia-field-wrapper");
 
   // --- FUNÇÕES AUXILIARES ---
   const generateId = () => "_" + Math.random().toString(36).substr(2, 9);
@@ -234,6 +236,15 @@ document.addEventListener("DOMContentLoaded", () => {
           <div class="student-status status-${(student.status || 'ativo').toLowerCase().replace(' ', '-')}">
             <span class="status-dot"></span>
             <span class="status-text">${safe(student.status)}</span>
+          </div>
+          ${student.status === 'Transferido' && student.data_transferencia ? `
+          <div class="info-item">
+              <i data-feather="arrow-right-circle" class="noxss-icon"></i>
+              <span>Transf. em: ${safe(student.data_transferencia)}</span>
+          </div>` : ''}
+          <div class="info-item">
+            <i data-feather="calendar" class="noxss-icon"></i>
+            <span>Matrícula: ${safe(student.data_matricula)}</span>
           </div>
           <div class="info-item">
             <i data-feather="award" class="noxss-icon"></i>
@@ -458,9 +469,27 @@ document.addEventListener("DOMContentLoaded", () => {
         if (input) input.value = Array.isArray(student[key]) ? student[key].join(", ") : student[key];
       });
     }
+
+    // Toggle visibility of transferencia field based on status
+    if (statusSelect.value === "Transferido") {
+      transferenciaWrapper.style.display = "block";
+    } else {
+      transferenciaWrapper.style.display = "none";
+      document.getElementById("data_transferencia").value = ""; // Clear value when hidden
+    }
+
     Noxss.Modals.open("studentModal");
     setTimeout(() => document.getElementById("nome").focus(), 400);
   };
+
+  statusSelect.addEventListener("change", (e) => {
+    if (e.target.value === "Transferido") {
+      transferenciaWrapper.style.display = "block";
+    } else {
+      transferenciaWrapper.style.display = "none";
+      document.getElementById("data_transferencia").value = ""; // Clear value when hidden
+    }
+  });
 
   const openTurmaModal = (turma = null) => {
     turmaForm.reset();
@@ -496,6 +525,8 @@ document.addEventListener("DOMContentLoaded", () => {
       endereco: document.getElementById("endereco").value.trim(),
       cor: document.getElementById("cor").value.trim(),
       observacoes: document.getElementById("observacoes").value.trim(),
+      data_matricula: document.getElementById("data_matricula").value.trim(),
+      data_transferencia: document.getElementById("data_transferencia").value.trim(),
     };
     if (index === -1) database.alunos.push(studentData);
     else database.alunos[index] = studentData;
