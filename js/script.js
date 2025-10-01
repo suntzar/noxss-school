@@ -639,7 +639,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const turmaMap = new Map(database.metadata.turmas.map(t => [t.id, t]));
     const turma = turmaMap.get(student.turma_id) || {};
-    const professores = [turma.professor1, turma.professor2].filter(Boolean).join(' e ') || 'Não informado';
 
     const createStatusAlert = (status) => {
         const statusMap = {
@@ -702,7 +701,8 @@ document.addEventListener("DOMContentLoaded", () => {
             <div class="noxss-card__header"><h3 class="noxss-card__title">Dados Escolares</h3></div>
             <ul class="noxss-list">
                 ${createListItem('award', 'Turma', `${safe(turma.turma, 'N/A')} - ${safe(turma.turno, 'N/A')}`)}
-                ${createListItem('users', 'Professor(es)', professores)}
+                ${createListItem('user', 'Professor(a) titular 1', safe(turma.professor1))}
+                ${createListItem('user', 'Professor(a) titular 2', safe(turma.professor2))}
                 ${createListItem('calendar', 'Data de Matrícula', safe(student.data_matricula))}
             </ul>
         </div>
