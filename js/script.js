@@ -205,30 +205,54 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   // --- UI & RENDERIZAÇÃO ---
-  const getStatusBadge = (status = "Ativo") => {
-    const statusClass = { Ativo: "badge-status--success", Transferido: "badge-status--warning", Inativo: "badge-status--secondary" }[status] || "badge-status--secondary";
-    return `<span class="badge-status ${statusClass}">${status}</span>`;
-  };
-
   const createStudentCardHTML = (student, index) => {
     const safe = (text) => text || "Não informado";
+    const turmaMap = new Map(database.metadata.turmas.map((t) => [t.id, t]));
+    const turma = turmaMap.get(student.turma_id) || { turma: "Sem Turma", turno: "" };
+    const turmaNome = turma.turma === "Sem Turma" ? "Sem Turma" : `${turma.turma} - ${turma.turno}`;
+
     return `
-            <div class="noxss-card__body">
-                <div class="d-flex justify-content-between align-items-start">
-                    <div><h3 class="noxss-card__title">${safe(student.nome)}</h3><p class="noxss-card__subtitle text-secondary"><strong>Status:</strong> ${getStatusBadge(student.status)}</p></div>
-                    <div class="student-card-actions">
-                        <button class="noxss-btn noxss-btn--icon edit-btn" data-index="${index}" title="Editar"><i data-feather="edit-2" class="noxss-icon"></i></button>
-                        <button class="noxss-btn noxss-btn--icon delete-btn" data-type="student" data-index="${index}" title="Excluir"><i data-feather="trash-2" class="noxss-icon"></i></button>
-                    </div>
-                </div><hr>
-                <p class="card-text"><strong>Mãe:</strong> ${safe(student.mae)}</p>
-                <p class="card-text"><strong>Pai:</strong> ${safe(student.pai)}</p>
-                <div class="card-text-inline">
-                    <p class="card-text"><strong>Nascimento:</strong> ${safe(student.nascimento)}</p>
-                    <p class="card-text"><strong>Sexo:</strong> ${safe(student.sexo)}</p>
-                </div>
-                <p class="card-text"><strong>Telefone(s):</strong> ${student.telefone?.join(", ") || "Não informado"}</p>
-            </div>`;
+      <div class="noxss-card__header">
+        <h3 class="noxss-card__title">${safe(student.nome)}</h3>
+        <div class="student-card-actions">
+          <button class="noxss-btn noxss-btn--icon edit-btn" data-index="${index}" title="Editar"><i data-feather="edit-2" class="noxss-icon"></i></button>
+          <button class="noxss-btn noxss-btn--icon delete-btn" data-type="student" data-index="${index}" title="Excluir"><i data-feather="trash-2" class="noxss-icon"></i></button>
+        </div>
+      </div>
+      <div class="noxss-card__body student-card-body">
+        <div class="student-card-main-info">
+          <div class="student-status status-${(student.status || 'ativo').toLowerCase().replace(' ', '-')}">
+            <span class="status-dot"></span>
+            <span class="status-text">${safe(student.status)}</span>
+          </div>
+          <div class="info-item">
+            <i data-feather="award" class="noxss-icon"></i>
+            <span>${turmaNome}</span>
+          </div>
+          <div class="info-item">
+            <i data-feather="gift" class="noxss-icon"></i>
+            <span>${safe(student.nascimento)}</span>
+          </div>
+           <div class="info-item">
+            <i data-feather="user" class="noxss-icon"></i>
+            <span>${safe(student.sexo)}</span>
+          </div>
+        </div>
+        <div class="student-card-secondary-info">
+          <div class="info-item">
+            <strong>Mãe:</strong> ${safe(student.mae)}
+          </div>
+          <div class="info-item">
+            <strong>Pai:</strong> ${safe(student.pai)}
+          </div>
+          <div class="info-item">
+            <strong>Telefone(s):</strong> ${Array.isArray(student.telefone) ? student.telefone.join(", ") : "Não informado"}
+          </div>
+          <div class="info-item">
+            <strong>Endereço:</strong> ${safe(student.endereco)}
+          </div>
+        </div>
+      </div>`;
   };
 
   const renderStudentList = (studentList = database.alunos) => {

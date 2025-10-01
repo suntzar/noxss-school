@@ -53,46 +53,122 @@
   color: var(--noxss-accent-primary);
   font-size: 1.5rem;
   margin-top: 2rem;
-}
+}/* Estilos dos Cards de Aluno */
 .student-card {
   margin-bottom: 1.5rem;
+  overflow: hidden;
 }
-.student-card .noxss-card__subtitle {
-  margin-bottom: 0;
-}
-.student-card .card-text strong {
-  min-width: 90px;
-  display: inline-block;
-}
-.student-card .card-text-inline {
-  display: flex;
-  gap: 1.5rem;
-}
-.noxss-card__header {
+
+.student-card .noxss-card__header {
   display: flex;
   justify-content: space-between;
   align-items: center;
   gap: 1rem;
 }
+
 .student-card-actions {
   display: flex;
   gap: 0.5rem;
 }
-.badge-status {
-  font-size: 0.8em;
+
+.student-card-body {
+  display: grid;
+  grid-template-columns: 220px 1fr;
+  gap: 1.5rem;
+}
+
+@media (max-width: 767px) {
+  .student-card-body {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+}
+
+.student-card-main-info,
+.student-card-secondary-info {
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+}
+
+.student-card-main-info {
+  border-right: 1px solid var(--noxss-border-color);
+  padding-right: 1.5rem;
+}
+
+@media (max-width: 767px) {
+  .student-card-main-info {
+    border-right: none;
+    border-bottom: 1px solid var(--noxss-border-color);
+    padding-right: 0;
+    padding-bottom: 1rem;
+  }
+}
+
+.info-item {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-size: 0.9rem;
+  color: var(--noxss-text-secondary);
+}
+
+.info-item .noxss-icon {
+  width: 16px;
+  height: 16px;
+  flex-shrink: 0;
+  color: var(--noxss-accent-primary);
+}
+
+.info-item strong {
+  color: var(--noxss-text-primary);
+  min-width: 80px;
+  display: inline-block;
+}
+
+.student-status {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
   padding: 0.4em 0.8em;
   border-radius: var(--noxss-border-radius-base);
-  font-weight: 600;
-  color: var(--noxss-text-on-accent);
+  width: fit-content;
+  margin-bottom: 0.5rem;
 }
-.badge-status--success {
+
+.student-status .status-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+}
+
+.student-status .status-text {
+  font-weight: 600;
+  font-size: 0.9em;
+}
+
+/* Cores do Status */
+.student-status.status-ativo {
+  background-color: rgba(var(--noxss-color-success-rgb), 0.15);
+  color: var(--noxss-color-success);
+}
+.student-status.status-ativo .status-dot {
   background-color: var(--noxss-color-success);
 }
-.badge-status--warning {
-  background-color: var(--noxss-color-warning);
-  color: #333;
+
+.student-status.status-transferido {
+  background-color: rgba(var(--noxss-color-warning-rgb), 0.15);
+  color: var(--noxss-color-warning);
 }
-.badge-status--secondary {
+.student-status.status-transferido .status-dot {
+  background-color: var(--noxss-color-warning);
+}
+
+.student-status.status-inativo {
+  background-color: rgba(var(--noxss-color-secondary-rgb), 0.15);
+  color: var(--noxss-color-secondary);
+}
+.student-status.status-inativo .status-dot {
   background-color: var(--noxss-text-secondary);
 }
 #placeholder {
