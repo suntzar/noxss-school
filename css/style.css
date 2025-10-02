@@ -2,13 +2,36 @@
   justify-content: space-between;
   align-items: center;
 }
+
+/* Animação aprimorada para o botão de tema */
 #theme-switcher {
-  cursor: pointer;
-  transition: transform 0.4s ease-in-out, color 0.3s ease;
+  position: relative;
+  overflow: hidden; /* Garante que os ícones não "vazem" durante a animação */
 }
-#theme-switcher:hover {
-  transform: rotate(180deg);
-  color: var(--noxss-accent-primary);
+
+#theme-switcher .noxss-icon {
+  position: absolute;
+  transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.3s ease;
+}
+
+/* Estado Padrão (Tema Claro) */
+.theme-icon-sun {
+  transform: translateY(150%) rotate(90deg);
+  opacity: 0;
+}
+.theme-icon-moon {
+  transform: translateY(0) rotate(0);
+  opacity: 1;
+}
+
+/* Estado Tema Escuro (ativado via JS no <html>) */
+[data-noxss-theme-gen="dark"] #theme-switcher .theme-icon-sun {
+  transform: translateY(0) rotate(0);
+  opacity: 1;
+}
+[data-noxss-theme-gen="dark"] #theme-switcher .theme-icon-moon {
+  transform: translateY(-150%) rotate(-90deg);
+  opacity: 0;
 }
 .content-panel {
   max-width: 960px;

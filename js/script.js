@@ -22,15 +22,11 @@ const palettes = {
 };
 
 const applyTheme = (mode, paletteName) => {
-  const themeSwitcher = document.getElementById("theme-switcher");
   const palette = palettes[paletteName] || palettes["Azul Céu"];
   const paletteColor = palette[mode];
 
   htmlElement.setAttribute("data-noxss-theme-gen", mode);
   htmlElement.setAttribute("data-noxss-palette-gen", paletteColor);
-  if (themeSwitcher) {
-    themeSwitcher.innerHTML = mode === "dark" ? `<i data-feather="sun" class="noxss-icon"></i>` : `<i data-feather="moon" class="noxss-icon"></i>`;
-  }
   if (window.feather) feather.replace();
   localStorage.setItem(MODE_KEY, mode);
   localStorage.setItem(PALETTE_KEY, paletteName);
