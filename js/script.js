@@ -228,7 +228,7 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   // --- UI & RENDERIZAÇÃO ---
-  const highlightText = (text, term) => {
+  const highlightText = (text, term, highlightClass = "search-highlight") => {
     if (!term || !text) return text || "";
 
     const normalizedText = normalizeText(text).toLowerCase();
@@ -242,7 +242,7 @@ document.addEventListener("DOMContentLoaded", () => {
       // Adiciona o texto desde a última correspondência até a atual
       result += text.substring(lastIndex, startIndex);
       // Adiciona o segmento destacado, pegando do texto original
-      result += `<mark class="search-highlight">${text.substring(startIndex, startIndex + termLength)}</mark>`;
+      result += `<mark class="${highlightClass}">${text.substring(startIndex, startIndex + termLength)}</mark>`;
       // Atualiza o último índice
       lastIndex = startIndex + termLength;
       // Procura a próxima ocorrência
@@ -296,7 +296,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const unformattedCpf = (student.cpf || "").replace(/\D/g, "");
     const isCpfMatch = searchTerm && unformattedCpf.includes(searchTerm.replace(/\D/g, ""));
 
-    const highlightedNome = highlightText(safe(student.nome), searchTerm);
+    const highlightedNome = highlightText(safe(student.nome), searchTerm, "search-highlight--name");
     const highlightedMae = highlightText(safe(student.mae), searchTerm);
     const highlightedPai = highlightText(safe(student.pai), searchTerm);
     const highlightedObservacoes = highlightText(safe(student.observacoes), searchTerm);

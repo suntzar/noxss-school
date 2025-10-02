@@ -438,3 +438,13 @@
 .text-center {
   text-align: center !important;
 }
+
+/* Estilo de destaque específico para o nome do aluno, para evitar conflito de cor */
+.search-highlight--name {
+  background-color: rgba(var(--noxss-accent-primary-rgb), 0.25);
+  color: var(--noxss-text-primary);
+  font-weight: 700;
+  padding: 0.1em 0.2em;
+  margin: -0.1em -0.2em;
+  border-radius: 4px;
+}
