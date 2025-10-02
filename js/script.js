@@ -27,7 +27,6 @@ const applyTheme = (mode, paletteName) => {
 
   htmlElement.setAttribute("data-noxss-theme-gen", mode);
   htmlElement.setAttribute("data-noxss-palette-gen", paletteColor);
-  if (window.feather) feather.replace();
   localStorage.setItem(MODE_KEY, mode);
   localStorage.setItem(PALETTE_KEY, paletteName);
 };
@@ -93,7 +92,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const generateId = () => "_" + Math.random().toString(36).substr(2, 9);
 
   const formatCPF = (cpf) => {
-    if (!cpf) return "CPF não informado";
+    if (!cpf) return "CPF: Não informado";
     const cpfDigits = cpf.replace(/\D/g, "");
     if (cpfDigits.length === 11) {
       return cpfDigits.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, "$1.$2.$3-$4");
@@ -302,9 +301,9 @@ document.addEventListener("DOMContentLoaded", () => {
       <div class="noxss-card__header">
         <h3 class="noxss-card__title">${highlightedNome}</h3>
         <div class="student-card-actions">
-          <button class="noxss-btn noxss-btn--icon view-btn" data-index="${index}" title="Visualizar"><i data-feather="eye" class="noxss-icon"></i></button>
-          <button class="noxss-btn noxss-btn--icon edit-btn" data-index="${index}" title="Editar"><i data-feather="edit-2" class="noxss-icon"></i></button>
-          <button class="noxss-btn noxss-btn--icon delete-btn" data-type="student" data-index="${index}" title="Excluir"><i data-feather="trash-2" class="noxss-icon"></i></button>
+          <button class="noxss-btn noxss-btn--icon view-btn" data-index="${index}" title="Visualizar"><i class="fa-solid fa-eye noxss-icon"></i></button>
+          <button class="noxss-btn noxss-btn--icon edit-btn" data-index="${index}" title="Editar"><i class="fa-solid fa-pen-to-square noxss-icon"></i></button>
+          <button class="noxss-btn noxss-btn--icon delete-btn" data-type="student" data-index="${index}" title="Excluir"><i class="fa-solid fa-trash-can noxss-icon"></i></button>
         </div>
       </div>
       <div class="noxss-card__body student-card-body">
@@ -317,29 +316,29 @@ document.addEventListener("DOMContentLoaded", () => {
             student.status === "Transferido" && student.data_transferencia
               ? `
           <div class="info-item">
-              <i data-feather="arrow-right-circle" class="noxss-icon"></i>
+              <i class="fa-solid fa-arrow-right-from-bracket noxss-icon"></i>
               <span>Transf. em: ${safe(student.data_transferencia)}</span>
           </div>`
               : ""
           }
           <div class="info-item">
-            <i data-feather="calendar" class="noxss-icon"></i>
+            <i class="fa-solid fa-calendar-day noxss-icon"></i>
             <span>Matrícula: ${safe(student.data_matricula)}</span>
           </div>
           <div class="info-item">
-            <i data-feather="award" class="noxss-icon"></i>
+            <i class="fa-solid fa-chalkboard-user noxss-icon"></i>
             <span>${turmaNome}</span>
           </div>
           <div class="info-item">
-            <i data-feather="hash" class="noxss-icon"></i>
+            <i class="fa-solid fa-id-card noxss-icon"></i>
             <span>${cpfDisplay}</span>
           </div>
           <div class="info-item">
-            <i data-feather="gift" class="noxss-icon"></i>
+            <i class="fa-solid fa-cake-candles noxss-icon"></i>
             <span>${safe(student.nascimento)}</span>
           </div>
            <div class="info-item">
-            <i data-feather="user" class="noxss-icon"></i>
+            <i class="fa-solid ${student.sexo === "Feminino" ? "fa-venus" : student.sexo === "Masculino" ? "fa-mars" : "fa-genderless"} noxss-icon"></i>
             <span>${safe(student.sexo)}</span>
           </div>
         </div>
@@ -366,7 +365,7 @@ document.addEventListener("DOMContentLoaded", () => {
           ? `
       <div class="noxss-card__footer student-card-footer">
         <div class="info-item">
-            <i data-feather="message-square" class="noxss-icon"></i>
+            <i class="fa-solid fa-message noxss-icon"></i>
             <span class="text-wrap">${highlightedObservacoes}</span>
         </div>
       </div>`
@@ -397,7 +396,7 @@ document.addEventListener("DOMContentLoaded", () => {
     };
 
     // Botão "Anterior"
-    paginationContainer.appendChild(createPageElement('<i data-feather="chevron-left" class="noxss-icon"></i>', currentPage - 1, currentPage === 1));
+    paginationContainer.appendChild(createPageElement('<i class="fa-solid fa-chevron-left noxss-icon"></i>', currentPage - 1, currentPage === 1));
 
     // Lógica para exibir os botões de página com reticências
     const maxVisibleButtons = 7; // Total máximo de botões (incluindo reticências)
@@ -431,9 +430,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     // Botão "Próximo"
-    paginationContainer.appendChild(createPageElement('<i data-feather="chevron-right" class="noxss-icon"></i>', currentPage + 1, currentPage === totalPages));
-
-    feather.replace();
+    paginationContainer.appendChild(createPageElement('<i class="fa-solid fa-chevron-right noxss-icon"></i>', currentPage + 1, currentPage === totalPages));
   };
 
   const renderStudentList = (studentList = database.alunos) => {
@@ -448,7 +445,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Se não houver alunos na lista inteira (antes da paginação)
     if (studentList.length === 0) {
-      placeholder.innerHTML = isSearching ? `<i data-feather="search" style="width: 3rem; height: 3rem;"></i><p class="mt-3">Nenhum aluno encontrado.</p>` : `<i data-feather="users" style="width: 3rem; height: 3rem;"></i><p class="mt-3">Nenhum aluno na lista.</p>`;
+      placeholder.innerHTML = isSearching ? `<i class="fa-solid fa-search" style="width: 3rem; height: 3rem;"></i><p class="mt-3">Nenhum aluno encontrado.</p>` : `<i class="fa-solid fa-users" style="width: 3rem; height: 3rem;"></i><p class="mt-3">Nenhum aluno na lista.</p>`;
       studentListContainer.appendChild(placeholder);
       paginationContainer.innerHTML = ""; // Limpa a paginação
     } else {
@@ -498,7 +495,6 @@ document.addEventListener("DOMContentLoaded", () => {
       }
       renderPaginationControls(studentList.length, studentsPerPage);
     }
-    feather.replace();
   };
 
   // Função auxiliar para calcular a idade a partir da data de nascimento (dd/mm/aaaa)
@@ -528,8 +524,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const dashboardContent = document.getElementById("dashboard-content");
     const students = database.alunos;
     if (students.length === 0) {
-      dashboardContent.innerHTML = `<div id="placeholder" class="text-secondary"><i data-feather="pie-chart" style="width: 3rem; height: 3rem;"></i><p class="mt-3">Não há dados para exibir.</p></div>`;
-      feather.replace();
+      dashboardContent.innerHTML = `<div id="placeholder" class="text-secondary"><i class="fa-solid fa-chart-pie" style="width: 3rem; height: 3rem;"></i><p class="mt-3">Não há dados para exibir.</p></div>`;
       return;
     }
 
@@ -554,35 +549,69 @@ document.addEventListener("DOMContentLoaded", () => {
       acc[key] = (acc[key] || 0) + 1;
       return acc;
     }, {});
+
+    const byTurno = activeStudentList.reduce((acc, s) => {
+      const turma = turmaMap.get(s.turma_id) || { turno: "Sem Turno" };
+      const turnoKey = turma.turno || "Sem Turno";
+      acc[turnoKey] = (acc[turnoKey] || 0) + 1;
+      return acc;
+    }, {});
+
+    const byTurmaAndGender = activeStudentList.reduce((acc, s) => {
+      const turma = turmaMap.get(s.turma_id) || { turma: "Sem Turma", turno: "" };
+      const turmaKey = `${turma.turma} - ${turma.turno}`;
+      const gender = s.sexo || "Não informado";
+      if (!acc[turmaKey]) acc[turmaKey] = { Masculino: 0, Feminino: 0, "Não informado": 0 };
+      acc[turmaKey][gender]++;
+      return acc;
+    }, {});
+
+    const byTurnoAndGender = activeStudentList.reduce((acc, s) => {
+      const turma = turmaMap.get(s.turma_id) || { turno: "Sem Turno" };
+      const turnoKey = turma.turno || "Sem Turno";
+      const gender = s.sexo || "Não informado";
+      if (!acc[turnoKey]) acc[turnoKey] = { Masculino: 0, Feminino: 0, "Não informado": 0 };
+      acc[turnoKey][gender]++;
+      return acc;
+    }, {});
+
     const createListItems = (data) =>
       Object.entries(data)
         .sort((a, b) => b[1] - a[1])
         .map(([key, value]) => `<li class="noxss-list-item"><div class="noxss-list-item__content">${key}</div><strong class="noxss-list-item__trailing">${value}</strong></li>`)
         .join("");
 
+    const createGenderListItems = (data) =>
+      Object.entries(data)
+        .sort()
+        .map(([key, value]) => `<li class="noxss-list-item"><div class="noxss-list-item__content">${key}</div><div class="noxss-list-item__trailing d-flex gap-3"><span class="info-item"><i class="fa-solid fa-mars noxss-icon"></i> ${value["Masculino"] || 0}</span> <span class="info-item"><i class="fa-solid fa-venus noxss-icon"></i> ${value["Feminino"] || 0}</span></div></li>`)
+        .join("");
+
     dashboardContent.innerHTML = `
             <div class="noxss-card-deck" style="grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));">
-                <div class="noxss-card noxss-card--stat"><div class="stat-content"><div><div class="stat-label">Total de Alunos</div><div class="stat-value">${total}</div></div><i class="noxss-icon stat-icon" data-feather="users"></i></div></div>
-                <div class="noxss-card noxss-card--stat"><div class="stat-content"><div><div class="stat-label">Alunos Ativos</div><div class="stat-value">${activeStudentsCount}</div></div><i class="noxss-icon stat-icon" data-feather="user-check"></i></div></div>
-                <div class="noxss-card noxss-card--stat"><div class="stat-content"><div><div class="stat-label">Alunos Transferidos</div><div class="stat-value">${transferredStudents}</div></div><i class="noxss-icon stat-icon" data-feather="user-x"></i></div></div>
-                <div class="noxss-card noxss-card--stat"><div class="stat-content"><div><div class="stat-label">Alunos Inativos</div><div class="stat-value">${inactiveStudents}</div></div><i class="noxss-icon stat-icon" data-feather="user-minus"></i></div></div>
+                <div class="noxss-card noxss-card--stat"><div class="stat-content"><div><div class="stat-label">Total de Alunos</div><div class="stat-value">${total}</div></div><i class="noxss-icon stat-icon fa-solid fa-users"></i></div></div>
+                <div class="noxss-card noxss-card--stat"><div class="stat-content"><div><div class="stat-label">Alunos Ativos</div><div class="stat-value">${activeStudentsCount}</div></div><i class="noxss-icon stat-icon fa-solid fa-user-check"></i></div></div>
+                <div class="noxss-card noxss-card--stat"><div class="stat-content"><div><div class="stat-label">Alunos Transferidos</div><div class="stat-value">${transferredStudents}</div></div><i class="noxss-icon stat-icon fa-solid fa-user-xmark"></i></div></div>
+                <div class="noxss-card noxss-card--stat"><div class="stat-content"><div><div class="stat-label">Alunos Inativos</div><div class="stat-value">${inactiveStudents}</div></div><i class="noxss-icon stat-icon fa-solid fa-user-minus"></i></div></div>
                 <div class="noxss-card noxss-card--stat">
                     <div class="stat-content">
                         <div><div class="stat-label">Meninos (Ativos)</div><div class="stat-value">${activeStudentsByGender["Masculino"] || 0}</div></div>
-                        <i class="noxss-icon stat-icon" data-feather="user"></i>
+                        <i class="noxss-icon stat-icon fa-solid fa-mars"></i>
                     </div>
                 </div>
                 <div class="noxss-card noxss-card--stat">
                     <div class="stat-content">
                         <div><div class="stat-label">Meninas (Ativas)</div><div class="stat-value">${activeStudentsByGender["Feminino"] || 0}</div></div>
-                        <i class="noxss-icon stat-icon" data-feather="user"></i>
+                        <i class="noxss-icon stat-icon fa-solid fa-venus"></i>
                     </div>
                 </div>
             </div>
             <div class="noxss-card-deck mt-4">
                 <div class="noxss-card"><div class="noxss-card__header"><h3 class="noxss-card__title">Alunos Ativos por Turma</h3></div><ul class="noxss-list">${createListItems(byTurma)}</ul></div>
+                <div class="noxss-card"><div class="noxss-card__header"><h3 class="noxss-card__title">Alunos Ativos por Turno</h3></div><ul class="noxss-list">${createListItems(byTurno)}</ul></div>
+                <div class="noxss-card"><div class="noxss-card__header"><h3 class="noxss-card__title">Gênero por Turma (Ativos)</h3></div><ul class="noxss-list">${createGenderListItems(byTurmaAndGender)}</ul></div>
+                <div class="noxss-card"><div class="noxss-card__header"><h3 class="noxss-card__title">Gênero por Turno (Ativos)</h3></div><ul class="noxss-list">${createGenderListItems(byTurnoAndGender)}</ul></div>
             </div>`;
-    feather.replace();
   };
 
   const renderMetadata = () => {
@@ -606,14 +635,13 @@ document.addEventListener("DOMContentLoaded", () => {
                         <div class="noxss-list-item__subtitle">Professor(es): ${professores}</div>
                     </div>
                     <div class="noxss-list-item__trailing">
-                        <button class="noxss-btn noxss-btn--icon edit-turma-btn" data-id="${t.id}" title="Editar Turma"><i data-feather="edit-2" class="noxss-icon"></i></button>
-                        <button class="noxss-btn noxss-btn--icon delete-btn" data-type="turma" data-id="${t.id}" title="Remover Turma"><i data-feather="trash-2" class="noxss-icon"></i></button>
+                        <button class="noxss-btn noxss-btn--icon edit-turma-btn" data-id="${t.id}" title="Editar Turma"><i class="fa-solid fa-pen-to-square noxss-icon"></i></button>
+                        <button class="noxss-btn noxss-btn--icon delete-btn" data-type="turma" data-id="${t.id}" title="Remover Turma"><i class="fa-solid fa-trash-can noxss-icon"></i></button>
                     </div>
                 </li>
             `;
         })
         .join("") || '<p class="text-secondary text-center p-3">Nenhuma turma registrada.</p>';
-    feather.replace();
   };
 
   // --- LÓGICA DE DADOS E EVENTOS ---
@@ -826,7 +854,7 @@ document.addEventListener("DOMContentLoaded", () => {
       return `
             <div class="noxss-alert noxss-alert--${config.cssClass} mb-4">
                 <div class="noxss-alert__icon">
-                    <i data-feather="${config.icon}" class="noxss-icon"></i>
+                    <i class="fa-solid ${config.icon} noxss-icon"></i>
                 </div>
                 <div class="noxss-alert__content">
                     <strong class="noxss-alert__title">Status: ${status}</strong>
@@ -837,12 +865,12 @@ document.addEventListener("DOMContentLoaded", () => {
     };
 
     const createListItem = (icon, label, value) => {
-      if (!value || value === "Não informado" || value === "CPF não informado") return "";
+      if (!value || value === "Não informado" || value === "CPF: Não informado") return "";
       return `
             <li class="noxss-list-item">
                 <div class="noxss-list-item__leading">
                     <div class="noxss-list-item__icon">
-                        <i data-feather="${icon}" class="noxss-icon"></i>
+                        <i class="fa-solid ${icon} noxss-icon"></i>
                     </div>
                 </div>
                 <div class="noxss-list-item__content">
@@ -866,30 +894,30 @@ document.addEventListener("DOMContentLoaded", () => {
         <div class="noxss-card noxss-card--flat">
             <div class="noxss-card__header"><h3 class="noxss-card__title">Dados Pessoais</h3></div>
             <ul class="noxss-list">
-                ${createListItem("hash", "CPF", formatCPF(student.cpf))}
-                ${createListItem("gift", "Nascimento", safe(student.nascimento))}
-                ${createListItem("user", "Sexo", safe(student.sexo))}
-                ${createListItem("aperture", "Cor/Raça", safe(student.cor))}
+                ${createListItem("fa-id-card", "CPF", formatCPF(student.cpf))}
+                ${createListItem("fa-cake-candles", "Nascimento", safe(student.nascimento))}
+                ${createListItem(student.sexo === "Feminino" ? "fa-venus" : student.sexo === "Masculino" ? "fa-mars" : "fa-genderless", "Sexo", safe(student.sexo))}
+                ${createListItem("fa-palette", "Cor/Raça", safe(student.cor))}
             </ul>
         </div>
 
         <div class="noxss-card noxss-card--flat mt-3">
             <div class="noxss-card__header"><h3 class="noxss-card__title">Dados Escolares</h3></div>
             <ul class="noxss-list">
-                ${createListItem("award", "Turma", `${safe(turma.turma, "N/A")} - ${safe(turma.turno, "N/A")}`)}
-                ${createListItem("user", "Professor(a) titular 1", safe(turma.professor1))}
-                ${createListItem("user", "Professor(a) titular 2", safe(turma.professor2))}
-                ${createListItem("calendar", "Data de Matrícula", safe(student.data_matricula))}
+                ${createListItem("fa-chalkboard-user", "Turma", `${safe(turma.turma, "N/A")} - ${safe(turma.turno, "N/A")}`)}
+                ${createListItem("fa-user", "Professor(a) titular 1", safe(turma.professor1))}
+                ${createListItem("fa-user", "Professor(a) titular 2", safe(turma.professor2))}
+                ${createListItem("fa-calendar-day", "Data de Matrícula", safe(student.data_matricula))}
             </ul>
         </div>
 
         <div class="noxss-card noxss-card--flat mt-3">
             <div class="noxss-card__header"><h3 class="noxss-card__title">Filiação e Contato</h3></div>
             <ul class="noxss-list">
-                ${createListItem("user", "Mãe", safe(student.mae))}
-                ${createListItem("user", "Pai", safe(student.pai))}
-                ${createListItem("phone", "Telefone(s)", student.telefone && student.telefone.length ? student.telefone.join(", ") : "")}
-                ${createListItem("map-pin", "Endereço", safe(student.endereco))}
+                ${createListItem("fa-person-breastfeeding", "Mãe", safe(student.mae))}
+                ${createListItem("fa-person", "Pai", safe(student.pai))}
+                ${createListItem("fa-phone", "Telefone(s)", student.telefone && student.telefone.length ? student.telefone.join(", ") : "")}
+                ${createListItem("fa-map-pin", "Endereço", safe(student.endereco))}
             </ul>
         </div>
 
@@ -908,9 +936,6 @@ document.addEventListener("DOMContentLoaded", () => {
       </div>
     `;
     modalBody.innerHTML = html;
-    if (window.feather) {
-      feather.replace();
-    }
   };
 
   studentListContainer.addEventListener("click", (e) => {

@@ -10,7 +10,7 @@
     <!-- DEPENDÊNCIAS (VIA CDN PARA PORTABILIDADE) -->
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/suntzar/noxss-base@main/noxss/dist/noxss.css" />
-    <script defer src="https://unpkg.com/feather-icons"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
     <!-- ESTILOS DO TEMPLATE -->
     <link rel="stylesheet" href="css/style.css" />
@@ -18,19 +18,19 @@
   <body data-noxss-layout="app">
     <div class="noxss-layout">
       <nav class="noxss-navbar">
-        <a class="noxss-navbar__brand" href="#"><i data-feather="book-open" class="noxss-icon"></i> <span>Gerenciador de Alunos</span></a>
+        <a class="noxss-navbar__brand" href="#"><i class="fa-solid fa-book-open noxss-icon"></i> <span>Gerenciador de Alunos</span></a>
         <button id="theme-switcher" class="noxss-btn noxss-btn--icon" title="Mudar tema">
-          <i data-feather="sun" class="noxss-icon theme-icon-sun"></i>
-          <i data-feather="moon" class="noxss-icon theme-icon-moon"></i>
+          <i class="fa-solid fa-sun noxss-icon theme-icon-sun"></i>
+          <i class="fa-solid fa-moon noxss-icon theme-icon-moon"></i>
         </button>
       </nav>
 
       <main class="noxss-layout__content">
         <div class="noxss-tabs" data-default-tab="inicio">
           <div class="noxss-tabs__header d-none d-md-flex">
-            <button class="noxss-tabs__header-button" data-tab-id="inicio"><i class="noxss-icon" data-feather="home"></i> Início</button>
-            <button class="noxss-tabs__header-button" data-tab-id="alunos"><i class="noxss-icon" data-feather="users"></i> Alunos</button>
-            <button class="noxss-tabs__header-button" data-tab-id="settings"><i class="noxss-icon" data-feather="settings"></i> Configurações</button>
+            <button class="noxss-tabs__header-button" data-tab-id="inicio"><i class="noxss-icon fa-solid fa-house"></i> Início</button>
+            <button class="noxss-tabs__header-button" data-tab-id="alunos"><i class="noxss-icon fa-solid fa-users"></i> Alunos</button>
+            <button class="noxss-tabs__header-button" data-tab-id="settings"><i class="noxss-icon fa-solid fa-gear"></i> Configurações</button>
           </div>
 
           <div class="noxss-tabs__content-area">
@@ -42,7 +42,7 @@
                   <h1 id="home-school-name" class="home-hero__title">Carregando...</h1>
                   <p id="home-school-location" class="home-hero__subtitle">Carregando...</p>
                 </div>
-                <h2 class="dashboard-heading"><i class="noxss-icon" data-feather="pie-chart"></i> Dashboard</h2>
+                <h2 class="dashboard-heading"><i class="noxss-icon fa-solid fa-chart-pie"></i> Dashboard</h2>
                 <div id="dashboard-content">
                   <!-- Conteúdo do dashboard será gerado aqui -->
                 </div>
@@ -53,18 +53,18 @@
             <div class="noxss-tabs__panel" id="panel-alunos">
               <div class="content-panel">
                 <div class="action-bar">
-                  <button id="add-student-btn" class="noxss-btn noxss-btn--primary"><i data-feather="plus-circle" class="noxss-icon"></i> Adicionar Aluno</button>
+                  <button id="add-student-btn" class="noxss-btn noxss-btn--primary"><i class="fa-solid fa-plus-circle noxss-icon"></i> Adicionar Aluno</button>
                 </div>
                 <div class="search-bar">
-                  <i data-feather="search" class="noxss-icon search-icon"></i>
+                  <i class="fa-solid fa-search noxss-icon search-icon"></i>
                   <input type="text" id="searchInput" class="noxss-input" placeholder="Pesquisar por nome, CPF, filiação, observações..." />
                   <button class="clear-search-btn" id="clearSearchBtn" title="Limpar busca">
-                    <i data-feather="x" class="noxss-icon"></i>
+                    <i class="fa-solid fa-xmark noxss-icon"></i>
                   </button>
                 </div>
                 <div id="student-list-container">
                   <div id="placeholder" class="text-secondary">
-                    <i data-feather="users" style="width: 3rem; height: 3rem"></i>
+                    <i class="fa-solid fa-users" style="width: 3rem; height: 3rem"></i>
                     <p class="mt-3">Nenhum aluno na lista.</p>
                   </div>
                 </div>
@@ -108,7 +108,7 @@
                       </div>
                     </div>
                     <div class="noxss-card__footer">
-                      <button type="submit" class="noxss-btn noxss-btn--primary"><i data-feather="save" class="noxss-icon"></i> Salvar Metadados</button>
+                      <button type="submit" class="noxss-btn noxss-btn--primary"><i class="fa-solid fa-save noxss-icon"></i> Salvar Metadados</button>
                     </div>
                   </div>
                 </form>
@@ -122,7 +122,7 @@
                     </ul>
                   </div>
                   <div class="noxss-card__footer">
-                    <button id="add-turma-btn" class="noxss-btn noxss-btn--primary w-100"><i data-feather="plus" class="noxss-icon"></i> Adicionar Nova Turma</button>
+                    <button id="add-turma-btn" class="noxss-btn noxss-btn--primary w-100"><i class="fa-solid fa-plus noxss-icon"></i> Adicionar Nova Turma</button>
                   </div>
                 </div>
                 <!-- Gerenciamento de Dados -->
@@ -131,9 +131,9 @@
                   <div class="noxss-card__body">
                     <p class="text-secondary">Carregue ou baixe uma cópia completa do banco de dados (inclui alunos, turmas e metadados).</p>
                     <div class="d-flex gap-2 mt-3">
-                      <button id="load-list-btn" class="noxss-btn noxss-btn--secondary"><i data-feather="folder-plus" class="noxss-icon"></i> Carregar JSON</button>
+                      <button id="load-list-btn" class="noxss-btn noxss-btn--secondary"><i class="fa-solid fa-folder-plus noxss-icon"></i> Carregar JSON</button>
                       <input type="file" id="jsonFileInput" accept=".json" />
-                      <button id="download-list-btn" class="noxss-btn noxss-btn--secondary"><i data-feather="download" class="noxss-icon"></i> Baixar JSON</button>
+                      <button id="download-list-btn" class="noxss-btn noxss-btn--secondary"><i class="fa-solid fa-download noxss-icon"></i> Baixar JSON</button>
                     </div>
                   </div>
                 </div>
@@ -145,13 +145,13 @@
 
       <nav class="noxss-navbar noxss-navbar--bottom noxss-active-bg-button d-md-none">
         <button class="noxss-tabs__nav-button" data-tab-id="inicio" aria-label="Início">
-          <i class="noxss-icon" data-feather="home"></i>
+          <i class="noxss-icon fa-solid fa-house"></i>
         </button>
         <button class="noxss-tabs__nav-button" data-tab-id="alunos" aria-label="Alunos">
-          <i class="noxss-icon" data-feather="users"></i>
+          <i class="noxss-icon fa-solid fa-users"></i>
         </button>
         <button class="noxss-tabs__nav-button" data-tab-id="settings" aria-label="Configurações">
-          <i class="noxss-icon" data-feather="settings"></i>
+          <i class="noxss-icon fa-solid fa-gear"></i>
         </button>
       </nav>
     </div>
@@ -162,7 +162,7 @@
         <div class="noxss-modal__header">
           <h3 class="noxss-modal__title" id="studentModalLabel">Dados do Aluno</h3>
           <button type="button" class="noxss-btn noxss-btn--icon noxss-modal__close-btn" data-noxss-modal-close>
-            <i class="noxss-icon" data-feather="x"></i>
+            <i class="noxss-icon fa-solid fa-xmark"></i>
           </button>
         </div>
         <div class="noxss-modal__body">
@@ -229,8 +229,8 @@
           </form>
         </div>
         <div class="noxss-modal__footer">
-          <button type="button" class="noxss-btn noxss-btn--secondary" data-noxss-modal-close><i class="noxss-icon" data-feather="x"></i> Cancelar</button>
-          <button type="submit" form="studentForm" class="noxss-btn noxss-btn--primary"><i class="noxss-icon" data-feather="check"></i> Salvar</button>
+          <button type="button" class="noxss-btn noxss-btn--secondary" data-noxss-modal-close><i class="noxss-icon fa-solid fa-xmark"></i> Cancelar</button>
+          <button type="submit" form="studentForm" class="noxss-btn noxss-btn--primary"><i class="noxss-icon fa-solid fa-check"></i> Salvar</button>
         </div>
       </div>
     </div>
@@ -241,7 +241,7 @@
         <div class="noxss-modal__header">
           <h3 class="noxss-modal__title" id="turmaModalLabel">Dados da Turma</h3>
           <button type="button" class="noxss-btn noxss-btn--icon noxss-modal__close-btn" data-noxss-modal-close>
-            <i class="noxss-icon" data-feather="x"></i>
+            <i class="noxss-icon fa-solid fa-xmark"></i>
           </button>
         </div>
         <div class="noxss-modal__body">
@@ -312,7 +312,7 @@
         <div class="noxss-modal__header">
           <h3 class="noxss-modal__title" id="viewStudentModalLabel">Detalhes do Aluno</h3>
           <button type="button" class="noxss-btn noxss-btn--icon noxss-modal__close-btn" data-noxss-modal-close>
-            <i class="noxss-icon" data-feather="x"></i>
+            <i class="noxss-icon fa-solid fa-xmark"></i>
           </button>
         </div>
         <div class="noxss-modal__body" id="viewStudentModalBody">
