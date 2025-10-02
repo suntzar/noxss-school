@@ -105,6 +105,13 @@ document.addEventListener("DOMContentLoaded", () => {
     return cpf; // Retorna o original se não for formatável
   };
 
+  const normalizeText = (text) => {
+    if (!text) return "";
+    return text
+      .normalize("NFD") // Separa os caracteres dos seus acentos
+      .replace(/[\u0300-\u036f]/g, "") // Remove os acentos
+      .replace(/ç/g, "c"); // Trata o 'ç' como 'c'
+  };
   // --- MIGRAÇÃO E COMPATIBILIDADE ---
   function migrateData(db) {
     let migrationPerformed = false;
@@ -222,9 +229,29 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // --- UI & RENDERIZAÇÃO ---
   const highlightText = (text, term) => {
-    if (!term) return text;
-    const regex = new RegExp(`(${term})`, "gi");
-    return text.replace(regex, `<mark class="search-highlight">$1</mark>`);
+    if (!term || !text) return text || "";
+
+    const normalizedText = normalizeText(text).toLowerCase();
+    const normalizedTerm = normalizeText(term).toLowerCase();
+    const termLength = normalizedTerm.length;
+    let result = "";
+    let lastIndex = 0;
+    let startIndex = normalizedText.indexOf(normalizedTerm);
+
+    while (startIndex !== -1) {
+      // Adiciona o texto desde a última correspondência até a atual
+      result += text.substring(lastIndex, startIndex);
+      // Adiciona o segmento destacado, pegando do texto original
+      result += `<mark class="search-highlight">${text.substring(startIndex, startIndex + termLength)}</mark>`;
+      // Atualiza o último índice
+      lastIndex = startIndex + termLength;
+      // Procura a próxima ocorrência
+      startIndex = normalizedText.indexOf(normalizedTerm, lastIndex);
+    }
+
+    // Adiciona o restante do texto após a última correspondência
+    result += text.substring(lastIndex);
+    return result;
   };
 
   const highlightCpfMatch = (formattedCpf, unformattedCpf, searchTerm) => {
@@ -907,9 +934,17 @@ document.addEventListener("DOMContentLoaded", () => {
 
   searchInput.addEventListener("input", (e) => {
     const term = e.target.value.toLowerCase();
+    const normalizedTerm = normalizeText(term);
     currentPage = 1; // Reseta para a primeira página a cada nova busca
     clearSearchBtn.style.display = term ? "block" : "none";
-    const filtered = database.alunos.filter((s) => (s.nome || "").toLowerCase().includes(term) || (s.cpf || "").includes(term) || (s.mae || "").toLowerCase().includes(term) || (s.pai || "").toLowerCase().includes(term) || (s.observacoes || "").toLowerCase().includes(term));
+    const filtered = database.alunos.filter((s) => {
+      const normalizedNome = normalizeText((s.nome || "").toLowerCase());
+      const normalizedMae = normalizeText((s.mae || "").toLowerCase());
+      const normalizedPai = normalizeText((s.pai || "").toLowerCase());
+      const normalizedObs = normalizeText((s.observacoes || "").toLowerCase());
+      const cpf = (s.cpf || "").replace(/\D/g, "");
+      return normalizedNome.includes(normalizedTerm) || cpf.includes(normalizedTerm) || normalizedMae.includes(normalizedTerm) || normalizedPai.includes(normalizedTerm) || normalizedObs.includes(normalizedTerm);
+    });
     renderStudentList(filtered);
   });
 
@@ -920,7 +955,17 @@ document.addEventListener("DOMContentLoaded", () => {
     currentPage = parseInt(btn.dataset.page, 10);
     // Re-renderiza a lista com a nova página, mantendo o filtro de busca se houver
     const term = searchInput.value.toLowerCase();
-    const listToRender = term ? database.alunos.filter((s) => (s.nome || "").toLowerCase().includes(term) || (s.cpf || "").includes(term) || (s.mae || "").toLowerCase().includes(term) || (s.pai || "").toLowerCase().includes(term) || (s.observacoes || "").toLowerCase().includes(term)) : database.alunos;
+    const normalizedTerm = normalizeText(term);
+    const listToRender = term
+      ? database.alunos.filter((s) => {
+          const normalizedNome = normalizeText((s.nome || "").toLowerCase());
+          const normalizedMae = normalizeText((s.mae || "").toLowerCase());
+          const normalizedPai = normalizeText((s.pai || "").toLowerCase());
+          const normalizedObs = normalizeText((s.observacoes || "").toLowerCase());
+          const cpf = (s.cpf || "").replace(/\D/g, "");
+          return normalizedNome.includes(normalizedTerm) || cpf.includes(normalizedTerm) || normalizedMae.includes(normalizedTerm) || normalizedPai.includes(normalizedTerm) || normalizedObs.includes(normalizedTerm);
+        })
+      : database.alunos;
     renderStudentList(listToRender);
   });
 
