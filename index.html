@@ -7,6 +7,9 @@
 
     <link rel="icon" href="assets/school-material.svg" type="image/svg+xml" />
 
+    <!-- SCRIPT DE PROTEÇÃO DE ROTA -->
+    <script src="js/auth.js"></script>
+
     <!-- DEPENDÊNCIAS (VIA CDN PARA PORTABILIDADE) -->
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/suntzar/noxss-base@main/noxss/dist/noxss.css" />
@@ -135,6 +138,13 @@
                       <input type="file" id="jsonFileInput" accept=".json" />
                       <button id="download-list-btn" class="noxss-btn noxss-btn--secondary"><i class="fa-solid fa-download noxss-icon"></i> Baixar JSON</button>
                     </div>
+                  </div>
+                </div>
+                <!-- Logout -->
+                <div class="noxss-card mt-4">
+                  <div class="noxss-card__header"><h3 class="noxss-card__title">Sessão</h3></div>
+                  <div class="noxss-card__body">
+                    <button id="logout-btn" class="noxss-btn noxss-btn--danger w-100"><i class="fa-solid fa-right-from-bracket noxss-icon"></i> Sair do Sistema</button>
                   </div>
                 </div>
               </div>

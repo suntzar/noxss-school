@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login - Gerenciador de Alunos</title>
+
+    <link rel="icon" href="assets/school-material.svg" type="image/svg+xml" />
+
+    <!-- DEPENDÊNCIAS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/suntzar/noxss-base@main/noxss/dist/noxss.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <!-- SCRIPT DE INICIALIZAÇÃO DO TEMA (Executado antes da renderização) -->
+    <script>
+      (function () {
+        const htmlElement = document.documentElement;
+        const MODE_KEY = "schoolAppThemeMode";
+        const PALETTE_KEY = "schoolAppPalette";
+
+        const palettes = {
+          "Azul Céu": { light: "#3b82f6", dark: "#60a5fa" },
+          "Verde Esmeralda": { light: "#059669", dark: "#10b981" },
+          "Roxo Violeta": { light: "#7c3aed", dark: "#8b5cf6" },
+          "Âmbar Dourado": { light: "#d97706", dark: "#f59e0b" },
+          "Rosa Moderno": { light: "#e11d48", dark: "#f43f5e" },
+          "Ciano Fresco": { light: "#06b6d4", dark: "#22d3ee" },
+          "Vermelho Rubi": { light: "#dc2626", dark: "#f87171" },
+          "Índigo Profundo": { light: "#4f46e5", dark: "#818cf8" },
+          "Verde-azulado (Teal)": { light: "#0d9488", dark: "#2dd4bf" },
+          "Lima Vibrante": { light: "#65a30d", dark: "#a3e635" },
+          "Laranja Entardecer": { light: "#f97316", dark: "#fb923c" },
+          "Magenta Elétrico": { light: "#d946ef", dark: "#f0abfc" },
+          "Verde Floresta": { light: "#16a34a", dark: "#4ade80" },
+          "Azul Cobalto": { light: "#0ea5e9", dark: "#7dd3fc" },
+          "Grafite Sóbrio": { light: "#6b7280", dark: "#d1d5db" },
+        };
+
+        const savedMode = localStorage.getItem(MODE_KEY);
+        const savedPaletteName = localStorage.getItem(PALETTE_KEY) || "Azul Céu";
+        const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+        const currentMode = savedMode || (prefersDark ? "dark" : "light");
+
+        const palette = palettes[savedPaletteName] || palettes["Azul Céu"];
+        htmlElement.setAttribute("data-noxss-theme-gen", currentMode);
+        htmlElement.setAttribute("data-noxss-palette-gen", palette[currentMode]);
+      })();
+    </script>
+
+    <!-- ESTILOS DA PÁGINA -->
+    <style>
+      /* Animação para o surgimento do card */
+      @keyframes card-fade-in {
+        from {
+          opacity: 0;
+          transform: translateY(20px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      /* Animação para o fundo de grid */
+      @keyframes bg-pan {
+        0% {
+          background-position: 0% 0%;
+        }
+        100% {
+          background-position: 50px 50px;
+        }
+      }
+
+      /* Estrutura principal da página de login */
+      body[data-noxss-layout="app"] .noxss-layout {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 1rem;
+        position: relative;
+        overflow: hidden;
+      }
+
+      /* Fundo decorativo com gradiente e grid animado */
+      body[data-noxss-layout="app"] .noxss-layout::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background-image: radial-gradient(circle at 25% 25%, rgba(var(--noxss-accent-primary-rgb), 0.15), transparent 40%), linear-gradient(to bottom, var(--noxss-bg-main), var(--noxss-bg-surface));
+        z-index: 0;
+      }
+
+      body[data-noxss-layout="app"] .noxss-layout::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background-image: linear-gradient(var(--noxss-border-color) 1px, transparent 1px), linear-gradient(to right, var(--noxss-border-color) 1px, transparent 1px);
+        background-size: 50px 50px;
+        opacity: 0.1;
+        animation: bg-pan 60s linear infinite;
+        z-index: 0;
+      }
+
+      /* Estilo do card de login */
+      .login-card {
+        width: 100%;
+        max-width: 400px;
+        z-index: 1; /* Garante que o card fique sobre o fundo */
+        animation: card-fade-in 0.6s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+      }
+    </style>
+  </head>
+  <body data-noxss-layout="app">
+    <div class="noxss-layout">
+      <div class="noxss-card login-card">
+        <div class="noxss-card__header u-text-center">
+          <i class="fa-solid fa-book-open noxss-icon u-text-accent" style="font-size: 2.5rem; margin-bottom: 0.5rem"></i>
+          <h2 class="noxss-card__title u-mb-0" style="border: none">Gerenciador de Alunos</h2>
+          <p class="noxss-card__subtitle u-text-secondary">Faça login para continuar</p>
+        </div>
+        <form id="loginForm" class="noxss-card__body">
+          <div id="error-message" class="noxss-alert noxss-alert--danger u-d-none"></div>
+          <div class="noxss-form-group">
+            <label for="username" class="noxss-label">Usuário</label>
+            <input type="text" id="username" class="noxss-input" required autocomplete="username" value="admin" />
+          </div>
+          <div class="noxss-form-group">
+            <label for="password" class="noxss-label">Senha</label>
+            <input type="password" id="password" class="noxss-input" required autocomplete="current-password" value="admin" />
+          </div>
+          <button type="submit" class="noxss-btn noxss-btn--primary w-100"><i class="fa-solid fa-right-to-bracket noxss-icon"></i> Entrar</button>
+        </form>
+      </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/gh/suntzar/noxss-base@main/noxss/dist/noxss.js"></script>
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        const loginForm = document.getElementById("loginForm");
+        const errorMessage = document.getElementById("error-message");
+
+        if (sessionStorage.getItem("isLoggedIn") === "true") {
+          window.location.href = "index.html";
+        }
+
+        loginForm.addEventListener("submit", (e) => {
+          e.preventDefault();
+          const username = document.getElementById("username").value;
+          const password = document.getElementById("password").value;
+
+          if (username === "admin" && password === "admin") {
+            sessionStorage.setItem("isLoggedIn", "true");
+            window.location.href = "index.html";
+          } else {
+            errorMessage.textContent = "Usuário ou senha inválidos.";
+            errorMessage.classList.remove("u-d-none");
+          }
+        });
+      });
+    </script>
+  </body>
+</html>

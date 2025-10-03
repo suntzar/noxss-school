@@ -86,6 +86,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const confirmLoadBtn = document.getElementById("confirmLoadBtn");
   const statusSelect = document.getElementById("status");
   const paginationContainer = document.getElementById("pagination-container");
+  const logoutBtn = document.getElementById("logout-btn");
   const transferenciaWrapper = document.getElementById("transferencia-field-wrapper");
 
   // --- FUNÇÕES AUXILIARES ---
@@ -1043,6 +1044,11 @@ document.addEventListener("DOMContentLoaded", () => {
     if (activeTabId === "inicio") renderInicio();
     if (activeTabId === "alunos") renderStudentList();
     if (activeTabId === "settings") renderMetadata(); // Renderiza metadados na aba de configurações
+  });
+
+  logoutBtn.addEventListener("click", () => {
+    sessionStorage.removeItem("isLoggedIn");
+    window.location.replace("login.html");
   });
 
   // --- INICIALIZAÇÃO ---
