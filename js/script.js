@@ -282,7 +282,7 @@ document.addEventListener("DOMContentLoaded", () => {
     return result;
   };
 
-  const createStudentCardHTML = (student, index, searchTerm = "") => {
+  const createStudentCardHTML = (student, searchTerm = "") => {
     const safe = (text) => text || "Não informado";
 
     const turmaMap = new Map(database.metadata.turmas.map((t) => [t.id, t]));
@@ -302,9 +302,9 @@ document.addEventListener("DOMContentLoaded", () => {
       <div class="noxss-card__header">
         <h3 class="noxss-card__title">${highlightedNome}</h3>
         <div class="student-card-actions">
-          <button class="noxss-btn noxss-btn--icon view-btn" data-index="${index}" title="Visualizar"><i class="fa-solid fa-eye noxss-icon"></i></button>
-          <button class="noxss-btn noxss-btn--icon edit-btn" data-index="${index}" title="Editar"><i class="fa-solid fa-pen-to-square noxss-icon"></i></button>
-          <button class="noxss-btn noxss-btn--icon delete-btn" data-type="student" data-index="${index}" title="Excluir"><i class="fa-solid fa-trash-can noxss-icon"></i></button>
+          <button class="noxss-btn noxss-btn--icon view-btn" data-id="${student.id}" title="Visualizar"><i class="fa-solid fa-eye noxss-icon"></i></button>
+          <button class="noxss-btn noxss-btn--icon edit-btn" data-id="${student.id}" title="Editar"><i class="fa-solid fa-pen-to-square noxss-icon"></i></button>
+          <button class="noxss-btn noxss-btn--icon delete-btn" data-type="student" data-id="${student.id}" title="Excluir"><i class="fa-solid fa-trash-can noxss-icon"></i></button>
         </div>
       </div>
       <div class="noxss-card__body student-card-body">
@@ -461,10 +461,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
       if (isSearching) {
         paginatedStudents.forEach((student) => {
-          const originalIndex = database.alunos.indexOf(student);
           const card = document.createElement("div");
           card.className = "noxss-card noxss-card--interactive student-card";
-          card.innerHTML = createStudentCardHTML(student, originalIndex, searchTerm);
+          card.innerHTML = createStudentCardHTML(student, searchTerm);
           studentListContainer.appendChild(card);
         });
       } else {
@@ -486,10 +485,9 @@ document.addEventListener("DOMContentLoaded", () => {
             studentListContainer.appendChild(title);
 
             paginatedGrouped[groupKey].forEach((student) => {
-              const originalIndex = database.alunos.indexOf(student);
               const card = document.createElement("div");
               card.className = "noxss-card noxss-card--interactive student-card";
-              card.innerHTML = createStudentCardHTML(student, originalIndex, "");
+              card.innerHTML = createStudentCardHTML(student, "");
               studentListContainer.appendChild(card);
             });
           });
@@ -657,8 +655,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const openStudentModal = (student = null, index = -1) => {
     studentForm.reset();
-    document.getElementById("studentIndex").value = index;
-    document.getElementById("studentModalLabel").textContent = index === -1 ? "Adicionar Novo Aluno" : "Editar Aluno";
+    document.getElementById("studentId").value = student ? student.id : "";
+    document.getElementById("studentModalLabel").textContent = student ? "Editar Aluno" : "Adicionar Novo Aluno";
 
     const turmaSelect = document.getElementById("turma_id");
     turmaSelect.innerHTML =
@@ -712,9 +710,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
   studentForm.addEventListener("submit", (e) => {
     e.preventDefault();
-    const index = parseInt(document.getElementById("studentIndex").value, 10);
+    const studentId = document.getElementById("studentId").value;
     const studentData = {
       nome: document.getElementById("nome").value.trim(),
+      id: studentId || generateId(),
       cpf: document.getElementById("cpf").value.trim(),
       status: document.getElementById("status").value,
       turma_id: document.getElementById("turma_id").value,
@@ -733,8 +732,13 @@ document.addEventListener("DOMContentLoaded", () => {
       data_matricula: document.getElementById("data_matricula").value.trim(),
       data_transferencia: document.getElementById("data_transferencia").value.trim(),
     };
-    if (index === -1) database.alunos.push(studentData);
-    else database.alunos[index] = studentData;
+
+    if (studentId) {
+      const index = database.alunos.findIndex((s) => s.id === studentId);
+      if (index > -1) database.alunos[index] = studentData;
+    } else {
+      database.alunos.push(studentData);
+    }
     saveDatabase();
     Noxss.Modals.close();
     Noxss.Toasts.show({ message: "Aluno salvo!", status: "success" });
@@ -799,14 +803,14 @@ document.addEventListener("DOMContentLoaded", () => {
     const confirmBtn = document.getElementById("confirmDeleteBtn");
 
     if (type === "student") {
-      const index = parseInt(deleteBtn.dataset.index, 10);
-      const student = database.alunos[index];
+      const studentId = deleteBtn.dataset.id;
+      const student = database.alunos.find((s) => s.id === studentId);
       modalTitle.textContent = "Confirmar Exclusão de Aluno";
       modalText.textContent = "Você tem certeza que deseja remover este aluno? Esta ação não pode ser desfeita.";
       modalName.textContent = student.nome;
       Noxss.Modals.open("deleteConfirmModal");
       confirmBtn.onclick = () => {
-        database.alunos.splice(index, 1);
+        database.alunos = database.alunos.filter((s) => s.id !== studentId);
         saveDatabase();
         Noxss.Modals.close();
         Noxss.Toasts.show({ message: "Aluno removido.", status: "danger" });
@@ -942,13 +946,15 @@ document.addEventListener("DOMContentLoaded", () => {
   studentListContainer.addEventListener("click", (e) => {
     const editBtn = e.target.closest(".edit-btn");
     if (editBtn) {
-      openStudentModal(database.alunos[editBtn.dataset.index], editBtn.dataset.index);
+      const student = database.alunos.find((s) => s.id === editBtn.dataset.id);
+      if (student) openStudentModal(student);
       return;
     }
 
     const viewBtn = e.target.closest(".view-btn");
     if (viewBtn) {
-      const student = database.alunos[viewBtn.dataset.index];
+      const student = database.alunos.find((s) => s.id === viewBtn.dataset.id);
+      if (!student) return;
       renderStudentDetailsModal(student);
       Noxss.Modals.open("viewStudentModal");
     }
