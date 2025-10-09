@@ -11,18 +11,18 @@
  * evitando problemas com as barras de interface em navegadores móveis.
  */
 body[data-noxss-layout="app"] {
-    /* 1. Fallback principal para navegadores mais antigos. */
-    height: 100vh;
+  /* 1. Fallback principal para navegadores mais antigos. */
+  height: 100vh;
 
-    /* 2. Propriedade não-padrão que ajuda a resolver o problema no Safari/iOS.
+  /* 2. Propriedade não-padrão que ajuda a resolver o problema no Safari/iOS.
        Navegadores que entendem 'svh' ignorarão isso. */
-    height: -webkit-fill-available;
+  height: -webkit-fill-available;
 
-    /* 3. A solução moderna e preferida. Usa a altura do "viewport pequeno",
+  /* 3. A solução moderna e preferida. Usa a altura do "viewport pequeno",
        garantindo que o layout caiba na tela mesmo com as barras de UI visíveis. */
-    height: 100svh;
+  height: 100svh;
 
-    overflow: hidden;
+  overflow: hidden;
 }
 
 /*
@@ -30,10 +30,10 @@ body[data-noxss-layout="app"] {
  * Usa flexbox para organizar a navbar, o conteúdo e a barra inferior verticalmente.
  */
 .noxss-layout {
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-    background-color: var(--noxss-bg-main);
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  background-color: var(--noxss-bg-main);
 }
 
 /* 
@@ -41,10 +41,9 @@ body[data-noxss-layout="app"] {
  * A altura do body já foi corrigida para ser a altura visível real.
  */
 body[data-noxss-layout="app"] .noxss-layout {
-    height: 100%;
-    overflow: hidden;
+  height: 100%;
+  overflow: hidden;
 }
-
 
 /*
  * O wrapper de conteúdo principal.
@@ -54,9 +53,44 @@ body[data-noxss-layout="app"] .noxss-layout {
  * filhos com overflow (como o sistema de abas) rolem corretamente.
  */
 .noxss-layout__content {
-    flex: 1; /* Faz este elemento crescer */
-    display: flex; /* Permite que o filho (ex: .noxss-tabs) também use flex */
-    flex-direction: column;
-    overflow: hidden;
-    min-height: 0;
+  flex: 1; /* Faz este elemento crescer */
+  display: flex; /* Permite que o filho (ex: .noxss-tabs) também use flex */
+  flex-direction: column;
+  overflow: hidden;
+  min-height: 0;
+}
+
+/* ==========================================================================
+   Noxss Library: Scrollbar Component
+   - Estilos personalizados para barras de rolagem em componentes Noxss.
+   - Versão: 1.0
+   - Depende de: core.css
+   ========================================================================== */
+
+.noxss-tabs__panel,
+.noxss-modal__body {
+  scrollbar-width: thin;
+  scrollbar-color: var(--noxss-accent-primary) var(--noxss-bg-elements);
+}
+
+.noxss-tabs__panel::-webkit-scrollbar,
+.noxss-modal__body::-webkit-scrollbar {
+  width: 10px;
+}
+
+.noxss-tabs__panel::-webkit-scrollbar-track,
+.noxss-modal__body::-webkit-scrollbar-track {
+  background: var(--noxss-bg-elements);
+}
+
+.noxss-tabs__panel::-webkit-scrollbar-thumb,
+.noxss-modal__body::-webkit-scrollbar-thumb {
+  background-color: var(--noxss-accent-primary);
+  border-radius: var(--noxss-border-radius-base);
+  border: 2px solid var(--noxss-bg-elements);
+}
+
+.noxss-tabs__panel::-webkit-scrollbar-thumb:hover,
+.noxss-modal__body::-webkit-scrollbar-thumb:hover {
+  background-color: var(--noxss-accent-primary-hover);
 }
