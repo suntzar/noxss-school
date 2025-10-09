@@ -168,40 +168,32 @@
   gap: 1.5rem;
 }
 
-@media (max-width: 767px) {
-  .student-card-body {
-    grid-template-columns: 1fr;
-    gap: 1rem;
-    align-items: center;
-  }
-}
-
 .student-card-main-info,
 .student-card-secondary-info {
   display: flex;
   flex-direction: column;
   gap: 0.85rem;
 }
-
+/* --- Redesign completo do Card de Aluno para Mobile --- */
 @media (max-width: 767px) {
+  .student-card .noxss-card__body {
+    display: flex; /* Mudar de grid para flex */
+    flex-direction: column;
+    gap: 1rem;
+  }
+  .student-card .noxss-card__header {
+    padding: 0.75rem 1rem;
+    margin-bottom: 0;
+  }
   .student-card-info-grid {
     grid-template-columns: 1fr;
     gap: 1rem;
   }
-
   .student-card-main-info {
-    border-right: none;
-    border-bottom: 1px solid var(--noxss-border-color);
-    padding-right: 0;
-    padding-bottom: 1rem;
+    order: 2; /* Mantém as informações principais abaixo */
+    border: none; /* Remove a barra divisória indesejada */
+    padding: 0; /* Remove padding extra */
   }
-}
-
-.student-card-main-info,
-.student-card-secondary-info {
-  display: flex;
-  flex-direction: column;
-  gap: 0.85rem;
 }
 
 .info-item {
