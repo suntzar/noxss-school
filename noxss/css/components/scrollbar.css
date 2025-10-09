@@ -1,0 +1,34 @@
+/* ==========================================================================
+   Noxss Library: Scrollbar Component
+   - Estilos personalizados para barras de rolagem em componentes Noxss.
+   - Versão: 1.0
+   - Depende de: core.css
+   ========================================================================== */
+
+.noxss-tabs__panel,
+.noxss-modal__body {
+  scrollbar-width: thin;
+  scrollbar-color: var(--noxss-accent-primary) var(--noxss-bg-elements);
+}
+
+.noxss-tabs__panel::-webkit-scrollbar,
+.noxss-modal__body::-webkit-scrollbar {
+  width: 10px;
+}
+
+.noxss-tabs__panel::-webkit-scrollbar-track,
+.noxss-modal__body::-webkit-scrollbar-track {
+  background: var(--noxss-bg-elements);
+}
+
+.noxss-tabs__panel::-webkit-scrollbar-thumb,
+.noxss-modal__body::-webkit-scrollbar-thumb {
+  background-color: var(--noxss-accent-primary);
+  border-radius: var(--noxss-border-radius-base);
+  border: 2px solid var(--noxss-bg-elements);
+}
+
+.noxss-tabs__panel::-webkit-scrollbar-thumb:hover,
+.noxss-modal__body::-webkit-scrollbar-thumb:hover {
+  background-color: var(--noxss-accent-primary-hover);
+}
