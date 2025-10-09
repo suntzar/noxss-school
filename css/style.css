@@ -111,7 +111,7 @@
   color: var(--noxss-accent-primary);
   font-size: 1.5rem;
   margin-top: 2rem;
-} 
+}
 
 /* Estilos dos Cards de Aluno */
 .student-card {
@@ -150,9 +150,10 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 0 0 0.75rem 0; /* Ajuste de padding */
+  padding: 0.75rem; /* Ajuste de padding */
   border-bottom: 1px solid var(--noxss-border-color);
   margin-bottom: 0.75rem;
+  gap: 1rem;
 }
 
 .student-card-actions {
@@ -194,6 +195,13 @@
     padding-right: 0;
     padding-bottom: 1rem;
   }
+}
+
+.student-card-main-info,
+.student-card-secondary-info {
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
 }
 
 .info-item {

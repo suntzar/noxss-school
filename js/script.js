@@ -299,72 +299,68 @@ document.addEventListener("DOMContentLoaded", () => {
     const cpfDisplay = isCpfMatch ? highlightCpfMatch(formatCPF(student.cpf), unformattedCpf, searchTerm) : formatCPF(student.cpf);
 
     return `
-      <div class="noxss-card__body student-card-body">
+      <div class="noxss-card__header">
         <div class="student-card-avatar">
-          <i class="fa-solid fa-user-circle"></i>
+            <i class="fa-solid fa-user-circle"></i>
         </div>
-        <div class="student-card-content">
-          <div class="noxss-card__header">
-            <h3 class="noxss-card__title">${highlightedNome}</h3>
-            <div class="student-card-actions">
-              <button class="noxss-btn noxss-btn--icon view-btn" data-id="${student.id}" title="Visualizar"><i class="fa-solid fa-eye noxss-icon"></i></button>
-              <button class="noxss-btn noxss-btn--icon edit-btn" data-id="${student.id}" title="Editar"><i class="fa-solid fa-pen-to-square noxss-icon"></i></button>
-              <button class="noxss-btn noxss-btn--icon delete-btn" data-type="student" data-id="${student.id}" title="Excluir"><i class="fa-solid fa-trash-can noxss-icon"></i></button>
-            </div>
+        <h3 class="noxss-card__title">${highlightedNome}</h3>
+        <div class="student-card-actions">
+          <button class="noxss-btn noxss-btn--icon view-btn" data-id="${student.id}" title="Visualizar"><i class="fa-solid fa-eye noxss-icon"></i></button>
+          <button class="noxss-btn noxss-btn--icon edit-btn" data-id="${student.id}" title="Editar"><i class="fa-solid fa-pen-to-square noxss-icon"></i></button>
+          <button class="noxss-btn noxss-btn--icon delete-btn" data-type="student" data-id="${student.id}" title="Excluir"><i class="fa-solid fa-trash-can noxss-icon"></i></button>
+        </div>
+      </div>
+      <div class="noxss-card__body student-card-body">
+        <div class="student-card-main-info">
+          <div class="student-status status-${(student.status || "ativo").toLowerCase().replace(" ", "-")}">
+            <span class="status-dot"></span>
+            <span class="status-text">${safe(student.status)}</span>
           </div>
-          <div class="student-card-info-grid">
-            <div class="student-card-main-info">
-              <div class="student-status status-${(student.status || "ativo").toLowerCase().replace(" ", "-")}">
-                <span class="status-dot"></span>
-                <span class="status-text">${safe(student.status)}</span>
-              </div>
-              ${
-                student.status === "Transferido" && student.data_transferencia
-                  ? `
+          ${
+            student.status === "Transferido" && student.data_transferencia
+              ? `
           <div class="info-item">
               <i class="fa-solid fa-arrow-right-from-bracket noxss-icon"></i>
               <span>Transf. em: ${safe(student.data_transferencia)}</span>
           </div>`
-                  : ""
-              }
-              <div class="info-item">
-                <i class="fa-solid fa-calendar-day noxss-icon"></i>
-                <span>Matrícula: ${safe(student.data_matricula)}</span>
-              </div>
-              <div class="info-item">
-                <i class="fa-solid fa-chalkboard-user noxss-icon"></i>
-                <span>${turmaNome}</span>
-              </div>
-              <div class="info-item">
-                <i class="fa-solid fa-id-card noxss-icon"></i>
-                <span>${cpfDisplay}</span>
-              </div>
-              <div class="info-item">
-                <i class="fa-solid fa-cake-candles noxss-icon"></i>
-                <span>${safe(student.nascimento)}</span>
-              </div>
-              <div class="info-item">
-                <i class="fa-solid ${student.sexo === "Feminino" ? "fa-venus" : student.sexo === "Masculino" ? "fa-mars" : "fa-genderless"} noxss-icon"></i>
-                <span>${safe(student.sexo)}</span>
-              </div>
-            </div>
-            <div class="student-card-secondary-info">
-              <div class="info-item">
-                <span><strong>Mãe:</strong> ${highlightedMae}</span>
-              </div>
-              <div class="info-item">
-                <span><strong>Pai:</strong> ${highlightedPai}</span>
-              </div>
-              <div class="info-item">
-                <strong>Telefone(s):</strong> ${Array.isArray(student.telefone) ? student.telefone.join(", ") : "Não informado"}
-              </div>
-              <div class="info-item">
-                <strong>Endereço:</strong> ${safe(student.endereco)}
-              </div>
-              <div class="info-item">
-                <strong>Cor/Raça:</strong> ${safe(student.cor)}
-              </div>
-            </div>
+              : ""
+          }
+          <div class="info-item">
+            <i class="fa-solid fa-calendar-day noxss-icon"></i>
+            <span>Matrícula: ${safe(student.data_matricula)}</span>
+          </div>
+          <div class="info-item">
+            <i class="fa-solid fa-chalkboard-user noxss-icon"></i>
+            <span>${turmaNome}</span>
+          </div>
+          <div class="info-item">
+            <i class="fa-solid fa-id-card noxss-icon"></i>
+            <span>${cpfDisplay}</span>
+          </div>
+          <div class="info-item">
+            <i class="fa-solid fa-cake-candles noxss-icon"></i>
+            <span>${safe(student.nascimento)}</span>
+          </div>
+           <div class="info-item">
+            <i class="fa-solid ${student.sexo === "Feminino" ? "fa-venus" : student.sexo === "Masculino" ? "fa-mars" : "fa-genderless"} noxss-icon"></i>
+            <span>${safe(student.sexo)}</span>
+          </div>
+        </div>
+        <div class="student-card-secondary-info">
+          <div class="info-item">
+            <span><strong>Mãe:</strong> ${highlightedMae}</span>
+          </div>
+          <div class="info-item">
+            <span><strong>Pai:</strong> ${highlightedPai}</span>
+          </div>
+          <div class="info-item">
+            <strong>Telefone(s):</strong> ${Array.isArray(student.telefone) ? student.telefone.join(", ") : "Não informado"}
+          </div>
+          <div class="info-item">
+            <strong>Endereço:</strong> ${safe(student.endereco)}
+          </div>
+          <div class="info-item">
+            <strong>Cor/Raça:</strong> ${safe(student.cor)}
           </div>
         </div>
       </div>
@@ -469,7 +465,7 @@ document.addEventListener("DOMContentLoaded", () => {
       if (isSearching) {
         paginatedStudents.forEach((student) => {
           const card = document.createElement("div");
-          card.className = "noxss-card student-card";
+          card.className = "noxss-card noxss-card--interactive student-card";
           card.innerHTML = createStudentCardHTML(student, searchTerm);
           studentListContainer.appendChild(card);
         });
@@ -493,7 +489,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
             paginatedGrouped[groupKey].forEach((student) => {
               const card = document.createElement("div");
-              card.className = "noxss-card student-card";
+              card.className = "noxss-card noxss-card--interactive student-card";
               card.innerHTML = createStudentCardHTML(student, "");
               studentListContainer.appendChild(card);
             });
