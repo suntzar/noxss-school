@@ -111,27 +111,59 @@
   color: var(--noxss-accent-primary);
   font-size: 1.5rem;
   margin-top: 2rem;
-} /* Estilos dos Cards de Aluno */
+} 
+
+/* Estilos dos Cards de Aluno */
 .student-card {
-  margin-bottom: 1.5rem;
   overflow: hidden;
+  margin-bottom: 1.5rem; /* Adicionado para manter o espaçamento */
+}
+
+.student-card .noxss-card__body {
+  display: grid;
+  grid-template-columns: auto 1fr; /* Coluna do avatar e conteúdo */
+  gap: 1.25rem;
+  align-items: flex-start;
+}
+
+.student-card-avatar {
+  font-size: 3.5rem; /* Tamanho do ícone */
+  color: var(--noxss-accent-primary);
+  background-color: var(--noxss-bg-elements);
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.student-card-content {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  min-width: 0; /* Previne overflow em flex containers */
 }
 
 .student-card .noxss-card__header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  gap: 1rem;
+  padding: 0 0 0.75rem 0; /* Ajuste de padding */
+  border-bottom: 1px solid var(--noxss-border-color);
+  margin-bottom: 0.75rem;
 }
 
 .student-card-actions {
   display: flex;
   gap: 0.5rem;
+  flex-shrink: 0;
 }
 
-.student-card-body {
+.student-card-info-grid {
   display: grid;
-  grid-template-columns: 220px 1fr;
+  grid-template-columns: minmax(200px, 1fr) 1fr;
   gap: 1.5rem;
 }
 
@@ -139,6 +171,7 @@
   .student-card-body {
     grid-template-columns: 1fr;
     gap: 1rem;
+    align-items: center;
   }
 }
 
@@ -149,12 +182,12 @@
   gap: 0.85rem;
 }
 
-.student-card-main-info {
-  border-right: 1px solid var(--noxss-border-color);
-  padding-right: 1.5rem;
-}
-
 @media (max-width: 767px) {
+  .student-card-info-grid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
   .student-card-main-info {
     border-right: none;
     border-bottom: 1px solid var(--noxss-border-color);
@@ -338,17 +371,30 @@
 }
 
 /* Estilos do Modal de Visualização de Aluno */
+.student-details-avatar {
+  font-size: 4.5rem;
+  color: var(--noxss-accent-primary);
+  background-color: var(--noxss-bg-elements);
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
 .student-details-header {
   display: flex;
-  justify-content: space-between;
   align-items: flex-start;
-  gap: 1rem;
+  gap: 1.5rem;
   padding-bottom: 1rem;
-  margin-bottom: 1.5rem;
   border-bottom: 2px dashed var(--noxss-border-color);
 }
 
 .student-details-header .student-name {
+  flex-grow: 1;
+  align-self: center;
   margin: 0;
   padding: 0;
   border: none;
