@@ -307,7 +307,7 @@ document.addEventListener("DOMContentLoaded", () => {
         <div class="student-card-actions">
           <button class="noxss-btn noxss-btn--icon view-btn" data-id="${student.id}" title="Visualizar"><i class="fa-solid fa-eye noxss-icon"></i></button>
           <button class="noxss-btn noxss-btn--icon edit-btn" data-id="${student.id}" title="Editar"><i class="fa-solid fa-pen-to-square noxss-icon"></i></button>
-          <button class="noxss-btn noxss-btn--icon delete-btn" data-type="student" data-id="${student.id}" title="Excluir"><i class="fa-solid fa-trash-can noxss-icon"></i></button>
+          <button class="noxss-btn noxss-btn--icon delete-btn" data-type="student" data-id="${student.id}" title="Excluir"><i class="fa-solid fa-trash noxss-icon"></i></button>
         </div>
       </div>
       <div class="noxss-card__body student-card-body">
@@ -638,7 +638,7 @@ document.addEventListener("DOMContentLoaded", () => {
                     </div>
                     <div class="noxss-list-item__trailing">
                         <button class="noxss-btn noxss-btn--icon edit-turma-btn" data-id="${t.id}" title="Editar Turma"><i class="fa-solid fa-pen-to-square noxss-icon"></i></button>
-                        <button class="noxss-btn noxss-btn--icon delete-btn" data-type="turma" data-id="${t.id}" title="Remover Turma"><i class="fa-solid fa-trash-can noxss-icon"></i></button>
+                        <button class="noxss-btn noxss-btn--icon delete-btn" data-type="turma" data-id="${t.id}" title="Remover Turma"><i class="fa-solid fa-trash noxss-icon"></i></button>
                     </div>
                 </li>
             `;
