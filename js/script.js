@@ -1,9 +1,14 @@
 // --- GERENCIADOR DE TEMA ---
 const htmlElement = document.documentElement;
 const MODE_KEY = "schoolAppThemeMode";
-const PALETTE_KEY = "schoolAppPalette";
+const THEME_KEY = "schoolAppTheme"; // Nova chave para armazenar o tema/paleta selecionado
 
-const palettes = {
+const staticThemes = {
+  "Noxss Padrão": { dark: "dark", light: "light" },
+  "Púrpura Imperial": { dark: "purpura-dark", light: "purpura-light" },
+};
+
+const dynamicPalettes = {
   "Azul Céu": { light: "#3b82f6", dark: "#60a5fa" },
   "Verde Esmeralda": { light: "#059669", dark: "#10b981" },
   "Roxo Violeta": { light: "#7c3aed", dark: "#8b5cf6" },
@@ -21,14 +26,26 @@ const palettes = {
   "Grafite Sóbrio": { light: "#6b7280", dark: "#d1d5db" },
 };
 
-const applyTheme = (mode, paletteName) => {
-  const palette = palettes[paletteName] || palettes["Azul Céu"];
-  const paletteColor = palette[mode];
+const applyTheme = (mode, themeName) => {
+  // Limpa atributos de temas anteriores
+  htmlElement.removeAttribute("data-theme");
+  htmlElement.removeAttribute("data-noxss-theme-gen");
+  htmlElement.removeAttribute("data-noxss-palette-gen");
 
-  htmlElement.setAttribute("data-noxss-theme-gen", mode);
-  htmlElement.setAttribute("data-noxss-palette-gen", paletteColor);
+  if (staticThemes[themeName]) {
+    // É um tema estático (manual)
+    const themeValue = staticThemes[themeName][mode];
+    htmlElement.setAttribute("data-theme", themeValue);
+  } else {
+    // É uma paleta dinâmica
+    const palette = dynamicPalettes[themeName] || dynamicPalettes["Azul Céu"];
+    const paletteColor = palette[mode];
+    htmlElement.setAttribute("data-noxss-theme-gen", mode);
+    htmlElement.setAttribute("data-noxss-palette-gen", paletteColor);
+  }
+
   localStorage.setItem(MODE_KEY, mode);
-  localStorage.setItem(PALETTE_KEY, paletteName);
+  localStorage.setItem(THEME_KEY, themeName);
 };
 
 // --- LÓGICA PRINCIPAL DO APLICATIVO ---
@@ -36,19 +53,27 @@ document.addEventListener("DOMContentLoaded", () => {
   // --- Lógica de Tema ---
   const themeSwitcher = document.getElementById("theme-switcher");
   const paletteSelect = document.getElementById("palette-select");
-  paletteSelect.innerHTML = Object.keys(palettes)
-    .map((name) => `<option value="${name}">${name}</option>`)
-    .join("");
+
+  // Popula o select com temas estáticos e paletas dinâmicas
+  const staticOptions = Object.keys(staticThemes).map((name) => `<option value="${name}">${name}</option>`);
+  const dynamicOptions = Object.keys(dynamicPalettes).map((name) => `<option value="${name}">${name}</option>`);
+  paletteSelect.innerHTML = `
+    <optgroup label="Temas Manuais">${staticOptions.join("")}</optgroup>
+    <optgroup label="Paletas Dinâmicas">${dynamicOptions.join("")}</optgroup>
+  `;
+
   const savedMode = localStorage.getItem(MODE_KEY);
-  const savedPaletteName = localStorage.getItem(PALETTE_KEY) || "Azul Céu";
+  const savedThemeName = localStorage.getItem(THEME_KEY) || "Noxss Padrão";
   const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
   const currentMode = savedMode || (prefersDark ? "dark" : "light");
-  applyTheme(currentMode, savedPaletteName);
-  paletteSelect.value = savedPaletteName;
+
+  applyTheme(currentMode, savedThemeName);
+  paletteSelect.value = savedThemeName;
+
   themeSwitcher.addEventListener("click", () => {
     const currentMode = localStorage.getItem(MODE_KEY) || "light";
     const newMode = currentMode === "dark" ? "light" : "dark";
-    applyTheme(newMode, localStorage.getItem(PALETTE_KEY));
+    applyTheme(newMode, localStorage.getItem(THEME_KEY));
   });
   paletteSelect.addEventListener("change", (e) => {
     applyTheme(localStorage.getItem(MODE_KEY), e.target.value);

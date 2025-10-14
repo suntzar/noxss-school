@@ -556,3 +556,35 @@
   margin: -0.1em -0.2em;
   border-radius: 4px;
 }
+
+/* ==========================================================================
+   Temas Manuais Adicionais
+   ========================================================================== */
+
+/* --- Tema: Púrpura Imperial (Escuro) --- */
+[data-theme="purpura-dark"] {
+  --noxss-bg-main: #1a1a2e;
+  --noxss-bg-surface: #16213e;
+  --noxss-bg-elements: #0f3460;
+  --noxss-border-color: #2a3b5c;
+  --noxss-text-primary: #e94560;
+  --noxss-text-secondary: #c0c0de;
+  --noxss-accent-primary: #e94560;
+  --noxss-accent-primary-hover: #ff6e85;
+  --noxss-accent-primary-rgb: 233, 69, 96;
+  --noxss-text-on-accent: #ffffff;
+}
+
+/* --- Tema: Púrpura Imperial (Claro) --- */
+[data-theme="purpura-light"] {
+  --noxss-bg-main: #f0f0f8;
+  --noxss-bg-surface: #ffffff;
+  --noxss-bg-elements: #e6e6f2;
+  --noxss-border-color: #d8d8e8;
+  --noxss-text-primary: #0f3460;
+  --noxss-text-secondary: #536482;
+  --noxss-accent-primary: #6c63ff;
+  --noxss-accent-primary-hover: #837dff;
+  --noxss-accent-primary-rgb: 108, 99, 255;
+  --noxss-text-on-accent: #ffffff;
+}
