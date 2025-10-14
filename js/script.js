@@ -654,13 +654,13 @@ document.addEventListener("DOMContentLoaded", () => {
     if (source !== "cloud") saveToJSONBin(database);
     // Re-render all relevant views
     if (document.querySelector("#panel-settings.is-visible")) renderMetadata();
-    if (document.querySelector("#panel-alunos.is-visible")) renderStudentList();
+    if (document.querySelector("#panel-alunos.is-visible")) renderStudentList(database.alunos);
     if (document.querySelector("#panel-inicio.is-visible")) renderInicio();
   };
 
-  const openStudentModal = (student = null, index = -1) => {
+  const openStudentModal = (student = null) => {
     studentForm.reset();
-    document.getElementById("studentId").value = student ? student.id : "";
+    document.getElementById("studentId").value = student ? student.id : ""; // Usa o ID do aluno
     document.getElementById("studentModalLabel").textContent = student ? "Editar Aluno" : "Adicionar Novo Aluno";
 
     const turmaSelect = document.getElementById("turma_id");
@@ -715,10 +715,13 @@ document.addEventListener("DOMContentLoaded", () => {
 
   studentForm.addEventListener("submit", (e) => {
     e.preventDefault();
+
+    // 1. Lê o ID do formulário primeiro.
     const studentId = document.getElementById("studentId").value;
+
+    // 2. Coleta todos os dados do formulário em um objeto.
     const studentData = {
       nome: document.getElementById("nome").value.trim(),
-      id: studentId || generateId(),
       cpf: document.getElementById("cpf").value.trim(),
       status: document.getElementById("status").value,
       turma_id: document.getElementById("turma_id").value,
@@ -738,11 +741,18 @@ document.addEventListener("DOMContentLoaded", () => {
       data_transferencia: document.getElementById("data_transferencia").value.trim(),
     };
 
+    // 3. Lógica para Editar ou Adicionar
     if (studentId) {
+      // MODO EDIÇÃO: O aluno já existe.
+      studentData.id = studentId; // Garante que o ID seja mantido.
       const index = database.alunos.findIndex((s) => s.id === studentId);
-      if (index > -1) database.alunos[index] = studentData;
+      if (index > -1) {
+        database.alunos[index] = studentData; // Substitui o aluno antigo pelos novos dados.
+      }
     } else {
-      database.alunos.push(studentData);
+      // MODO CRIAÇÃO: É um novo aluno.
+      studentData.id = generateId(); // Gera um novo ID.
+      database.alunos.push(studentData); // Adiciona ao banco de dados.
     }
     saveDatabase();
     Noxss.Modals.close();
@@ -1056,7 +1066,7 @@ document.addEventListener("DOMContentLoaded", () => {
   document.querySelector(".noxss-tabs").addEventListener("noxss:tab:change", (event) => {
     const activeTabId = event.detail.activeTabId;
     if (activeTabId === "inicio") renderInicio();
-    if (activeTabId === "alunos") renderStudentList();
+    if (activeTabId === "alunos") renderStudentList(database.alunos);
     if (activeTabId === "settings") renderMetadata(); // Renderiza metadados na aba de configurações
   });
 
