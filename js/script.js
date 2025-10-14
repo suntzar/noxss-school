@@ -719,8 +719,28 @@ document.addEventListener("DOMContentLoaded", () => {
     // 1. Lê o ID do formulário primeiro.
     const studentId = document.getElementById("studentId").value;
 
-    // 2. Coleta todos os dados do formulário em um objeto.
+    // 2. Define um "molde" para o objeto do aluno, garantindo que todas as chaves existam.
+    const studentTemplate = {
+      id: null,
+      nome: "",
+      cpf: "",
+      status: "Ativo",
+      turma_id: "",
+      nascimento: "",
+      sexo: "",
+      mae: "",
+      pai: "",
+      telefone: [],
+      endereco: "",
+      cor: "",
+      observacoes: "",
+      data_matricula: "",
+      data_transferencia: "",
+    };
+
+    // 3. Coleta os dados do formulário e mescla com o molde.
     const studentData = {
+      ...studentTemplate,
       nome: document.getElementById("nome").value.trim(),
       cpf: document.getElementById("cpf").value.trim(),
       status: document.getElementById("status").value,
@@ -741,7 +761,7 @@ document.addEventListener("DOMContentLoaded", () => {
       data_transferencia: document.getElementById("data_transferencia").value.trim(),
     };
 
-    // 3. Lógica para Editar ou Adicionar
+    // 4. Lógica para Editar ou Adicionar
     if (studentId) {
       // MODO EDIÇÃO: O aluno já existe.
       studentData.id = studentId; // Garante que o ID seja mantido.
@@ -752,6 +772,7 @@ document.addEventListener("DOMContentLoaded", () => {
     } else {
       // MODO CRIAÇÃO: É um novo aluno.
       studentData.id = generateId(); // Gera um novo ID.
+      studentData.id = crypto.randomUUID(); // Gera um UUID v4 padrão.
       database.alunos.push(studentData); // Adiciona ao banco de dados.
     }
     saveDatabase();

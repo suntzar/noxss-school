@@ -1,58 +1,67 @@
 {
   "metadata": {
-    "escola": "Escola (Importado)",
-    "localizacao": "",
-    "contato": "",
+    "escola": "Escola Municipal Ana Maria Cordeiro de Sousa",
+    "localizacao": "Rua da Jaca, Lima Verde, Paço do Lumiar - MA",
+    "contato": "21291780@pacodolumiar.edu.ma.gov.br",
     "turmas": [
       {
         "id": "_f2e9qkzo2",
         "turma": "1º ANO",
         "turno": "MATUTINO",
-        "professor": ""
+        "professor1": "Ana Lídia Nascimento Marques Costa",
+        "professor2": "Marcela Mendes Fonseca"
       },
       {
         "id": "_498iffqew",
         "turma": "1º ANO",
         "turno": "VESPERTINO",
-        "professor": ""
-      },
-      {
-        "id": "_teok9ezmo",
-        "turma": "CRECHE III",
-        "turno": "VESPERTINO",
-        "professor": ""
+        "professor1": "Raimunda Souto Conceição Machado",
+        "professor2": "Adriana Arouche Fontes"
       },
       {
         "id": "_xgvrvq5gm",
         "turma": "CRECHE III",
         "turno": "MATUTINO",
-        "professor": ""
+        "professor1": "Iranilde Abreu França Melo",
+        "professor2": "Maria Páscoa da Silva Tavares"
       },
       {
-        "id": "_j4ony85tv",
-        "turma": "INFANTIL I",
+        "id": "_teok9ezmo",
+        "turma": "CRECHE III",
         "turno": "VESPERTINO",
-        "professor": ""
+        "professor1": "Vanessa da Silva Machado",
+        "professor2": "Katiane Teixeira Santos de Sousa"
       },
       {
         "id": "_91fwgzfjx",
         "turma": "INFANTIL I",
         "turno": "MATUTINO",
-        "professor": ""
+        "professor1": "Ruthiane Gomes Abreu",
+        "professor2": "Maria Páscoa da Silva Tavares"
       },
       {
-        "id": "_7sx549f62",
-        "turma": "INFANTIL II",
+        "id": "_j4ony85tv",
+        "turma": "INFANTIL I",
         "turno": "VESPERTINO",
-        "professor": ""
+        "professor1": "Linda Karla Sodré Feitosa",
+        "professor2": "Katiane Teixeira Santos de Sousa"
       },
       {
         "id": "_zvb95auij",
         "turma": "INFANTIL II",
         "turno": "MATUTINO",
-        "professor": ""
+        "professor1": "Carita Cristina Pena Cavalcante Gomes",
+        "professor2": "Maria Páscoa da Silva Tavares"
+      },
+      {
+        "id": "_7sx549f62",
+        "turma": "INFANTIL II",
+        "turno": "VESPERTINO",
+        "professor1": "Elem Carvalho Abreu Ribeiro",
+        "professor2": "Katiane Teixeira Santos de Sousa"
       }
-    ]
+    ],
+    "studentsPerPage": 200
   },
   "alunos": [
     {
@@ -67,7 +76,9 @@
       "endereco": "Rua do Morango Qd A, número 22, Lima Verde",
       "cor": "Pardo",
       "sexo": "Masculino",
-      "turma_id": "_teok9ezmo"
+      "turma_id": "_teok9ezmo",
+      "id": "57c7cecd-8e2a-4bd1-822a-80fe421a0d87",
+      "status": "Ativo"
     },
     {
       "nome": "Aylla Beatriz Paz",
@@ -80,7 +91,9 @@
       "endereco": "Rua 01, Nº 06, Qd B, Residencial Saramanta",
       "cor": "Parda",
       "sexo": "Feminino",
-      "turma_id": "_teok9ezmo"
+      "turma_id": "_teok9ezmo",
+      "id": "2648706f-2450-444d-9871-2f78fc836742",
+      "status": "Ativo"
     },
     {
       "nome": "Christopher Alex Ferreira da Silva",
@@ -93,7 +106,9 @@
       "endereco": "Rua do Murici, Nº 43, Lima Verde",
       "cor": "Parda",
       "sexo": "Masculino",
-      "turma_id": "_teok9ezmo"
+      "turma_id": "_teok9ezmo",
+      "id": "acfca582-1217-4638-b243-cd404477faa2",
+      "status": "Ativo"
     },
     {
       "nome": "Heitor Felipe Pinheiro Cardoso",
@@ -107,7 +122,9 @@
       "endereco": "Rua 41, Qd 41, Residencial Safira",
       "cor": "Pardo",
       "sexo": "Masculino",
-      "turma_id": "_teok9ezmo"
+      "turma_id": "_teok9ezmo",
+      "id": "ae76dd0f-0029-4edf-8331-adf01101fedb",
+      "status": "Ativo"
     },
     {
       "nome": "Lucas Matheus Santos e Santos",
@@ -121,7 +138,9 @@
       "endereco": "Rua 37, Nº04, Qd33, Residencial Safira",
       "cor": "Pardo",
       "sexo": "Masculino",
-      "turma_id": "_teok9ezmo"
+      "turma_id": "_teok9ezmo",
+      "id": "c56485b6-bdb1-4366-9d09-ca2aa1f581de",
+      "status": "Ativo"
     },
     {
       "nome": "Luiza Hinata Aguiar Souza",
@@ -135,7 +154,9 @@
       "endereco": "Rua 19, N° 02, Estrada de Ribamar",
       "cor": "Branca",
       "sexo": "Feminino",
-      "turma_id": "_teok9ezmo"
+      "turma_id": "_teok9ezmo",
+      "id": "50028295-0293-40b4-96fa-684f31785f50",
+      "status": "Ativo"
     },
     {
       "nome": "Noah Pietro Pereira Araújo",
@@ -149,13 +170,17 @@
       "endereco": "Av. Laranja, Nº 20, Qd02, Lima Verde - Desterro",
       "cor": "Pardo",
       "sexo": "Masculino",
-      "turma_id": "_teok9ezmo"
+      "turma_id": "_teok9ezmo",
+      "id": "41f85dc9-57c9-4687-b77d-f797aab60ba5",
+      "status": "Ativo"
     },
     {
       "nome": "Sarah Moraes Diniz (28/08/2025)",
       "cpf": "",
       "status": "Transferido",
+      "turma_id": "_teok9ezmo",
       "nascimento": "16/12/2021",
+      "sexo": "Feminino",
       "mae": "Meryllin Cristine da Luz Moraes Diniz",
       "pai": "Dewon Jonnys Everton Diniz",
       "telefone": [
@@ -163,9 +188,11 @@
         "982226197"
       ],
       "endereco": "Rua da Jaca, Nº 51, Lima Verde",
-      "cor": "Pàrda",
-      "sexo": "Feminino",
-      "turma_id": "_teok9ezmo"
+      "cor": "Parda",
+      "observacoes": "",
+      "data_matricula": "",
+      "data_transferencia": "28/08/2025",
+      "id": "30695d61-19d5-4d88-81c1-92f10a3a8be9"
     },
     {
       "nome": "Sophia Loren Nogueira Menezes",
@@ -181,7 +208,8 @@
       "endereco": "Rua 03, Nº 02, Qd 05, Estrada de Ribamar",
       "cor": "Branca",
       "sexo": "Feminino",
-      "turma_id": "_teok9ezmo"
+      "turma_id": "_teok9ezmo",
+      "id": "e26342f7-c4e5-4311-aebd-4608d7d86e56"
     },
     {
       "nome": "Thamara Jasmyne Amaral Matos",
@@ -194,13 +222,17 @@
       "endereco": "",
       "cor": "Pardo",
       "sexo": "Feminino",
-      "turma_id": "_teok9ezmo"
+      "turma_id": "_teok9ezmo",
+      "id": "aedbd27e-82b1-450d-8f52-c1be1503812a",
+      "status": "Ativo"
     },
     {
-      "nome": "Thaylla Sophia Moraes Aguiar (SEM DOSSIÊ)",
+      "nome": "Thaylla Sophia Moraes Aguiar",
       "cpf": "",
       "status": "Ativo",
+      "turma_id": "_teok9ezmo",
       "nascimento": "03/08/2021",
+      "sexo": "Feminino",
       "mae": "Talia Louzeiro Moraes",
       "pai": "José Werllirson Ribeiro Aguiar",
       "telefone": [
@@ -209,8 +241,8 @@
       ],
       "endereco": "Rua NA41, 46, Maiobão",
       "cor": "Pardo",
-      "sexo": "Feminino",
-      "turma_id": "_teok9ezmo"
+      "observacoes": "Sem dossiê",
+      "id": "2a4b84ff-8587-44ca-9b19-9a3f4c672d49"
     },
     {
       "nome": "Theo Henrique de Ataíde Rabello",
@@ -224,7 +256,9 @@
       "endereco": "Bom Negócio",
       "cor": "Pardo",
       "sexo": "Masculino",
-      "turma_id": "_teok9ezmo"
+      "turma_id": "_teok9ezmo",
+      "id": "afbffd2f-3d6c-4ad9-b80c-ed585f1889ee",
+      "status": "Ativo"
     },
     {
       "nome": "Vitor Lucas de Brito Ferreira",
@@ -237,7 +271,9 @@
       "endereco": "Bom Negócio, N° 20, Lima Verde",
       "cor": "",
       "sexo": "Masculino",
-      "turma_id": "_teok9ezmo"
+      "turma_id": "_teok9ezmo",
+      "id": "b670efdd-3ebc-4a91-94a3-6812ab9aae1a",
+      "status": "Ativo"
     },
     {
       "nome": "Yan Victor da Silva Sousa",
@@ -251,7 +287,9 @@
       "endereco": "Rua Muricis, S/N, Lima Verde",
       "cor": "Pardo",
       "sexo": "Masculino",
-      "turma_id": "_teok9ezmo"
+      "turma_id": "_teok9ezmo",
+      "id": "f73c9cf5-93b5-4a43-9d36-624fddde6166",
+      "status": "Ativo"
     },
     {
       "nome": "Yanne Melissa Armendariz Fonseca",
@@ -265,12 +303,18 @@
       "endereco": "Avenida Marcele Cardoso N° 04, Qd 05, Morada Nova",
       "cor": "Parda",
       "sexo": "Feminino",
-      "turma_id": "_teok9ezmo"
+      "turma_id": "_teok9ezmo",
+      "id": "c2d73bd4-3cce-47eb-828a-66bfc0320415",
+      "status": "Ativo"
     },
     {
       "nome": "Bella Cristina Serra Soares",
+      "cpf": "",
+      "status": "Ativo",
+      "turma_id": "_j4ony85tv",
       "nascimento": "21/07/2020",
-      "mae": "Ariana de Jesus Serra Soares",
+      "sexo": "Feminino",
+      "mae": "Aritania de Jesus Serra Soares",
       "pai": "",
       "telefone": [
         "987882474",
@@ -278,8 +322,9 @@
       ],
       "endereco": "Rua do Roman, Qd 14, numero 08, Lima Verde",
       "cor": "Parda",
-      "sexo": "Feminino",
-      "turma_id": "_j4ony85tv"
+      "observacoes": "",
+      "data_matricula": "",
+      "data_transferencia": ""
     },
     {
       "nome": "Brendo Leonardo Campos de Sousa",
@@ -295,7 +340,8 @@
       "endereco": "Rua da Manga, Nº 01B, Lima Verde",
       "cor": "Branco",
       "sexo": "Masculino",
-      "turma_id": "_j4ony85tv"
+      "turma_id": "_j4ony85tv",
+      "id": "610d3bf9-cf6a-40fd-a91e-3d596b0601a3"
     },
     {
       "nome": "Davi dos Santos Oliveira",
@@ -309,7 +355,9 @@
       "endereco": "Rua Princesa Isabel, Nº 01, Qd 19, Kiola",
       "cor": "Pardo",
       "sexo": "Masculino",
-      "turma_id": "_j4ony85tv"
+      "turma_id": "_j4ony85tv",
+      "id": "7ad41463-5fd3-44a4-94aa-1d4478be010e",
+      "status": "Ativo"
     },
     {
       "nome": "Eduardo Daniel Rocha Nogueira",
@@ -323,7 +371,9 @@
       "endereco": "Rua Princesa Fabiana, Nº 12, Qd 32, Vila Kiola",
       "cor": "Pardo",
       "sexo": "Masculino",
-      "turma_id": "_j4ony85tv"
+      "turma_id": "_j4ony85tv",
+      "id": "0f40f0fb-cd42-4f1c-bc34-fa34c9de21b2",
+      "status": "Ativo"
     },
     {
       "nome": "Edson Junior Silva Sousa",
@@ -337,7 +387,9 @@
       "endereco": "Rua do Cupuaçú, N° 26, Lima Verde",
       "cor": "Negro",
       "sexo": "Masculino",
-      "turma_id": "_j4ony85tv"
+      "turma_id": "_j4ony85tv",
+      "id": "46dfedff-bdfa-4778-b996-425eb95f2bc0",
+      "status": "Ativo"
     },
     {
       "nome": "Eloah Silva Mendonça",
@@ -351,7 +403,9 @@
       "endereco": "Rua da Figueira, Nº20, Qd 09, Cond. Dr. Amaral de Matos, Açaizal Grande",
       "cor": "Parda",
       "sexo": "Feminino",
-      "turma_id": "_j4ony85tv"
+      "turma_id": "_j4ony85tv",
+      "id": "f0cf3344-8f43-44a0-8e15-645801075e96",
+      "status": "Ativo"
     },
     {
       "nome": "Gilvan Guilherme Silva Rabelo",
@@ -365,7 +419,9 @@
       "endereco": "Rua da Manga, Nº13, Qd 04, Lima Verde",
       "cor": "Branco",
       "sexo": "Masculino",
-      "turma_id": "_j4ony85tv"
+      "turma_id": "_j4ony85tv",
+      "id": "e37db31a-e2f7-42a6-962d-a1d6957cbc79",
+      "status": "Ativo"
     },
     {
       "nome": "Hadassa Saldanha Abreu",
@@ -381,7 +437,8 @@
       "endereco": "Rua 20, Qd 17,Residencial Safira",
       "cor": "Parda",
       "sexo": "Feminino",
-      "turma_id": "_j4ony85tv"
+      "turma_id": "_j4ony85tv",
+      "id": "9ddd9726-d2b6-4bc9-b784-5e4da605d074"
     },
     {
       "nome": "Letícia de Morais Castro",
@@ -395,7 +452,9 @@
       "endereco": "Rua da Jaca, Nº 44, Qd 04, N° 44, Lima Verde",
       "cor": "Parda",
       "sexo": "Feminino",
-      "turma_id": "_j4ony85tv"
+      "turma_id": "_j4ony85tv",
+      "id": "eb8af4a4-a5c1-4516-a834-07dcd8cf8e05",
+      "status": "Ativo"
     },
     {
       "nome": "Luna Santos de Jesus",
@@ -408,7 +467,9 @@
       "endereco": "Rua 02, QD C, Bom Negócio",
       "cor": "Parda",
       "sexo": "Feminino",
-      "turma_id": "_j4ony85tv"
+      "turma_id": "_j4ony85tv",
+      "id": "d5c52df4-7866-4abe-97ce-6f5487d448b9",
+      "status": "Ativo"
     },
     {
       "nome": "Manuella Lopes Silva Miranda",
@@ -422,7 +483,9 @@
       "endereco": "Rua da Manga, Nº 46, Qd 02, Lima Verde",
       "cor": "Parda",
       "sexo": "Feminino",
-      "turma_id": "_j4ony85tv"
+      "turma_id": "_j4ony85tv",
+      "id": "42570c92-f558-47c3-8ecc-12decf6c4840",
+      "status": "Ativo"
     },
     {
       "nome": "Maria Laura Soares Santos",
@@ -436,7 +499,9 @@
       "endereco": "Rua Roman, numero 18, Lima Verde",
       "cor": "Parda",
       "sexo": "Feminino",
-      "turma_id": "_j4ony85tv"
+      "turma_id": "_j4ony85tv",
+      "id": "04202866-ba0d-4443-8893-edb42cdbba62",
+      "status": "Ativo"
     },
     {
       "nome": "Maria Manuela Ribeiro de Sousa",
@@ -452,7 +517,8 @@
       "endereco": "Rua Cajá, número 24, Qd 30",
       "cor": "",
       "sexo": "Feminino",
-      "turma_id": "_j4ony85tv"
+      "turma_id": "_j4ony85tv",
+      "id": "f5323d28-5ef4-4785-bc8f-cd7c10eefe83"
     },
     {
       "nome": "Paulo Ravy Reis de Almeida",
@@ -467,7 +533,8 @@
       "endereco": "Rua da Ata, N°22, QD 12, Lima Verde",
       "cor": "Pardo",
       "sexo": "Masculino",
-      "turma_id": "_j4ony85tv"
+      "turma_id": "_j4ony85tv",
+      "id": "7cbae5ef-619b-45d9-b734-1028f1655c5e"
     },
     {
       "nome": "Pedro Henrique Oliveira dos Santos",
@@ -481,7 +548,9 @@
       "endereco": "Rua 04, Nº 22, Residencial Bom Negócio",
       "cor": "Pardo",
       "sexo": "Masculino",
-      "turma_id": "_j4ony85tv"
+      "turma_id": "_j4ony85tv",
+      "id": "7bd2996a-6b9a-41bb-a848-bb0e7567378a",
+      "status": "Ativo"
     },
     {
       "nome": "Pietro Kauã Oliveira Silva",
@@ -494,7 +563,9 @@
       "endereco": "Rua Cupuaçú, Nº 25, Lima Verde",
       "cor": "",
       "sexo": "Masculino",
-      "turma_id": "_j4ony85tv"
+      "turma_id": "_j4ony85tv",
+      "id": "fe019756-f756-459d-9bb4-9d9f8d0c2761",
+      "status": "Ativo"
     },
     {
       "nome": "Rebeca Ohanna de Castro Barros",
@@ -508,7 +579,9 @@
       "endereco": "Rua 09,Qd 11, N° 15, Res. Safira",
       "cor": "Parda",
       "sexo": "Feminino",
-      "turma_id": "_j4ony85tv"
+      "turma_id": "_j4ony85tv",
+      "id": "5b21e4a7-023b-4652-995d-955d48b83328",
+      "status": "Ativo"
     },
     {
       "nome": "Rui Guilherme Carvalho de Jesus Silva",
@@ -522,23 +595,26 @@
       "endereco": "Travessa do Bacuri. Nº01, Lima Verde",
       "cor": "Pardo",
       "sexo": "Masculino",
-      "turma_id": "_j4ony85tv"
+      "turma_id": "_j4ony85tv",
+      "id": "8905531c-6cdc-406e-8df6-670f71691b38",
+      "status": "Ativo"
     },
     {
       "nome": "Arthur Hazael Santos França",
       "cpf": "",
       "status": "Ativo",
+      "turma_id": "_7sx549f62",
       "nascimento": "08/06/2019",
+      "sexo": "Masculino",
       "mae": "Amanda Santos França",
       "pai": "",
       "telefone": [
         "970104519",
         "987356363"
       ],
-      "endereco": "Avenida da Laranja, Nº 77, Qs 15, Limka Verde",
+      "endereco": "Avenida da Laranja, Nº 77, Qd. 15, Lima Verde",
       "cor": "Pardo",
-      "sexo": "Masculino",
-      "turma_id": "_7sx549f62"
+      "id": "68702406-4e0d-4099-b14d-0ada7f75f843"
     },
     {
       "nome": "Brayan Dominic Gomes Aguiar",
@@ -552,7 +628,9 @@
       "endereco": "Rua do Cupuaçú, S/N, Lima Verde",
       "cor": "Pardo",
       "sexo": "Masculino",
-      "turma_id": "_7sx549f62"
+      "turma_id": "_7sx549f62",
+      "id": "f265014f-fc5b-48d2-923f-fe813d083dfe",
+      "status": "Ativo"
     },
     {
       "nome": "Davi Luis Oliveira de Jesus",
@@ -566,7 +644,9 @@
       "endereco": "Rua 41, Nº41 A, Res. Safira",
       "cor": "Branco",
       "sexo": "Masculino",
-      "turma_id": "_7sx549f62"
+      "turma_id": "_7sx549f62",
+      "id": "2a0680d4-93b8-43eb-8259-c6dc120679f6",
+      "status": "Ativo"
     },
     {
       "nome": "Evelyn Beatriz dos Santos Ribeiro",
@@ -580,7 +660,9 @@
       "endereco": "Rua Açai, Nº 12 , QD 34, Lima Verde",
       "cor": "Parda",
       "sexo": "Feminino",
-      "turma_id": "_7sx549f62"
+      "turma_id": "_7sx549f62",
+      "id": "ff547183-85c8-4f25-a49d-fe45e6585e71",
+      "status": "Ativo"
     },
     {
       "nome": "Iza Moana Aguiar Menezes",
@@ -594,7 +676,9 @@
       "endereco": "Rua 11, N°19, Qd 13, Residencial Safira",
       "cor": "Parda",
       "sexo": "Feminino",
-      "turma_id": "_7sx549f62"
+      "turma_id": "_7sx549f62",
+      "id": "fcf06610-639d-4b22-afde-f4f0e654e867",
+      "status": "Ativo"
     },
     {
       "nome": "Jessé Carlos Lindoso Souza",
@@ -608,7 +692,9 @@
       "endereco": "Rua Girassol,N° 11A, Lima Verde",
       "cor": "Branco",
       "sexo": "Masculino",
-      "turma_id": "_7sx549f62"
+      "turma_id": "_7sx549f62",
+      "id": "de3a7fc7-b82d-4edb-b22d-cd32dc0dd735",
+      "status": "Ativo"
     },
     {
       "nome": "Júlia Sophia Alves Cidrini",
@@ -622,7 +708,9 @@
       "endereco": "Rua 33,Nº 20, Qd 29, Res. Safira",
       "cor": "Branca",
       "sexo": "Feminino",
-      "turma_id": "_7sx549f62"
+      "turma_id": "_7sx549f62",
+      "id": "e4543597-3070-483c-8247-ff9c11d6ef20",
+      "status": "Ativo"
     },
     {
       "nome": "Karlos Antonio Lima Oliveira",
@@ -635,7 +723,9 @@
       "endereco": "Rua do Açaí, Nº 22, Lima Verde",
       "cor": "Pardo",
       "sexo": "Masculino",
-      "turma_id": "_7sx549f62"
+      "turma_id": "_7sx549f62",
+      "id": "4a95e409-dac1-46fb-8cc8-a3bb1d72036c",
+      "status": "Ativo"
     },
     {
       "nome": "Maria Alice Silva dos Santos",
@@ -649,7 +739,9 @@
       "endereco": "Rua da Manga, Nº 32, Lima Verde",
       "cor": "Parda",
       "sexo": "Feminino",
-      "turma_id": "_7sx549f62"
+      "turma_id": "_7sx549f62",
+      "id": "df3c41d5-8ef1-4d4a-a117-bb9c48bd2fa3",
+      "status": "Ativo"
     },
     {
       "nome": "Maria Emanuelly da Silva Diniz",
@@ -663,7 +755,9 @@
       "endereco": "Rua Açai, Nº09,Qd34,Lima Verde,",
       "cor": "Parda",
       "sexo": "Feminino",
-      "turma_id": "_7sx549f62"
+      "turma_id": "_7sx549f62",
+      "id": "00818edb-a9b4-4ddc-9a95-dc5d2d2f2e9d",
+      "status": "Ativo"
     },
     {
       "nome": "Micaela Ferreira Matos",
@@ -677,7 +771,9 @@
       "endereco": "Rua do Cupuaçú, N° 14, QD17, Lima Verde",
       "cor": "Branca",
       "sexo": "Feminino",
-      "turma_id": "_7sx549f62"
+      "turma_id": "_7sx549f62",
+      "id": "b796c080-975b-4062-997f-141c2f9d2fea",
+      "status": "Ativo"
     },
     {
       "nome": "Moises Jesus de Moraes",
@@ -690,7 +786,9 @@
       "endereco": "Rua Bom Negócio, nº20 ,Cajueiro",
       "cor": "Pardo",
       "sexo": "Masculino",
-      "turma_id": "_7sx549f62"
+      "turma_id": "_7sx549f62",
+      "id": "449e8214-bbce-49ee-b1b3-ea5964282c0c",
+      "status": "Ativo"
     },
     {
       "nome": "Olívia Aguiar Souza",
@@ -703,11 +801,13 @@
       "endereco": "Rua 03, Nº11, Qda 05, Residencial Safira",
       "cor": "Branca",
       "sexo": "Feminino",
-      "turma_id": "_7sx549f62"
+      "turma_id": "_7sx549f62",
+      "id": "f05c9e7e-b93c-412e-b92a-f821a3678063",
+      "status": "Ativo"
     },
     {
       "nome": "Rebeca Lopes Pavão",
-      "nascimento": "21/04//2019",
+      "nascimento": "21/04/2019",
       "mae": "Luciana de Jesus Martins Lopes Pavão",
       "pai": "Marcos Aurelio Fernandes Pavão",
       "telefone": [
@@ -716,7 +816,9 @@
       "endereco": "Rua 08,Nº07,QD 16, Morada Nova",
       "cor": "Parda",
       "sexo": "Feminino",
-      "turma_id": "_7sx549f62"
+      "turma_id": "_7sx549f62",
+      "id": "b78ea573-8598-4b4f-a045-5752aea2bb17",
+      "status": "Ativo"
     },
     {
       "nome": "Agatha Rebeca de Paula Santos",
@@ -730,7 +832,9 @@
       "endereco": "Rua 20,QD21,nº58,Res.Safira",
       "cor": "Parda",
       "sexo": "Feminino",
-      "turma_id": "_498iffqew"
+      "turma_id": "_498iffqew",
+      "id": "7ab77360-e6f5-4b0a-a4ee-ae5f4f23df0e",
+      "status": "Ativo"
     },
     {
       "nome": "Clecio Levy Santos Ramos",
@@ -746,7 +850,8 @@
       "endereco": "Rua 37, Nº 04, Qd 33, Res. Safira",
       "cor": "Pardo",
       "sexo": "Masculino",
-      "turma_id": "_498iffqew"
+      "turma_id": "_498iffqew",
+      "id": "f28eb4ba-74d1-4eee-a56b-90be1cc629b5"
     },
     {
       "nome": "Daniely Sophia Pinheiro",
@@ -759,7 +864,9 @@
       "endereco": "Rua 03,S/N, Lot. Renascer",
       "cor": "Parda",
       "sexo": "Feminino",
-      "turma_id": "_498iffqew"
+      "turma_id": "_498iffqew",
+      "id": "67845485-c6ff-4c72-a6d0-0cc5e7d09d8a",
+      "status": "Ativo"
     },
     {
       "nome": "Enzo Gabriel Rubim Sá Menezes",
@@ -776,7 +883,8 @@
       "endereco": "Paraiso Rosa, Estrada de Ribamar",
       "cor": "Parda",
       "sexo": "Masculino",
-      "turma_id": "_498iffqew"
+      "turma_id": "_498iffqew",
+      "id": "ea66f884-8a42-409f-be24-4ef82f0989ae"
     },
     {
       "nome": "Ericka Vitoria Barbosa da Silva",
@@ -786,10 +894,12 @@
       "telefone": [
         "981232828"
       ],
-      "endereco": "Ana Karine Barbosa Amorim",
+      "endereco": "",
       "cor": "Parda",
       "sexo": "Feminino",
-      "turma_id": "_498iffqew"
+      "turma_id": "_498iffqew",
+      "id": "f2f796da-a580-4bb3-b9be-bdecfb66939e",
+      "status": "Ativo"
     },
     {
       "nome": "Gabriel Jesus Mendes dos Santos",
@@ -802,13 +912,17 @@
       "endereco": "",
       "cor": "Parda",
       "sexo": "Masculino",
-      "turma_id": "_498iffqew"
+      "turma_id": "_498iffqew",
+      "id": "f264cfb0-d6bb-4a97-ae0f-7dd862f63f7d",
+      "status": "Ativo"
     },
     {
       "nome": "Helena Valentina França Martins",
       "cpf": "11147021376",
       "status": "Inativo",
+      "turma_id": "_498iffqew",
       "nascimento": "11/12/2019",
+      "sexo": "Feminino",
       "mae": "Erica França Martins",
       "pai": "",
       "telefone": [
@@ -816,8 +930,10 @@
       ],
       "endereco": "Rua Pitanga, Lima Verde, 65130000",
       "cor": "",
-      "sexo": "Feminino",
-      "turma_id": "_498iffqew"
+      "observacoes": "Aluno transferido. A ficha de matrícula não foi assinada pq estava para o censo.",
+      "data_matricula": "",
+      "data_transferencia": "",
+      "id": "38d2ea75-13f3-4aca-bbf7-767388dde66d"
     },
     {
       "nome": "Heitor Samuel Estrela Rodriguês",
@@ -830,10 +946,11 @@
         "985190577",
         "988262326"
       ],
-      "endereco": "Evelyn Brenda Ribeiro Estrela",
+      "endereco": "",
       "cor": "Negro",
       "sexo": "Masculino",
-      "turma_id": "_498iffqew"
+      "turma_id": "_498iffqew",
+      "id": "bb9a7a91-7a0e-42bc-bcdd-85744f3d1060"
     },
     {
       "nome": "Icaro Diogo da Silva Sousa",
@@ -847,7 +964,9 @@
       "endereco": "Rua Muricis,Ap105,Lima Verde",
       "cor": "Pardo",
       "sexo": "Masculino",
-      "turma_id": "_498iffqew"
+      "turma_id": "_498iffqew",
+      "id": "1c201c6b-da88-410a-af4d-e68dd493d4de",
+      "status": "Ativo"
     },
     {
       "nome": "Juliana Castelo Branco Araújo Pinheiro",
@@ -860,7 +979,9 @@
       "endereco": "Estrada de Ribamar, Condominio Riviera 1, Sítio Saramanta,",
       "cor": "Negra",
       "sexo": "Feminino",
-      "turma_id": "_498iffqew"
+      "turma_id": "_498iffqew",
+      "id": "3a8f972c-7193-45db-a82d-23fc7ed0ff6d",
+      "status": "Ativo"
     },
     {
       "nome": "José Gustavo Marley de Jesus Sousa",
@@ -875,7 +996,8 @@
       "endereco": "Rua do Morango, nº43D, Res. Ariostra, Morada Nova",
       "cor": "Pardo",
       "sexo": "Masculino",
-      "turma_id": "_498iffqew"
+      "turma_id": "_498iffqew",
+      "id": "ac46eae7-c381-4373-9e22-69c02b9c2937"
     },
     {
       "nome": "Kauã Victor Lindoso Caldas",
@@ -888,7 +1010,9 @@
       "endereco": "Rua da Manga,QD08,nº08B,Lima Verde",
       "cor": "Branco",
       "sexo": "Masculino",
-      "turma_id": "_498iffqew"
+      "turma_id": "_498iffqew",
+      "id": "7a54c9ff-6358-4937-bf47-4a0be3bb786b",
+      "status": "Ativo"
     },
     {
       "nome": "Lucas Manoel Ramos Nascimento",
@@ -902,7 +1026,9 @@
       "endereco": "Rua 05, Qd 07, N° 01, Residencial Safira",
       "cor": "Pardo",
       "sexo": "Masculino",
-      "turma_id": "_498iffqew"
+      "turma_id": "_498iffqew",
+      "id": "624b221d-e1db-4427-96fe-2561fc4be14b",
+      "status": "Ativo"
     },
     {
       "nome": "Nathércia Madeira dos Santos",
@@ -916,7 +1042,9 @@
       "endereco": "Av. Princesa Diana , N°27, QD 37, Vila kiola",
       "cor": "Negra",
       "sexo": "Feminino",
-      "turma_id": "_498iffqew"
+      "turma_id": "_498iffqew",
+      "id": "d32c2442-461b-44be-83e2-78c8fa3656f0",
+      "status": "Ativo"
     },
     {
       "nome": "Paulo Sergio Santos Samines",
@@ -931,7 +1059,8 @@
       "endereco": "Est. Cajueiro, S/N, Ap304, Bl19, Cond. Riviera 3, Cajueiro",
       "cor": "Pardo",
       "sexo": "Masculino",
-      "turma_id": "_498iffqew"
+      "turma_id": "_498iffqew",
+      "id": "3ffa8bf8-b607-4663-a605-0f6ecc4f3a1f"
     },
     {
       "nome": "Pérola Ferreira da Silva",
@@ -945,7 +1074,9 @@
       "endereco": "Rua Princesa Anastácia, Nº12, Kiola",
       "cor": "Parda",
       "sexo": "Feminino",
-      "turma_id": "_498iffqew"
+      "turma_id": "_498iffqew",
+      "id": "2536ae38-517c-4bd9-ae3f-75ac60a83c4e",
+      "status": "Ativo"
     },
     {
       "nome": "Stefhanny Lorrany Silva Pereira",
@@ -958,7 +1089,9 @@
       "endereco": "Rua 06,Qd 09, Nº07, Morada Nova",
       "cor": "Parda",
       "sexo": "Feminino",
-      "turma_id": "_498iffqew"
+      "turma_id": "_498iffqew",
+      "id": "f2642862-0a13-466d-90eb-b06105034b59",
+      "status": "Ativo"
     },
     {
       "nome": "Stella Silva e Silva",
@@ -972,7 +1105,9 @@
       "endereco": "Rua Açaí, número 02, Lima Verde",
       "cor": "Parda",
       "sexo": "Feminino",
-      "turma_id": "_498iffqew"
+      "turma_id": "_498iffqew",
+      "id": "42506f09-d8e4-4cc1-b18b-da681a203b62",
+      "status": "Ativo"
     },
     {
       "nome": "Valentina Beatriz da Silva Araújo",
@@ -983,7 +1118,9 @@
       "endereco": "Est. de Ribamar,1,Bloco 15,, Cond. Riviera I,Açaizal Grande",
       "cor": "Parda",
       "sexo": "Feminino",
-      "turma_id": "_498iffqew"
+      "turma_id": "_498iffqew",
+      "id": "da7ddf1a-4882-4ace-8021-c1d4d9132c5f",
+      "status": "Ativo"
     },
     {
       "nome": "Alícia Endely Pereira Serejo",
@@ -997,7 +1134,9 @@
       "endereco": "Rua Princesa Tatiane, Nº 27, Qd 37, Vila Kiola",
       "cor": "Parda",
       "sexo": "Feminino",
-      "turma_id": "_xgvrvq5gm"
+      "turma_id": "_xgvrvq5gm",
+      "id": "43fc3a9c-f375-4a09-86dc-17c9c2537f80",
+      "status": "Ativo"
     },
     {
       "nome": "Anthonny Levi Araujo Gomes",
@@ -1013,7 +1152,8 @@
       "endereco": "Estrada de Ribamar, Km 07, Nº 04, Kiola",
       "cor": "Pardo",
       "sexo": "Masculino",
-      "turma_id": "_xgvrvq5gm"
+      "turma_id": "_xgvrvq5gm",
+      "id": "9ea89f36-763d-4477-acb4-45d966e2ab65"
     },
     {
       "nome": "Davi Lucas Costa Frazão",
@@ -1026,7 +1166,9 @@
       "endereco": "Rua 19,Qd 39, N° 16, Residencial Safira",
       "cor": "Parda",
       "sexo": "Masculino",
-      "turma_id": "_xgvrvq5gm"
+      "turma_id": "_xgvrvq5gm",
+      "id": "ddc6d654-ce90-4882-baf9-8a49b8de58fd",
+      "status": "Ativo"
     },
     {
       "nome": "Davi Lucas Ribeiro Barbosa",
@@ -1040,7 +1182,9 @@
       "endereco": "Rua Maria, Nº 07,Qd 32, Lima Verde",
       "cor": "Branco",
       "sexo": "Masculino",
-      "turma_id": "_xgvrvq5gm"
+      "turma_id": "_xgvrvq5gm",
+      "id": "c651fa4e-d57c-472e-a6a4-47ca98a5f08d",
+      "status": "Ativo"
     },
     {
       "nome": "Ennzo Mhyguel Sá Fonseca",
@@ -1056,7 +1200,8 @@
       "endereco": "Estrada de Ribamar, Nº 53, Ubatuba",
       "cor": "Negro",
       "sexo": "Masculino",
-      "turma_id": "_xgvrvq5gm"
+      "turma_id": "_xgvrvq5gm",
+      "id": "8280397e-c652-4402-9293-c5100e28a3b1"
     },
     {
       "nome": "Hagi Guilherme dos Santos",
@@ -1072,7 +1217,8 @@
       "endereco": "Rua do Girassol, N° 07, Rua 06, Morada Nova",
       "cor": "Pardo",
       "sexo": "Masculino",
-      "turma_id": "_xgvrvq5gm"
+      "turma_id": "_xgvrvq5gm",
+      "id": "9b2dcef8-9c88-4d61-958c-c3863237b727"
     },
     {
       "nome": "Isabellah Saphyra Macedo Castro",
@@ -1085,7 +1231,9 @@
       "endereco": "Rua da Manga, Nº 09, Qd 04, Lima Verde",
       "cor": "Negro",
       "sexo": "Feminino",
-      "turma_id": "_xgvrvq5gm"
+      "turma_id": "_xgvrvq5gm",
+      "id": "e8437280-ed97-42b1-8b43-51af3da14104",
+      "status": "Ativo"
     },
     {
       "nome": "Isis Arielly Menezes Sampaio",
@@ -1099,7 +1247,9 @@
       "endereco": "Rua 06, Qd 09, Nº 07, Morada Nova",
       "cor": "Parda",
       "sexo": "Feminino",
-      "turma_id": "_xgvrvq5gm"
+      "turma_id": "_xgvrvq5gm",
+      "id": "fe40f335-716f-4156-89aa-2a9cc4e022e7",
+      "status": "Ativo"
     },
     {
       "nome": "Lunna Raphise Serra de Lima",
@@ -1112,7 +1262,9 @@
       "endereco": "Rua Princesa Tatiana, N° 01, Vila Kiola",
       "cor": "Parda",
       "sexo": "Feminino",
-      "turma_id": "_xgvrvq5gm"
+      "turma_id": "_xgvrvq5gm",
+      "id": "c1f4d1fd-a48a-419f-ac4f-d1be31935b70",
+      "status": "Ativo"
     },
     {
       "nome": "Lara Helena Silva Gonçalves",
@@ -1126,7 +1278,9 @@
       "endereco": "Rua 02, Residencial Bom Sucesso, Lima Verde",
       "cor": "Parda",
       "sexo": "Feminino",
-      "turma_id": "_xgvrvq5gm"
+      "turma_id": "_xgvrvq5gm",
+      "id": "f751c8cc-20a2-492d-94db-693c2655de4e",
+      "status": "Ativo"
     },
     {
       "nome": "Luís Benício Cruz Menezes",
@@ -1140,7 +1294,9 @@
       "endereco": "Rua 31, Nº 16, Qd 27, Lot. Safira",
       "cor": "Pardo",
       "sexo": "Masculino",
-      "turma_id": "_xgvrvq5gm"
+      "turma_id": "_xgvrvq5gm",
+      "id": "3917611b-b6ca-4352-bb11-fb63ec25a612",
+      "status": "Ativo"
     },
     {
       "nome": "Luis Felipe Samenezes Eloi Belfort",
@@ -1156,7 +1312,8 @@
       "endereco": "Rua Açai, Nº09, Qd 34, Lima Verde",
       "cor": "Pardo",
       "sexo": "Masculino",
-      "turma_id": "_xgvrvq5gm"
+      "turma_id": "_xgvrvq5gm",
+      "id": "80430ac9-60ed-4d9a-bbaf-3e1f4822658f"
     },
     {
       "nome": "Pethos Castiel Rabelo Corrêa",
@@ -1170,7 +1327,9 @@
       "endereco": "Rua da Jaca, número 45. QD 08, Lima Verde",
       "cor": "Parda",
       "sexo": "Masculino",
-      "turma_id": "_xgvrvq5gm"
+      "turma_id": "_xgvrvq5gm",
+      "id": "02a2afce-432d-433b-be05-9349de7a0b84",
+      "status": "Ativo"
     },
     {
       "nome": "Samira Eloá Mendes dos Santos",
@@ -1184,7 +1343,9 @@
       "endereco": "Rua Laranjeira, Nº 09, Qd17, Lima Verde",
       "cor": "Parda",
       "sexo": "Feminino",
-      "turma_id": "_xgvrvq5gm"
+      "turma_id": "_xgvrvq5gm",
+      "id": "6da65a09-8313-498d-b6c7-b77d7a672c32",
+      "status": "Ativo"
     },
     {
       "nome": "Samuel Carvalho Rabelo",
@@ -1198,7 +1359,9 @@
       "endereco": "Av. 02, Nº 742, Novo Paço",
       "cor": "Pardo",
       "sexo": "Masculino",
-      "turma_id": "_xgvrvq5gm"
+      "turma_id": "_xgvrvq5gm",
+      "id": "0bb16075-a887-47e6-90ed-a10429c959b2",
+      "status": "Ativo"
     },
     {
       "nome": "Zaion Luís Silva Soares",
@@ -1212,7 +1375,9 @@
       "endereco": "Av. Princesa Diana, S/N, Qd 36",
       "cor": "Branco",
       "sexo": "Masculino",
-      "turma_id": "_xgvrvq5gm"
+      "turma_id": "_xgvrvq5gm",
+      "id": "bf5f0624-43d7-4094-87b6-95f3e96d2372",
+      "status": "Ativo"
     },
     {
       "nome": "Alice Costa dos Santos",
@@ -1225,7 +1390,9 @@
       "endereco": "Rua 02, Qd M, Lote Saramanta",
       "cor": "Preta",
       "sexo": "Feminino",
-      "turma_id": "_91fwgzfjx"
+      "turma_id": "_91fwgzfjx",
+      "id": "19ab99b6-5b1e-48d1-b1eb-68ff74cdbff7",
+      "status": "Ativo"
     },
     {
       "nome": "Arthur Serra Ferreira",
@@ -1239,11 +1406,17 @@
       "endereco": "Rua princesa Silvana, N°14, Vila Kiola",
       "cor": "Pardo",
       "sexo": "Masculino",
-      "turma_id": "_91fwgzfjx"
+      "turma_id": "_91fwgzfjx",
+      "id": "770d466d-ddfd-4501-97ae-a7edd4748d1f",
+      "status": "Ativo"
     },
     {
-      "nome": "Caio Duarte Everton",
+      "nome": "Caio Duarte Everton (29/09)",
+      "cpf": "",
+      "status": "Transferido",
+      "turma_id": "_91fwgzfjx",
       "nascimento": "24/12/2020",
+      "sexo": "Masculino",
       "mae": "Francyene Matos Duarte",
       "pai": "Edvaldo das Neves Mendes Everton",
       "telefone": [
@@ -1252,8 +1425,10 @@
       ],
       "endereco": "Rua do Saputi, Nº 12, Lima verde",
       "cor": "Pardo",
-      "sexo": "Masculino",
-      "turma_id": "_91fwgzfjx"
+      "observacoes": "",
+      "data_matricula": "",
+      "data_transferencia": "29/09/2025",
+      "id": "15543858-e525-41f3-8a23-a43e44157423"
     },
     {
       "nome": "Clara Sophia Salazar Pereira",
@@ -1266,7 +1441,9 @@
       "endereco": "Rua Princesa Silvana, S/N, QD 31, Vila kiola",
       "cor": "Preta",
       "sexo": "Feminino",
-      "turma_id": "_91fwgzfjx"
+      "turma_id": "_91fwgzfjx",
+      "id": "1a349448-69f2-42d6-9d38-3da9bcaf067b",
+      "status": "Ativo"
     },
     {
       "nome": "Emilly Beatriz de Jesus Vales",
@@ -1280,7 +1457,9 @@
       "endereco": "Rua Muricis, N° 29, Qd 30, Lima Verde",
       "cor": "Parda",
       "sexo": "Feminino",
-      "turma_id": "_91fwgzfjx"
+      "turma_id": "_91fwgzfjx",
+      "id": "f5e14ddb-e929-4bbc-8077-75a1c4b4edc8",
+      "status": "Ativo"
     },
     {
       "nome": "Gael Gomes Moreno",
@@ -1294,7 +1473,9 @@
       "endereco": "Rua Bom Negócio, N°05,Lt05, Qd 25, Cajueiro",
       "cor": "Branco",
       "sexo": "Masculino",
-      "turma_id": "_91fwgzfjx"
+      "turma_id": "_91fwgzfjx",
+      "id": "5407b66a-467b-46b5-bf2e-cddacf7adf77",
+      "status": "Ativo"
     },
     {
       "nome": "Heitor Marques de Oliveira",
@@ -1308,7 +1489,9 @@
       "endereco": "Rua da Manga, Qd 04, N°09, Lima Verde",
       "cor": "Pardo",
       "sexo": "Masculino",
-      "turma_id": "_91fwgzfjx"
+      "turma_id": "_91fwgzfjx",
+      "id": "a0acfe55-8a5d-4484-acf1-39a90812bf84",
+      "status": "Ativo"
     },
     {
       "nome": "Heitor Pereira Duarte",
@@ -1321,7 +1504,9 @@
       "endereco": "Rua 47, nº 71, Residencial Safira",
       "cor": "Branco",
       "sexo": "Masculino",
-      "turma_id": "_91fwgzfjx"
+      "turma_id": "_91fwgzfjx",
+      "id": "2aa35132-c0af-4d47-aba7-69b75a73d2a2",
+      "status": "Ativo"
     },
     {
       "nome": "Ícáro Roberto Costa dos Santos",
@@ -1335,7 +1520,9 @@
       "endereco": "Rua 04, S/N, Residencial Bom Negócio",
       "cor": "Negro",
       "sexo": "Masculino",
-      "turma_id": "_91fwgzfjx"
+      "turma_id": "_91fwgzfjx",
+      "id": "959a63c4-2215-4192-ba6f-5f4ec35db2d1",
+      "status": "Ativo"
     },
     {
       "nome": "Jonas Júnior Miguens Pinheiro",
@@ -1349,7 +1536,9 @@
       "endereco": "Condominio Arthur José, Rua 01, Qd 05,N°1315, Morada Nova 01",
       "cor": "Branco",
       "sexo": "Masculino",
-      "turma_id": "_91fwgzfjx"
+      "turma_id": "_91fwgzfjx",
+      "id": "0ddb4e97-4200-46a8-a9b3-53c28f240245",
+      "status": "Ativo"
     },
     {
       "nome": "Kemilly Sophia Silva de Carvalho",
@@ -1362,7 +1551,9 @@
       "endereco": "Travessa do Bacuri, Lima Verde",
       "cor": "Branca",
       "sexo": "Feminino",
-      "turma_id": "_91fwgzfjx"
+      "turma_id": "_91fwgzfjx",
+      "id": "1e79bc4d-c8f0-4181-8f0c-5bc6913350dc",
+      "status": "Ativo"
     },
     {
       "nome": "Nicolas Daniel Pereira Luna",
@@ -1375,7 +1566,9 @@
       "endereco": "Rua do Girassol, QD H, Nº 12, Lima Verde",
       "cor": "Pardo",
       "sexo": "Masculino",
-      "turma_id": "_91fwgzfjx"
+      "turma_id": "_91fwgzfjx",
+      "id": "d5bc942b-eb7f-4eec-be77-82fa803f31dc",
+      "status": "Ativo"
     },
     {
       "nome": "Nicolle Sophia Martins Silva",
@@ -1389,7 +1582,9 @@
       "endereco": "Rua Princesa Estefane, Nº16, Vila Kiola",
       "cor": "Parda",
       "sexo": "Feminino",
-      "turma_id": "_91fwgzfjx"
+      "turma_id": "_91fwgzfjx",
+      "id": "04619899-427d-4359-a792-d21650ed2563",
+      "status": "Ativo"
     },
     {
       "nome": "Pedro Ataíde de Jesus da Silva Viana",
@@ -1403,7 +1598,9 @@
       "endereco": "Rua da Manga, Nº 01, Qd 01, Lima Verde",
       "cor": "Branco",
       "sexo": "Masculino",
-      "turma_id": "_91fwgzfjx"
+      "turma_id": "_91fwgzfjx",
+      "id": "1d0ab6bf-deca-4803-a7df-9cb3124505f0",
+      "status": "Ativo"
     },
     {
       "nome": "Samuel Santiago dos Santos",
@@ -1419,7 +1616,8 @@
       "endereco": "Est. Cajueiro, S/N, Ap 03, Bl 19, Cond.Res. Riviera",
       "cor": "Branco",
       "sexo": "Masculino",
-      "turma_id": "_91fwgzfjx"
+      "turma_id": "_91fwgzfjx",
+      "id": "4623ea98-209d-45cc-bc23-4a7ba14fb661"
     },
     {
       "nome": "Acsa Vitória Sampaio Cardoso",
@@ -1432,7 +1630,9 @@
       "endereco": "Rua da Ata, nº02, QD12, Lima Verde",
       "cor": "Branca",
       "sexo": "Feminino",
-      "turma_id": "_zvb95auij"
+      "turma_id": "_zvb95auij",
+      "id": "77c8b543-cf20-4e71-a358-6eb41a46ab41",
+      "status": "Ativo"
     },
     {
       "nome": "Aércio Luís Martins Soares Filho",
@@ -1446,7 +1646,9 @@
       "endereco": "Av. Princesa Diana S/N, QD 36, Kiola",
       "cor": "Branco",
       "sexo": "Masculino",
-      "turma_id": "_zvb95auij"
+      "turma_id": "_zvb95auij",
+      "id": "6b5265cc-11d5-4237-b755-e65bf21cc21f",
+      "status": "Ativo"
     },
     {
       "nome": "Bruna Fernanda Gomes Barbosa",
@@ -1460,7 +1662,9 @@
       "endereco": "Avenida da Laranja, N° 12, Lima Verde",
       "cor": "",
       "sexo": "Feminino",
-      "turma_id": "_zvb95auij"
+      "turma_id": "_zvb95auij",
+      "id": "ce0c15aa-7768-4968-a5fd-30bed2ff6369",
+      "status": "Ativo"
     },
     {
       "nome": "Débora Castro de Almeida",
@@ -1475,7 +1679,9 @@
       "endereco": "Est. De Ribamar, Ap 202,BL18,Cond. Praias Belas, Maiobinha.",
       "cor": "Parda",
       "sexo": "Feminino",
-      "turma_id": "_zvb95auij"
+      "turma_id": "_zvb95auij",
+      "id": "bf02ee83-67cd-43b3-9db1-2d7bfda06f1b",
+      "status": "Ativo"
     },
     {
       "nome": "Gael Youssef Castro Araújo",
@@ -1489,7 +1695,9 @@
       "endereco": "Rua 19, Nº 03, QD 41Residencial Safira",
       "cor": "Pardo",
       "sexo": "Masculino",
-      "turma_id": "_zvb95auij"
+      "turma_id": "_zvb95auij",
+      "id": "5c38700e-f8db-4ebe-b0a2-50f4bdf50106",
+      "status": "Ativo"
     },
     {
       "nome": "Helize Sousa dos Santos",
@@ -1503,7 +1711,9 @@
       "endereco": "Rua Muricis, nº12, Lima Verde",
       "cor": "Branca",
       "sexo": "Feminino",
-      "turma_id": "_zvb95auij"
+      "turma_id": "_zvb95auij",
+      "id": "08fbd949-71cb-407d-8fc4-6d32454a85b9",
+      "status": "Ativo"
     },
     {
       "nome": "Iris Emanuelly Menezes Sampaio",
@@ -1517,7 +1727,9 @@
       "endereco": "Rua 06, Qd 09, N° 07, Morada Nova",
       "cor": "Branca",
       "sexo": "Feminino",
-      "turma_id": "_zvb95auij"
+      "turma_id": "_zvb95auij",
+      "id": "73b32919-3259-4e98-99bc-1cdd55b9b344",
+      "status": "Ativo"
     },
     {
       "nome": "João Gabriel Araújo Pereira",
@@ -1531,7 +1743,9 @@
       "endereco": "Estrada de Ribamar, nº 04, Ap 01, Bl 01, Kiola",
       "cor": "Parda",
       "sexo": "Masculino",
-      "turma_id": "_zvb95auij"
+      "turma_id": "_zvb95auij",
+      "id": "1b456601-c5ab-4c51-a292-95b8ca6ba718",
+      "status": "Ativo"
     },
     {
       "nome": "Jonathan Veloso Morais",
@@ -1547,7 +1761,8 @@
       "endereco": "Av. Laranja, Loteamento Safira, Nº 160, Lima Verde",
       "cor": "Pardo",
       "sexo": "Masculino",
-      "turma_id": "_zvb95auij"
+      "turma_id": "_zvb95auij",
+      "id": "66f6fbf8-2bc1-432d-a94b-8c4bdfa3d0c3"
     },
     {
       "nome": "Lais Cândida Diniz Silva",
@@ -1561,7 +1776,9 @@
       "endereco": "Rua Açai, Nº28 A, Lima Verde",
       "cor": "Branca",
       "sexo": "Feminino",
-      "turma_id": "_zvb95auij"
+      "turma_id": "_zvb95auij",
+      "id": "f0988830-b6f1-4ba0-b8f6-ce0022fab249",
+      "status": "Ativo"
     },
     {
       "nome": "Luis Miguel Carvalho Mendonça Ferreira",
@@ -1575,7 +1792,9 @@
       "endereco": "Rua Cupuaçú, QD 34, Nº 20, Lima Verde",
       "cor": "Branco",
       "sexo": "Masculino",
-      "turma_id": "_zvb95auij"
+      "turma_id": "_zvb95auij",
+      "id": "5b9c9efa-9e19-4168-9d97-d0927913fb84",
+      "status": "Ativo"
     },
     {
       "nome": "Pedro Lucca do Nascimento Rocha",
@@ -1589,7 +1808,9 @@
       "endereco": "Rua Limão, QD 24, Nº 28, Lima Verde",
       "cor": "Branco",
       "sexo": "Masculino",
-      "turma_id": "_zvb95auij"
+      "turma_id": "_zvb95auij",
+      "id": "d16a6db6-281b-4006-9333-e524c27e62cd",
+      "status": "Ativo"
     },
     {
       "nome": "Rubens de Jesus Silva Costa",
@@ -1603,7 +1824,9 @@
       "endereco": "Rua 04 A, QD 14, Morada Nova",
       "cor": "Pardo",
       "sexo": "Masculino",
-      "turma_id": "_zvb95auij"
+      "turma_id": "_zvb95auij",
+      "id": "29356529-44c2-4f1b-8283-9354814cae8a",
+      "status": "Ativo"
     },
     {
       "nome": "Thayla Sophia Santos de Sousa",
@@ -1617,7 +1840,9 @@
       "endereco": "Rua Cajueiro, Lt 06, Lima Verde, Nº06",
       "cor": "Parda",
       "sexo": "Feminino",
-      "turma_id": "_zvb95auij"
+      "turma_id": "_zvb95auij",
+      "id": "b4598580-23fb-4b94-8fae-e86642fb9af0",
+      "status": "Ativo"
     },
     {
       "nome": "Ycaro Gabriel Marreiros Vieira",
@@ -1633,27 +1858,34 @@
       "endereco": "Rua da Laranja, Nº 09, Lima Verde",
       "cor": "Pardo",
       "sexo": "Masculino",
-      "turma_id": "_zvb95auij"
+      "turma_id": "_zvb95auij",
+      "id": "ddc96c7f-9527-4e49-a00c-0ad742ab710f"
     },
     {
       "nome": "Aghata Emanuelly Serra Costa",
       "cpf": "",
       "status": "Ativo",
+      "turma_id": "_f2e9qkzo2",
       "nascimento": "08/03/2019",
       "sexo": "Feminino",
       "mae": "Cristiane Carneiro Serra",
       "pai": "Ferdinan Vieira Costa",
       "telefone": [
+        "98184224",
         "99711019"
       ],
       "endereco": "Rua Princesa Tatiana, Nº02, Vila Kiola",
       "cor": "Parda",
-      "turma_id": "_f2e9qkzo2"
+      "observacoes": "Número da mãe atualizado: 98184224 (Esse número parece invalido)",
+      "data_matricula": "",
+      "data_transferencia": "",
+      "id": "c048b0ce-70d8-4241-abea-98764f23cdd3"
     },
     {
       "nome": "Aghatha Valentina Pereira Rodrigues",
       "cpf": "",
       "status": "Ativo",
+      "turma_id": "_f2e9qkzo2",
       "nascimento": "07/02/2019",
       "sexo": "Feminino",
       "mae": "Yasmin Rodrigues Ribeiro",
@@ -1664,7 +1896,8 @@
       ],
       "endereco": "Rua 15, N° 11, QD 39, Res. Safira",
       "cor": "Parda",
-      "turma_id": "_f2e9qkzo2"
+      "observacoes": "",
+      "id": "8f9e7bd2-ffcd-43a6-8e60-27eb4f273967"
     },
     {
       "nome": "Arthur Alejandro Viegas Nina",
@@ -1679,7 +1912,8 @@
       ],
       "endereco": "Rua Girassol,nº18,Lima Verde",
       "cor": "Branco",
-      "turma_id": "_f2e9qkzo2"
+      "turma_id": "_f2e9qkzo2",
+      "id": "d6b0fdaf-1fb0-4931-81a8-c3be46a99667"
     },
     {
       "nome": "Arthur Eduardo Santos Ferreira",
@@ -1695,7 +1929,8 @@
       ],
       "endereco": "Rua 31,QD 29,nº17 Res. Safira",
       "cor": "Pardo",
-      "turma_id": "_f2e9qkzo2"
+      "turma_id": "_f2e9qkzo2",
+      "id": "c87785e1-1c28-41c0-8854-a09f2a33d026"
     },
     {
       "nome": "Aylla Emanuelle da Silva Malheiros",
@@ -1710,7 +1945,9 @@
       "endereco": "Av.Laranja,nº08,QD20,Lima Verde",
       "cor": "Parda",
       "sexo": "Feminino",
-      "turma_id": "_f2e9qkzo2"
+      "turma_id": "_f2e9qkzo2",
+      "id": "5d4748db-ea45-4719-b55b-28e37be21353",
+      "status": "Ativo"
     },
     {
       "nome": "Benjamim Lukas de Paula Santos",
@@ -1724,7 +1961,9 @@
       "endereco": "Rua 20, Qd 21, Nº 58, Residencial Safira",
       "cor": "Pardo",
       "sexo": "Masculino",
-      "turma_id": "_f2e9qkzo2"
+      "turma_id": "_f2e9qkzo2",
+      "id": "348cccf8-ee4e-4b67-9dd9-c4e26a8735b5",
+      "status": "Ativo"
     },
     {
       "nome": "Benjamin Moreira Alves",
@@ -1738,7 +1977,9 @@
       "endereco": "Rua Princesa Isabela, Vila Kiola",
       "cor": "Branco",
       "sexo": "Masculino",
-      "turma_id": "_f2e9qkzo2"
+      "turma_id": "_f2e9qkzo2",
+      "id": "9327b156-9c3f-4379-9031-3173f96288f3",
+      "status": "Ativo"
     },
     {
       "nome": "Davi Guilherme França Viana",
@@ -1751,7 +1992,9 @@
       "endereco": "Rua 01,QD01,nº34,Res.São João",
       "cor": "Parda",
       "sexo": "Masculino",
-      "turma_id": "_f2e9qkzo2"
+      "turma_id": "_f2e9qkzo2",
+      "id": "a35674ba-a5c4-43f7-a660-9d8861a51cb4",
+      "status": "Ativo"
     },
     {
       "nome": "Gustavo Costa Silva",
@@ -1765,7 +2008,9 @@
       "endereco": "",
       "cor": "Pardo",
       "sexo": "Masculino",
-      "turma_id": "_f2e9qkzo2"
+      "turma_id": "_f2e9qkzo2",
+      "id": "46b51ed5-1087-4711-bfb2-b30152ddeea4",
+      "status": "Ativo"
     },
     {
       "nome": "Hyanara Vitória Reis Silva",
@@ -1779,7 +2024,9 @@
       "endereco": "Av. Princesa Diana, Cond. Led II, Vila Kiola",
       "cor": "Parda",
       "sexo": "Feminino",
-      "turma_id": "_f2e9qkzo2"
+      "turma_id": "_f2e9qkzo2",
+      "id": "c5a54ab5-a926-4082-9d9d-838d129e4620",
+      "status": "Ativo"
     },
     {
       "nome": "João Guilherme da Silva Martins",
@@ -1793,7 +2040,9 @@
       "endereco": "Travessa 13, Qd I, Lot. Saramanta",
       "cor": "Pardo",
       "sexo": "Masculino",
-      "turma_id": "_f2e9qkzo2"
+      "turma_id": "_f2e9qkzo2",
+      "id": "bc2df9f4-38bd-46ae-a508-777bf2e27252",
+      "status": "Ativo"
     },
     {
       "nome": "José Denilson de Sousa Silva",
@@ -1809,7 +2058,8 @@
       "endereco": "Rua 05,nº10,QD14,Morada Nova",
       "cor": "Pardo",
       "sexo": "Masculino",
-      "turma_id": "_f2e9qkzo2"
+      "turma_id": "_f2e9qkzo2",
+      "id": "12a954b4-ddc9-4363-9700-7fb68a454480"
     },
     {
       "nome": "Kemilly de Moraes Rocha",
@@ -1823,21 +2073,30 @@
       "endereco": "Rua 01, Qd C, Nº 29, Residencial Saramanta",
       "cor": "Parda",
       "sexo": "Feminino",
-      "turma_id": "_f2e9qkzo2"
+      "turma_id": "_f2e9qkzo2",
+      "id": "d6cc7c26-9ae4-49f8-bfb9-a9b1cda07a4a",
+      "status": "Ativo"
     },
     {
       "nome": "Maria Heloisa Dutra Evangelista",
+      "cpf": "",
+      "status": "Ativo",
+      "turma_id": "_f2e9qkzo2",
       "nascimento": "05/12/2018",
+      "sexo": "Feminino",
       "mae": "Angra Cristina dos Santos Dutra",
       "pai": "Laecio Teixeira Evangelista",
       "telefone": [
         "999753394",
+        "985023691",
         "984423151"
       ],
       "endereco": "Rua 06,QD03,nº09,Morada Nova",
       "cor": "Branca",
-      "sexo": "Feminino",
-      "turma_id": "_f2e9qkzo2"
+      "observacoes": "",
+      "data_matricula": "",
+      "data_transferencia": "",
+      "id": "33df4285-8f22-4e1b-8b23-5226dd888e1f"
     },
     {
       "nome": "Maria Júlia Mendes Trindade",
@@ -1851,7 +2110,9 @@
       "endereco": "Rua da Jaca, Nº04,QD 16,Lima Verde",
       "cor": "Parda",
       "sexo": "Feminino",
-      "turma_id": "_f2e9qkzo2"
+      "turma_id": "_f2e9qkzo2",
+      "id": "bdaae213-1300-48ab-8406-5818a1c5ff56",
+      "status": "Ativo"
     },
     {
       "nome": "Maria Luiza Marques de Oliveira",
@@ -1865,7 +2126,9 @@
       "endereco": "Rua da Manga, Qd04, N° 25, Lima Verde",
       "cor": "Parda",
       "sexo": "Feminino",
-      "turma_id": "_f2e9qkzo2"
+      "turma_id": "_f2e9qkzo2",
+      "id": "0bf9808b-9968-4ab8-84dc-064f41cb0c6e",
+      "status": "Ativo"
     },
     {
       "nome": "Miguel Magalhães Furtado do Nascimento",
@@ -1879,7 +2142,9 @@
       "endereco": "Rua Mariana Sousa, N°04, Res.Buriti, Maiobinha",
       "cor": "Pardo",
       "sexo": "Masculino",
-      "turma_id": "_f2e9qkzo2"
+      "turma_id": "_f2e9qkzo2",
+      "id": "2f2b6f31-ee8f-4c17-84a7-7aefa3b494aa",
+      "status": "Ativo"
     },
     {
       "nome": "Pedro Miguel Souza da Silva",
@@ -1893,7 +2158,9 @@
       "endereco": "Rua Paulo Brandão Nº09,Parque Jair",
       "cor": "Pardo",
       "sexo": "Masculino",
-      "turma_id": "_f2e9qkzo2"
+      "turma_id": "_f2e9qkzo2",
+      "id": "0f0fe23b-8284-47c6-a974-d3da9b4a9c44",
+      "status": "Ativo"
     },
     {
       "nome": "Pedro Samuel Silva Moraes",
@@ -1907,7 +2174,9 @@
       "endereco": "Rua Princesa Margarida, nº 15, Qd 11, Kiola",
       "cor": "Pardo",
       "sexo": "Masculino",
-      "turma_id": "_f2e9qkzo2"
+      "turma_id": "_f2e9qkzo2",
+      "id": "9c61c3d2-1b0d-4b7f-b2c8-00ee60da5943",
+      "status": "Ativo"
     },
     {
       "nome": "Poliana Gomes de Franco",
@@ -1921,7 +2190,9 @@
       "endereco": "Rua Princesa Angela, Nº 31, QD 28, Vila Kiola",
       "cor": "Parda",
       "sexo": "Feminino",
-      "turma_id": "_f2e9qkzo2"
+      "turma_id": "_f2e9qkzo2",
+      "id": "711ddeb3-dcce-4029-b2ad-3a417c629921",
+      "status": "Ativo"
     },
     {
       "nome": "Vithor Hugo Soledade Gonçalves",
@@ -1935,7 +2206,9 @@
       "endereco": "Rua Bom Negócio, nº02, LimaVerde",
       "cor": "Pardo",
       "sexo": "Masculino",
-      "turma_id": "_f2e9qkzo2"
+      "turma_id": "_f2e9qkzo2",
+      "id": "870580cd-a34d-40c4-b8d5-812bd4e0bba3",
+      "status": "Ativo"
     },
     {
       "nome": "Rebeca Míriam Silva Rodrigues",
@@ -1951,7 +2224,8 @@
       "endereco": "Rua do Morango, 16B, Qd. B, Lima Verde, 65130000",
       "cor": "Parda",
       "sexo": "Feminino",
-      "turma_id": "_j4ony85tv"
+      "turma_id": "_j4ony85tv",
+      "id": "d60492dc-77f8-45dc-8f4c-cd60e2f63fda"
     },
     {
       "nome": "Eduardo Gael Ferreira Cardoso",
@@ -1967,7 +2241,8 @@
       "endereco": "R. 31, 14, Qd. 27, N 14, Lot. Safira",
       "cor": "Parda",
       "sexo": "Masculino",
-      "turma_id": "_xgvrvq5gm"
+      "turma_id": "_xgvrvq5gm",
+      "id": "7060cf9b-599e-4a6f-bd6e-c74828c1ad12"
     },
     {
       "nome": "Paulo Arthur Oliveira Guimarães",
@@ -1983,13 +2258,14 @@
       "endereco": "Rua Mamão, N° 28, Qd. 1",
       "cor": "Branco",
       "sexo": "Masculino",
-      "turma_id": "_f2e9qkzo2"
+      "turma_id": "_f2e9qkzo2",
+      "id": "b21bb472-d076-4ce5-a7a1-df6ac6d950cf"
     },
     {
       "nome": "Sthella Wendy Melo de Sousa",
       "cpf": "12067680374",
       "status": "Ativo",
-      "nascimento": "27092021",
+      "nascimento": "27/09/2021",
       "mae": "Hellen Beatriz Melo Braga",
       "pai": "Franciel Carvalho de Sousa",
       "telefone": [
@@ -1999,7 +2275,8 @@
       "endereco": "Avenida da Laranja, número 125 B, Lima Verde",
       "cor": "Branca",
       "sexo": "Feminino",
-      "turma_id": "_xgvrvq5gm"
+      "turma_id": "_xgvrvq5gm",
+      "id": "f733de97-2b39-4351-aa21-d37145d92b68"
     },
     {
       "nome": "Laura Helena Rabelo Diniz Soares",
@@ -2013,9 +2290,10 @@
         "981928446"
       ],
       "endereco": "Rua Graviola, N 08, Qd. H",
-      "cor": "branca",
+      "cor": "Branca",
       "sexo": "Feminino",
-      "turma_id": "_f2e9qkzo2"
+      "turma_id": "_f2e9qkzo2",
+      "id": "b42ace41-909d-457c-80b1-d8483f3ae1ba"
     },
     {
       "nome": "Júlia Vitória Santos Cunha",
@@ -2030,9 +2308,10 @@
         "985338416"
       ],
       "endereco": "Rua Projetada 203, Bl 23, Ap 203, Bairro Cajueiro, CEP 65110000",
-      "cor": "parda",
+      "cor": "Parda",
       "sexo": "Feminino",
-      "turma_id": "_f2e9qkzo2"
+      "turma_id": "_f2e9qkzo2",
+      "id": "c672550c-a1ec-4fd7-a18b-3aeef04529ea"
     },
     {
       "nome": "Lorena Heloyse Santos Cunha",
@@ -2047,9 +2326,10 @@
         "985338416"
       ],
       "endereco": "Rua Projetada 203, Bl 23, Ap 203, Bairro Cajueiro, CEP 65110000",
-      "cor": "branca",
+      "cor": "Branca",
       "sexo": "Feminino",
-      "turma_id": "_91fwgzfjx"
+      "turma_id": "_91fwgzfjx",
+      "id": "ae65617b-a579-42ca-a777-8ed3279456a6"
     },
     {
       "nome": "Louise Vitória Delmondes Lopes",
@@ -2064,13 +2344,16 @@
       "endereco": "Estrada de Ribamar, Recanto Verde IV, AP 203, BL 2B, Bairro Paraíso das Rosas, CEP: 65130000",
       "cor": "Parda",
       "sexo": "Feminino",
-      "turma_id": "_498iffqew"
+      "turma_id": "_498iffqew",
+      "id": "68f88705-1891-4c2b-87c2-0f694088fab9"
     },
     {
       "nome": "Thamily Vitória Alves Brito",
       "cpf": "09446296102",
       "status": "Ativo",
+      "turma_id": "_498iffqew",
       "nascimento": "18/07/2018",
+      "sexo": "Feminino",
       "mae": "Thyella Mylandra Brito Silva",
       "pai": "",
       "telefone": [
@@ -2078,8 +2361,10 @@
       ],
       "endereco": "Rua 02, Nº 38, Residencial Bom Sucesso, CEP: 65130000",
       "cor": "Parda",
-      "sexo": "Feminino",
-      "turma_id": "_498iffqew"
+      "observacoes": "Não está no Geduc",
+      "data_matricula": "",
+      "data_transferencia": "",
+      "id": "3c462938-cba7-47fd-901e-a088ecb35160"
     }
   ]
 }
