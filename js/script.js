@@ -771,7 +771,6 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     } else {
       // MODO CRIAÇÃO: É um novo aluno.
-      studentData.id = generateId(); // Gera um novo ID.
       studentData.id = crypto.randomUUID(); // Gera um UUID v4 padrão.
       database.alunos.push(studentData); // Adiciona ao banco de dados.
     }
