@@ -690,8 +690,8 @@ document.addEventListener("DOMContentLoaded", () => {
     localStorage.setItem(DB_KEY, JSON.stringify(database));
     if (source !== "cloud") saveToJSONBin(database);
     // Re-render all relevant views
-    renderMetadata(); // Sempre renderiza metadados para manter os filtros atualizados
-    if (document.querySelector("#panel-alunos.is-visible")) renderStudentList(database.alunos);
+    renderMetadata();
+    if (document.querySelector("#panel-alunos.is-visible")) updateAndRenderStudentList();
     if (document.querySelector("#panel-inicio.is-visible")) renderInicio();
   };
 
