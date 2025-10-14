@@ -72,6 +72,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // --- ESTADO DA UI ---
   let currentPage = 1;
+  let selectedTurmaIds = new Set();
 
   // --- REFERÊNCIAS DE ELEMENTOS ---
   const studentListContainer = document.getElementById("student-list-container");
@@ -88,6 +89,8 @@ document.addEventListener("DOMContentLoaded", () => {
   const paginationContainer = document.getElementById("pagination-container");
   const logoutBtn = document.getElementById("logout-btn");
   const transferenciaWrapper = document.getElementById("transferencia-field-wrapper");
+  const turmaFilterToggle = document.getElementById("turma-filter-toggle");
+  const turmaFilterOptions = document.getElementById("turma-filter-options");
 
   // --- FUNÇÕES AUXILIARES ---
   const generateId = () => "_" + Math.random().toString(36).substr(2, 9);
@@ -222,6 +225,40 @@ document.addEventListener("DOMContentLoaded", () => {
       console.error("Falha ao salvar dados no jsonbin.io:", error);
     }
   }
+
+  // --- LÓGICA DE FILTRAGEM ---
+  const renderTurmaFilter = () => {
+    const sortedTurmas = [...database.metadata.turmas].sort((a, b) => `${a.turma}-${a.turno}`.localeCompare(`${b.turma}-${b.turno}`));
+
+    turmaFilterOptions.innerHTML = sortedTurmas
+      .map((turma) => {
+        const isChecked = selectedTurmaIds.has(turma.id);
+        return `
+          <label class="noxss-check">
+            <input type="checkbox" class="turma-filter-checkbox" data-turma-id="${turma.id}" ${isChecked ? "checked" : ""}>
+            <span class="noxss-check-control"></span>
+            <span>${turma.turma} - ${turma.turno}</span>
+          </label>
+        `;
+      })
+      .join("");
+  };
+
+  const updateAndRenderStudentList = () => {
+    const searchTerm = searchInput.value.toLowerCase();
+    const normalizedTerm = normalizeText(searchTerm);
+
+    const filteredByTurma = database.alunos.filter((student) => selectedTurmaIds.has(student.turma_id));
+
+    const filteredBySearch =
+      normalizedTerm.length > 0
+        ? filteredByTurma.filter((s) => {
+            return ["nome", "mae", "pai", "observacoes"].some((field) => normalizeText((s[field] || "").toLowerCase()).includes(normalizedTerm)) || (s.cpf || "").replace(/\D/g, "").includes(normalizedTerm);
+          })
+        : filteredByTurma;
+
+    renderStudentList(filteredBySearch, searchTerm);
+  };
 
   // --- UI & RENDERIZAÇÃO ---
   const highlightText = (text, term, highlightClass = "search-highlight") => {
@@ -439,8 +476,10 @@ document.addEventListener("DOMContentLoaded", () => {
     paginationContainer.appendChild(createPageElement('<i class="fa-solid fa-chevron-right noxss-icon"></i>', currentPage + 1, currentPage === totalPages));
   };
 
-  const renderStudentList = (studentList = database.alunos) => {
-    const searchTerm = searchInput.value.toLowerCase();
+  const renderStudentList = (studentList = database.alunos, searchTerm = "") => {
+    if (!searchTerm) {
+      searchTerm = searchInput.value.toLowerCase();
+    }
     const isSearching = searchTerm.length > 0;
     studentListContainer.innerHTML = "";
 
@@ -456,7 +495,9 @@ document.addEventListener("DOMContentLoaded", () => {
       paginationContainer.innerHTML = ""; // Limpa a paginação
     } else {
       const turmaMap = new Map(database.metadata.turmas.map((t) => [t.id, t]));
-      const grouped = studentList.reduce((acc, student) => {
+
+      // Agrupa os alunos paginados por turma
+      const paginatedGrouped = paginatedStudents.reduce((acc, student) => {
         const turma = turmaMap.get(student.turma_id) || { turma: "Sem Turma", turno: "" };
         const key = `${turma.turma} - ${turma.turno}`;
         if (!acc[key]) acc[key] = [];
@@ -464,39 +505,35 @@ document.addEventListener("DOMContentLoaded", () => {
         return acc;
       }, {});
 
-      if (isSearching) {
-        paginatedStudents.forEach((student) => {
-          const card = document.createElement("div");
-          card.className = "noxss-card noxss-card--interactive student-card";
-          card.innerHTML = createStudentCardHTML(student, searchTerm);
-          studentListContainer.appendChild(card);
-        });
-      } else {
-        // Lógica de agrupamento por turma (aplicada à lista paginada)
-        const paginatedGrouped = paginatedStudents.reduce((acc, student) => {
-          const turma = turmaMap.get(student.turma_id) || { turma: "Sem Turma", turno: "" };
-          const key = `${turma.turma} - ${turma.turno}`;
-          if (!acc[key]) acc[key] = [];
-          acc[key].push(student);
-          return acc;
-        }, {});
+      // Ordena as chaves do grupo (nomes das turmas)
+      const sortedGroupKeys = Object.keys(paginatedGrouped).sort();
 
-        Object.keys(paginatedGrouped)
-          .sort()
-          .forEach((groupKey) => {
+      // Renderiza os grupos
+      if (sortedGroupKeys.length === 0 && studentList.length > 0) {
+        // Caso em que há resultados na busca, mas não nesta página
+        placeholder.innerHTML = `<i class="fa-solid fa-search" style="width: 3rem; height: 3rem;"></i><p class="mt-3">Nenhum aluno encontrado nesta página.</p>`;
+        studentListContainer.appendChild(placeholder);
+      } else {
+        sortedGroupKeys.forEach((groupKey) => {
+          // Não mostra o título da turma se estiver buscando, para uma lista mais limpa
+          if (!isSearching) {
             const title = document.createElement("h2");
             title.className = "turma-title";
             title.textContent = groupKey;
             studentListContainer.appendChild(title);
+          }
 
-            paginatedGrouped[groupKey].forEach((student) => {
+          paginatedGrouped[groupKey]
+            .sort((a, b) => (a.nome || "").localeCompare(b.nome || ""))
+            .forEach((student) => {
               const card = document.createElement("div");
               card.className = "noxss-card noxss-card--interactive student-card";
-              card.innerHTML = createStudentCardHTML(student, "");
+              card.innerHTML = createStudentCardHTML(student, searchTerm);
               studentListContainer.appendChild(card);
             });
-          });
+        });
       }
+
       renderPaginationControls(studentList.length, studentsPerPage);
     }
   };
@@ -653,7 +690,7 @@ document.addEventListener("DOMContentLoaded", () => {
     localStorage.setItem(DB_KEY, JSON.stringify(database));
     if (source !== "cloud") saveToJSONBin(database);
     // Re-render all relevant views
-    if (document.querySelector("#panel-settings.is-visible")) renderMetadata();
+    renderMetadata(); // Sempre renderiza metadados para manter os filtros atualizados
     if (document.querySelector("#panel-alunos.is-visible")) renderStudentList(database.alunos);
     if (document.querySelector("#panel-inicio.is-visible")) renderInicio();
   };
@@ -1000,18 +1037,24 @@ document.addEventListener("DOMContentLoaded", () => {
 
   searchInput.addEventListener("input", (e) => {
     const term = e.target.value.toLowerCase();
-    const normalizedTerm = normalizeText(term);
     currentPage = 1; // Reseta para a primeira página a cada nova busca
     clearSearchBtn.style.display = term ? "block" : "none";
-    const filtered = database.alunos.filter((s) => {
-      const normalizedNome = normalizeText((s.nome || "").toLowerCase());
-      const normalizedMae = normalizeText((s.mae || "").toLowerCase());
-      const normalizedPai = normalizeText((s.pai || "").toLowerCase());
-      const normalizedObs = normalizeText((s.observacoes || "").toLowerCase());
-      const cpf = (s.cpf || "").replace(/\D/g, "");
-      return normalizedNome.includes(normalizedTerm) || cpf.includes(normalizedTerm) || normalizedMae.includes(normalizedTerm) || normalizedPai.includes(normalizedTerm) || normalizedObs.includes(normalizedTerm);
-    });
-    renderStudentList(filtered);
+    updateAndRenderStudentList();
+  });
+
+  turmaFilterToggle.addEventListener("click", () => {
+    turmaFilterOptions.classList.toggle("is-open");
+    turmaFilterToggle.querySelector(".filter-chevron").classList.toggle("is-open");
+  });
+
+  turmaFilterOptions.addEventListener("change", (e) => {
+    if (e.target.classList.contains("turma-filter-checkbox")) {
+      const turmaId = e.target.dataset.turmaId;
+      if (e.target.checked) selectedTurmaIds.add(turmaId);
+      else selectedTurmaIds.delete(turmaId);
+      currentPage = 1; // Reseta a página ao mudar o filtro
+      updateAndRenderStudentList();
+    }
   });
 
   paginationContainer.addEventListener("click", (e) => {
@@ -1019,20 +1062,7 @@ document.addEventListener("DOMContentLoaded", () => {
     if (!btn || btn.disabled) return;
 
     currentPage = parseInt(btn.dataset.page, 10);
-    // Re-renderiza a lista com a nova página, mantendo o filtro de busca se houver
-    const term = searchInput.value.toLowerCase();
-    const normalizedTerm = normalizeText(term);
-    const listToRender = term
-      ? database.alunos.filter((s) => {
-          const normalizedNome = normalizeText((s.nome || "").toLowerCase());
-          const normalizedMae = normalizeText((s.mae || "").toLowerCase());
-          const normalizedPai = normalizeText((s.pai || "").toLowerCase());
-          const normalizedObs = normalizeText((s.observacoes || "").toLowerCase());
-          const cpf = (s.cpf || "").replace(/\D/g, "");
-          return normalizedNome.includes(normalizedTerm) || cpf.includes(normalizedTerm) || normalizedMae.includes(normalizedTerm) || normalizedPai.includes(normalizedTerm) || normalizedObs.includes(normalizedTerm);
-        })
-      : database.alunos;
-    renderStudentList(listToRender);
+    updateAndRenderStudentList();
   });
 
   clearSearchBtn.addEventListener("click", () => {
@@ -1086,7 +1116,7 @@ document.addEventListener("DOMContentLoaded", () => {
   document.querySelector(".noxss-tabs").addEventListener("noxss:tab:change", (event) => {
     const activeTabId = event.detail.activeTabId;
     if (activeTabId === "inicio") renderInicio();
-    if (activeTabId === "alunos") renderStudentList(database.alunos);
+    if (activeTabId === "alunos") updateAndRenderStudentList();
     if (activeTabId === "settings") renderMetadata(); // Renderiza metadados na aba de configurações
   });
 
@@ -1108,6 +1138,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
     database = processLoadedData(dataToProcess);
     saveDatabase(cloudData ? "cloud" : "local");
+
+    // Inicializa o filtro de turmas com todas selecionadas
+    selectedTurmaIds = new Set(database.metadata.turmas.map((t) => t.id));
+    renderTurmaFilter();
 
     const initialTab = document.querySelector(".noxss-tabs").dataset.defaultTab || "inicio";
     document.querySelector(".noxss-tabs").dispatchEvent(new CustomEvent("noxss:tab:change", { detail: { activeTabId: initialTab } }));
