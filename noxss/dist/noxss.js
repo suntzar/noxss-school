@@ -1,7 +1,7 @@
 /*!
  * Noxss JS v1.0
  * Copyright 2025 [Seu Nome]
- * Gerado em: 2025-10-15T19:01:10.144Z
+ * Gerado em: 2025-10-15T19:35:47.611Z
  */
 /* ==========================================================================
    Noxss Library: Core JavaScript
@@ -494,23 +494,15 @@
 
       // 2. Usa delegação de eventos para lidar com todos os cliques de forma eficiente.
       document.body.addEventListener("click", (event) => {
+        // Apenas o gatilho de ABERTURA usa delegação.
+        // O fechamento é tratado por listeners específicos em cada clone.
         const openTrigger = event.target.closest("[data-noxss-modal-open]");
-        const closeTrigger = event.target.closest("[data-noxss-modal-close]");
 
         if (openTrigger) {
           event.preventDefault();
           const modalId = openTrigger.dataset.noxssModalOpen;
           if (modalId) {
             openModal(modalId, openTrigger);
-          }
-        }
-
-        if (closeTrigger) {
-          event.preventDefault();
-          // Encontra o modal pai do botão de fechar e obtém seu ID de instância
-          const modalToClose = event.target.closest(".noxss-modal.is-clone");
-          if (modalToClose) {
-            closeModal(modalToClose.id);
           }
         }
       });
