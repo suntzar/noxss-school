@@ -1,7 +1,7 @@
 /*!
  * Noxss JS v1.0
  * Copyright 2025 [Seu Nome]
- * Gerado em: 2025-10-15T17:34:00.549Z
+ * Gerado em: 2025-10-15T19:01:10.144Z
  */
 /* ==========================================================================
    Noxss Library: Core JavaScript
@@ -376,10 +376,10 @@
 
     // Adiciona listeners de fechar específicos para esta instância
     clone.addEventListener("click", (event) => {
-      if (event.target === clone) closeModal();
+      if (event.target === clone) closeModal(instanceId);
     });
     clone.querySelectorAll("[data-noxss-modal-close]").forEach((btn) => {
-      btn.addEventListener("click", () => closeModal());
+      btn.addEventListener("click", () => closeModal(instanceId));
     });
 
     // --- Lógica de Abertura ---
@@ -403,11 +403,21 @@
 
   /**
    * Fecha o modal atualmente aberto.
+   * @param {string} [instanceId] - O ID da instância do modal a ser fechado. Se omitido, fecha o último aberto.
    */
-  function closeModal() {
-    if (openModalStack.length === 0) return;
+  function closeModal(instanceId) {
+    if (openModalStack.length === 0) {
+      return;
+    }
 
-    const instanceIdToClose = openModalStack.pop();
+    // Se nenhum ID for fornecido, fecha o modal no topo da pilha.
+    // Caso contrário, fecha o modal específico, mesmo que não seja o do topo.
+    const instanceIdToClose = instanceId || openModalStack[openModalStack.length - 1];
+    const stackIndex = openModalStack.findIndex((id) => id === instanceIdToClose);
+
+    if (stackIndex === -1) return; // O modal não está (ou já não está mais) na pilha de abertos.
+
+    openModalStack.splice(stackIndex, 1); // Remove o modal da pilha
     const modalInstance = activeModals.get(instanceIdToClose);
 
     if (!modalInstance) return;
@@ -448,19 +458,21 @@
     if (!activeModalInstance) return;
 
     const focusableElements = Array.from(activeModalInstance.element.querySelectorAll(FOCUSABLE_ELEMENTS));
+    if (focusableElements.length === 0) return;
+
     const firstElement = focusableElements[0];
     const lastElement = focusableElements[focusableElements.length - 1];
 
     if (event.shiftKey) {
       // Shift + Tab
       if (document.activeElement === firstElement) {
-        lastElement?.focus();
+        lastElement.focus();
         event.preventDefault();
       }
     } else {
       // Tab
       if (document.activeElement === lastElement) {
-        firstElement?.focus();
+        firstElement.focus();
         event.preventDefault();
       }
     }
@@ -495,14 +507,19 @@
 
         if (closeTrigger) {
           event.preventDefault();
-          closeModal();
+          // Encontra o modal pai do botão de fechar e obtém seu ID de instância
+          const modalToClose = event.target.closest(".noxss-modal.is-clone");
+          if (modalToClose) {
+            closeModal(modalToClose.id);
+          }
         }
       });
 
       // 3. Listeners globais para fechar com 'Esc' e para o focus trap.
       window.addEventListener("keydown", (event) => {
         if (event.key === "Escape" && openModalStack.length > 0) {
-          closeModal();
+          // Fecha o modal do topo da pilha com a tecla 'Esc'
+          closeModal(openModalStack[openModalStack.length - 1]);
         }
         handleFocusTrap(event);
       });
