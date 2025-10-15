@@ -20,6 +20,7 @@
     const FOCUSABLE_ELEMENTS = 'a[href], area[href], input:not([disabled]), select:not([disabled]), textarea:not([disabled]), button:not([disabled]), iframe, object, embed, [tabindex="0"], [contenteditable]';
 
     let openModalId = null; // Rastreia o ID do modal atualmente aberto
+    let openModalStack = []; // Rastreia a pilha de modais abertos
 
     /**
      * Abre um modal específico.
@@ -30,6 +31,11 @@
         if (!modal || modal.isOpen) return;
 
         openModalId = modalId;
+        if (openModalStack.length === 0) {
+            document.body.style.overflow = 'hidden'; // Impede o scroll do body apenas no primeiro modal
+        }
+
+        openModalStack.push(modalId);
         modal.element.classList.add('is-open');
         document.body.style.overflow = 'hidden'; // Impede o scroll do body
 
@@ -47,17 +53,29 @@
      */
     function closeModal() {
         if (!openModalId) return;
+        if (openModalStack.length === 0) return;
 
         const modal = modals.get(openModalId);
+        const modalIdToClose = openModalStack.pop();
+        const modal = modals.get(modalIdToClose);
+
         if (modal) {
             modal.element.classList.remove('is-open');
             document.body.style.overflow = ''; // Restaura o scroll do body
             modal.isOpen = false;
+
+            // Devolve o foco para o elemento que abriu o modal, se possível
+            if (modal.triggerElement) {
+                modal.triggerElement.focus();
+            }
         }
         
         // Devolve o foco para o elemento que abriu o modal, se possível
         if (modal.triggerElement) {
             modal.triggerElement.focus();
+
+        if (openModalStack.length === 0) {
+            document.body.style.overflow = ''; // Restaura o scroll do body apenas ao fechar o último modal
         }
         
         openModalId = null;
@@ -69,8 +87,11 @@
      */
     function handleFocusTrap(event) {
         if (event.key !== 'Tab' || !openModalId) return;
+        if (event.key !== 'Tab' || openModalStack.length === 0) return;
 
         const modalElement = modals.get(openModalId)?.element;
+        const activeModalId = openModalStack[openModalStack.length - 1];
+        const modalElement = modals.get(activeModalId)?.element;
         if (!modalElement) return;
 
         const focusableElements = Array.from(modalElement.querySelectorAll(FOCUSABLE_ELEMENTS));
@@ -138,6 +159,7 @@
             // Listeners globais para fechar com 'Esc' e para o focus trap
             window.addEventListener('keydown', (event) => {
                 if (event.key === 'Escape' && openModalId) {
+                if (event.key === 'Escape' && openModalStack.length > 0) {
                     closeModal();
                 }
                 handleFocusTrap(event);

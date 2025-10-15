@@ -1065,6 +1065,17 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 
+  document.body.addEventListener("click", (e) => {
+    const image = e.target.closest(".student-avatar-img");
+    if (image && image.src) {
+      e.preventDefault();
+      const imageViewer = document.getElementById("imageViewerModal");
+      const viewerImg = document.getElementById("imageViewerImg");
+      viewerImg.src = image.src;
+      Noxss.Modals.open("imageViewerModal");
+    }
+  });
+
   searchInput.addEventListener("input", (e) => {
     const term = e.target.value.toLowerCase();
     currentPage = 1; // Reseta para a primeira página a cada nova busca

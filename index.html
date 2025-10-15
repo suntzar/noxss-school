@@ -339,6 +339,21 @@
       </div>
     </div>
 
+    <!-- Modal de Visualização de Imagem -->
+    <div class="noxss-modal" id="imageViewerModal" data-noxss-modal>
+      <div class="noxss-modal__dialog noxss-modal__dialog--large image-viewer-dialog">
+        <div class="noxss-modal__header">
+          <h3 class="noxss-modal__title" id="imageViewerModalLabel">Visualizador de Imagem</h3>
+          <button type="button" class="noxss-btn noxss-btn--icon noxss-modal__close-btn" data-noxss-modal-close>
+            <i class="noxss-icon fa-solid fa-xmark"></i>
+          </button>
+        </div>
+        <div class="noxss-modal__body image-viewer-body">
+          <img src="" id="imageViewerImg" alt="Visualização ampliada da foto do aluno" />
+        </div>
+      </div>
+    </div>
+
     <script src="https://cdn.jsdelivr.net/gh/suntzar/noxss-base@main/noxss/dist/noxss.js"></script>
     <script src="js/script.js"></script>
   </body>
