@@ -1,560 +1,564 @@
 .noxss-navbar {
-  justify-content: space-between;
-  align-items: center;
+    justify-content: space-between;
+    align-items: center;
 }
 
 /* Animação aprimorada para o botão de tema */
 #theme-switcher {
-  position: relative;
-  overflow: hidden; /* Garante que os ícones não "vazem" durante a animação */
+    position: relative;
+    overflow: hidden; /* Garante que os ícones não "vazem" durante a animação */
 }
 
 #theme-switcher .noxss-icon {
-  position: absolute;
-  transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.3s ease;
+    position: absolute;
+    transition:
+        transform 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+        opacity 0.3s ease;
 }
 
 /* Estado Padrão (Tema Claro) */
 .theme-icon-sun {
-  transform: translateY(150%) rotate(90deg);
-  opacity: 0;
+    transform: translateY(150%) rotate(90deg);
+    opacity: 0;
 }
 .theme-icon-moon {
-  transform: translateY(0) rotate(0);
-  opacity: 1;
+    transform: translateY(0) rotate(0);
+    opacity: 1;
 }
 
 /* Estado Tema Escuro (ativado via JS no <html>) */
 [data-noxss-theme-gen="dark"] #theme-switcher .theme-icon-sun {
-  transform: translateY(0) rotate(0);
-  opacity: 1;
+    transform: translateY(0) rotate(0);
+    opacity: 1;
 }
 [data-noxss-theme-gen="dark"] #theme-switcher .theme-icon-moon {
-  transform: translateY(-150%) rotate(-90deg);
-  opacity: 0;
+    transform: translateY(-150%) rotate(-90deg);
+    opacity: 0;
 }
 .content-panel {
-  max-width: 960px;
-  margin: 0 auto;
-  padding: 1.5rem;
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 1.5rem;
 }
 
 /* Estilos para a Aba de Início */
 .home-hero {
-  text-align: center;
-  padding: 3rem 1rem;
-  background-color: var(--noxss-bg-elements);
-  border-radius: var(--noxss-border-radius-base);
-  border: 1px solid var(--noxss-border-color);
+    text-align: center;
+    padding: 3rem 1rem;
+    background-color: var(--noxss-bg-elements);
+    border-radius: var(--noxss-border-radius-base);
+    border: 1px solid var(--noxss-border-color);
 }
 
 .home-hero__logo {
-  width: 80px;
-  height: 80px;
-  margin-bottom: 1.5rem;
-  color: var(--noxss-accent-primary);
+    width: 80px;
+    height: 80px;
+    margin-bottom: 1.5rem;
+    color: var(--noxss-accent-primary);
 }
 
 .home-hero__title {
-  font-size: 2.5rem;
-  color: var(--noxss-text-primary);
-  margin: 0;
+    font-size: 2.5rem;
+    color: var(--noxss-text-primary);
+    margin: 0;
 }
 .home-hero__subtitle {
-  font-size: 1.2rem;
-  color: var(--noxss-text-secondary);
-  margin-top: 0.5rem;
+    font-size: 1.2rem;
+    color: var(--noxss-text-secondary);
+    margin-top: 0.5rem;
 }
 
 .action-bar {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.75rem;
-  margin-bottom: 1.5rem;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    margin-bottom: 1.5rem;
 }
 .search-bar {
-  position: relative;
-  margin-bottom: 2rem;
+    position: relative;
+    margin-bottom: 2rem;
 }
 .search-bar .search-icon {
-  position: absolute;
-  left: 1rem;
-  top: 50%;
-  transform: translateY(-50%);
-  color: var(--noxss-text-secondary);
-  pointer-events: none;
+    position: absolute;
+    left: 1rem;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--noxss-text-secondary);
+    pointer-events: none;
 }
 .search-bar .clear-search-btn {
-  position: absolute;
-  right: 1rem;
-  top: 50%;
-  transform: translateY(-50%);
-  cursor: pointer;
-  color: var(--noxss-text-secondary);
-  background: none;
-  border: none;
-  padding: 0.5rem;
-  display: none;
+    position: absolute;
+    right: 1rem;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    color: var(--noxss-text-secondary);
+    background: none;
+    border: none;
+    padding: 0.5rem;
+    display: none;
 }
 #searchInput {
-  padding-left: 3rem;
-  padding-right: 3rem;
+    padding-left: 3rem;
+    padding-right: 3rem;
 }
 .search-highlight {
-  background-color: transparent;
-  color: var(--noxss-accent-primary);
-  font-weight: 600;
-  padding: 0;
-  margin: 0;
+    background-color: transparent;
+    color: var(--noxss-accent-primary);
+    font-weight: 600;
+    padding: 0;
+    margin: 0;
 }
 
 /* Estilos para o Filtro de Turmas */
 .turma-filter-container {
-  margin-bottom: 1.5rem;
+    margin-bottom: 1.5rem;
 }
 
 #turma-filter-toggle {
-  justify-content: space-between;
+    justify-content: space-between;
 }
 
 .filter-chevron {
-  transition: transform 0.3s ease;
+    transition: transform 0.3s ease;
 }
 
 .turma-filter-options {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 0.75rem;
-  max-height: 0;
-  overflow: hidden;
-  transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1), padding-top 0.4s ease;
-  padding-top: 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 0.75rem;
+    max-height: 0;
+    overflow: hidden;
+    transition:
+        max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+        padding-top 0.4s ease;
+    padding-top: 0;
 }
 
 .turma-filter-options.is-open {
-  max-height: 500px; /* Altura máxima para a animação */
-  padding-top: 1rem;
+    max-height: 500px; /* Altura máxima para a animação */
+    padding-top: 1rem;
 }
 .turma-filter-options.is-open + .search-bar .filter-chevron {
-  transform: rotate(180deg);
+    transform: rotate(180deg);
 }
 .search-highlight {
-  background-color: transparent;
-  color: var(--noxss-accent-primary);
-  font-weight: 600;
-  padding: 0;
-  margin: 0;
+    background-color: transparent;
+    color: var(--noxss-accent-primary);
+    font-weight: 600;
+    padding: 0;
+    margin: 0;
 }
 .turma-title {
-  color: var(--noxss-accent-primary);
-  font-size: 1.5rem;
-  margin-top: 2rem;
+    color: var(--noxss-accent-primary);
+    font-size: 1.5rem;
+    margin-top: 2rem;
 }
 
 /* Estilos dos Cards de Aluno */
 .student-card {
-  overflow: hidden;
-  margin-bottom: 1.5rem; /* Adicionado para manter o espaçamento */
+    overflow: hidden;
+    margin-bottom: 1.5rem; /* Adicionado para manter o espaçamento */
 }
 
 .student-card .noxss-card__body {
-  display: grid;
-  grid-template-columns: auto 1fr; /* Coluna do avatar e conteúdo */
-  gap: 1.25rem;
-  align-items: flex-start;
+    display: grid;
+    grid-template-columns: auto 1fr; /* Coluna do avatar e conteúdo */
+    gap: 1.25rem;
+    align-items: flex-start;
 }
 
 .student-card-avatar {
-  font-size: 3.5rem; /* Tamanho do ícone */
-  color: var(--noxss-accent-primary);
-  background-color: var(--noxss-bg-elements);
-  width: 64px;
-  height: 64px;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
+    font-size: 3.5rem; /* Tamanho do ícone */
+    color: var(--noxss-accent-primary);
+    background-color: var(--noxss-bg-elements);
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
 }
 
 .student-card-content {
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-  min-width: 0; /* Previne overflow em flex containers */
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    min-width: 0; /* Previne overflow em flex containers */
 }
 
 .student-card .noxss-card__header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 0.75rem; /* Ajuste de padding */
-  border-bottom: 1px solid var(--noxss-border-color);
-  margin-bottom: 0.75rem;
-  gap: 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.75rem; /* Ajuste de padding */
+    border-bottom: 1px solid var(--noxss-border-color);
+    margin-bottom: 0.75rem;
+    gap: 1rem;
 }
 
 .student-card-actions {
-  display: flex;
-  gap: 0.5rem;
-  flex-shrink: 0;
+    display: flex;
+    gap: 0.5rem;
+    flex-shrink: 0;
 }
 
 .student-card-info-grid {
-  display: grid;
-  grid-template-columns: 240px 1fr;
-  gap: 1.5rem;
+    display: grid;
+    grid-template-columns: 240px 1fr;
+    gap: 1.5rem;
 }
 
 .student-card-main-info,
 .student-card-secondary-info {
-  display: flex;
-  flex-direction: column;
-  gap: 0.85rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.85rem;
 }
 /* --- Redesign completo do Card de Aluno para Mobile --- */
 @media (max-width: 767px) {
-  .student-card .noxss-card__body {
-    display: flex; /* Mudar de grid para flex */
-    flex-direction: column;
-    gap: 1rem;
-  }
-  .student-card .noxss-card__header {
-    padding: 0.75rem 1rem;
-    margin-bottom: 0;
-  }
-  .student-card-info-grid {
-    grid-template-columns: 1fr;
-    gap: 1rem;
-  }
-  .student-card-main-info {
-    order: 2; /* Mantém as informações principais abaixo */
-    border: none; /* Remove a barra divisória indesejada */
-    padding: 0; /* Remove padding extra */
-  }
+    .student-card .noxss-card__body {
+        display: flex; /* Mudar de grid para flex */
+        flex-direction: column;
+        gap: 1rem;
+    }
+    .student-card .noxss-card__header {
+        padding: 0.75rem 1rem;
+        margin-bottom: 0;
+    }
+    .student-card-info-grid {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+    .student-card-main-info {
+        order: 2; /* Mantém as informações principais abaixo */
+        border: none; /* Remove a barra divisória indesejada */
+        padding: 0; /* Remove padding extra */
+    }
 }
 
 .info-item {
-  display: flex;
-  align-items: center;
-  gap: 0.65rem;
-  font-size: 0.9rem;
-  color: var(--noxss-text-secondary);
+    display: flex;
+    align-items: center;
+    gap: 0.65rem;
+    font-size: 0.9rem;
+    color: var(--noxss-text-secondary);
 }
 
 .info-item .noxss-icon {
-  width: 16px;
-  height: 16px;
-  flex-shrink: 0;
-  text-align: center;
-  color: var(--noxss-text-secondary);
+    width: 16px;
+    height: 16px;
+    flex-shrink: 0;
+    text-align: center;
+    color: var(--noxss-text-secondary);
 }
 
 .info-item strong {
-  color: var(--noxss-text-primary);
-  min-width: 70px;
-  display: inline-block;
+    color: var(--noxss-text-primary);
+    min-width: 70px;
+    display: inline-block;
 }
 
 .student-status {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  padding: 0.4em 0.8em;
-  border-radius: var(--noxss-border-radius-base);
-  width: fit-content;
-  margin-bottom: 0.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.4em 0.8em;
+    border-radius: var(--noxss-border-radius-base);
+    width: fit-content;
+    margin-bottom: 0.5rem;
 }
 
 .student-status .status-dot {
-  width: 10px;
-  height: 10px;
-  border-radius: 50%;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
 }
 
 .student-status .status-text {
-  font-weight: 600;
-  font-size: 0.9em;
+    font-weight: 600;
+    font-size: 0.9em;
 }
 
 /* Cores do Status */
 .student-status.status-ativo {
-  background-color: rgba(var(--noxss-color-success-rgb), 0.15);
-  color: var(--noxss-color-success);
+    background-color: rgba(var(--noxss-color-success-rgb), 0.15);
+    color: var(--noxss-color-success);
 }
 .student-status.status-ativo .status-dot {
-  background-color: var(--noxss-color-success);
+    background-color: var(--noxss-color-success);
 }
 
 .student-status.status-transferido {
-  background-color: rgba(var(--noxss-color-warning-rgb), 0.15);
-  color: var(--noxss-color-warning);
+    background-color: rgba(var(--noxss-color-warning-rgb), 0.15);
+    color: var(--noxss-color-warning);
 }
 .student-status.status-transferido .status-dot {
-  background-color: var(--noxss-color-warning);
+    background-color: var(--noxss-color-warning);
 }
 
 .student-status.status-inativo {
-  background-color: rgba(var(--noxss-color-secondary-rgb), 0.15);
-  color: var(--noxss-color-secondary);
+    background-color: rgba(var(--noxss-color-secondary-rgb), 0.15);
+    color: var(--noxss-color-secondary);
 }
 .student-status.status-inativo .status-dot {
-  background-color: var(--noxss-text-secondary);
+    background-color: var(--noxss-text-secondary);
 }
 #placeholder {
-  text-align: center;
-  padding: 3rem;
-  border: 2px dashed var(--noxss-border-color);
-  border-radius: var(--noxss-border-radius-base);
+    text-align: center;
+    padding: 3rem;
+    border: 2px dashed var(--noxss-border-color);
+    border-radius: var(--noxss-border-radius-base);
 }
 #jsonFileInput {
-  display: none;
+    display: none;
 }
 
 /* Estilos para a Paginação */
 .pagination-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 0.5rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.5rem;
 }
 
 .page-btn {
-  min-width: 40px;
+    min-width: 40px;
 }
 
 .page-btn.is-active {
-  background-color: var(--noxss-accent-primary);
-  color: var(--noxss-text-on-accent);
-  font-weight: bold;
-  pointer-events: none;
+    background-color: var(--noxss-accent-primary);
+    color: var(--noxss-text-on-accent);
+    font-weight: bold;
+    pointer-events: none;
 }
 
 .page-ellipsis {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  min-width: 40px;
-  padding: 0 0.5rem;
-  color: var(--noxss-text-secondary);
-  font-weight: bold;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 40px;
+    padding: 0 0.5rem;
+    color: var(--noxss-text-secondary);
+    font-weight: bold;
 }
 
 /* Estilos para o Dashboard */
 #dashboard-content .noxss-card--stat .stat-icon {
-  color: var(--noxss-accent-primary);
-  opacity: 0.6;
+    color: var(--noxss-accent-primary);
+    opacity: 0.6;
 }
 .dashboard-heading,
 .home-heading {
-  color: var(--noxss-text-primary);
-  font-size: 1.8rem;
-  margin-top: 0;
-  margin-bottom: 1.5rem;
-  padding-bottom: 0.5rem;
-  border-bottom: 1px solid var(--noxss-border-color);
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
+    color: var(--noxss-text-primary);
+    font-size: 1.8rem;
+    margin-top: 0;
+    margin-bottom: 1.5rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid var(--noxss-border-color);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
 }
 
 /* Estilos de Scrollbar Personalizados */
 .noxss-tabs__panel,
 .noxss-modal__body {
-  scrollbar-width: thin;
-  scrollbar-color: var(--noxss-accent-primary) var(--noxss-bg-elements);
+    scrollbar-width: thin;
+    scrollbar-color: var(--noxss-accent-primary) var(--noxss-bg-elements);
 }
 .noxss-tabs__panel::-webkit-scrollbar,
 .noxss-modal__body::-webkit-scrollbar {
-  width: 10px;
+    width: 10px;
 }
 .noxss-tabs__panel::-webkit-scrollbar-track,
 .noxss-modal__body::-webkit-scrollbar-track {
-  background: var(--noxss-bg-elements);
+    background: var(--noxss-bg-elements);
 }
 .noxss-tabs__panel::-webkit-scrollbar-thumb,
 .noxss-modal__body::-webkit-scrollbar-thumb {
-  background-color: var(--noxss-accent-primary);
-  border-radius: var(--noxss-border-radius-base);
-  border: 2px solid var(--noxss-bg-elements);
+    background-color: var(--noxss-accent-primary);
+    border-radius: var(--noxss-border-radius-base);
+    border: 2px solid var(--noxss-bg-elements);
 }
 .noxss-tabs__panel::-webkit-scrollbar-thumb:hover,
 .noxss-modal__body::-webkit-scrollbar-thumb:hover {
-  background-color: var(--noxss-accent-primary-hover);
+    background-color: var(--noxss-accent-primary-hover);
 }
 
 /* Estilos para o Footer do Card de Aluno */
 .student-card-footer {
-  background-color: var(--noxss-bg-elements);
-  padding: 0.75rem 1.25rem;
-  border-top: 1px solid var(--noxss-border-color);
-  font-size: 0.85rem;
-  color: var(--noxss-text-secondary);
+    background-color: var(--noxss-bg-elements);
+    padding: 0.75rem 1.25rem;
+    border-top: 1px solid var(--noxss-border-color);
+    font-size: 0.85rem;
+    color: var(--noxss-text-secondary);
 }
 
 .student-card-footer .info-item {
-  align-items: flex-start;
-  gap: 0.75rem;
+    align-items: flex-start;
+    gap: 0.75rem;
 }
 
 .student-card-footer .info-item .noxss-icon {
-  margin-top: 3px;
-  flex-shrink: 0;
+    margin-top: 3px;
+    flex-shrink: 0;
 }
 
 .student-card-footer .info-item span {
-  white-space: pre-wrap;
-  word-break: break-word;
-  line-height: 1.4;
+    white-space: pre-wrap;
+    word-break: break-word;
+    line-height: 1.4;
 }
 
 /* Estilos do Modal de Visualização de Aluno */
 .student-details-avatar {
-  font-size: 4.5rem;
-  color: var(--noxss-accent-primary);
-  background-color: var(--noxss-bg-elements);
-  width: 80px;
-  height: 80px;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
+    font-size: 4.5rem;
+    color: var(--noxss-accent-primary);
+    background-color: var(--noxss-bg-elements);
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
 }
 
 .student-details-header {
-  display: flex;
-  align-items: flex-start;
-  gap: 1.5rem;
-  padding-bottom: 1rem;
-  border-bottom: 2px dashed var(--noxss-border-color);
+    display: flex;
+    align-items: flex-start;
+    gap: 1.5rem;
+    padding-bottom: 1rem;
+    border-bottom: 2px dashed var(--noxss-border-color);
 }
 
 .student-details-header .student-name {
-  flex-grow: 1;
-  align-self: center;
-  margin: 0;
-  padding: 0;
-  border: none;
-  color: var(--noxss-text-primary);
-  font-size: 1.75rem;
+    flex-grow: 1;
+    align-self: center;
+    margin: 0;
+    padding: 0;
+    border: none;
+    color: var(--noxss-text-primary);
+    font-size: 1.75rem;
 }
 
 #viewStudentModal .noxss-list-item__trailing {
-  text-align: right;
-  color: var(--noxss-text-secondary);
-  font-weight: 500;
-  max-width: 60%;
+    text-align: right;
+    color: var(--noxss-text-secondary);
+    font-weight: 500;
+    max-width: 60%;
 }
 
 #viewStudentModal .noxss-card__header {
-  padding-bottom: 0.75rem;
+    padding-bottom: 0.75rem;
 }
 
 #viewStudentModal .noxss-card--flat {
-  border: 1px solid var(--noxss-border-color);
-  background-color: transparent;
+    border: 1px solid var(--noxss-border-color);
+    background-color: transparent;
 }
 
 /* --- Bootstrap Replacement --- */
 
 /* Grid */
 .row {
-  --noxss-gutter-x: 1.5rem;
-  --noxss-gutter-y: 0;
-  display: flex;
-  flex-wrap: wrap;
-  margin-top: calc(-1 * var(--noxss-gutter-y));
-  margin-right: calc(-0.5 * var(--noxss-gutter-x));
-  margin-left: calc(-0.5 * var(--noxss-gutter-x));
+    --noxss-gutter-x: 1.5rem;
+    --noxss-gutter-y: 0;
+    display: flex;
+    flex-wrap: wrap;
+    margin-top: calc(-1 * var(--noxss-gutter-y));
+    margin-right: calc(-0.5 * var(--noxss-gutter-x));
+    margin-left: calc(-0.5 * var(--noxss-gutter-x));
 }
 .row > * {
-  box-sizing: border-box;
-  flex-shrink: 0;
-  width: 100%;
-  max-width: 100%;
-  padding-right: calc(var(--noxss-gutter-x) * 0.5);
-  padding-left: calc(var(--noxss-gutter-x) * 0.5);
-  margin-top: var(--noxss-gutter-y);
+    box-sizing: border-box;
+    flex-shrink: 0;
+    width: 100%;
+    max-width: 100%;
+    padding-right: calc(var(--noxss-gutter-x) * 0.5);
+    padding-left: calc(var(--noxss-gutter-x) * 0.5);
+    margin-top: var(--noxss-gutter-y);
 }
 
 @media (min-width: 768px) {
-  .col-md-5 {
-    flex: 0 0 auto;
-    width: 41.66666667%;
-  }
-  .col-md-6 {
-    flex: 0 0 auto;
-    width: 50%;
-  }
-  .col-md-7 {
-    flex: 0 0 auto;
-    width: 58.33333333%;
-  }
+    .col-md-5 {
+        flex: 0 0 auto;
+        width: 41.66666667%;
+    }
+    .col-md-6 {
+        flex: 0 0 auto;
+        width: 50%;
+    }
+    .col-md-7 {
+        flex: 0 0 auto;
+        width: 58.33333333%;
+    }
 }
 
 /* Display & Flex */
 .d-flex {
-  display: flex !important;
+    display: flex !important;
 }
 .gap-2 {
-  gap: 0.5rem !important;
+    gap: 0.5rem !important;
 }
 .d-none {
-  display: none !important;
+    display: none !important;
 }
 
 @media (min-width: 768px) {
-  .d-md-flex {
-    display: flex !important;
-  }
-  .d-md-none {
-    display: none !important;
-  }
+    .d-md-flex {
+        display: flex !important;
+    }
+    .d-md-none {
+        display: none !important;
+    }
 }
 
 /* Sizing */
 .w-100 {
-  width: 100% !important;
+    width: 100% !important;
 }
 
 /* Spacing */
 .mt-3 {
-  margin-top: 1rem !important;
+    margin-top: 1rem !important;
 }
 .mt-4 {
-  margin-top: 1.5rem !important;
+    margin-top: 1.5rem !important;
 }
 .mt-5 {
-  margin-top: 3rem !important;
+    margin-top: 3rem !important;
 }
 .my-3 {
-  margin-top: 1rem !important;
-  margin-bottom: 1rem !important;
+    margin-top: 1rem !important;
+    margin-bottom: 1rem !important;
 }
 .mb-4 {
-  margin-bottom: 1.5rem !important;
+    margin-bottom: 1.5rem !important;
 }
 
 /* Text */
 .text-danger {
-  color: var(--noxss-color-danger) !important;
+    color: var(--noxss-color-danger) !important;
 }
 .text-secondary {
-  color: var(--noxss-text-secondary) !important;
+    color: var(--noxss-text-secondary) !important;
 }
 .text-center {
-  text-align: center !important;
+    text-align: center !important;
 }
 
 /* Estilo de destaque específico para o nome do aluno, para evitar conflito de cor */
 .search-highlight--name {
-  background-color: rgba(var(--noxss-accent-primary-rgb), 0.25);
-  color: var(--noxss-text-primary);
-  font-weight: 700;
-  padding: 0.1em 0.2em;
-  margin: -0.1em -0.2em;
-  border-radius: 4px;
+    background-color: rgba(var(--noxss-accent-primary-rgb), 0.25);
+    color: var(--noxss-text-primary);
+    font-weight: 700;
+    padding: 0.1em 0.2em;
+    margin: -0.1em -0.2em;
+    border-radius: 4px;
 }
 
 /* ==========================================================================
@@ -563,28 +567,264 @@
 
 /* --- Tema: Púrpura Imperial (Escuro) --- */
 [data-theme="purpura-dark"] {
-  --noxss-bg-main: #1a1a2e;
-  --noxss-bg-surface: #16213e;
-  --noxss-bg-elements: #0f3460;
-  --noxss-border-color: #2a3b5c;
-  --noxss-text-primary: #e94560;
-  --noxss-text-secondary: #c0c0de;
-  --noxss-accent-primary: #e94560;
-  --noxss-accent-primary-hover: #ff6e85;
-  --noxss-accent-primary-rgb: 233, 69, 96;
-  --noxss-text-on-accent: #ffffff;
+    --noxss-bg-main: #1a1a2e;
+    --noxss-bg-surface: #16213e;
+    --noxss-bg-elements: #0f3460;
+    --noxss-border-color: #2a3b5c;
+    --noxss-text-primary: #e94560;
+    --noxss-text-secondary: #c0c0de;
+    --noxss-accent-primary: #e94560;
+    --noxss-accent-primary-hover: #ff6e85;
+    --noxss-accent-primary-rgb: 233, 69, 96;
+    --noxss-text-on-accent: #ffffff;
 }
 
 /* --- Tema: Púrpura Imperial (Claro) --- */
 [data-theme="purpura-light"] {
-  --noxss-bg-main: #f0f0f8;
-  --noxss-bg-surface: #ffffff;
-  --noxss-bg-elements: #e6e6f2;
-  --noxss-border-color: #d8d8e8;
-  --noxss-text-primary: #0f3460;
-  --noxss-text-secondary: #536482;
-  --noxss-accent-primary: #6c63ff;
-  --noxss-accent-primary-hover: #837dff;
-  --noxss-accent-primary-rgb: 108, 99, 255;
+    --noxss-bg-main: #f0f0f8;
+    --noxss-bg-surface: #ffffff;
+    --noxss-bg-elements: #e6e6f2;
+    --noxss-border-color: #d8d8e8;
+    --noxss-text-primary: #0f3460;
+    --noxss-text-secondary: #536482;
+    --noxss-accent-primary: #6c63ff;
+    --noxss-accent-primary-hover: #837dff;
+    --noxss-accent-primary-rgb: 108, 99, 255;
+    --noxss-text-on-accent: #ffffff;
+}
+
+/* --- Tema: Púrpura Real (Claro) --- */
+[data-theme="purpura-pure-light"] {
+    /* Fundo e superfícies */
+    --noxss-bg-main: #f7f6fb; /* Fundo geral levemente lilás */
+    --noxss-bg-surface: #ffffff; /* Cartões, painéis e áreas elevadas */
+    --noxss-bg-elements: #eceaf6; /* Áreas secundárias e caixas */
+    --noxss-border-color: #d2cfee; /* Borda sutil, mais definida que a anterior */
+
+    /* Texto */
+    --noxss-text-primary: #1a1a2e; /* Texto principal — mais escuro, melhor legibilidade */
+    --noxss-text-secondary: #50507a; /* Texto secundário — suave, sem perder contraste */
+    --noxss-text-muted: #7a7a9f; /* Texto desativado, ícones ou dicas */
+
+    /* Acentos (botões, links, destaques) */
+    --noxss-accent-primary: #6a5acd; /* Púrpura imperial real */
+    --noxss-accent-primary-hover: #7b6df2; /* Hover mais vibrante */
+    --noxss-accent-primary-active: #5948c1; /* Pressionado, tom mais profundo */
+    --noxss-accent-primary-rgb: 106, 90, 205; /* RGB correspondente */
+
+    /* Texto sobre acentos */
+    --noxss-text-on-accent: #ffffff; /* Branco puro sobre púrpura */
+
+    /* Sombras e profundidade */
+    --noxss-shadow-color: rgba(26, 26, 46, 0.08); /* Sombras suaves e amplas */
+    --noxss-shadow-elevated: rgba(26, 26, 46, 0.12);
+
+    /* Estado de foco e seleção */
+    --noxss-focus-ring: #b3a4ff;
+    --noxss-selection-bg: rgba(106, 90, 205, 0.15);
+    --noxss-selection-text: #1a1a2e;
+}
+
+/* --- Tema: Azul Real (Claro) --- */
+[data-theme="azul-real-light"] {
+    /* Fundo e superfícies */
+    --noxss-bg-main: #f6f8fb; /* Fundo geral */
+    --noxss-bg-surface: #ffffff; /* Painéis e cartões */
+    --noxss-bg-elements: #e9edf7; /* Áreas secundárias */
+    --noxss-border-color: #d0d8ec; /* Bordas sutis */
+
+    /* Texto */
+    --noxss-text-primary: #0e1e3b; /* Azul petróleo escuro para legibilidade */
+    --noxss-text-secondary: #4a5d7a; /* Azul acinzentado */
+    --noxss-text-muted: #7b8ca8; /* Desativado ou secundário */
+
+    /* Acentos */
+    --noxss-accent-primary: #1e73ff; /* Azul vivo e equilibrado */
+    --noxss-accent-primary-hover: #458cff; /* Hover mais vibrante */
+    --noxss-accent-primary-active: #155ed9; /* Pressionado mais escuro */
+    --noxss-accent-primary-rgb: 30, 115, 255; /* RGB correspondente */
+
+    /* Texto sobre acento */
+    --noxss-text-on-accent: #ffffff;
+
+    /* Sombras e profundidade */
+    --noxss-shadow-color: rgba(14, 30, 59, 0.08);
+    --noxss-shadow-elevated: rgba(14, 30, 59, 0.12);
+
+    /* Foco e seleção */
+    --noxss-focus-ring: #a5c4ff;
+    --noxss-selection-bg: rgba(30, 115, 255, 0.15);
+    --noxss-selection-text: #0e1e3b;
+}
+
+/* --- Tema: Azul Real (Escuro) --- */
+[data-theme="azul-real-dark"] {
+    /* Fundo e superfícies */
+    --noxss-bg-main: #0c111b; /* Fundo geral — azul marinho profundo */
+    --noxss-bg-surface: #141b2b; /* Painéis e cartões */
+    --noxss-bg-elements: #1d2640; /* Áreas elevadas e menus */
+    --noxss-border-color: #2a3759; /* Bordas discretas */
+
+    /* Texto */
+    --noxss-text-primary: #e0e6f5; /* Texto principal — branco azulado */
+    --noxss-text-secondary: #aab7d4; /* Texto secundário */
+    --noxss-text-muted: #7d8ca8; /* Texto desativado */
+
+    /* Acentos */
+    --noxss-accent-primary: #3c8cff; /* Azul vibrante porém suave */
+    --noxss-accent-primary-hover: #5a9dff; /* Hover levemente mais claro */
+    --noxss-accent-primary-active: #2876e6; /* Pressionado mais escuro */
+    --noxss-accent-primary-rgb: 60, 140, 255; /* RGB correspondente */
+
+    /* Texto sobre acento */
+    --noxss-text-on-accent: #ffffff;
+
+    /* Sombras e profundidade */
+    --noxss-shadow-color: rgba(0, 0, 0, 0.3);
+    --noxss-shadow-elevated: rgba(0, 0, 0, 0.45);
+
+    /* Foco e seleção */
+    --noxss-focus-ring: #4d94ff;
+    --noxss-selection-bg: rgba(60, 140, 255, 0.25);
+    --noxss-selection-text: #e0e6f5;
+}
+
+/* --- Tema: Verde Sereno (Claro) --- */
+[data-theme="verde-sereno-light"] {
+    /* Fundo e superfícies */
+    --noxss-bg-main: #f5f8f5; /* Fundo com tom esverdeado neutro */
+    --noxss-bg-surface: #ffffff; /* Painéis e cartões */
+    --noxss-bg-elements: #e9f2ea; /* Áreas secundárias suaves */
+    --noxss-border-color: #ccdccc; /* Bordas sutis, com leve tom verde */
+
+    /* Texto */
+    --noxss-text-primary: #0e2f1a; /* Verde escuro quase preto */
+    --noxss-text-secondary: #4e6a56; /* Verde acinzentado */
+    --noxss-text-muted: #7a9480; /* Desativado */
+
+    /* Acentos */
+    --noxss-accent-primary: #3cb371; /* Verde médio agradável */
+    --noxss-accent-primary-hover: #48c47d; /* Hover mais vivo */
+    --noxss-accent-primary-active: #2d915a; /* Pressionado mais profundo */
+    --noxss-accent-primary-rgb: 60, 179, 113; /* RGB correspondente */
+
+    /* Texto sobre acento */
+    --noxss-text-on-accent: #ffffff;
+
+    /* Sombras e profundidade */
+    --noxss-shadow-color: rgba(14, 47, 26, 0.08);
+    --noxss-shadow-elevated: rgba(14, 47, 26, 0.12);
+
+    /* Foco e seleção */
+    --noxss-focus-ring: #a4e4b9;
+    --noxss-selection-bg: rgba(60, 179, 113, 0.15);
+    --noxss-selection-text: #0e2f1a;
+}
+
+/* --- Tema: Verde Sereno (Escuro) --- */
+[data-theme="verde-sereno-dark"] {
+    /* Fundo e superfícies */
+    --noxss-bg-main: #0d1712; /* Fundo geral — verde escuro natural */
+    --noxss-bg-surface: #16241d; /* Cartões e painéis */
+    --noxss-bg-elements: #1f3228; /* Áreas elevadas */
+    --noxss-border-color: #2b473a; /* Bordas sutis e orgânicas */
+
+    /* Texto */
+    --noxss-text-primary: #e3f1e7; /* Texto principal — branco esverdeado */
+    --noxss-text-secondary: #a9c3b2; /* Texto secundário */
+    --noxss-text-muted: #7e998a; /* Texto desativado */
+
+    /* Acentos */
+    --noxss-accent-primary: #37b26c; /* Verde médio suave */
+    --noxss-accent-primary-hover: #49c37d; /* Hover mais vivo */
+    --noxss-accent-primary-active: #2c9658; /* Pressionado */
+    --noxss-accent-primary-rgb: 55, 178, 108; /* RGB correspondente */
+
+    /* Texto sobre acento */
+    --noxss-text-on-accent: #ffffff;
+
+    /* Sombras e profundidade */
+    --noxss-shadow-color: rgba(0, 0, 0, 0.3);
+    --noxss-shadow-elevated: rgba(0, 0, 0, 0.45);
+
+    /* Foco e seleção */
+    --noxss-focus-ring: #79e0a2;
+    --noxss-selection-bg: rgba(55, 178, 108, 0.25);
+    --noxss-selection-text: #e3f1e7;
+}
+
+/* --- Tema: Neutro Equilibrado (Claro) --- */
+[data-theme="neutro-light"] {
+    /* Fundo e superfícies */
+    --noxss-bg-main: #f9f9f9; /* Fundo neutro, quase branco */
+    --noxss-bg-surface: #ffffff; /* Cartões e painéis */
+    --noxss-bg-elements: #f1f1f1; /* Linhas, caixas sutis */
+    --noxss-border-color: #dedede; /* Bordas leves */
+
+    /* Texto */
+    --noxss-text-primary: #111111; /* Preto suave */
+    --noxss-text-secondary: #555555; /* Cinza escuro */
+    --noxss-text-muted: #8a8a8a; /* Cinza médio */
+    --noxss-text-inverted: #ffffff; /* Branco sobre fundo escuro */
+
+    /* Acentos — destaque sem dominar */
+    --noxss-accent-primary: #4a90e2; /* Azul moderado */
+    --noxss-accent-primary-hover: #5ba0ef;
+    --noxss-accent-primary-active: #357ac8;
+    --noxss-accent-primary-rgb: 74, 144, 226;
+
+    /* Cores complementares leves (não saturadas) */
+    --noxss-accent-secondary: #4ec27f; /* Verde equilibrado para feedback positivo */
+    --noxss-accent-warning: #f0c14b; /* Amarelo suave para alertas */
+    --noxss-accent-danger: #e45b78; /* Rosa-avermelhado para erros */
+
+    /* Texto sobre acento */
+    --noxss-text-on-accent: #ffffff;
+
+    /* Sombras e profundidade */
+    --noxss-shadow-color: rgba(0, 0, 0, 0.06);
+    --noxss-shadow-elevated: rgba(0, 0, 0, 0.12);
+
+    /* Foco e seleção */
+    --noxss-focus-ring: #b9d7ff;
+    --noxss-selection-bg: rgba(74, 144, 226, 0.15);
+    --noxss-selection-text: #111111;
+}
+
+/* --- Tema: Neutro Equilibrado (Escuro) --- */
+[data-theme="neutro-dark"] {
+  /* Fundo e superfícies */
+  --noxss-bg-main: #0f0f10;          /* Preto levemente acinzentado */
+  --noxss-bg-surface: #18181b;       /* Cartões e painéis */
+  --noxss-bg-elements: #222326;      /* Linhas e caixas */
+  --noxss-border-color: #2e2f33;     /* Bordas discretas */
+
+  /* Texto */
+  --noxss-text-primary: #f2f2f2;     /* Branco suave */
+  --noxss-text-secondary: #c7c7c7;   /* Cinza claro */
+  --noxss-text-muted: #8e8e8e;       /* Cinza médio */
+  --noxss-text-inverted: #111111;    /* Preto sobre claro */
+
+  /* Acentos — controlados, pontuais */
+  --noxss-accent-primary: #4a90e2;          /* Azul equilibrado */
+  --noxss-accent-primary-hover: #5ba0ef;
+  --noxss-accent-primary-active: #357ac8;
+  --noxss-accent-primary-rgb: 74, 144, 226;
+
+  /* Cores complementares suaves */
+  --noxss-accent-secondary: #4ec27f; /* Verde equilibrado */
+  --noxss-accent-warning: #f0c14b;   /* Amarelo claro */
+  --noxss-accent-danger: #e45b78;    /* Rosa-avermelhado */
+
+  /* Texto sobre acento */
   --noxss-text-on-accent: #ffffff;
+
+  /* Sombras e profundidade */
+  --noxss-shadow-color: rgba(0, 0, 0, 0.3);
+  --noxss-shadow-elevated: rgba(0, 0, 0, 0.45);
+
+  /* Foco e seleção */
+  --noxss-focus-ring: #4a90e2;
+  --noxss-selection-bg: rgba(74, 144, 226, 0.25);
+  --noxss-selection-text: #f2f2f2;
 }
