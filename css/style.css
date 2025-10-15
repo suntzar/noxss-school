@@ -449,33 +449,6 @@
   border-bottom: 2px dashed var(--noxss-border-color);
 }
 
-/* Estilos para o modal de visualização de imagem */
-.image-viewer-dialog {
-  background-color: transparent;
-  border: none;
-  box-shadow: none;
-  max-width: 90vw;
-  max-height: 90vh;
-}
-
-.image-viewer-dialog .noxss-modal__header {
-  background-color: rgba(0, 0, 0, 0.5);
-  border-bottom: none;
-}
-
-.image-viewer-body {
-  padding: 0;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-.image-viewer-body img {
-  max-width: 100%;
-  max-height: calc(90vh - 80px); /* Ajusta para caber na tela com o header */
-  object-fit: contain;
-  border-radius: var(--noxss-border-radius-base);
-}
-
 .student-details-header .student-name {
   flex-grow: 1;
   align-self: center;
