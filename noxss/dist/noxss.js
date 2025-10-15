@@ -1,7 +1,7 @@
 /*!
  * Noxss JS v1.0
  * Copyright 2025 [Seu Nome]
- * Gerado em: 2025-10-15T19:35:47.611Z
+ * Gerado em: 2025-10-15T20:07:41.346Z
  */
 /* ==========================================================================
    Noxss Library: Core JavaScript
@@ -410,8 +410,8 @@
       return;
     }
 
-    // Se nenhum ID for fornecido, fecha o modal no topo da pilha.
-    // Caso contrário, fecha o modal específico, mesmo que não seja o do topo.
+    // Se um ID for fornecido, fecha esse modal específico.
+    // Se não, fecha o que estiver no topo da pilha.
     const instanceIdToClose = instanceId || openModalStack[openModalStack.length - 1];
     const stackIndex = openModalStack.findIndex((id) => id === instanceIdToClose);
 
@@ -435,8 +435,14 @@
       { once: true }
     );
 
-    // Devolve o foco para o elemento que abriu o modal, se possível
-    if (modalInstance.triggerElement) {
+    // Se ainda houver modais abertos, devolve o foco para o modal do topo.
+    // Se não, devolve para o elemento que abriu o primeiro modal.
+    if (openModalStack.length > 0) {
+      const nextActiveModalId = openModalStack[openModalStack.length - 1];
+      const nextActiveModal = activeModals.get(nextActiveModalId);
+      const firstFocusable = nextActiveModal?.element.querySelector(FOCUSABLE_ELEMENTS);
+      firstFocusable?.focus();
+    } else if (modalInstance.triggerElement) {
       modalInstance.triggerElement.focus();
     }
 
