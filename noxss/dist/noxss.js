@@ -1,7 +1,7 @@
 /*!
  * Noxss JS v1.0
  * Copyright 2025 [Seu Nome]
- * Gerado em: 2025-07-15T06:31:23.079Z
+ * Gerado em: 2025-10-15T17:34:00.549Z
  */
 /* ==========================================================================
    Noxss Library: Core JavaScript
@@ -331,154 +331,193 @@
    ========================================================================== */
 
 (function (Noxss, window, document) {
-    'use strict';
+  "use strict";
 
-    if (!Noxss) {
-        console.error("Noxss Core (core.js) é necessário, mas não foi encontrado.");
-        return;
+  if (!Noxss) {
+    console.error("Noxss Core (core.js) é necessário, mas não foi encontrado.");
+    return;
+  }
+
+  // Armazena os templates de modais declarados no HTML
+  const modalTemplates = new Map();
+  // Armazena as instâncias ativas (clones) dos modais abertos
+  const activeModals = new Map();
+
+  // Elementos que podem receber foco do teclado
+  const FOCUSABLE_ELEMENTS = 'a[href], area[href], input:not([disabled]), select:not([disabled]), textarea:not([disabled]), button:not([disabled]), iframe, object, embed, [tabindex="0"], [contenteditable]';
+
+  let openModalStack = []; // Rastreia a pilha de modais abertos
+
+  /**
+   * Abre um modal específico.
+   * @param {string} templateId - O ID do template do modal a ser clonado e aberto.
+   */
+  function openModal(templateId, triggerElement = null) {
+    const template = modalTemplates.get(templateId);
+    if (!template) {
+      console.warn(`Noxss Modals: Template de modal com ID "${templateId}" não encontrado.`);
+      return;
     }
 
-    // Armazena o estado de todos os modais inicializados
-    const modals = new Map();
+    // --- Lógica de Clonagem ---
+    const clone = template.cloneNode(true);
+    const instanceId = `${templateId}-${Date.now()}`;
+    clone.id = instanceId;
+    clone.classList.add("is-clone"); // Marca como uma instância clonada
+    clone.removeAttribute("data-noxss-modal"); // Previne que o clone seja tratado como um template
 
-    // Elementos que podem receber foco do teclado
-    const FOCUSABLE_ELEMENTS = 'a[href], area[href], input:not([disabled]), select:not([disabled]), textarea:not([disabled]), button:not([disabled]), iframe, object, embed, [tabindex="0"], [contenteditable]';
+    document.body.appendChild(clone);
 
-    let openModalId = null; // Rastreia o ID do modal atualmente aberto
+    // Armazena a instância ativa
+    activeModals.set(instanceId, {
+      element: clone,
+      triggerElement: triggerElement,
+    });
 
-    /**
-     * Abre um modal específico.
-     * @param {string} modalId - O ID do modal a ser aberto.
-     */
-    function openModal(modalId) {
-        const modal = modals.get(modalId);
-        if (!modal || modal.isOpen) return;
+    // Adiciona listeners de fechar específicos para esta instância
+    clone.addEventListener("click", (event) => {
+      if (event.target === clone) closeModal();
+    });
+    clone.querySelectorAll("[data-noxss-modal-close]").forEach((btn) => {
+      btn.addEventListener("click", () => closeModal());
+    });
 
-        openModalId = modalId;
-        modal.element.classList.add('is-open');
-        document.body.style.overflow = 'hidden'; // Impede o scroll do body
-
-        // Move o foco para dentro do modal
-        const firstFocusable = modal.element.querySelector(FOCUSABLE_ELEMENTS);
-        if (firstFocusable) {
-            firstFocusable.focus();
-        }
-
-        modal.isOpen = true;
+    // --- Lógica de Abertura ---
+    if (openModalStack.length === 0) {
+      document.body.style.overflow = "hidden"; // Impede o scroll do body apenas no primeiro modal
     }
 
-    /**
-     * Fecha o modal atualmente aberto.
-     */
-    function closeModal() {
-        if (!openModalId) return;
+    openModalStack.push(instanceId);
 
-        const modal = modals.get(openModalId);
-        if (modal) {
-            modal.element.classList.remove('is-open');
-            document.body.style.overflow = ''; // Restaura o scroll do body
-            modal.isOpen = false;
-        }
-        
-        // Devolve o foco para o elemento que abriu o modal, se possível
-        if (modal.triggerElement) {
-            modal.triggerElement.focus();
-        }
-        
-        openModalId = null;
+    // Força um reflow para garantir que a transição de abertura funcione
+    void clone.offsetWidth;
+
+    clone.classList.add("is-open");
+
+    // Move o foco para dentro do modal
+    const firstFocusable = clone.querySelector(FOCUSABLE_ELEMENTS);
+    if (firstFocusable) {
+      firstFocusable.focus();
+    }
+  }
+
+  /**
+   * Fecha o modal atualmente aberto.
+   */
+  function closeModal() {
+    if (openModalStack.length === 0) return;
+
+    const instanceIdToClose = openModalStack.pop();
+    const modalInstance = activeModals.get(instanceIdToClose);
+
+    if (!modalInstance) return;
+
+    const modalElement = modalInstance.element;
+    modalElement.classList.remove("is-open"); // Inicia a animação de saída
+
+    // Remove o elemento do DOM após a animação
+    modalElement.addEventListener(
+      "transitionend",
+      () => {
+        modalElement.remove();
+        activeModals.delete(instanceIdToClose);
+      },
+      { once: true }
+    );
+
+    // Devolve o foco para o elemento que abriu o modal, se possível
+    if (modalInstance.triggerElement) {
+      modalInstance.triggerElement.focus();
     }
 
-    /**
-     * Gerencia a navegação por Tab (focus trap).
-     * @param {KeyboardEvent} event 
-     */
-    function handleFocusTrap(event) {
-        if (event.key !== 'Tab' || !openModalId) return;
-
-        const modalElement = modals.get(openModalId)?.element;
-        if (!modalElement) return;
-
-        const focusableElements = Array.from(modalElement.querySelectorAll(FOCUSABLE_ELEMENTS));
-        const firstElement = focusableElements[0];
-        const lastElement = focusableElements[focusableElements.length - 1];
-
-        if (event.shiftKey) { // Shift + Tab
-            if (document.activeElement === firstElement) {
-                lastElement.focus();
-                event.preventDefault();
-            }
-        } else { // Tab
-            if (document.activeElement === lastElement) {
-                firstElement.focus();
-                event.preventDefault();
-            }
-        }
+    // Restaura o scroll do body apenas ao fechar o último modal
+    if (openModalStack.length === 0) {
+      document.body.style.overflow = "";
     }
+  }
 
-    const ModalsAPI = {
-        init: function() {
-            // Encontra todos os modais declarados no HTML
-            const modalElements = document.querySelectorAll('[data-noxss-modal]');
-            modalElements.forEach(modalEl => {
-                const modalId = modalEl.id;
-                if (!modalId) {
-                    console.warn("Noxss Modals: Modal encontrado sem um ID. A inicialização foi ignorada.", modalEl);
-                    return;
-                }
-                modals.set(modalId, {
-                    element: modalEl,
-                    isOpen: false,
-                    triggerElement: null // Armazena quem abriu o modal
-                });
+  /**
+   * Gerencia a navegação por Tab (focus trap).
+   * @param {KeyboardEvent} event
+   */
+  function handleFocusTrap(event) {
+    if (event.key !== "Tab" || openModalStack.length === 0) return;
 
-                // Adiciona listener para fechar ao clicar no backdrop
-                modalEl.addEventListener('click', (event) => {
-                    if (event.target === modalEl) {
-                        closeModal();
-                    }
-                });
-            });
+    const activeModalId = openModalStack[openModalStack.length - 1];
+    const activeModalInstance = activeModals.get(activeModalId);
+    if (!activeModalInstance) return;
 
-            // Encontra todos os gatilhos que abrem modais
-            const openTriggers = document.querySelectorAll('[data-noxss-modal-open]');
-            openTriggers.forEach(trigger => {
-                const modalId = trigger.dataset.noxssModalOpen;
-                trigger.addEventListener('click', (event) => {
-                    const modal = modals.get(modalId);
-                    if (modal) {
-                        modal.triggerElement = event.currentTarget; // Guarda o gatilho
-                    }
-                    openModal(modalId);
-                });
-            });
-            
-            // Encontra todos os gatilhos que fecham modais
-            const closeTriggers = document.querySelectorAll('[data-noxss-modal-close]');
-            closeTriggers.forEach(trigger => {
-                trigger.addEventListener('click', () => {
-                    closeModal();
-                });
-            });
+    const focusableElements = Array.from(activeModalInstance.element.querySelectorAll(FOCUSABLE_ELEMENTS));
+    const firstElement = focusableElements[0];
+    const lastElement = focusableElements[focusableElements.length - 1];
 
-            // Listeners globais para fechar com 'Esc' e para o focus trap
-            window.addEventListener('keydown', (event) => {
-                if (event.key === 'Escape' && openModalId) {
-                    closeModal();
-                }
-                handleFocusTrap(event);
-            });
-        },
+    if (event.shiftKey) {
+      // Shift + Tab
+      if (document.activeElement === firstElement) {
+        lastElement?.focus();
+        event.preventDefault();
+      }
+    } else {
+      // Tab
+      if (document.activeElement === lastElement) {
+        firstElement?.focus();
+        event.preventDefault();
+      }
+    }
+  }
 
-        open: openModal,
-        close: closeModal
-    };
+  const ModalsAPI = {
+    init: function () {
+      // 1. Encontra e armazena todos os templates de modais declarados no HTML.
+      const modalElements = document.querySelectorAll("[data-noxss-modal]");
+      modalElements.forEach((modalEl) => {
+        const modalId = modalEl.id;
+        if (!modalId) {
+          console.warn("Noxss Modals: Modal encontrado sem um ID. A inicialização foi ignorada.", modalEl);
+          return;
+        }
+        // Armazena o próprio elemento como o template.
+        modalTemplates.set(modalId, modalEl);
+      });
 
-    Noxss.Modals = ModalsAPI;
+      // 2. Usa delegação de eventos para lidar com todos os cliques de forma eficiente.
+      document.body.addEventListener("click", (event) => {
+        const openTrigger = event.target.closest("[data-noxss-modal-open]");
+        const closeTrigger = event.target.closest("[data-noxss-modal-close]");
 
-    // Auto-inicialização
-    document.addEventListener('DOMContentLoaded', () => Noxss.Modals.init());
+        if (openTrigger) {
+          event.preventDefault();
+          const modalId = openTrigger.dataset.noxssModalOpen;
+          if (modalId) {
+            openModal(modalId, openTrigger);
+          }
+        }
 
-})(window.Noxss, window, document);;
+        if (closeTrigger) {
+          event.preventDefault();
+          closeModal();
+        }
+      });
+
+      // 3. Listeners globais para fechar com 'Esc' e para o focus trap.
+      window.addEventListener("keydown", (event) => {
+        if (event.key === "Escape" && openModalStack.length > 0) {
+          closeModal();
+        }
+        handleFocusTrap(event);
+      });
+    },
+
+    open: openModal,
+    close: closeModal,
+  };
+
+  Noxss.Modals = ModalsAPI;
+
+  // Auto-inicialização
+  document.addEventListener("DOMContentLoaded", () => Noxss.Modals.init());
+})(window.Noxss, window, document);
+;
 
 /* ==========================================================================
    Noxss Library: Player Component
