@@ -127,8 +127,9 @@
   gap: 0.75rem;
   max-height: 0;
   overflow: hidden;
-  transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1), padding-top 0.4s ease;
-  padding: 15px;
+  transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1), padding-top 0.8s ease;
+  padding: 0 0.8rem 0;
+  padding-top: 0px;
 }
 
 .turma-filter-options.is-open {
@@ -226,11 +227,10 @@
   .student-card-info-grid {
     grid-template-columns: 1fr;
     gap: 1rem;
+    width: 100%;
   }
-  .student-card-main-info {
-    order: 2; /* Mantém as informações principais abaixo */
-    border: none; /* Remove a barra divisória indesejada */
-    padding: 0; /* Remove padding extra */
+  .student-status {
+    width: 100% !important;
   }
 }
 
