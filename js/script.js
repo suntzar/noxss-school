@@ -366,7 +366,8 @@ document.addEventListener("DOMContentLoaded", () => {
     return `
       <div class="noxss-card__header">
         <div class="student-card-avatar noxss-card__leading">
-            <i class="fa-solid fa-user-circle"></i>
+            <img src="data/fotos/${student.id}.jpg" alt="Foto de ${safe(student.nome)}" class="student-avatar-img" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+            <i class="fa-solid fa-user-circle" style="display: none;"></i>
         </div>
         <h3 class="noxss-card__title u-mb-0">${highlightedNome}</h3>
         <div class="student-card-actions">
@@ -991,8 +992,9 @@ document.addEventListener("DOMContentLoaded", () => {
     const html = `
       <div class="student-details-container">
         <div class="student-details-header mb-4">
-          <div class="student-details-avatar">
-            <i class="fa-solid fa-user-circle"></i>
+          <div class="student-details-avatar" style="width: 80px; height: 80px;">
+            <img src="data/fotos/${student.id}.jpg" alt="Foto de ${safe(student.nome)}" class="student-avatar-img" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+            <i class="fa-solid fa-user-circle" style="display: none;"></i>
           </div>
           <h2 class="student-name">${safe(student.nome)}</h2>
         </div>
