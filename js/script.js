@@ -654,7 +654,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const createGenderListItems = (data) =>
       Object.entries(data)
         .sort()
-        .map(([key, value]) => `<li class="noxss-list-item"><div class="noxss-list-item__content">${key}</div><div class="noxss-list-item__trailing d-flex gap-3"><span class="info-item"><i class="fa-solid fa-mars noxss-icon"></i> ${value["Masculino"] || 0}</span> <span class="info-item"><i class="fa-solid fa-venus noxss-icon"></i> ${value["Feminino"] || 0}</span></div></li>`)
+        .map(([key, value]) => `<li class="noxss-list-item"><div class="noxss-list-item__content">${key}</div><div class="noxss-list-item__trailing d-flex gap-3"><span class="info-item"><i class="fa-solid fa-mars noxss-icon"></i> <span>${value["Masculino"] || 0}</span></span> <span class="info-item"><i class="fa-solid fa-venus noxss-icon"></i> <span>${value["Feminino"] || 0}</span></span></div></li>`)
         .join("");
 
     const createTurnoStatCards = (data) =>

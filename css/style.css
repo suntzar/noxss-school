@@ -244,7 +244,7 @@
 }
 
 .info-item {
-  display: flex;
+  display: inline-flex;
   align-items: center;
   gap: 0.65rem;
   font-size: 0.9rem;
@@ -257,6 +257,14 @@
   flex-shrink: 0;
   text-align: center;
   color: var(--noxss-text-secondary);
+}
+
+.info-item .fa-mars {
+  color: #60a5fa; /* Azul para masculino */
+}
+
+.info-item .fa-venus {
+  color: #f472b6; /* Rosa para feminino */
 }
 
 .info-item strong {
@@ -518,6 +526,9 @@
 }
 .gap-2 {
   gap: 0.5rem !important;
+}
+.gap-3 {
+  gap: 1rem !important;
 }
 .d-none {
   display: none !important;
