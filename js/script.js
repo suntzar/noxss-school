@@ -657,6 +657,15 @@ document.addEventListener("DOMContentLoaded", () => {
         .map(([key, value]) => `<li class="noxss-list-item"><div class="noxss-list-item__content">${key}</div><div class="noxss-list-item__trailing d-flex gap-3"><span class="info-item"><i class="fa-solid fa-mars noxss-icon"></i> ${value["Masculino"] || 0}</span> <span class="info-item"><i class="fa-solid fa-venus noxss-icon"></i> ${value["Feminino"] || 0}</span></div></li>`)
         .join("");
 
+    const createTurnoStatCards = (data) =>
+      Object.entries(data)
+        .sort((a, b) => a[0].localeCompare(b[0])) // Ordena por nome do turno
+        .map(([turno, count]) => {
+          const icon = turno.toLowerCase().includes("matutino") ? "fa-sun" : turno.toLowerCase().includes("vespertino") ? "fa-cloud-sun" : "fa-clock";
+          return `<div class="noxss-card noxss-card--stat"><div class="stat-content"><div><div class="stat-label">Ativos ${turno}</div><div class="stat-value">${count}</div></div><i class="noxss-icon stat-icon fa-solid ${icon}"></i></div></div>`;
+        })
+        .join("");
+
     dashboardContent.innerHTML = `
             <div class="noxss-card-deck" style="grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));">
                 <div class="noxss-card noxss-card--stat"><div class="stat-content"><div><div class="stat-label">Total de Alunos</div><div class="stat-value">${total}</div></div><i class="noxss-icon stat-icon fa-solid fa-users"></i></div></div>
@@ -675,10 +684,10 @@ document.addEventListener("DOMContentLoaded", () => {
                         <i class="noxss-icon stat-icon fa-solid fa-venus"></i>
                     </div>
                 </div>
+                ${createTurnoStatCards(byTurno)}
             </div>
             <div class="noxss-card-deck mt-4">
                 <div class="noxss-card"><div class="noxss-card__header"><h3 class="noxss-card__title">Alunos Ativos por Turma</h3></div><ul class="noxss-list">${createListItems(byTurma)}</ul></div>
-                <div class="noxss-card"><div class="noxss-card__header"><h3 class="noxss-card__title">Alunos Ativos por Turno</h3></div><ul class="noxss-list">${createListItems(byTurno)}</ul></div>
                 <div class="noxss-card"><div class="noxss-card__header"><h3 class="noxss-card__title">Gênero por Turma (Ativos)</h3></div><ul class="noxss-list">${createGenderListItems(byTurmaAndGender)}</ul></div>
                 <div class="noxss-card"><div class="noxss-card__header"><h3 class="noxss-card__title">Gênero por Turno (Ativos)</h3></div><ul class="noxss-list">${createGenderListItems(byTurnoAndGender)}</ul></div>
             </div>`;
