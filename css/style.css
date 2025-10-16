@@ -244,11 +244,13 @@
 }
 
 .info-item {
-  display: inline-flex;
+  display: flex;
   align-items: center;
   gap: 0.65rem;
   font-size: 0.9rem;
   color: var(--noxss-text-secondary);
+  width: 50px; /* Largura fixa para o conjunto (ícone + número) */
+  justify-content: flex-start; /* Alinha o conteúdo à esquerda dentro do espaço */
 }
 
 .info-item .noxss-icon {
@@ -585,6 +587,13 @@
   padding: 0.1em 0.2em;
   margin: -0.1em -0.2em;
   border-radius: 4px;
+}
+
+.quant-total {
+  display: inline-block;
+  text-align: right;
+  width: 40px; /* Largura um pouco maior para o total */
+  margin-right: 1rem; /* Espaçamento à direita do total */
 }
 
 /* ==========================================================================

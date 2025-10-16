@@ -650,7 +650,7 @@ document.addEventListener("DOMContentLoaded", () => {
         .sort((a, b) => a[0].localeCompare(b[0]))
         .map(([key, value]) => {
           const total = (value["Masculino"] || 0) + (value["Feminino"] || 0) + (value["Não informado"] || 0);
-          return `<li class="noxss-list-item"><div class="noxss-list-item__content">${key}</div><div class="noxss-list-item__trailing d-flex gap-3 align-items-center"><strong class="me-3">${total}</strong><span class="info-item"><i class="fa-solid fa-mars noxss-icon"></i> <span>${value["Masculino"] || 0}</span></span> <span class="info-item"><i class="fa-solid fa-venus noxss-icon"></i> <span>${value["Feminino"] || 0}</span></span></div></li>`;
+          return `<li class="noxss-list-item"><div class="noxss-list-item__content">${key}</div><div class="noxss-list-item__trailing d-flex align-items-center"><strong class="quant-total">${total}</strong><span class="info-item"><i class="fa-solid fa-mars noxss-icon"></i> <span>${value["Masculino"] || 0}</span></span> <span class="info-item"><i class="fa-solid fa-venus noxss-icon"></i> <span>${value["Feminino"] || 0}</span></span></div></li>`;
         })
         .join("");
 
