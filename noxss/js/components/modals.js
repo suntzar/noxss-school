@@ -13,10 +13,8 @@
     return;
   }
 
-  // Armazena os templates de modais declarados no HTML
-  const modalTemplates = new Map();
-  // Armazena as instâncias ativas (clones) dos modais abertos
-  const activeModals = new Map();
+  // Armazena o estado de todos os modais inicializados
+  const modals = new Map();
 
   // Elementos que podem receber foco do teclado
   const FOCUSABLE_ELEMENTS = 'a[href], area[href], input:not([disabled]), select:not([disabled]), textarea:not([disabled]), button:not([disabled]), iframe, object, embed, [tabindex="0"], [contenteditable]';
@@ -25,133 +23,112 @@
 
   /**
    * Abre um modal específico.
-   * @param {string} templateId - O ID do template do modal a ser clonado e aberto.
+   * @param {string} modalId - O ID do modal a ser aberto.
+   * @param {HTMLElement} [triggerElement=null] - O elemento que acionou a abertura.
    */
-  function openModal(templateId, triggerElement = null) {
-    const template = modalTemplates.get(templateId);
-    if (!template) {
-      console.warn(`Noxss Modals: Template de modal com ID "${templateId}" não encontrado.`);
+  function openModal(modalId, triggerElement = null) {
+    const modal = modals.get(modalId);
+    if (!modal || modal.isOpen) {
+      if (!modal) console.warn(`Noxss Modals: Modal com ID "${modalId}" não encontrado.`);
       return;
     }
 
-    // --- Lógica de Clonagem ---
-    const clone = template.cloneNode(true);
-    const instanceId = `${templateId}-${Date.now()}`;
-    clone.id = instanceId;
-    clone.classList.add("is-clone"); // Marca como uma instância clonada
-    clone.removeAttribute("data-noxss-modal"); // Previne que o clone seja tratado como um template
+    modal.triggerElement = triggerElement;
+    modal.isOpen = true;
 
-    document.body.appendChild(clone);
-
-    // Armazena a instância ativa
-    activeModals.set(instanceId, {
-      element: clone,
-      triggerElement: triggerElement,
-    });
-
-    // Adiciona listeners de fechar específicos para esta instância
-    clone.addEventListener("click", (event) => {
-      if (event.target === clone) closeModal(instanceId);
-    });
-    clone.querySelectorAll("[data-noxss-modal-close]").forEach((btn) => {
-      btn.addEventListener("click", () => closeModal(instanceId));
-    });
-
-    // --- Lógica de Abertura ---
     if (openModalStack.length === 0) {
       document.body.style.overflow = "hidden"; // Impede o scroll do body apenas no primeiro modal
     }
 
-    openModalStack.push(instanceId);
+    openModalStack.push(modalId);
 
     // Força um reflow para garantir que a transição de abertura funcione
-    void clone.offsetWidth;
+    void modal.element.offsetWidth;
 
-    clone.classList.add("is-open");
+    modal.element.classList.add("is-open");
 
     // Move o foco para dentro do modal
-    const firstFocusable = clone.querySelector(FOCUSABLE_ELEMENTS);
+    const firstFocusable = modal.element.querySelector(FOCUSABLE_ELEMENTS);
     if (firstFocusable) {
       firstFocusable.focus();
     }
+
+    // Dispara um evento customizado para notificar que um modal foi aberto
+    document.body.dispatchEvent(
+      new CustomEvent("noxss:modal:open", {
+        bubbles: true,
+        detail: { modalId: modalId, modalElement: modal.element },
+      })
+    );
   }
 
   /**
-   * Fecha o modal atualmente aberto.
-   * @param {string} [instanceId] - O ID da instância do modal a ser fechado. Se omitido, fecha o último aberto.
+   * Fecha um modal específico ou o último aberto na pilha.
+   * @param {string} [modalId] - O ID do modal a ser fechado. Se omitido, fecha o último aberto.
    */
-  function closeModal(instanceId) {
-    if (openModalStack.length === 0) {
-      return;
-    }
+  function closeModal(modalId) {
+    if (openModalStack.length === 0) return;
 
-    // Se um ID for fornecido, fecha esse modal específico.
-    // Se não, fecha o que estiver no topo da pilha.
-    const instanceIdToClose = instanceId || openModalStack[openModalStack.length - 1];
-    const stackIndex = openModalStack.findIndex((id) => id === instanceIdToClose);
+    const idToClose = modalId || openModalStack[openModalStack.length - 1];
+    const modal = modals.get(idToClose);
 
-    if (stackIndex === -1) return; // O modal não está (ou já não está mais) na pilha de abertos.
+    if (!modal || !modal.isOpen) return;
 
-    openModalStack.splice(stackIndex, 1); // Remove o modal da pilha
-    const modalInstance = activeModals.get(instanceIdToClose);
+    // Remove da pilha de modais abertos
+    openModalStack = openModalStack.filter((id) => id !== idToClose);
 
-    if (!modalInstance) return;
+    modal.isOpen = false;
+    modal.element.classList.remove("is-open"); // Inicia a animação de saída
 
-    const modalElement = modalInstance.element;
-    modalElement.classList.remove("is-open"); // Inicia a animação de saída
-
-    // Remove o elemento do DOM após a animação
-    modalElement.addEventListener(
-      "transitionend",
-      () => {
-        modalElement.remove();
-        activeModals.delete(instanceIdToClose);
-      },
-      { once: true }
+    // Dispara um evento customizado para notificar que um modal foi fechado
+    document.body.dispatchEvent(
+      new CustomEvent("noxss:modal:close", {
+        bubbles: true,
+        detail: { modalId: idToClose, modalElement: modal.element },
+      })
     );
 
-    // Se ainda houver modais abertos, devolve o foco para o modal do topo.
-    // Se não, devolve para o elemento que abriu o primeiro modal.
+    // Devolve o foco para o próximo modal na pilha ou para o elemento gatilho
     if (openModalStack.length > 0) {
       const nextActiveModalId = openModalStack[openModalStack.length - 1];
-      const nextActiveModal = activeModals.get(nextActiveModalId);
-      const firstFocusable = nextActiveModal?.element.querySelector(FOCUSABLE_ELEMENTS);
-      firstFocusable?.focus();
-    } else if (modalInstance.triggerElement) {
-      modalInstance.triggerElement.focus();
+      const nextModal = modals.get(nextActiveModalId);
+      const firstFocusable = nextModal?.element.querySelector(FOCUSABLE_ELEMENTS);
+      if (firstFocusable) firstFocusable.focus();
+    } else if (modal.triggerElement) {
+      modal.triggerElement.focus();
     }
 
-    // Restaura o scroll do body apenas ao fechar o último modal
+    // Restaura o scroll do body apenas quando o último modal for fechado
     if (openModalStack.length === 0) {
       document.body.style.overflow = "";
     }
   }
 
   /**
-   * Gerencia a navegação por Tab (focus trap).
+   * Gerencia a navegação por Tab para manter o foco dentro do modal ativo (focus trap).
    * @param {KeyboardEvent} event
    */
   function handleFocusTrap(event) {
     if (event.key !== "Tab" || openModalStack.length === 0) return;
 
     const activeModalId = openModalStack[openModalStack.length - 1];
-    const activeModalInstance = activeModals.get(activeModalId);
-    if (!activeModalInstance) return;
+    const activeModal = modals.get(activeModalId);
+    if (!activeModal) return;
 
-    const focusableElements = Array.from(activeModalInstance.element.querySelectorAll(FOCUSABLE_ELEMENTS));
+    const focusableElements = Array.from(activeModal.element.querySelectorAll(FOCUSABLE_ELEMENTS));
     if (focusableElements.length === 0) return;
 
     const firstElement = focusableElements[0];
     const lastElement = focusableElements[focusableElements.length - 1];
 
     if (event.shiftKey) {
-      // Shift + Tab
+      // Shift + Tab: Se o foco está no primeiro elemento, move para o último.
       if (document.activeElement === firstElement) {
         lastElement.focus();
         event.preventDefault();
       }
     } else {
-      // Tab
+      // Tab: Se o foco está no último elemento, move para o primeiro.
       if (document.activeElement === lastElement) {
         firstElement.focus();
         event.preventDefault();
@@ -161,7 +138,7 @@
 
   const ModalsAPI = {
     init: function () {
-      // 1. Encontra e armazena todos os templates de modais declarados no HTML.
+      // 1. Encontra e armazena todos os modais declarados no HTML.
       const modalElements = document.querySelectorAll("[data-noxss-modal]");
       modalElements.forEach((modalEl) => {
         const modalId = modalEl.id;
@@ -169,37 +146,50 @@
           console.warn("Noxss Modals: Modal encontrado sem um ID. A inicialização foi ignorada.", modalEl);
           return;
         }
-        // Armazena o próprio elemento como o template.
-        modalTemplates.set(modalId, modalEl);
+        modals.set(modalId, {
+          element: modalEl,
+          isOpen: false,
+          triggerElement: null,
+        });
       });
 
       // 2. Usa delegação de eventos para lidar com todos os cliques de forma eficiente.
       document.body.addEventListener("click", (event) => {
-        // Apenas o gatilho de ABERTURA usa delegação.
-        // O fechamento é tratado por listeners específicos em cada clone.
         const openTrigger = event.target.closest("[data-noxss-modal-open]");
+        const closeTrigger = event.target.closest("[data-noxss-modal-close]");
 
         if (openTrigger) {
           event.preventDefault();
           const modalId = openTrigger.dataset.noxssModalOpen;
-          if (modalId) {
-            openModal(modalId, openTrigger);
-          }
+          if (modalId) openModal(modalId, openTrigger);
+          return;
+        }
+
+        if (closeTrigger) {
+          event.preventDefault();
+          // Encontra o modal pai do botão de fechar
+          const modalToClose = closeTrigger.closest(".noxss-modal");
+          if (modalToClose) closeModal(modalToClose.id);
+          return;
+        }
+
+        // Fecha ao clicar no backdrop (fundo)
+        if (event.target.matches(".noxss-modal.is-open")) {
+          closeModal(event.target.id);
         }
       });
 
       // 3. Listeners globais para fechar com 'Esc' e para o focus trap.
       window.addEventListener("keydown", (event) => {
         if (event.key === "Escape" && openModalStack.length > 0) {
-          // Fecha o modal do topo da pilha com a tecla 'Esc'
-          closeModal(openModalStack[openModalStack.length - 1]);
+          closeModal(); // Fecha o modal do topo da pilha
         }
         handleFocusTrap(event);
       });
     },
 
     open: openModal,
-    close: closeModal,
+    close: closeModal, // Fecha o último modal aberto
   };
 
   Noxss.Modals = ModalsAPI;
