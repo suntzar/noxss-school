@@ -877,3 +877,80 @@
   --noxss-selection-bg: rgba(74, 144, 226, 0.25);
   --noxss-selection-text: #f2f2f2;
 }
+
+/* --- Animação para o Tema Chroma Shift --- */
+@keyframes chroma-pan {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+/* --- Tema: Chroma Shift (Escuro) --- */
+[data-theme="chroma-shift-dark"] {
+  /* Fundo e superfícies */
+  --noxss-bg-main: #0a0a0a; /* Preto profundo */
+  --noxss-bg-surface: #141414; /* Cinza muito escuro para cartões */
+  --noxss-bg-elements: #1f1f1f; /* Cinza para áreas elevadas */
+  --noxss-border-color: #2c2c2c; /* Borda sutil */
+
+  /* Texto */
+  --noxss-text-primary: #e5e5e5; /* Branco suave */
+  --noxss-text-secondary: #a0a0a0; /* Cinza claro */
+  --noxss-text-on-accent: #ffffff;
+
+  /* Acentos (a estrela do tema) */
+  --noxss-chroma-gradient: linear-gradient(90deg, #ff00e5, #00f2ff, #a2ff00, #ff00e5);
+  --noxss-accent-primary: #00f2ff; /* Ciano como fallback */
+  --noxss-accent-primary-rgb: 0, 242, 255;
+}
+
+/* Aplica o gradiente animado em elementos de destaque */
+[data-theme="chroma-shift-dark"] .home-hero__logo,
+[data-theme="chroma-shift-dark"] .turma-title,
+[data-theme="chroma-shift-dark"] .student-card-avatar,
+[data-theme="chroma-shift-dark"] .student-details-avatar,
+[data-theme="chroma-shift-dark"] #dashboard-content .noxss-card--stat .stat-icon,
+[data-theme="chroma-shift-dark"] .dashboard-heading .noxss-icon,
+[data-theme="chroma-shift-dark"] h3,
+[data-theme="chroma-shift-dark"] strong,
+[data-theme="chroma-shift-dark"] a,
+[data-theme="chroma-shift-dark"] .search-highlight {
+  background: var(--noxss-chroma-gradient);
+  background-size: 200% 200%;
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+  animation: chroma-pan 4s linear infinite;
+}
+
+[data-theme="chroma-shift-dark"] .page-btn.is-active,
+[data-theme="chroma-shift-dark"] .noxss-tabs__panel::-webkit-scrollbar-thumb {
+  background: var(--noxss-chroma-gradient);
+  background-size: 200% 200%;
+  animation: chroma-pan 4s linear infinite;
+}
+
+/* --- Tema: Neon Synthwave (Escuro) --- */
+[data-theme="synthwave-neon-dark"] {
+  /* Fundo e superfícies */
+  --noxss-bg-main: #0d0221; /* Roxo/azul muito escuro, quase preto */
+  --noxss-bg-surface: #1d1033; /* Roxo escuro para cartões e painéis */
+  --noxss-bg-elements: #2a1a4a; /* Roxo um pouco mais claro para áreas elevadas */
+  --noxss-border-color: #4a3a6a; /* Borda roxa, visível mas discreta */
+
+  /* Texto */
+  --noxss-text-primary: #f0f0f0; /* Branco suave para legibilidade */
+  --noxss-text-secondary: #a095b7; /* Lavanda pálido para texto secundário */
+
+  /* Acentos (a estrela do tema) */
+  --noxss-accent-primary: #ff00e5; /* Magenta neon vibrante */
+  --noxss-accent-primary-hover: #ff4df2; /* Hover ainda mais brilhante */
+  --noxss-accent-primary-rgb: 255, 0, 229; /* RGB correspondente */
+  --noxss-text-on-accent: #ffffff; /* Branco puro sobre o magenta */
+}

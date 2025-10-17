@@ -8,6 +8,8 @@ const staticThemes = {
   "Púrpura Imperial": { dark: "purpura-dark", light: "purpura-light" },
   "Azul Real": { dark: "azul-real-dark", light: "azul-real-light" },
   "Verde Sereno": { dark: "verde-sereno-dark", light: "verde-sereno-light" },
+  "Chroma Shift": { dark: "chroma-shift-dark", light: "light" }, // Adicionado novo tema
+  "Neon Synthwave": { dark: "synthwave-neon-dark", light: "light" }, // Adicionado novo tema
   Neutro: { dark: "neutro-dark", light: "neutro-light" },
 };
 

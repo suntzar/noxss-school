@@ -24,6 +24,8 @@
           "Púrpura Imperial": { dark: "purpura-dark", light: "purpura-light" },
           "Azul Real": { dark: "azul-real-dark", light: "azul-real-light" },
           "Verde Sereno": { dark: "verde-sereno-dark", light: "verde-sereno-light" },
+          "Chroma Shift": { dark: "chroma-shift-dark", light: "light" },
+          "Neon Synthwave": { dark: "synthwave-neon-dark", light: "light" },
           Neutro: { dark: "neutro-dark", light: "neutro-light" },
         };
         const dynamicPalettes = {
@@ -118,6 +120,19 @@
         max-width: 400px;
         z-index: 1; /* Garante que o card fique sobre o fundo */
         animation: card-fade-in 0.6s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+      }
+
+      /* Animação para o Tema Chroma Shift */
+      @keyframes chroma-pan {
+        0% {
+          background-position: 0% 50%;
+        }
+        50% {
+          background-position: 100% 50%;
+        }
+        100% {
+          background-position: 0% 50%;
+        }
       }
 
       /* ==========================================================================
@@ -230,6 +245,47 @@
         --noxss-text-on-accent: #ffffff;
       }
 
+      /* --- Tema: Neon Synthwave (Escuro) --- */
+      [data-theme="synthwave-neon-dark"] {
+        --noxss-bg-main: #0d0221;
+        --noxss-bg-surface: #1d1033;
+        --noxss-bg-elements: #2a1a4a;
+        --noxss-border-color: #4a3a6a;
+        --noxss-text-primary: #f0f0f0;
+        --noxss-text-secondary: #a095b7;
+        --noxss-accent-primary: #ff00e5;
+        --noxss-accent-primary-hover: #ff4df2;
+        --noxss-accent-primary-rgb: 255, 0, 229;
+        --noxss-text-on-accent: #ffffff;
+      }
+
+      /* --- Tema: Chroma Shift (Escuro) --- */
+      [data-theme="chroma-shift-dark"] {
+        --noxss-bg-main: #0a0a0a;
+        --noxss-bg-surface: #141414;
+        --noxss-bg-elements: #1f1f1f;
+        --noxss-border-color: #2c2c2c;
+        --noxss-text-primary: #e5e5e5;
+        --noxss-text-secondary: #a0a0a0;
+        --noxss-text-on-accent: #ffffff;
+        --noxss-chroma-gradient: linear-gradient(90deg, #ff00e5, #00f2ff, #a2ff00, #ff00e5);
+        --noxss-accent-primary: #00f2ff;
+        --noxss-accent-primary-rgb: 0, 242, 255;
+      }
+      [data-theme="chroma-shift-dark"] .u-text-accent,
+      [data-theme="chroma-shift-dark"] .noxss-btn--primary {
+        background: var(--noxss-chroma-gradient);
+        background-size: 200% 200%;
+        animation: chroma-pan 4s linear infinite;
+      }
+      [data-theme="chroma-shift-dark"] .u-text-accent {
+        background-clip: text;
+        -webkit-background-clip: text;
+        color: transparent;
+      }
+      [data-theme="chroma-shift-dark"] .noxss-btn--primary {
+        color: var(--noxss-text-on-accent);
+      }
       /* --- Tema: Noxss Padrão (Escuro) --- */
       [data-theme="dark"] {
         --noxss-bg-main: #181818;
