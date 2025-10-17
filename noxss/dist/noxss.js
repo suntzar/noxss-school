@@ -1,7 +1,7 @@
 /*!
  * Noxss JS v1.0
  * Copyright 2025 [Seu Nome]
- * Gerado em: 2025-10-16T15:15:09.116Z
+ * Gerado em: 2025-10-17T18:33:19.297Z
  */
 /* ==========================================================================
    Noxss Library: Core JavaScript
@@ -345,6 +345,7 @@
   const FOCUSABLE_ELEMENTS = 'a[href], area[href], input:not([disabled]), select:not([disabled]), textarea:not([disabled]), button:not([disabled]), iframe, object, embed, [tabindex="0"], [contenteditable]';
 
   let openModalStack = []; // Rastreia a pilha de modais abertos
+  let backdropElement = null; // Referência ao elemento de backdrop único
 
   /**
    * Abre um modal específico.
@@ -363,6 +364,15 @@
 
     if (openModalStack.length === 0) {
       document.body.style.overflow = "hidden"; // Impede o scroll do body apenas no primeiro modal
+      // Cria e exibe o backdrop único
+      if (!backdropElement) {
+        backdropElement = document.createElement("div");
+        backdropElement.className = "noxss-modal-backdrop";
+        document.body.appendChild(backdropElement);
+        // Força reflow para a animação de fade-in do backdrop
+        void backdropElement.offsetWidth;
+      }
+      backdropElement.classList.add("is-open");
     }
 
     openModalStack.push(modalId);
@@ -404,6 +414,21 @@
 
     modal.isOpen = false;
     modal.element.classList.remove("is-open"); // Inicia a animação de saída
+
+    // Esconde o backdrop se este for o último modal a ser fechado
+    if (openModalStack.length === 0 && backdropElement) {
+      backdropElement.classList.remove("is-open");
+
+      // Adiciona um listener para remover o backdrop do DOM após a animação de fade-out
+      backdropElement.addEventListener(
+        "transitionend",
+        () => {
+          if (backdropElement) backdropElement.remove();
+          backdropElement = null;
+        },
+        { once: true }
+      );
+    }
 
     // Dispara um evento customizado para notificar que um modal foi fechado
     document.body.dispatchEvent(
