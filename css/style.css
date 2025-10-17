@@ -273,6 +273,16 @@
   color: #f472b6; /* Rosa para feminino */
 }
 
+.info-item__count--male {
+  color: #60a5fa; /* Azul para masculino */
+  font-weight: 600;
+}
+
+.info-item__count--female {
+  color: #f472b6; /* Rosa para feminino */
+  font-weight: 600;
+}
+
 .info-item strong {
   color: var(--noxss-text-primary);
   min-width: 70px;
