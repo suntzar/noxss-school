@@ -139,6 +139,22 @@ document.addEventListener("DOMContentLoaded", () => {
       .replace(/[\u0300-\u036f]/g, "") // Remove os acentos
       .replace(/ç/g, "c"); // Trata o 'ç' como 'c'
   };
+
+  /**
+   * Função de ordenação personalizada que prioriza strings que começam com letras sobre as que começam com números.
+   * @param {string} a - Primeira string para comparar.
+   * @param {string} b - Segunda string para comparar.
+   * @returns {number} -1, 0, ou 1, como em uma função de sort padrão.
+   */
+  const customTurmaSort = (a, b) => {
+    const aStartsWithNumber = /^\d/.test(a);
+    const bStartsWithNumber = /^\d/.test(b);
+
+    if (aStartsWithNumber && !bStartsWithNumber) return 1; // 'a' (número) vem depois de 'b' (letra)
+    if (!aStartsWithNumber && bStartsWithNumber) return -1; // 'a' (letra) vem antes de 'b' (número)
+
+    return a.localeCompare(b, undefined, { numeric: true }); // Ordenação natural para "1º ANO", "2º ANO"
+  };
   // --- MIGRAÇÃO E COMPATIBILIDADE ---
   function migrateData(db) {
     let migrationPerformed = false;
@@ -256,7 +272,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // --- LÓGICA DE FILTRAGEM ---
   const renderTurmaFilter = () => {
-    const sortedTurmas = [...database.metadata.turmas].sort((a, b) => `${a.turma}-${a.turno}`.localeCompare(`${b.turma}-${b.turno}`));
+    const sortedTurmas = [...database.metadata.turmas].sort((a, b) => customTurmaSort(`${a.turma}-${a.turno}`, `${b.turma}-${b.turno}`));
 
     turmaFilterOptions.innerHTML = sortedTurmas
       .map((turma) => {
@@ -535,7 +551,7 @@ document.addEventListener("DOMContentLoaded", () => {
       }, {});
 
       // Ordena as chaves do grupo (nomes das turmas)
-      const sortedGroupKeys = Object.keys(paginatedGrouped).sort();
+      const sortedGroupKeys = Object.keys(paginatedGrouped).sort(customTurmaSort);
 
       // Renderiza os grupos
       if (sortedGroupKeys.length === 0 && studentList.length > 0) {
@@ -647,7 +663,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const createGenderListItems = (data) =>
       Object.entries(data)
-        .sort((a, b) => a[0].localeCompare(b[0]))
+        .sort((a, b) => customTurmaSort(a[0], b[0]))
         .map(([key, value]) => {
           const total = (value["Masculino"] || 0) + (value["Feminino"] || 0) + (value["Não informado"] || 0);
           return `<li class="noxss-list-item"><div class="noxss-list-item__content">${key}</div><div class="noxss-list-item__trailing d-flex align-items-center"><strong class="quant-total">${total}</strong><span class="info-item info-item--fixed-width"><i class="fa-solid fa-mars noxss-icon"></i> <span class="info-item__count--male">${value["Masculino"] || 0}</span></span> <span class="info-item info-item--fixed-width"><i class="fa-solid fa-venus noxss-icon"></i> <span class="info-item__count--female">${value["Feminino"] || 0}</span></span></div></li>`;
@@ -656,7 +672,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const createTurnoStatCards = (data) =>
       Object.entries(data)
-        .sort((a, b) => a[0].localeCompare(b[0])) // Ordena por nome do turno
+        .sort((a, b) => customTurmaSort(a[0], b[0])) // Ordena por nome do turno
         .map(([turno, count]) => {
           const icon = turno.toLowerCase().includes("matutino") ? "fa-sun" : turno.toLowerCase().includes("vespertino") ? "fa-cloud-sun" : "fa-clock";
           return `<div class="noxss-card noxss-card--stat"><div class="stat-content"><div><div class="stat-label">Ativos ${turno}</div><div class="stat-value">${count}</div></div><i class="noxss-icon stat-icon fa-solid ${icon}"></i></div></div>`;
@@ -697,7 +713,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     turmasListEl.innerHTML =
       database.metadata.turmas
-        .sort((a, b) => `${a.turma}-${a.turno}`.localeCompare(`${b.turma}-${b.turno}`))
+        .sort((a, b) => customTurmaSort(`${a.turma}-${a.turno}`, `${b.turma}-${b.turno}`))
         .map((t) => {
           const prof1 = t.professor1 || "Não definido";
           const prof2 = t.professor2 ? ` e ${t.professor2}` : "";
@@ -738,7 +754,7 @@ document.addEventListener("DOMContentLoaded", () => {
     turmaSelect.innerHTML =
       '<option value="">Selecione uma turma...</option>' +
       database.metadata.turmas
-        .sort((a, b) => `${a.turma}-${a.turno}`.localeCompare(`${b.turma}-${b.turno}`))
+        .sort((a, b) => customTurmaSort(`${a.turma}-${a.turno}`, `${b.turma}-${b.turno}`))
         .map((t) => `<option value="${t.id}">${t.turma} - ${t.turno}</option>`)
         .join("");
 
