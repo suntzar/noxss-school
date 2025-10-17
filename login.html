@@ -16,34 +16,45 @@
       (function () {
         const htmlElement = document.documentElement;
         const MODE_KEY = "schoolAppThemeMode";
-        const PALETTE_KEY = "schoolAppPalette";
+        const THEME_KEY = "schoolAppTheme"; // Chave correta, alinhada com script.js
 
-        const palettes = {
+        // Definições completas de temas, espelhando script.js
+        const staticThemes = {
+          "Noxss Padrão": { dark: "dark", light: "light" },
+          "Púrpura Imperial": { dark: "purpura-dark", light: "purpura-light" },
+          "Azul Real": { dark: "azul-real-dark", light: "azul-real-light" },
+          "Verde Sereno": { dark: "verde-sereno-dark", light: "verde-sereno-light" },
+          Neutro: { dark: "neutro-dark", light: "neutro-light" },
+        };
+        const dynamicPalettes = {
           "Azul Céu": { light: "#3b82f6", dark: "#60a5fa" },
           "Verde Esmeralda": { light: "#059669", dark: "#10b981" },
           "Roxo Violeta": { light: "#7c3aed", dark: "#8b5cf6" },
           "Âmbar Dourado": { light: "#d97706", dark: "#f59e0b" },
           "Rosa Moderno": { light: "#e11d48", dark: "#f43f5e" },
           "Ciano Fresco": { light: "#06b6d4", dark: "#22d3ee" },
-          "Vermelho Rubi": { light: "#dc2626", dark: "#f87171" },
-          "Índigo Profundo": { light: "#4f46e5", dark: "#818cf8" },
-          "Verde-azulado (Teal)": { light: "#0d9488", dark: "#2dd4bf" },
-          "Lima Vibrante": { light: "#65a30d", dark: "#a3e635" },
-          "Laranja Entardecer": { light: "#f97316", dark: "#fb923c" },
-          "Magenta Elétrico": { light: "#d946ef", dark: "#f0abfc" },
-          "Verde Floresta": { light: "#16a34a", dark: "#4ade80" },
-          "Azul Cobalto": { light: "#0ea5e9", dark: "#7dd3fc" },
-          "Grafite Sóbrio": { light: "#6b7280", dark: "#d1d5db" },
         };
 
+        // Lógica de aplicação do tema
         const savedMode = localStorage.getItem(MODE_KEY);
-        const savedPaletteName = localStorage.getItem(PALETTE_KEY) || "Azul Céu";
+        const savedThemeName = localStorage.getItem(THEME_KEY) || "Noxss Padrão";
         const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
         const currentMode = savedMode || (prefersDark ? "dark" : "light");
 
-        const palette = palettes[savedPaletteName] || palettes["Azul Céu"];
-        htmlElement.setAttribute("data-noxss-theme-gen", currentMode);
-        htmlElement.setAttribute("data-noxss-palette-gen", palette[currentMode]);
+        // Limpa atributos de temas anteriores para evitar conflitos
+        htmlElement.removeAttribute("data-theme");
+        htmlElement.removeAttribute("data-noxss-theme-gen");
+        htmlElement.removeAttribute("data-noxss-palette-gen");
+
+        if (staticThemes[savedThemeName]) {
+          const themeValue = staticThemes[savedThemeName][currentMode];
+          htmlElement.setAttribute("data-theme", themeValue);
+        } else {
+          const palette = dynamicPalettes[savedThemeName] || dynamicPalettes["Azul Céu"];
+          const paletteColor = palette[currentMode];
+          htmlElement.setAttribute("data-noxss-theme-gen", currentMode);
+          htmlElement.setAttribute("data-noxss-palette-gen", paletteColor);
+        }
       })();
     </script>
 
@@ -107,6 +118,143 @@
         max-width: 400px;
         z-index: 1; /* Garante que o card fique sobre o fundo */
         animation: card-fade-in 0.6s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+      }
+
+      /* ==========================================================================
+         Temas Manuais Adicionais (Copiado de style.css para consistência)
+         ========================================================================== */
+
+      /* --- Tema: Púrpura Imperial (Escuro) --- */
+      [data-theme="purpura-dark"] {
+        --noxss-bg-main: #1a1a2e;
+        --noxss-bg-surface: #16213e;
+        --noxss-bg-elements: #0f3460;
+        --noxss-border-color: #2a3b5c;
+        --noxss-text-primary: #e94560;
+        --noxss-text-secondary: #c0c0de;
+        --noxss-accent-primary: #e94560;
+        --noxss-accent-primary-hover: #ff6e85;
+        --noxss-accent-primary-rgb: 233, 69, 96;
+        --noxss-text-on-accent: #ffffff;
+      }
+
+      /* --- Tema: Púrpura Imperial (Claro) --- */
+      [data-theme="purpura-light"] {
+        --noxss-bg-main: #f0f0f8;
+        --noxss-bg-surface: #ffffff;
+        --noxss-bg-elements: #e6e6f2;
+        --noxss-border-color: #d8d8e8;
+        --noxss-text-primary: #0f3460;
+        --noxss-text-secondary: #536482;
+        --noxss-accent-primary: #6c63ff;
+        --noxss-accent-primary-hover: #837dff;
+        --noxss-accent-primary-rgb: 108, 99, 255;
+        --noxss-text-on-accent: #ffffff;
+      }
+
+      /* --- Tema: Azul Real (Claro) --- */
+      [data-theme="azul-real-light"] {
+        --noxss-bg-main: #f6f8fb;
+        --noxss-bg-surface: #ffffff;
+        --noxss-bg-elements: #e9edf7;
+        --noxss-border-color: #d0d8ec;
+        --noxss-text-primary: #0e1e3b;
+        --noxss-text-secondary: #4a5d7a;
+        --noxss-accent-primary: #1e73ff;
+        --noxss-accent-primary-rgb: 30, 115, 255;
+        --noxss-text-on-accent: #ffffff;
+      }
+
+      /* --- Tema: Azul Real (Escuro) --- */
+      [data-theme="azul-real-dark"] {
+        --noxss-bg-main: #0c111b;
+        --noxss-bg-surface: #141b2b;
+        --noxss-bg-elements: #1d2640;
+        --noxss-border-color: #2a3759;
+        --noxss-text-primary: #e0e6f5;
+        --noxss-text-secondary: #aab7d4;
+        --noxss-accent-primary: #3c8cff;
+        --noxss-accent-primary-rgb: 60, 140, 255;
+        --noxss-text-on-accent: #ffffff;
+      }
+
+      /* --- Tema: Verde Sereno (Claro) --- */
+      [data-theme="verde-sereno-light"] {
+        --noxss-bg-main: #f5f8f5;
+        --noxss-bg-surface: #ffffff;
+        --noxss-bg-elements: #e9f2ea;
+        --noxss-border-color: #ccdccc;
+        --noxss-text-primary: #0e2f1a;
+        --noxss-text-secondary: #4e6a56;
+        --noxss-accent-primary: #3cb371;
+        --noxss-accent-primary-rgb: 60, 179, 113;
+        --noxss-text-on-accent: #ffffff;
+      }
+
+      /* --- Tema: Verde Sereno (Escuro) --- */
+      [data-theme="verde-sereno-dark"] {
+        --noxss-bg-main: #0d1712;
+        --noxss-bg-surface: #16241d;
+        --noxss-bg-elements: #1f3228;
+        --noxss-border-color: #2b473a;
+        --noxss-text-primary: #e3f1e7;
+        --noxss-text-secondary: #a9c3b2;
+        --noxss-accent-primary: #37b26c;
+        --noxss-accent-primary-rgb: 55, 178, 108;
+        --noxss-text-on-accent: #ffffff;
+      }
+
+      /* --- Tema: Neutro Equilibrado (Claro) --- */
+      [data-theme="neutro-light"] {
+        --noxss-bg-main: #eeeeee;
+        --noxss-bg-surface: #f0f0f0;
+        --noxss-bg-elements: #e4e4e4;
+        --noxss-border-color: #dedede;
+        --noxss-text-primary: #111111;
+        --noxss-text-secondary: #555555;
+        --noxss-accent-primary: #2f77ca;
+        --noxss-accent-primary-rgb: 74, 144, 226;
+        --noxss-text-on-accent: #ffffff;
+      }
+
+      /* --- Tema: Neutro Equilibrado (Escuro) --- */
+      [data-theme="neutro-dark"] {
+        --noxss-bg-main: #0f0f10;
+        --noxss-bg-surface: #18181b;
+        --noxss-bg-elements: #222326;
+        --noxss-border-color: #2e2f33;
+        --noxss-text-primary: #f2f2f2;
+        --noxss-text-secondary: #c7c7c7;
+        --noxss-accent-primary: #4a90e2;
+        --noxss-accent-primary-rgb: 74, 144, 226;
+        --noxss-text-on-accent: #ffffff;
+      }
+
+      /* --- Tema: Noxss Padrão (Escuro) --- */
+      [data-theme="dark"] {
+        --noxss-bg-main: #181818;
+        --noxss-bg-surface: #202020;
+        --noxss-bg-elements: #262626;
+        --noxss-border-color: #383838;
+        --noxss-text-primary: #c9d1d9;
+        --noxss-text-secondary: #8b949e;
+        --noxss-accent-primary: #4caf50;
+        --noxss-accent-primary-rgb: 76, 175, 80;
+        --noxss-text-on-accent: #ffffff;
+      }
+
+      /* --- Tema: Noxss Padrão (Claro) --- */
+      [data-theme="light"] {
+        --noxss-bg-main: #f4f6f8;
+        --noxss-bg-surface: #ffffff;
+        --noxss-bg-elements: #fdfdfd;
+        --noxss-border-color: #dee2e6;
+        --noxss-text-primary: #212529;
+        --noxss-text-secondary: #6c757d;
+        /* A cor de destaque é a mesma do tema escuro para consistência da marca */
+        --noxss-accent-primary: #4caf50;
+        --noxss-accent-primary-rgb: 76, 175, 80;
+        --noxss-text-on-accent: #ffffff;
       }
     </style>
   </head>
