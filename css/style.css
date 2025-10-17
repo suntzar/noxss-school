@@ -249,8 +249,12 @@
   gap: 0.65rem;
   font-size: 0.9rem;
   color: var(--noxss-text-secondary);
-  width: 50px; /* Largura fixa para o conjunto (ícone + número) */
   justify-content: flex-start; /* Alinha o conteúdo à esquerda dentro do espaço */
+}
+
+.info-item--fixed-width {
+  /* Largura fixa para o conjunto (ícone + número) no dashboard */
+  width: 50px;
 }
 
 .info-item .noxss-icon {
