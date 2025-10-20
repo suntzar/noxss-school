@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Impressão de Lista de Alunos</title>
+    <link rel="icon" href="assets/school-material.svg" type="image/svg+xml" />
+
+    <!-- DEPENDÊNCIAS - Apenas Font Awesome para os ícones dos botões -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <style>
+      /* Estilos base e para a tela (não impressão) */
+      body {
+        background-color: #f0f2f5; /* Um cinza claro para o fundo */
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        margin: 0;
+      }
+
+      .print-controls {
+        position: fixed;
+        top: 1rem;
+        right: 1rem;
+        display: none; /* Escondido por padrão, exibido via JS */
+        gap: 0.75rem;
+        padding: 0.75rem;
+        background-color: #ffffff;
+        border-radius: 8px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        z-index: 100;
+      }
+
+      .print-controls button,
+      .print-controls a {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        padding: 0.5rem 1rem;
+        border: 1px solid #ccc;
+        border-radius: 6px;
+        background-color: #f8f9fa;
+        color: #333;
+        font-size: 0.9rem;
+        text-decoration: none;
+        cursor: pointer;
+        transition: background-color 0.2s;
+      }
+      .print-controls button:hover,
+      .print-controls a:hover {
+        background-color: #e9ecef;
+      }
+      .print-controls .btn-primary {
+        background-color: #007bff;
+        color: white;
+        border-color: #007bff;
+      }
+      .print-controls .btn-primary:hover {
+        background-color: #0056b3;
+      }
+
+      .page-container {
+        margin: 2rem auto;
+        width: 21cm; /* Largura A4 */
+        padding: 2cm; /* Margens A4 */
+        background-color: #fff;
+        color: #000;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        box-sizing: border-box;
+      }
+
+      /* Estilos do conteúdo do documento */
+      #printable-content h1 {
+        font-size: 16pt;
+        text-align: center;
+        margin-bottom: 1cm;
+        border-bottom: 1px solid #ccc;
+        padding-bottom: 0.5cm;
+      }
+
+      #printable-content h2 {
+        font-size: 14pt;
+        margin-top: 1cm;
+        margin-bottom: 0.5cm;
+        border: none;
+      }
+
+      #printable-content table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 10pt;
+      }
+
+      #printable-content th,
+      #printable-content td {
+        border: 1px solid #ddd;
+        padding: 8px;
+        text-align: left;
+      }
+
+      #printable-content th {
+        background-color: #f2f2f2;
+        font-weight: bold;
+      }
+
+      /* Estilo para quebra de página */
+      .page-break {
+        page-break-before: always;
+      }
+
+      /* Estilos específicos para impressão */
+      @media print {
+        body {
+          background-color: #fff; /* Fundo branco na impressão */
+          color: #000;
+        }
+        .print-controls {
+          display: none !important; /* Garante que os controles não sejam impressos */
+        }
+        .page-container {
+          box-shadow: none;
+          margin: 0;
+          width: auto;
+          padding: 0;
+        }
+        /* Garante que a cor do texto seja preta na impressão */
+        #printable-content,
+        #printable-content * {
+          color: #000 !important;
+        }
+
+        @page {
+          size: A4;
+          margin: 2cm;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="print-controls">
+      <a href="index.html"><i class="fa-solid fa-arrow-left"></i> Voltar</a>
+      <button id="print-btn" class="btn-primary"><i class="fa-solid fa-print"></i> Imprimir / PDF</button>
+      <button id="docx-btn"><i class="fa-solid fa-file-word"></i> Gerar DOCX</button>
+    </div>
+
+    <div class="page-container">
+      <div id="printable-content">
+        <!-- Conteúdo será gerado pelo JavaScript -->
+        <p style="text-align: center; margin-top: 5cm; color: #888">Carregando dados dos alunos...</p>
+      </div>
+    </div>
+
+    <!-- Biblioteca para gerar DOCX -->
+    <script src="https://unpkg.com/html-to-docx-ts@1.8.0/dist/browser/html-to-docx.js"></script>
+    <!-- Script da página de impressão -->
+    <script src="js/print.js"></script>
+  </body>
+</html>
