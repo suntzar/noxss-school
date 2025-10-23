@@ -35,6 +35,9 @@ const applyTheme = (mode, themeName) => {
   htmlElement.removeAttribute("data-noxss-theme-gen");
   htmlElement.removeAttribute("data-noxss-palette-gen");
 
+  // Adiciona um atributo unificado para o modo, que o CSS pode usar de forma confiável.
+  htmlElement.setAttribute("data-theme-mode", mode);
+
   if (staticThemes[themeName]) {
     // É um tema estático (manual)
     const themeValue = staticThemes[themeName][mode];

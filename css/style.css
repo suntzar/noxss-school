@@ -25,11 +25,12 @@
 }
 
 /* Estado Tema Escuro (ativado via JS no <html>) */
-[data-noxss-theme-gen="dark"] #theme-switcher .theme-icon-sun {
+/* Agora usa o atributo unificado 'data-theme-mode' */
+[data-theme-mode="dark"] #theme-switcher .theme-icon-sun {
   transform: translateY(0) rotate(0);
   opacity: 1;
 }
-[data-noxss-theme-gen="dark"] #theme-switcher .theme-icon-moon {
+[data-theme-mode="dark"] #theme-switcher .theme-icon-moon {
   transform: translateY(-150%) rotate(-90deg);
   opacity: 0;
 }
