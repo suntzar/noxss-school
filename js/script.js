@@ -88,12 +88,12 @@ document.addEventListener("DOMContentLoaded", () => {
       escola: "Nome da Escola",
       localizacao: "Endereço da Escola",
       contato: "Telefone/Email",
-      studentsPerPage: 20,
       turmas: [],
     },
     alunos: [],
   };
   const DB_KEY = "schoolAppDatabase_v2";
+  const STUDENTS_PER_PAGE_KEY = "schoolAppStudentsPerPage";
   const JSONBIN_API_KEY = "$2a$10$s976JjTPuXOZQ.kCH7E6i.FdOJ0R2vLsy9rqYrlBLSMRXxmHnA552";
   const JSONBIN_BIN_ID = "68d5a70e43b1c97be9501077";
   const JSONBIN_URL = `https://api.jsonbin.io/v3/b/${JSONBIN_BIN_ID}`;
@@ -101,6 +101,7 @@ document.addEventListener("DOMContentLoaded", () => {
   // --- ESTADO DA UI ---
   let currentPage = 1;
   let selectedTurmaIds = new Set();
+  let studentsPerPage = 20; // Valor padrão
 
   // --- REFERÊNCIAS DE ELEMENTOS ---
   const studentListContainer = document.getElementById("student-list-container");
@@ -229,7 +230,7 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   function processLoadedData(data) {
-    let db = { metadata: { escola: "Nova Escola", localizacao: "", contato: "", turmas: [], studentsPerPage: 20 }, alunos: [] };
+    let db = { metadata: { escola: "Nova Escola", localizacao: "", contato: "", turmas: [] }, alunos: [] };
     if (Array.isArray(data)) {
       // Formato mais antigo (só array de alunos)
       db.alunos = data;
@@ -258,11 +259,18 @@ document.addEventListener("DOMContentLoaded", () => {
 
   async function saveToJSONBin(data) {
     if (!JSONBIN_API_KEY.startsWith("$2") || !JSONBIN_BIN_ID) return;
+
+    // Cria uma cópia profunda para não modificar o objeto original em memória
+    const dataToSave = JSON.parse(JSON.stringify(data));
+
+    // Remove a configuração local do objeto a ser salvo na nuvem
+    delete dataToSave.metadata.studentsPerPage;
+
     try {
       const res = await fetch(JSONBIN_URL, {
         method: "PUT",
         headers: { "Content-Type": "application/json", "X-Master-Key": JSONBIN_API_KEY },
-        body: JSON.stringify(data),
+        body: JSON.stringify(dataToSave),
       });
       if (!res.ok) throw new Error(`Erro na API ao salvar: ${res.statusText}`);
     } catch (error) {
@@ -528,7 +536,6 @@ document.addEventListener("DOMContentLoaded", () => {
     const isSearching = searchTerm.length > 0;
     studentListContainer.innerHTML = "";
 
-    const studentsPerPage = database.metadata.studentsPerPage || 20;
     const startIndex = (currentPage - 1) * studentsPerPage;
     const endIndex = startIndex + studentsPerPage;
     const paginatedStudents = studentList.slice(startIndex, endIndex);
@@ -709,7 +716,7 @@ document.addEventListener("DOMContentLoaded", () => {
     document.getElementById("meta-escola").value = database.metadata.escola || "";
     document.getElementById("meta-localizacao").value = database.metadata.localizacao || "";
     document.getElementById("meta-contato").value = database.metadata.contato || "";
-    document.getElementById("meta-students-per-page").value = database.metadata.studentsPerPage || 20;
+    document.getElementById("meta-students-per-page").value = studentsPerPage;
 
     turmasListEl.innerHTML =
       database.metadata.turmas
@@ -871,7 +878,8 @@ document.addEventListener("DOMContentLoaded", () => {
     database.metadata.escola = document.getElementById("meta-escola").value;
     database.metadata.localizacao = document.getElementById("meta-localizacao").value;
     database.metadata.contato = document.getElementById("meta-contato").value;
-    database.metadata.studentsPerPage = parseInt(document.getElementById("meta-students-per-page").value, 10) || 20;
+    studentsPerPage = parseInt(document.getElementById("meta-students-per-page").value, 10) || 20;
+    localStorage.setItem(STUDENTS_PER_PAGE_KEY, studentsPerPage);
     saveDatabase();
     Noxss.Toasts.show({ message: "Metadados salvos!", status: "success" });
   });
@@ -1181,6 +1189,9 @@ document.addEventListener("DOMContentLoaded", () => {
     if (activeTabId === "alunos") updateAndRenderStudentList();
     if (activeTabId === "settings") renderMetadata(); // Renderiza metadados na aba de configurações
   });
+
+  // --- CARREGAMENTO DE CONFIGURAÇÕES LOCAIS ---
+  studentsPerPage = parseInt(localStorage.getItem(STUDENTS_PER_PAGE_KEY), 10) || 20;
 
   logoutBtn.addEventListener("click", () => {
     sessionStorage.removeItem("isLoggedIn");
