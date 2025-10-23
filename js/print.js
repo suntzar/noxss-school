@@ -1,7 +1,6 @@
 document.addEventListener("DOMContentLoaded", () => {
   const printableContent = document.getElementById("printable-content");
   const printBtn = document.getElementById("print-btn");
-  const docxBtn = document.getElementById("docx-btn");
   const DB_KEY = "schoolAppDatabase_v2";
 
   /**
@@ -104,30 +103,6 @@ document.addEventListener("DOMContentLoaded", () => {
     setTimeout(() => {
       controls.style.display = "flex";
     }, 500);
-  });
-
-  docxBtn.addEventListener("click", async () => {
-    // Verifica se a biblioteca htmlToDocx está carregada
-    if (typeof htmlToDocx === "undefined") {
-      alert("A biblioteca de exportação para DOCX ainda não foi carregada. Por favor, aguarde um momento e tente novamente.");
-      return;
-    }
-
-    const content = document.getElementById("printable-content").innerHTML;
-    const header = "<!DOCTYPE html><html><head><meta charset='UTF-8'></head><body>";
-    const footer = "</body></html>";
-    const fullHtml = header + content + footer;
-
-    const fileBuffer = await htmlToDocx.asBlob(fullHtml);
-
-    const url = URL.createObjectURL(fileBuffer);
-    const a = document.createElement("a");
-    a.href = url;
-    a.download = `lista_de_alunos_${new Date().toISOString().split("T")[0]}.docx`;
-    document.body.appendChild(a);
-    a.click();
-    document.body.removeChild(a);
-    URL.revokeObjectURL(url);
   });
 
   // Inicia o processo
