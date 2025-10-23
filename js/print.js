@@ -2,6 +2,8 @@ document.addEventListener("DOMContentLoaded", () => {
   const printableContent = document.getElementById("printable-content");
   const printBtn = document.getElementById("print-btn");
   const DB_KEY = "schoolAppDatabase_v2";
+  const landscapeToggle = document.getElementById("landscape-toggle");
+  const printOrientationStyle = document.getElementById("print-orientation-style");
 
   /**
    * Função de ordenação personalizada que prioriza strings que começam com letras sobre as que começam com números.
@@ -14,6 +16,25 @@ document.addEventListener("DOMContentLoaded", () => {
     if (!aStartsWithNumber && bStartsWithNumber) return -1;
 
     return a.localeCompare(b, undefined, { numeric: true });
+  };
+
+  /**
+   * Atualiza a folha de estilo de impressão para definir a orientação da página.
+   */
+  const updatePrintOrientation = () => {
+    if (landscapeToggle.checked) {
+      printOrientationStyle.textContent = `
+        @media print {
+          @page { size: A4 landscape; margin: 1.5cm; }
+        }
+      `;
+    } else {
+      printOrientationStyle.textContent = `
+        @media print {
+          @page { size: A4 portrait; margin: 2cm; }
+        }
+      `;
+    }
   };
 
   const loadAndRenderData = () => {
@@ -65,9 +86,14 @@ document.addEventListener("DOMContentLoaded", () => {
         <table>
           <thead>
             <tr>
-              <th style="width: 5%;">#</th>
-              <th style="width: 55%;">Nome do Aluno</th>
-              <th style="width: 40%;">Data de Nascimento</th>
+              <th style="width: 3%;">#</th>
+              <th style="width: 20%;">Nome do Aluno</th>
+              <th style="width: 10%;">Nascimento</th>
+              <th style="width: 8%;">Cor/Raça</th>
+              <th style="width: 17%;">Nome da Mãe</th>
+              <th style="width: 17%;">Nome do Pai</th>
+              <th style="width: 10%;">Contato</th>
+              <th style="width: 15%;">Endereço</th>
             </tr>
           </thead>
           <tbody>
@@ -78,6 +104,11 @@ document.addEventListener("DOMContentLoaded", () => {
                 <td>${index + 1}</td>
                 <td>${student.nome || "Não informado"}</td>
                 <td>${student.nascimento || "Não informado"}</td>
+                <td>${student.cor || "Não informado"}</td>
+                <td>${student.mae || "Não informado"}</td>
+                <td>${student.pai || "Não informado"}</td>
+                <td>${(student.telefone || []).join(", ") || "Não informado"}</td>
+                <td>${student.endereco || "Não informado"}</td>
               </tr>
             `
               )
@@ -105,6 +136,10 @@ document.addEventListener("DOMContentLoaded", () => {
     }, 500);
   });
 
+  landscapeToggle.addEventListener("change", updatePrintOrientation);
+
   // Inicia o processo
   loadAndRenderData();
+  // Define a orientação inicial
+  updatePrintOrientation();
 });
