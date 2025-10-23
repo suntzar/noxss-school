@@ -10,6 +10,7 @@
     <!-- DEPENDÊNCIAS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/suntzar/noxss-base@main/noxss/dist/noxss.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="packages/css/waves.min.css" />
 
     <!-- SCRIPT DE INICIALIZAÇÃO DO TEMA (Executado antes da renderização) -->
     <script>
@@ -282,13 +283,20 @@
     </div>
 
     <script src="https://cdn.jsdelivr.net/gh/suntzar/noxss-base@main/noxss/dist/noxss.js"></script>
+    <script src="packages/js/waves.min.js"></script>
     <script>
+      // Inicialização do Waves para a página de login
       document.addEventListener("DOMContentLoaded", () => {
         const loginForm = document.getElementById("loginForm");
         const errorMessage = document.getElementById("error-message");
 
         if (sessionStorage.getItem("isLoggedIn") === "true") {
           window.location.href = "index.html";
+        }
+
+        if (typeof Waves !== "undefined") {
+          Waves.init();
+          Waves.attach(".noxss-btn", ["waves-light"]);
         }
 
         loginForm.addEventListener("submit", (e) => {
