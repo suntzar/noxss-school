@@ -682,10 +682,16 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const createTurnoStatCards = (data) =>
       Object.entries(data)
-        .sort((a, b) => customTurmaSort(a[0], b[0])) // Ordena por nome do turno
+        .sort((a, b) => customTurmaSort(a[0], b[0]))
         .map(([turno, count]) => {
           const icon = turno.toLowerCase().includes("matutino") ? "fa-sun" : turno.toLowerCase().includes("vespertino") ? "fa-cloud-sun" : "fa-clock";
-          return `<div class="noxss-card noxss-card--stat"><div class="stat-content"><div><div class="stat-label">Ativos ${turno}</div><div class="stat-value">${count}</div></div><i class="noxss-icon stat-icon fa-solid ${icon}"></i></div></div>`;
+          const femaleCount = byTurnoAndGender[turno]?.Feminino || 0;
+          const femaleIndicator = `
+            <span style="font-size: 0.6em; color: #f472b6; margin-left: 0.5rem; vertical-align: middle;">
+              - ${femaleCount} <i class="fa-solid fa-venus"></i>
+            </span>
+          `;
+          return `<div class="noxss-card noxss-card--stat"><div class="stat-content"><div><div class="stat-label">Ativos ${turno}</div><div class="stat-value">${count}${femaleIndicator}</div></div><i class="noxss-icon stat-icon fa-solid ${icon}"></i></div></div>`;
         })
         .join("");
 
@@ -711,7 +717,6 @@ document.addEventListener("DOMContentLoaded", () => {
             </div>
             <div class="noxss-card-deck mt-4">
                 <div class="noxss-card"><div class="noxss-card__header"><h3 class="noxss-card__title">Gênero por Turma (Ativos)</h3></div><ul class="noxss-list">${createGenderListItems(byTurmaAndGender)}</ul></div>
-                <div class="noxss-card"><div class="noxss-card__header"><h3 class="noxss-card__title">Gênero por Turno (Ativos)</h3></div><ul class="noxss-list">${createGenderListItems(byTurnoAndGender)}</ul></div>
             </div>`;
   };
 
