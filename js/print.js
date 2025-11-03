@@ -152,39 +152,81 @@ document.addEventListener("DOMContentLoaded", () => {
     const { escola, turmas } = metadata;
 
     const activeStudents = alunos.filter((aluno) => (aluno.status || "Ativo") === "Ativo");
-
     if (activeStudents.length === 0) {
       alert("Nenhum aluno ativo para exportar.");
       return;
     }
 
     const turmaMap = new Map(turmas.map((t) => [t.id, t]));
-
-    // Mapeia os dados dos alunos para um formato plano, ideal para Excel.
-    const dataForExcel = activeStudents
-      .sort((a, b) => (a.nome || "").localeCompare(b.nome || "")) // Ordena todos os alunos por nome
-      .map((student, index) => {
-        const turma = turmaMap.get(student.turma_id) || { turma: "Sem Turma", turno: "" };
-        return {
-          "#": index + 1,
-          "Nome do Aluno": student.nome || "Não informado",
-          Turma: `${turma.turma} - ${turma.turno}`,
-          Nascimento: student.nascimento || "Não informado",
-          "Cor/Raça": student.cor || "Não informado",
-          "Nome da Mãe": student.mae || "Não informado",
-          "Nome do Pai": student.pai || "Não informado",
-          Contato: (student.telefone || []).join(", ") || "Não informado",
-          Endereço: student.endereco || "Não informado",
-        };
-      });
-
-    // Cria a planilha a partir do array de objetos.
-    const worksheet = XLSX.utils.json_to_sheet(dataForExcel);
-
-    // Cria um novo workbook.
     const workbook = XLSX.utils.book_new();
+    const worksheet = XLSX.utils.aoa_to_sheet([]); // Inicia uma planilha vazia
 
-    // Adiciona a planilha ao workbook.
+    // Estilos
+    const headerStyle = { font: { bold: true, color: { rgb: "FFFFFF" } }, fill: { fgColor: { rgb: "4CAF50" } }, border: { top: { style: "thin" }, bottom: { style: "thin" }, left: { style: "thin" }, right: { style: "thin" } } };
+    const cellStyle = { border: { top: { style: "thin" }, bottom: { style: "thin" }, left: { style: "thin" }, right: { style: "thin" } } };
+    const titleStyle = { font: { bold: true, sz: 16 } };
+    const turmaTitleStyle = { font: { bold: true, sz: 12 } };
+
+    // Adiciona o título da escola
+    XLSX.utils.sheet_add_aoa(worksheet, [[escola || "Lista de Alunos Ativos"]], { origin: "A1" });
+    worksheet["A1"].s = titleStyle;
+
+    let currentRow = 3; // Começa a inserir dados a partir da linha 3
+
+    const studentsByTurma = activeStudents.reduce((acc, student) => {
+      const turma = turmaMap.get(student.turma_id) || { turma: "Sem Turma", turno: "" };
+      const key = `${turma.turma} - ${turma.turno}`;
+      if (!acc[key]) acc[key] = [];
+      acc[key].push(student);
+      return acc;
+    }, {});
+
+    // Ordena as turmas e os alunos dentro delas
+    const sortedTurmas = Object.keys(studentsByTurma).sort(customTurmaSort);
+    sortedTurmas.forEach((turmaKey) => {
+      studentsByTurma[turmaKey].sort((a, b) => (a.nome || "").localeCompare(b.nome || ""));
+    });
+
+    const colWidths = [{ wch: 5 }, { wch: 40 }, { wch: 15 }, { wch: 15 }, { wch: 40 }, { wch: 40 }, { wch: 20 }, { wch: 45 }];
+    worksheet["!cols"] = colWidths;
+
+    sortedTurmas.forEach((turmaKey) => {
+      // Adiciona o título da turma
+      XLSX.utils.sheet_add_aoa(worksheet, [[`Turma: ${turmaKey}`]], { origin: `A${currentRow}` });
+      worksheet[`A${currentRow}`].s = turmaTitleStyle;
+      currentRow++;
+
+      // Cabeçalho da tabela
+      const headers = ["#", "Nome do Aluno", "Nascimento", "Cor/Raça", "Nome da Mãe", "Nome do Pai", "Contato", "Endereço"];
+      XLSX.utils.sheet_add_aoa(worksheet, [headers], { origin: `A${currentRow}` });
+      headers.forEach((_, C) => {
+        const cellRef = XLSX.utils.encode_cell({ r: currentRow - 1, c: C });
+        worksheet[cellRef].s = headerStyle;
+      });
+      currentRow++;
+
+      // Dados dos alunos
+      const studentList = studentsByTurma[turmaKey];
+      const studentData = studentList.map((student, index) => [index + 1, student.nome || "", student.nascimento || "", student.cor || "", student.mae || "", student.pai || "", (student.telefone || []).join(", "), student.endereco || ""]);
+
+      XLSX.utils.sheet_add_aoa(worksheet, studentData, { origin: `A${currentRow}` });
+
+      // Aplica estilo de borda às células de dados
+      for (let R = 0; R < studentData.length; R++) {
+        for (let C = 0; C < headers.length; C++) {
+          const cellRef = XLSX.utils.encode_cell({ r: currentRow - 1 + R, c: C });
+          if (worksheet[cellRef]) {
+            worksheet[cellRef].s = cellStyle;
+          }
+        }
+      }
+
+      currentRow += studentList.length + 2; // Pula para a próxima seção
+    });
+
+    // Define o range da planilha para que os estilos sejam aplicados corretamente
+    worksheet["!ref"] = XLSX.utils.encode_range({ s: { r: 0, c: 0 }, e: { r: currentRow, c: colWidths.length - 1 } });
+
     XLSX.utils.book_append_sheet(workbook, worksheet, "Alunos Ativos");
 
     // Gera e baixa o arquivo .xlsx.
