@@ -1,6 +1,7 @@
 document.addEventListener("DOMContentLoaded", () => {
   const printableContent = document.getElementById("printable-content");
   const printBtn = document.getElementById("print-btn");
+  const excelBtn = document.getElementById("excel-btn");
   const DB_KEY = "schoolAppDatabase_v2";
   const landscapeToggle = document.getElementById("landscape-toggle");
   const printOrientationStyle = document.getElementById("print-orientation-style");
@@ -136,10 +137,67 @@ document.addEventListener("DOMContentLoaded", () => {
     }, 500);
   });
 
+  /**
+   * Gera e baixa um arquivo Excel (.xlsx) com a lista de todos os alunos ativos.
+   */
+  const exportToExcel = () => {
+    const dbString = localStorage.getItem(DB_KEY);
+    if (!dbString) {
+      alert("Erro: Banco de dados não encontrado.");
+      return;
+    }
+
+    const database = JSON.parse(dbString);
+    const { alunos, metadata } = database;
+    const { escola, turmas } = metadata;
+
+    const activeStudents = alunos.filter((aluno) => (aluno.status || "Ativo") === "Ativo");
+
+    if (activeStudents.length === 0) {
+      alert("Nenhum aluno ativo para exportar.");
+      return;
+    }
+
+    const turmaMap = new Map(turmas.map((t) => [t.id, t]));
+
+    // Mapeia os dados dos alunos para um formato plano, ideal para Excel.
+    const dataForExcel = activeStudents
+      .sort((a, b) => (a.nome || "").localeCompare(b.nome || "")) // Ordena todos os alunos por nome
+      .map((student, index) => {
+        const turma = turmaMap.get(student.turma_id) || { turma: "Sem Turma", turno: "" };
+        return {
+          "#": index + 1,
+          "Nome do Aluno": student.nome || "Não informado",
+          Turma: `${turma.turma} - ${turma.turno}`,
+          Nascimento: student.nascimento || "Não informado",
+          "Cor/Raça": student.cor || "Não informado",
+          "Nome da Mãe": student.mae || "Não informado",
+          "Nome do Pai": student.pai || "Não informado",
+          Contato: (student.telefone || []).join(", ") || "Não informado",
+          Endereço: student.endereco || "Não informado",
+        };
+      });
+
+    // Cria a planilha a partir do array de objetos.
+    const worksheet = XLSX.utils.json_to_sheet(dataForExcel);
+
+    // Cria um novo workbook.
+    const workbook = XLSX.utils.book_new();
+
+    // Adiciona a planilha ao workbook.
+    XLSX.utils.book_append_sheet(workbook, worksheet, "Alunos Ativos");
+
+    // Gera e baixa o arquivo .xlsx.
+    XLSX.writeFile(workbook, `Lista de Alunos - ${escola || "Exportado"}.xlsx`);
+  };
+
   landscapeToggle.addEventListener("change", updatePrintOrientation);
 
   // Inicia o processo
   loadAndRenderData();
   // Define a orientação inicial
   updatePrintOrientation();
+
+  // Adiciona o listener para o botão de exportar Excel
+  excelBtn.addEventListener("click", exportToExcel);
 });
