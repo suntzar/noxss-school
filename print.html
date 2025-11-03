@@ -68,6 +68,16 @@
         border-color: #545b62;
       }
 
+      .print-controls .btn-excel {
+        background-color: #1d6f42; /* Verde escuro, cor do Excel */
+        color: white;
+        border-color: #1d6f42;
+      }
+      .print-controls .btn-excel:hover {
+        background-color: #185a36;
+        border-color: #14482c;
+      }
+
       .print-option {
         display: inline-flex;
         align-items: center;
@@ -176,7 +186,7 @@
         <input type="checkbox" id="landscape-toggle" />
         <span>Paisagem</span>
       </label>
-      <button id="excel-btn" class="btn-secondary"><i class="fa-solid fa-file-excel"></i> Exportar Excel</button>
+      <button id="excel-btn" class="btn-excel"><i class="fa-solid fa-file-excel"></i> Exportar Excel</button>
       <button id="print-btn" class="btn-primary"><i class="fa-solid fa-print"></i> Imprimir / PDF</button>
     </div>
 
