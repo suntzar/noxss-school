@@ -49,16 +49,14 @@ document.addEventListener("DOMContentLoaded", () => {
     const { alunos, metadata } = database;
     const { escola, turmas } = metadata;
 
-    const activeStudents = alunos.filter((aluno) => (aluno.status || "Ativo") === "Ativo");
-
-    if (activeStudents.length === 0) {
-      printableContent.innerHTML = `<h1>${escola || "Lista de Alunos"}</h1><p>Nenhum aluno ativo encontrado.</p>`;
+    if (alunos.length === 0) {
+      printableContent.innerHTML = `<h1>${escola || "Lista de Alunos"}</h1><p>Nenhum aluno encontrado.</p>`;
       return;
     }
 
     const turmaMap = new Map(turmas.map((t) => [t.id, t]));
 
-    const studentsByTurma = activeStudents.reduce((acc, student) => {
+    const studentsByTurma = alunos.reduce((acc, student) => {
       const turma = turmaMap.get(student.turma_id) || { turma: "Sem Turma", turno: "" };
       const key = `${turma.turma} - ${turma.turno}`;
       if (!acc[key]) {
@@ -68,15 +66,24 @@ document.addEventListener("DOMContentLoaded", () => {
       return acc;
     }, {});
 
-    // Ordena os alunos dentro de cada turma
+    // Define a ordem de prioridade para o status
+    const statusOrder = { Ativo: 1, Inativo: 2, Transferido: 3 };
+
+    // Ordena os alunos dentro de cada turma por status e depois por nome
     for (const key in studentsByTurma) {
-      studentsByTurma[key].sort((a, b) => (a.nome || "").localeCompare(b.nome || ""));
+      studentsByTurma[key].sort((a, b) => {
+        const statusA = statusOrder[a.status || "Ativo"] || 99;
+        const statusB = statusOrder[b.status || "Ativo"] || 99;
+        if (statusA !== statusB) return statusA - statusB;
+        // Se o status for o mesmo, ordena por nome
+        return (a.nome || "").localeCompare(b.nome || "");
+      });
     }
 
     // Ordena as turmas
     const sortedTurmas = Object.keys(studentsByTurma).sort(customTurmaSort);
 
-    let html = `<h1>${escola || "Lista de Alunos Ativos"}</h1>`;
+    let html = `<h1>${escola || "Lista de Alunos"}</h1>`;
 
     sortedTurmas.forEach((turmaKey, index) => {
       const studentList = studentsByTurma[turmaKey];
@@ -87,32 +94,40 @@ document.addEventListener("DOMContentLoaded", () => {
         <table>
           <thead>
             <tr>
-              <th style="width: 3%;">#</th>
-              <th style="width: 20%;">Nome do Aluno</th>
-              <th style="width: 10%;">Nascimento</th>
+              <th style="width: 2%;">#</th>
+              <th style="width: 25%;">Nome do Aluno</th>
+              <th style="width: 12%;">Status / Nasc.</th>
               <th style="width: 8%;">Cor/Raça</th>
-              <th style="width: 17%;">Nome da Mãe</th>
-              <th style="width: 17%;">Nome do Pai</th>
+              <th style="width: 20%;">Filiação</th>
               <th style="width: 10%;">Contato</th>
               <th style="width: 15%;">Endereço</th>
             </tr>
           </thead>
           <tbody>
             ${studentList
-              .map(
-                (student, index) => `
+              .map((student, index) => {
+                const statusNascParts = [];
+                statusNascParts.push(student.status || "Ativo");
+                if (student.nascimento) {
+                  statusNascParts.push(student.nascimento);
+                }
+
+                const filiacaoParts = [];
+                if (student.mae) filiacaoParts.push(`<b>Mãe:</b> ${student.mae}`);
+                if (student.pai) filiacaoParts.push(`<b>Pai:</b> ${student.pai}`);
+
+                return `
               <tr>
                 <td>${index + 1}</td>
                 <td>${student.nome || "Não informado"}</td>
-                <td>${student.nascimento || "Não informado"}</td>
+                <td>${statusNascParts.join("<br>")}</td>
                 <td>${student.cor || "Não informado"}</td>
-                <td>${student.mae || "Não informado"}</td>
-                <td>${student.pai || "Não informado"}</td>
+                <td>${filiacaoParts.join("<br>") || "Não informado"}</td>
                 <td>${(student.telefone || []).join(", ") || "Não informado"}</td>
                 <td>${student.endereco || "Não informado"}</td>
               </tr>
-            `
-              )
+            `;
+              })
               .join("")}
           </tbody>
         </table>
@@ -151,9 +166,8 @@ document.addEventListener("DOMContentLoaded", () => {
     const { alunos, metadata } = database;
     const { escola, turmas } = metadata;
 
-    const activeStudents = alunos.filter((aluno) => (aluno.status || "Ativo") === "Ativo");
-    if (activeStudents.length === 0) {
-      alert("Nenhum aluno ativo para exportar.");
+    if (alunos.length === 0) {
+      alert("Nenhum aluno para exportar.");
       return;
     }
 
@@ -168,12 +182,12 @@ document.addEventListener("DOMContentLoaded", () => {
     const turmaTitleStyle = { font: { bold: true, sz: 12 } };
 
     // Adiciona o título da escola
-    XLSX.utils.sheet_add_aoa(worksheet, [[escola || "Lista de Alunos Ativos"]], { origin: "A1" });
+    XLSX.utils.sheet_add_aoa(worksheet, [[escola || "Lista de Alunos"]], { origin: "A1" });
     worksheet["A1"].s = titleStyle;
 
-    let currentRow = 3; // Começa a inserir dados a partir da linha 3
+    let currentRow = 3;
 
-    const studentsByTurma = activeStudents.reduce((acc, student) => {
+    const studentsByTurma = alunos.reduce((acc, student) => {
       const turma = turmaMap.get(student.turma_id) || { turma: "Sem Turma", turno: "" };
       const key = `${turma.turma} - ${turma.turno}`;
       if (!acc[key]) acc[key] = [];
@@ -181,13 +195,23 @@ document.addEventListener("DOMContentLoaded", () => {
       return acc;
     }, {});
 
-    // Ordena as turmas e os alunos dentro delas
+    // Define a ordem de prioridade para o status
+    const statusOrder = { Ativo: 1, Inativo: 2, Transferido: 3 };
+
+    // Ordena as turmas
     const sortedTurmas = Object.keys(studentsByTurma).sort(customTurmaSort);
+
+    // Ordena os alunos dentro de cada turma por status e depois por nome
     sortedTurmas.forEach((turmaKey) => {
-      studentsByTurma[turmaKey].sort((a, b) => (a.nome || "").localeCompare(b.nome || ""));
+      studentsByTurma[turmaKey].sort((a, b) => {
+        const statusA = statusOrder[a.status || "Ativo"] || 99;
+        const statusB = statusOrder[b.status || "Ativo"] || 99;
+        if (statusA !== statusB) return statusA - statusB;
+        return (a.nome || "").localeCompare(b.nome || "");
+      });
     });
 
-    const colWidths = [{ wch: 5 }, { wch: 40 }, { wch: 15 }, { wch: 15 }, { wch: 40 }, { wch: 40 }, { wch: 20 }, { wch: 45 }];
+    const colWidths = [{ wch: 5 }, { wch: 40 }, { wch: 10 }, { wch: 15 }, { wch: 15 }, { wch: 40 }, { wch: 40 }, { wch: 20 }, { wch: 45 }];
     worksheet["!cols"] = colWidths;
 
     sortedTurmas.forEach((turmaKey) => {
@@ -197,7 +221,7 @@ document.addEventListener("DOMContentLoaded", () => {
       currentRow++;
 
       // Cabeçalho da tabela
-      const headers = ["#", "Nome do Aluno", "Nascimento", "Cor/Raça", "Nome da Mãe", "Nome do Pai", "Contato", "Endereço"];
+      const headers = ["#", "Nome do Aluno", "Status", "Nascimento", "Cor/Raça", "Nome da Mãe", "Nome do Pai", "Contato", "Endereço"];
       XLSX.utils.sheet_add_aoa(worksheet, [headers], { origin: `A${currentRow}` });
       headers.forEach((_, C) => {
         const cellRef = XLSX.utils.encode_cell({ r: currentRow - 1, c: C });
@@ -207,7 +231,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
       // Dados dos alunos
       const studentList = studentsByTurma[turmaKey];
-      const studentData = studentList.map((student, index) => [index + 1, student.nome || "", student.nascimento || "", student.cor || "", student.mae || "", student.pai || "", (student.telefone || []).join(", "), student.endereco || ""]);
+      const studentData = studentList.map((student, index) => [index + 1, student.nome || "", student.status || "Ativo", student.nascimento || "", student.cor || "", student.mae || "", student.pai || "", (student.telefone || []).join(", "), student.endereco || ""]);
 
       XLSX.utils.sheet_add_aoa(worksheet, studentData, { origin: `A${currentRow}` });
 
