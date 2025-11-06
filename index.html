@@ -202,7 +202,10 @@
                           <div class="noxss-form-group"><label for="meta-uf" class="noxss-label">Estado</label><input type="text" id="meta-uf" class="noxss-input" maxlength="2" /></div>
                         </div>
                         <div class="col-md-3">
-                          <div class="noxss-form-group"><label for="meta-cep" class="noxss-label">CEP</label><input type="text" id="meta-cep" class="noxss-input" /></div>
+                          <div class="noxss-form-group" style="position: relative">
+                            <label for="meta-cep" class="noxss-label">CEP</label><input type="text" id="meta-cep" class="noxss-input" placeholder="00000-000" />
+                            <div id="cep-loader" class="noxss-spinner noxss-spinner--sm" style="position: absolute; right: 1.5rem; top: 2.4rem; display: none"></div>
+                          </div>
                         </div>
                       </div>
                       <div class="noxss-form-group">

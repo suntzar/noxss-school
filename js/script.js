@@ -133,6 +133,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const turmaFilterToggle = document.getElementById("turma-filter-toggle");
   const turmaFilterOptions = document.getElementById("turma-filter-options");
 
+  const cepInput = document.getElementById("meta-cep");
   // --- FUNÇÕES AUXILIARES ---
   const generateId = () => "_" + Math.random().toString(36).substr(2, 9);
 
@@ -979,6 +980,42 @@ document.addEventListener("DOMContentLoaded", () => {
     Noxss.Toasts.show({ message: "Turma salva!", status: "success" });
   });
 
+  // --- API de CEP ---
+  const fetchAddressFromCEP = async (cep) => {
+    const cleanCep = cep.replace(/\D/g, "");
+    if (cleanCep.length !== 8) return;
+
+    const loader = document.getElementById("cep-loader");
+    loader.style.display = "block";
+    cepInput.readOnly = true;
+
+    try {
+      const response = await fetch(`https://brasilapi.com.br/api/cep/v1/${cleanCep}`);
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.message || "CEP não encontrado.");
+      }
+      const data = await response.json();
+
+      document.getElementById("meta-endereco").value = data.street || "";
+      document.getElementById("meta-bairro").value = data.neighborhood || "";
+      document.getElementById("meta-cidade").value = data.city || "";
+      document.getElementById("meta-uf").value = data.state || "";
+
+      Noxss.Toasts.show({ message: "Endereço preenchido automaticamente!", status: "success" });
+      document.getElementById("meta-numero").focus(); // Move o foco para o próximo campo
+    } catch (error) {
+      console.error("Erro ao buscar CEP:", error);
+      Noxss.Toasts.show({ message: error.message, status: "danger" });
+    } finally {
+      loader.style.display = "none";
+      cepInput.readOnly = false;
+    }
+  };
+
+  cepInput.addEventListener("blur", (e) => fetchAddressFromCEP(e.target.value));
+
+  // --- EVENT LISTENERS GERAIS ---
   document.getElementById("add-student-btn").addEventListener("click", () => openStudentModal());
   document.getElementById("add-turma-btn").addEventListener("click", () => openTurmaModal());
 
