@@ -6,15 +6,16 @@
     <title>Gerador de Declaração</title>
     <link rel="icon" href="assets/school-material.svg" type="image/svg+xml" />
 
+    <!-- SCRIPT DE PROTEÇÃO DE ROTA -->
+    <script src="js/auth.js"></script>
+
     <!-- DEPENDÊNCIAS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
-    <link rel="stylesheet" href="noxss/dist/noxss.css" />
-    <link rel="stylesheet" href="css/style.css" />
 
     <style>
       /* Estilos para a tela (não impressão) */
       body {
-        background-color: #f0f2f5;
+        background-color: #e9ecef;
         display: flex;
         flex-direction: column;
         align-items: center;
@@ -26,10 +27,10 @@
         max-width: 21cm; /* Combina com a largura do A4 */
         padding: 1.5rem 2rem;
         box-sizing: border-box;
-        background-color: var(--noxss-bg-surface);
-        box-shadow: var(--noxss-shadow-md);
+        background-color: #ffffff;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
         margin-bottom: 2rem;
-        border-radius: var(--noxss-border-radius-base);
+        border-radius: 8px;
         z-index: 100;
       }
 
@@ -110,6 +111,129 @@
         margin-top: 2cm;
       }
 
+      /* --- Estilos mínimos para substituir Noxss --- */
+      .d-flex {
+        display: flex !important;
+      }
+      .justify-between {
+        justify-content: space-between !important;
+      }
+      .align-center {
+        align-items: center !important;
+      }
+      .my-3 {
+        margin-top: 1rem !important;
+        margin-bottom: 1rem !important;
+      }
+      .row {
+        display: flex;
+        flex-wrap: wrap;
+        margin-right: -0.75rem;
+        margin-left: -0.75rem;
+      }
+      .col-md-6 {
+        flex: 0 0 50%;
+        max-width: 50%;
+        padding-right: 0.75rem;
+        padding-left: 0.75rem;
+      }
+      hr {
+        border: 0;
+        border-top: 1px solid #dee2e6;
+      }
+
+      .noxss-btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.6em;
+        padding: 0.6em 1.2em;
+        border: 1px solid transparent;
+        border-radius: 8px;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        font-size: 0.95rem;
+        font-weight: 500;
+        line-height: 1.5;
+        text-decoration: none;
+        cursor: pointer;
+        transition: all 150ms ease-in-out;
+      }
+      .noxss-btn:hover {
+        transform: translateY(-2px);
+      }
+      .noxss-icon {
+        width: 1.1em;
+        height: 1.1em;
+      }
+
+      .noxss-btn--primary {
+        color: #ffffff;
+        background-color: #007bff;
+        border-color: #007bff;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.07);
+      }
+      .noxss-btn--primary:hover {
+        background-color: #0069d9;
+        border-color: #0062cc;
+      }
+
+      .noxss-btn--secondary {
+        color: #212529;
+        background-color: transparent;
+        border-color: #ced4da;
+      }
+      .noxss-btn--secondary:hover {
+        color: #0056b3;
+        background-color: rgba(0, 123, 255, 0.1);
+        border-color: #007bff;
+      }
+
+      .noxss-form-group {
+        margin-bottom: 1.5rem;
+      }
+      .noxss-label {
+        display: block;
+        margin-bottom: 0.5rem;
+        font-size: 0.9em;
+        font-weight: 500;
+        color: #6c757d;
+      }
+      .noxss-select {
+        display: block;
+        width: 100%;
+        padding: 0.8rem 1rem;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        font-size: 1rem;
+        line-height: 1.5;
+        color: #212529;
+        background-color: #f8f9fa;
+        border: 1px solid #ced4da;
+        border-radius: 8px;
+        transition: border-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        appearance: none;
+        background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%23343a40' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='m2 5 6 6 6-6'/%3e%3c/svg%3e");
+        background-repeat: no-repeat;
+        background-position: right 1rem center;
+        background-size: 16px 12px;
+        padding-right: 2.5rem;
+      }
+      .noxss-select:focus {
+        outline: none;
+        border-color: #86b7fe;
+        box-shadow: 0 0 0 3px rgba(13, 110, 253, 0.25);
+      }
+
+      h2.turma-title {
+        color: #343a40;
+        font-size: 1.5rem;
+        margin-top: 0;
+        border: none;
+        padding: 0;
+      }
+      /* --- Fim dos estilos mínimos --- */
+
       /* Estilos específicos para impressão */
       @media print {
         body {
@@ -171,7 +295,6 @@
     </div>
 
     <!-- SCRIPTS -->
-    <script src="noxss/dist/noxss.js"></script>
     <script src="js/declaration.js"></script>
   </body>
 </html>
