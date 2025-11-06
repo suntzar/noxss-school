@@ -77,7 +77,7 @@ document.addEventListener("DOMContentLoaded", () => {
       </p>
 
       <p class="date-line">
-        ${school.localizacao.split(",")[0] || "Cidade"}, ${getFormattedDate()}.
+        ${school.cidade || "Cidade"}, ${getFormattedDate()}.
       </p>
 
       <div class="signature-block">

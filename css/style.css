@@ -531,6 +531,14 @@
     flex: 0 0 auto;
     width: 50%;
   }
+  .col-md-9 {
+    flex: 0 0 auto;
+    width: 75%;
+  }
+  .col-md-3 {
+    flex: 0 0 auto;
+    width: 25%;
+  }
   .col-md-7 {
     flex: 0 0 auto;
     width: 58.33333333%;

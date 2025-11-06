@@ -89,7 +89,15 @@ document.addEventListener("DOMContentLoaded", () => {
   let database = {
     metadata: {
       escola: "Nome da Escola",
-      localizacao: "Endereço da Escola",
+      gestor: "",
+      inep: "",
+      cnpj: "",
+      logradouro: "",
+      numero: "",
+      bairro: "",
+      cidade: "",
+      uf: "",
+      cep: "",
       contato: "Telefone/Email",
       turmas: [],
     },
@@ -232,14 +240,32 @@ document.addEventListener("DOMContentLoaded", () => {
     return db;
   }
 
+  const formatAddress = (metadata) => {
+    const parts = [metadata.logradouro, metadata.numero, metadata.bairro, metadata.cidade, metadata.uf, metadata.cep].filter(Boolean); // Filtra partes vazias
+    return parts.join(", ") || "Endereço não configurado";
+  };
+
   function processLoadedData(data) {
-    let db = { metadata: { escola: "Nova Escola", localizacao: "", contato: "", turmas: [] }, alunos: [] };
+    let db = { metadata: { escola: "Nova Escola", gestor: "", inep: "", cnpj: "", logradouro: "", numero: "", bairro: "", cidade: "", uf: "", cep: "", contato: "", turmas: [] }, alunos: [] };
     if (Array.isArray(data)) {
       // Formato mais antigo (só array de alunos)
       db.alunos = data;
     } else if (data && typeof data === "object" && data.alunos) {
       // Formato novo ou intermediário
       db = data;
+
+      // Migração do campo 'localizacao' para a nova estrutura de endereço
+      if (db.metadata && db.metadata.localizacao) {
+        console.log("Migrando campo 'localizacao' para a nova estrutura de endereço.");
+        db.metadata.logradouro = db.metadata.localizacao; // Move o valor antigo para 'logradouro'
+        db.metadata.numero = db.metadata.numero || "";
+        db.metadata.bairro = db.metadata.bairro || "";
+        db.metadata.cidade = db.metadata.cidade || "";
+        db.metadata.uf = db.metadata.uf || "";
+        db.metadata.cep = db.metadata.cep || "";
+        delete db.metadata.localizacao; // Remove o campo antigo
+        Noxss.Toasts.show({ message: "Estrutura de endereço atualizada. Por favor, revise os dados em Configurações.", status: "info", duration: 5000 });
+      }
     }
     return migrateData(db);
   }
@@ -613,9 +639,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const renderInicio = () => {
     // Atualiza o cabeçalho da escola (conteúdo da antiga aba 'Início')
-    const { escola, localizacao } = database.metadata;
+    const { escola } = database.metadata;
     document.getElementById("home-school-name").textContent = escola || "Nome da Escola";
-    document.getElementById("home-school-location").textContent = localizacao || "Endereço não configurado";
+    document.getElementById("home-school-location").textContent = formatAddress(database.metadata);
 
     const dashboardContent = document.getElementById("dashboard-content");
     const students = database.alunos;
@@ -722,7 +748,15 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const renderMetadata = () => {
     document.getElementById("meta-escola").value = database.metadata.escola || "";
-    document.getElementById("meta-localizacao").value = database.metadata.localizacao || "";
+    document.getElementById("meta-gestor").value = database.metadata.gestor || "";
+    document.getElementById("meta-inep").value = database.metadata.inep || "";
+    document.getElementById("meta-cnpj").value = database.metadata.cnpj || "";
+    document.getElementById("meta-logradouro").value = database.metadata.logradouro || "";
+    document.getElementById("meta-numero").value = database.metadata.numero || "";
+    document.getElementById("meta-bairro").value = database.metadata.bairro || "";
+    document.getElementById("meta-cidade").value = database.metadata.cidade || "";
+    document.getElementById("meta-uf").value = database.metadata.uf || "";
+    document.getElementById("meta-cep").value = database.metadata.cep || "";
     document.getElementById("meta-contato").value = database.metadata.contato || "";
     document.getElementById("meta-students-per-page").value = studentsPerPage;
 
@@ -884,7 +918,15 @@ document.addEventListener("DOMContentLoaded", () => {
   metadataForm.addEventListener("submit", (e) => {
     e.preventDefault();
     database.metadata.escola = document.getElementById("meta-escola").value;
-    database.metadata.localizacao = document.getElementById("meta-localizacao").value;
+    database.metadata.gestor = document.getElementById("meta-gestor").value;
+    database.metadata.inep = document.getElementById("meta-inep").value;
+    database.metadata.cnpj = document.getElementById("meta-cnpj").value;
+    database.metadata.logradouro = document.getElementById("meta-logradouro").value;
+    database.metadata.numero = document.getElementById("meta-numero").value;
+    database.metadata.bairro = document.getElementById("meta-bairro").value;
+    database.metadata.cidade = document.getElementById("meta-cidade").value;
+    database.metadata.uf = document.getElementById("meta-uf").value.toUpperCase();
+    database.metadata.cep = document.getElementById("meta-cep").value;
     database.metadata.contato = document.getElementById("meta-contato").value;
     studentsPerPage = parseInt(document.getElementById("meta-students-per-page").value, 10) || 20;
     localStorage.setItem(STUDENTS_PER_PAGE_KEY, studentsPerPage);
