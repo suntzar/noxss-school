@@ -251,7 +251,10 @@
           height: 100%;
         }
         .letterhead-bg {
-          display: none; /* Não imprime a imagem de fundo */
+          /* Garante que a imagem de fundo seja impressa */
+          display: block !important;
+          -webkit-print-color-adjust: exact; /* Para navegadores WebKit */
+          print-color-adjust: exact;
         }
         @page {
           size: A4;
