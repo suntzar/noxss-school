@@ -92,7 +92,8 @@ document.addEventListener("DOMContentLoaded", () => {
       gestor: "",
       inep: "",
       cnpj: "",
-      logradouro: "",
+      endereco: "",
+      complemento: "", // Campo para Apto, Bloco, etc.
       numero: "",
       bairro: "",
       cidade: "",
@@ -241,12 +242,12 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   const formatAddress = (metadata) => {
-    const parts = [metadata.logradouro, metadata.numero, metadata.bairro, metadata.cidade, metadata.uf, metadata.cep].filter(Boolean); // Filtra partes vazias
+    const parts = [metadata.endereco, metadata.numero, metadata.complemento, metadata.bairro, metadata.cidade, metadata.uf, metadata.cep].filter(Boolean); // Filtra partes vazias
     return parts.join(", ") || "Endereço não configurado";
   };
 
   function processLoadedData(data) {
-    let db = { metadata: { escola: "Nova Escola", gestor: "", inep: "", cnpj: "", logradouro: "", numero: "", bairro: "", cidade: "", uf: "", cep: "", contato: "", turmas: [] }, alunos: [] };
+    let db = { metadata: { escola: "Nova Escola", gestor: "", inep: "", cnpj: "", endereco: "", complemento: "", numero: "", bairro: "", cidade: "", uf: "", cep: "", contato: "", turmas: [] }, alunos: [] };
     if (Array.isArray(data)) {
       // Formato mais antigo (só array de alunos)
       db.alunos = data;
@@ -257,13 +258,28 @@ document.addEventListener("DOMContentLoaded", () => {
       // Migração do campo 'localizacao' para a nova estrutura de endereço
       if (db.metadata && db.metadata.localizacao) {
         console.log("Migrando campo 'localizacao' para a nova estrutura de endereço.");
-        db.metadata.logradouro = db.metadata.localizacao; // Move o valor antigo para 'logradouro'
+        db.metadata.endereco = db.metadata.localizacao; // Move o valor antigo para 'endereco'
+        db.metadata.complemento = db.metadata.complemento || "";
         db.metadata.numero = db.metadata.numero || "";
         db.metadata.bairro = db.metadata.bairro || "";
         db.metadata.cidade = db.metadata.cidade || "";
         db.metadata.uf = db.metadata.uf || "";
         db.metadata.cep = db.metadata.cep || "";
         delete db.metadata.localizacao; // Remove o campo antigo
+        Noxss.Toasts.show({ message: "Estrutura de endereço atualizada. Por favor, revise os dados em Configurações.", status: "info", duration: 5000 });
+      }
+      // Migração do campo 'logradouro' para 'complemento'
+      if (db.metadata && db.metadata.hasOwnProperty("logradouro")) {
+        console.log("Migrando campo 'logradouro' para 'complemento'.");
+        db.metadata.endereco = db.metadata.logradouro; // 'logradouro' vira 'endereco'
+        delete db.metadata.logradouro;
+        Noxss.Toasts.show({ message: "Estrutura de endereço atualizada. Por favor, revise os dados em Configurações.", status: "info", duration: 5000 });
+      }
+      // Migração do campo 'complemento' antigo para 'endereco'
+      if (db.metadata && db.metadata.hasOwnProperty("complemento") && !db.metadata.hasOwnProperty("endereco")) {
+        console.log("Migrando campo 'complemento' para 'endereco'.");
+        db.metadata.endereco = db.metadata.complemento;
+        db.metadata.complemento = ""; // Limpa o novo campo de complemento
         Noxss.Toasts.show({ message: "Estrutura de endereço atualizada. Por favor, revise os dados em Configurações.", status: "info", duration: 5000 });
       }
     }
@@ -751,7 +767,8 @@ document.addEventListener("DOMContentLoaded", () => {
     document.getElementById("meta-gestor").value = database.metadata.gestor || "";
     document.getElementById("meta-inep").value = database.metadata.inep || "";
     document.getElementById("meta-cnpj").value = database.metadata.cnpj || "";
-    document.getElementById("meta-logradouro").value = database.metadata.logradouro || "";
+    document.getElementById("meta-endereco").value = database.metadata.endereco || "";
+    document.getElementById("meta-complemento").value = database.metadata.complemento || ""; // Novo campo
     document.getElementById("meta-numero").value = database.metadata.numero || "";
     document.getElementById("meta-bairro").value = database.metadata.bairro || "";
     document.getElementById("meta-cidade").value = database.metadata.cidade || "";
@@ -921,7 +938,8 @@ document.addEventListener("DOMContentLoaded", () => {
     database.metadata.gestor = document.getElementById("meta-gestor").value;
     database.metadata.inep = document.getElementById("meta-inep").value;
     database.metadata.cnpj = document.getElementById("meta-cnpj").value;
-    database.metadata.logradouro = document.getElementById("meta-logradouro").value;
+    database.metadata.endereco = document.getElementById("meta-endereco").value;
+    database.metadata.complemento = document.getElementById("meta-complemento").value;
     database.metadata.numero = document.getElementById("meta-numero").value;
     database.metadata.bairro = document.getElementById("meta-bairro").value;
     database.metadata.cidade = document.getElementById("meta-cidade").value;
