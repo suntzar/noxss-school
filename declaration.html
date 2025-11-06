@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Gerador de Declaração</title>
+    <link rel="icon" href="assets/school-material.svg" type="image/svg+xml" />
+
+    <!-- DEPENDÊNCIAS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
+    <link rel="stylesheet" href="noxss/dist/noxss.css" />
+    <link rel="stylesheet" href="css/style.css" />
+
+    <style>
+      /* Estilos para a tela (não impressão) */
+      body {
+        background-color: #f0f2f5;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 2rem 0;
+      }
+
+      .controls-container {
+        width: 100%;
+        max-width: 21cm; /* Combina com a largura do A4 */
+        padding: 1.5rem 2rem;
+        box-sizing: border-box;
+        background-color: var(--noxss-bg-surface);
+        box-shadow: var(--noxss-shadow-md);
+        margin-bottom: 2rem;
+        border-radius: var(--noxss-border-radius-base);
+        z-index: 100;
+      }
+
+      .page-container {
+        position: relative;
+        margin: 0 auto 2rem auto;
+        width: 21cm;
+        height: 29.7cm;
+        background-color: #fff;
+        box-shadow: 0 0 15px rgba(0, 0, 0, 0.15);
+        box-sizing: border-box;
+        overflow: hidden; /* Esconde qualquer conteúdo que exceda a página */
+      }
+
+      .letterhead-bg {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        /* Substitua pelo caminho do seu papel timbrado */
+        background-image: url("assets/papel-timbrado.png");
+        background-size: 100% 100%; /* Estica para preencher */
+        background-position: center;
+        background-repeat: no-repeat;
+        z-index: 1;
+      }
+
+      .declaration-content {
+        position: relative;
+        z-index: 2;
+        padding: 2.5cm; /* Margens padrão A4 */
+        font-family: "Times New Roman", Times, serif;
+        font-size: 12pt;
+        line-height: 1.5;
+        color: #000;
+      }
+
+      .declaration-content .header {
+        text-align: center;
+        margin-bottom: 2cm;
+      }
+      .declaration-content .header h1 {
+        font-size: 16pt;
+        font-weight: bold;
+        margin: 0;
+        border: none;
+        padding: 0;
+        color: #000;
+      }
+      .declaration-content .header p {
+        font-size: 12pt;
+        margin: 0;
+        color: #000;
+      }
+
+      .declaration-content .body-text {
+        text-align: justify;
+        margin-bottom: 2cm;
+      }
+
+      .declaration-content .signature-block {
+        text-align: center;
+        margin-top: 3cm;
+      }
+      .declaration-content .signature-line {
+        display: inline-block;
+        width: 300px;
+        border-top: 1px solid #000;
+        margin-top: 1.5cm;
+      }
+      .declaration-content .signature-title {
+        margin-top: 0.5cm;
+      }
+
+      .declaration-content .date-line {
+        text-align: right;
+        margin-top: 2cm;
+      }
+
+      /* Estilos específicos para impressão */
+      @media print {
+        body {
+          background-color: #fff;
+          padding: 0;
+          margin: 0;
+        }
+        .controls-container {
+          display: none !important;
+        }
+        .page-container {
+          box-shadow: none;
+          margin: 0;
+          width: 100%;
+          height: 100%;
+        }
+        .letterhead-bg {
+          display: none; /* Não imprime a imagem de fundo */
+        }
+        @page {
+          size: A4;
+          margin: 0;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="controls-container">
+      <div class="d-flex justify-between align-center">
+        <h2 class="turma-title" style="margin: 0; border: none">Gerador de Declaração</h2>
+        <div>
+          <a href="index.html" class="noxss-btn noxss-btn--secondary"><i class="fa-solid fa-arrow-left noxss-icon"></i> Voltar</a>
+          <button id="print-btn" class="noxss-btn noxss-btn--primary"><i class="fa-solid fa-print noxss-icon"></i> Imprimir</button>
+        </div>
+      </div>
+      <hr class="my-3" />
+      <div class="row">
+        <div class="col-md-6">
+          <div class="noxss-form-group">
+            <label for="student-select" class="noxss-label">Selecione o Aluno</label>
+            <select id="student-select" class="noxss-select"></select>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="noxss-form-group">
+            <label for="declaration-type-select" class="noxss-label">Tipo de Declaração</label>
+            <select id="declaration-type-select" class="noxss-select"></select>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="page-container">
+      <div class="letterhead-bg"></div>
+      <div id="declaration-content" class="declaration-content">
+        <!-- O conteúdo da declaração será injetado aqui -->
+        <p style="text-align: center; margin-top: 5cm; color: #888">Selecione um aluno e um tipo de declaração para começar.</p>
+      </div>
+    </div>
+
+    <!-- SCRIPTS -->
+    <script src="noxss/dist/noxss.js"></script>
+    <script src="js/declaration.js"></script>
+  </body>
+</html>

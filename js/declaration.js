@@ -1,0 +1,131 @@
+document.addEventListener("DOMContentLoaded", () => {
+  const DB_KEY = "schoolAppDatabase_v2";
+
+  // --- Elementos da UI ---
+  const studentSelect = document.getElementById("student-select");
+  const declarationTypeSelect = document.getElementById("declaration-type-select");
+  const declarationContentEl = document.getElementById("declaration-content");
+  const printBtn = document.getElementById("print-btn");
+
+  // --- Carregamento de Dados ---
+  let database = JSON.parse(localStorage.getItem(DB_KEY));
+  if (!database) {
+    declarationContentEl.innerHTML = `<p style="color: red; text-align: center;">Erro: Banco de dados não encontrado. Volte para a página principal e carregue os dados.</p>`;
+    return;
+  }
+
+  const turmaMap = new Map(database.metadata.turmas.map((t) => [t.id, t]));
+
+  // --- Modelos de Declaração ---
+  const declarationTemplates = {
+    matricula: {
+      name: "Declaração de Matrícula",
+      title: "DECLARAÇÃO DE MATRÍCULA",
+      generateBody: (student, school, turma) => `Declaramos para os devidos fins que <strong>${student.nome.toUpperCase()}</strong>, filho(a) de ${student.mae || "NÃO INFORMADO"} e ${student.pai || "NÃO INFORMADO"}, nascido(a) em ${student.nascimento || "__/__/____"}, está regularmente matriculado(a) nesta instituição de ensino, no ano letivo de ${new Date().getFullYear()}, cursando o(a) <strong>${turma.turma}</strong> no turno <strong>${turma.turno}</strong>.`,
+    },
+    transferencia: {
+      name: "Declaração de Transferência",
+      title: "DECLARAÇÃO DE TRANSFERÊNCIA",
+      generateBody: (student, school, turma) => `Declaramos para os devidos fins que <strong>${student.nome.toUpperCase()}</strong>, filho(a) de ${student.mae || "NÃO INFORMADO"} e ${student.pai || "NÃO INFORMADO"}, esteve regularmente matriculado(a) nesta instituição de ensino no ano letivo de ${new Date().getFullYear()}, cursando o(a) <strong>${turma.turma}</strong> no turno <strong>${turma.turno}</strong>, tendo solicitado transferência nesta data.`,
+    },
+    conclusao: {
+      name: "Declaração de Conclusão",
+      title: "DECLARAÇÃO DE CONCLUSÃO",
+      generateBody: (student, school, turma) => `Declaramos para os devidos fins que <strong>${student.nome.toUpperCase()}</strong>, filho(a) de ${student.mae || "NÃO INFORMADO"} e ${student.pai || "NÃO INFORMADO"}, concluiu com aproveitamento o(a) <strong>${turma.turma}</strong> nesta instituição de ensino, no ano letivo de ${new Date().getFullYear()}.`,
+    },
+  };
+
+  // --- Funções Auxiliares ---
+  const getFormattedDate = () => {
+    const today = new Date();
+    const day = String(today.getDate()).padStart(2, "0");
+    const month = today.toLocaleString("pt-BR", { month: "long" });
+    const year = today.getFullYear();
+    return `${day} de ${month} de ${year}`;
+  };
+
+  // --- Renderização e Lógica Principal ---
+
+  /**
+   * Gera e renderiza o conteúdo completo da declaração.
+   */
+  const renderDeclaration = () => {
+    const studentId = studentSelect.value;
+    const declarationType = declarationTypeSelect.value;
+
+    if (!studentId || !declarationType) {
+      declarationContentEl.innerHTML = `<p style="text-align: center; margin-top: 5cm; color: #888">Selecione um aluno e um tipo de declaração para começar.</p>`;
+      return;
+    }
+
+    const student = database.alunos.find((s) => s.id === studentId);
+    const template = declarationTemplates[declarationType];
+    const school = database.metadata;
+    const turma = turmaMap.get(student.turma_id) || { turma: "[TURMA NÃO ENCONTRADA]", turno: "[TURNO NÃO ENCONTRADO]" };
+
+    const bodyText = template.generateBody(student, school, turma);
+
+    declarationContentEl.innerHTML = `
+      <div class="header">
+        <h1>${school.escola || "NOME DA ESCOLA"}</h1>
+        <p>${school.localizacao || "Endereço da Escola"}</p>
+        <p>${school.contato || "Contato da Escola"}</p>
+      </div>
+
+      <h2 style="text-align: center; font-size: 14pt; margin: 2cm 0; font-weight: bold;">${template.title}</h2>
+
+      <p class="body-text">
+        ${bodyText}
+      </p>
+
+      <p class="body-text">
+        Por ser verdade, firmamos a presente declaração.
+      </p>
+
+      <p class="date-line">
+        ${school.localizacao.split(",")[0] || "Cidade"}, ${getFormattedDate()}.
+      </p>
+
+      <div class="signature-block">
+        <div class="signature-line"></div>
+        <div class="signature-title">
+          <strong>${school.escola || "NOME DA ESCOLA"}</strong><br>
+          <span>A Direção</span>
+        </div>
+      </div>
+    `;
+  };
+
+  /**
+   * Popula os selects com os dados do banco.
+   */
+  const populateSelects = () => {
+    // Popula alunos
+    const sortedStudents = [...database.alunos].sort((a, b) => a.nome.localeCompare(b.nome));
+    studentSelect.innerHTML =
+      '<option value="">-- Selecione um Aluno --</option>' +
+      sortedStudents
+        .map((student) => {
+          const turma = turmaMap.get(student.turma_id);
+          const turmaLabel = turma ? `(${turma.turma} - ${turma.turno})` : "(Sem Turma)";
+          return `<option value="${student.id}">${student.nome} ${turmaLabel}</option>`;
+        })
+        .join("");
+
+    // Popula tipos de declaração
+    declarationTypeSelect.innerHTML =
+      '<option value="">-- Tipo de Declaração --</option>' +
+      Object.entries(declarationTemplates)
+        .map(([key, { name }]) => `<option value="${key}">${name}</option>`)
+        .join("");
+  };
+
+  // --- Event Listeners ---
+  studentSelect.addEventListener("change", renderDeclaration);
+  declarationTypeSelect.addEventListener("change", renderDeclaration);
+  printBtn.addEventListener("click", () => window.print());
+
+  // --- Inicialização ---
+  populateSelects();
+  renderDeclaration(); // Renderiza o estado inicial (placeholder)
+});
