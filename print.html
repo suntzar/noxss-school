@@ -161,18 +161,18 @@
         }
 
         /* Evita que o cabeçalho da tabela seja repetido em cada página.
-           Isso melhora a conversão de PDF para DOCX, mantendo a tabela como uma única entidade. */
+           Isso melhora a conversão de PDF para DOCX, mantendo a tabela como uma única entidade.
         #printable-content thead {
           display: table-row-group;
         }
 
-        /* Evita que as linhas da tabela sejam quebradas entre páginas.
+         Evita que as linhas da tabela sejam quebradas entre páginas.
            Isso ajuda a manter a tabela como um único fluxo contínuo,
-           melhorando a conversão para outros formatos como o Word. */
+           melhorando a conversão para outros formatos como o Word. 
         #printable-content tr {
           page-break-inside: avoid;
         }
-        /* A orientação será definida dinamicamente pelo JS */
+         A orientação será definida dinamicamente pelo JS */
       }
     </style>
 
