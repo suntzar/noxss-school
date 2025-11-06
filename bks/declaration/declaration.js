@@ -66,7 +66,13 @@ document.addEventListener("DOMContentLoaded", () => {
     const bodyText = template.generateBody(student, school, turma);
 
     declarationContentEl.innerHTML = `
-      <h2 style="text-align: center; font-size: 14pt; margin: 4cm 0 2cm 0; font-weight: bold;">${template.title}</h2>
+      <div class="header">
+        <h1>${school.escola || "NOME DA ESCOLA"}</h1>
+        <p>${school.localizacao || "Endereço da Escola"}</p>
+        <p>${school.contato || "Contato da Escola"}</p>
+      </div>
+
+      <h2 style="text-align: center; font-size: 14pt; margin: 2cm 0; font-weight: bold;">${template.title}</h2>
 
       <p class="body-text">
         ${bodyText}
