@@ -152,7 +152,7 @@
           box-shadow: none;
           margin: 0;
           width: auto;
-          padding: 1cm; /* Adiciona margem interna ao conteúdo para as extremidades do documento */
+          padding: 1cm; /* O espaçamento agora é controlado apenas pela regra @page */
         }
         /* Garante que a cor do texto seja preta na impressão */
         #printable-content,
@@ -174,8 +174,8 @@
         }
          A orientação será definida dinamicamente pelo JS */
         @page {
-          size: A4 landscape;
-          margin: 1.5cm;
+          size: A4 landscape; /* Orientação paisagem */
+          margin-top: 1cm; /* Força a margem de 2cm em todas as páginas na impressão */
         }
       }
     </style>
