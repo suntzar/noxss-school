@@ -69,6 +69,7 @@
         position: relative;
         z-index: 2;
         padding: 2.5cm; /* Margens padrão A4 */
+        padding-top: 5cm; /* Aumenta o espaço no topo para não cobrir o cabeçalho da imagem */
         font-family: "Baloo 2", sans-serif;
         font-size: 13pt;
         line-height: 1.5;
@@ -281,6 +282,10 @@
         border-color: #86b7fe;
         box-shadow: 0 0 0 3px rgba(13, 110, 253, 0.25);
       }
+      .noxss-input,
+      .noxss-textarea {
+        box-sizing: border-box; /* Garante que o padding não estoure a largura */
+      }
       .noxss-textarea {
         min-height: 80px;
         resize: vertical;
@@ -351,40 +356,32 @@
         </div>
       </div>
       <hr class="my-3" />
-      <div class="row">
-        <div class="col-md-6">
+      <div class="form-grid">
+        <div class="form-grid-row">
           <div class="noxss-form-group">
             <label for="office-number" class="noxss-label">Número do Ofício</label>
             <input type="text" id="office-number" class="noxss-input" value="OFÍCIO N° XX/ANO" />
           </div>
-        </div>
-        <div class="col-md-6">
           <div class="noxss-form-group">
             <label for="office-date-line" class="noxss-label">Local e Data</label>
             <input type="text" id="office-date-line" class="noxss-input" />
           </div>
         </div>
-        <div class="col-md-12">
-          <div class="noxss-form-group">
-            <label for="office-recipient" class="noxss-label">Remetente</label>
-            <textarea id="office-recipient" class="noxss-textarea" rows="3">
+        <div class="noxss-form-group">
+          <label for="office-recipient" class="noxss-label">Destinatário</label>
+          <textarea id="office-recipient" class="noxss-textarea" rows="3">
 Ao Departamento de Administração e Serviços Gerais
 Secretaria Municipal de Educação
 SEMED</textarea
-            >
-          </div>
+          >
         </div>
-        <div class="col-md-12">
-          <div class="noxss-form-group">
-            <label for="office-subject" class="noxss-label">Assunto</label>
-            <input type="text" id="office-subject" class="noxss-input" value="Assunto: " />
-          </div>
+        <div class="noxss-form-group">
+          <label for="office-subject" class="noxss-label">Assunto</label>
+          <input type="text" id="office-subject" class="noxss-input" value="Assunto: " />
         </div>
-        <div class="col-md-12">
-          <div class="noxss-form-group">
-            <label for="office-body-editor" class="noxss-label">Conteúdo do Ofício (Markdown)</label>
-            <textarea id="office-body-editor"></textarea>
-          </div>
+        <div class="noxss-form-group">
+          <label for="office-body-editor" class="noxss-label">Conteúdo do Ofício (Markdown)</label>
+          <textarea id="office-body-editor"></textarea>
         </div>
       </div>
     </div>
@@ -392,6 +389,7 @@ SEMED</textarea
     <div class="page-container">
       <div class="letterhead-bg"></div>
       <div id="office-content" class="office-content">
+        <!-- Conteúdo do ofício renderizado -->
         <div class="office-header-fields">
           <div class="office-meta-line">
             <p class="office-number" id="rendered-office-number"></p>
