@@ -16,22 +16,28 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const turmaMap = new Map(database.metadata.turmas.map((t) => [t.id, t]));
 
+  // Função auxiliar para formatar o nome da escola com INEP (se disponível)
+  const formatSchoolInfo = (school) => {
+    const inepInfo = school.inep ? ` (INEP: ${school.inep})` : "";
+    return `<strong>${school.escola || "Nome da Escola"}</strong>${inepInfo}`;
+  };
+
   // --- Modelos de Declaração ---
   const declarationTemplates = {
     matricula: {
       name: "Declaração de Matrícula",
       title: "DECLARAÇÃO DE MATRÍCULA",
-      generateBody: (student, school, turma) => `Declaramos para os devidos fins que <strong>${student.nome.toUpperCase()}</strong>, filho(a) de ${student.mae || "NÃO INFORMADO"} e ${student.pai || "NÃO INFORMADO"}, nascido(a) em ${student.nascimento || "__/__/____"}, está regularmente matriculado(a) nesta instituição de ensino, no ano letivo de ${new Date().getFullYear()}, cursando o(a) <strong>${turma.turma}</strong> no turno <strong>${turma.turno}</strong>.`,
+      generateBody: (student, school, turma) => `Declaramos para os devidos fins que <strong>${student.nome.toUpperCase()}</strong>, filho(a) de ${student.mae || "NÃO INFORMADO"} e ${student.pai || "NÃO INFORMADO"}, nascido(a) em ${student.nascimento || "__/__/____"}, está regularmente matriculado(a) na instituição de ensino ${formatSchoolInfo(school)}, no ano letivo de ${new Date().getFullYear()}, cursando o(a) <strong>${turma.turma}</strong> no turno <strong>${turma.turno}</strong>.`,
     },
     transferencia: {
       name: "Declaração de Transferência",
       title: "DECLARAÇÃO DE TRANSFERÊNCIA",
-      generateBody: (student, school, turma) => `Declaramos para os devidos fins que <strong>${student.nome.toUpperCase()}</strong>, filho(a) de ${student.mae || "NÃO INFORMADO"} e ${student.pai || "NÃO INFORMADO"}, esteve regularmente matriculado(a) nesta instituição de ensino no ano letivo de ${new Date().getFullYear()}, cursando o(a) <strong>${turma.turma}</strong> no turno <strong>${turma.turno}</strong>, tendo solicitado transferência nesta data.`,
+      generateBody: (student, school, turma) => `Declaramos para os devidos fins que <strong>${student.nome.toUpperCase()}</strong>, filho(a) de ${student.mae || "NÃO INFORMADO"} e ${student.pai || "NÃO INFORMADO"}, esteve regularmente matriculado(a) na instituição de ensino ${formatSchoolInfo(school)} no ano letivo de ${new Date().getFullYear()}, cursando o(a) <strong>${turma.turma}</strong> no turno <strong>${turma.turno}</strong>, tendo solicitado transferência nesta data.`,
     },
     conclusao: {
       name: "Declaração de Conclusão",
       title: "DECLARAÇÃO DE CONCLUSÃO",
-      generateBody: (student, school, turma) => `Declaramos para os devidos fins que <strong>${student.nome.toUpperCase()}</strong>, filho(a) de ${student.mae || "NÃO INFORMADO"} e ${student.pai || "NÃO INFORMADO"}, concluiu com aproveitamento o(a) <strong>${turma.turma}</strong> nesta instituição de ensino, no ano letivo de ${new Date().getFullYear()}.`,
+      generateBody: (student, school, turma) => `Declaramos para os devidos fins que <strong>${student.nome.toUpperCase()}</strong>, filho(a) de ${student.mae || "NÃO INFORMADO"} e ${student.pai || "NÃO INFORMADO"}, concluiu com aproveitamento o(a) <strong>${turma.turma}</strong> na instituição de ensino ${formatSchoolInfo(school)}, no ano letivo de ${new Date().getFullYear()}.`,
     },
   };
 
@@ -83,8 +89,8 @@ document.addEventListener("DOMContentLoaded", () => {
       <div class="signature-block">
         <div class="signature-line"></div>
         <div class="signature-title">
-          <strong>${school.escola || "NOME DA ESCOLA"}</strong><br>
-          <span>A Direção</span>
+          <strong>${school.gestor || "Nome do(a) Gestor(a)"}</strong><br>
+          <span>Assinatura do Gestor(a)</span>
         </div>
       </div>
     `;
