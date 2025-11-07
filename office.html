@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Gerador de Ofício</title>
+    <link rel="icon" href="assets/school-material.svg" type="image/svg+xml" />
+
+    <!-- SCRIPT DE PROTEÇÃO DE ROTA -->
+    <script src="js/auth.js"></script>
+
+    <!-- DEPENDÊNCIAS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
+    <link rel="stylesheet" href="https://unpkg.com/easymde/dist/easymde.min.css" />
+
+    <!-- FONTE DO DOCUMENTO -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+
+    <style>
+      /* Estilos para a tela (não impressão) */
+      body {
+        background-color: #e9ecef;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        font-family: "Baloo 2", sans-serif;
+        padding: 2rem 0;
+      }
+
+      .controls-container {
+        width: 100%;
+        max-width: 21cm; /* Combina com a largura do A4 */
+        padding: 1.5rem 2rem;
+        box-sizing: border-box;
+        background-color: #ffffff;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        margin-bottom: 2rem;
+        border-radius: 8px;
+        z-index: 100;
+      }
+
+      .page-container {
+        position: relative;
+        margin: 0 auto 2rem auto;
+        width: 21cm;
+        min-height: 29.7cm; /* Use min-height to allow content to expand */
+        background-color: #fff;
+        box-shadow: 0 0 15px rgba(0, 0, 0, 0.15);
+        box-sizing: border-box;
+        overflow: hidden; /* Esconde qualquer conteúdo que exceda a página */
+      }
+
+      .letterhead-bg {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-image: url("assets/doc-bg.png"); /* Generic background like declaration.html */
+        background-size: 100% 100%;
+        background-position: center;
+        background-repeat: no-repeat;
+        z-index: 1;
+      }
+
+      .office-content {
+        position: relative;
+        z-index: 2;
+        padding: 2.5cm; /* Margens padrão A4 */
+        font-family: "Baloo 2", sans-serif;
+        font-size: 13pt;
+        line-height: 1.5;
+        color: #000;
+      }
+
+      /* Header fields for office */
+      .office-header-fields {
+        margin-bottom: 1.5cm;
+      }
+      .office-header-fields p {
+        margin: 0;
+        line-height: 1.3;
+      }
+      .office-header-fields .office-meta-line {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-end; /* Align to bottom if heights differ */
+        margin-bottom: 1cm;
+      }
+      .office-header-fields .office-number {
+        font-weight: bold;
+        margin-bottom: 0; /* Remove default p margin */
+      }
+      .office-header-fields .office-date-line {
+        margin-bottom: 0; /* Remove default p margin */
+      }
+      .office-header-fields .office-recipient {
+        text-align: left;
+        margin-bottom: 0.5cm;
+      }
+      .office-header-fields .office-subject {
+        text-align: left;
+        font-weight: bold;
+        margin-bottom: 1cm;
+      }
+
+      /* Markdown content styling */
+      .office-body-markdown {
+        text-align: justify;
+        margin-bottom: 2cm;
+      }
+      .office-body-markdown h1,
+      .office-body-markdown h2,
+      .office-body-markdown h3,
+      .office-body-markdown h4,
+      .office-body-markdown h5,
+      .office-body-markdown h6 {
+        font-weight: bold;
+        margin-top: 1em;
+        margin-bottom: 0.5em;
+        border-bottom: none; /* Remove border from h2 */
+        padding-bottom: 0;
+      }
+      .office-body-markdown h1 {
+        font-size: 1.5em;
+      }
+      .office-body-markdown h2 {
+        font-size: 1.3em;
+      }
+      .office-body-markdown h3 {
+        font-size: 1.2em;
+      }
+      .office-body-markdown p {
+        margin-bottom: 1em;
+      }
+      .office-body-markdown ul,
+      .office-body-markdown ol {
+        margin-left: 1.5em;
+        margin-bottom: 1em;
+      }
+      .office-body-markdown li {
+        margin-bottom: 0.5em;
+      }
+      .office-body-markdown strong {
+        font-weight: bold;
+      }
+      .office-body-markdown em {
+        font-style: italic;
+      }
+
+      .office-closing {
+        text-align: left;
+        margin-top: 1cm;
+        margin-bottom: 1cm;
+      }
+
+      .signature-block {
+        text-align: center;
+        margin-top: 4.5cm;
+      }
+      .signature-line {
+        display: inline-block;
+        width: 300px;
+        border-top: 1px solid #000;
+        margin-top: 1.5cm;
+      }
+      .signature-title {
+        margin-top: 0.5cm;
+      }
+
+      /* --- Estilos mínimos para substituir Noxss --- */
+      .d-flex {
+        display: flex !important;
+      }
+      .justify-between {
+        justify-content: space-between !important;
+      }
+      .align-center {
+        align-items: center !important;
+      }
+      .my-3 {
+        margin-top: 1rem !important;
+        margin-bottom: 1rem !important;
+      }
+      .row {
+        display: flex;
+        flex-wrap: wrap;
+        margin-right: -0.75rem;
+        margin-left: -0.75rem;
+      }
+      .col-md-6 {
+        flex: 0 0 50%;
+        max-width: 50%;
+        padding-right: 0.75rem;
+        padding-left: 0.75rem;
+      }
+      .col-md-12 {
+        flex: 0 0 100%;
+        max-width: 100%;
+        padding-right: 0.75rem;
+        padding-left: 0.75rem;
+      }
+      hr {
+        border: 0;
+        border-top: 1px solid #dee2e6;
+      }
+
+      .noxss-btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.6em;
+        padding: 0.6em 1.2em;
+        border: 1px solid transparent;
+        border-radius: 8px;
+        font-size: 0.95rem;
+        font-weight: 500;
+        line-height: 1.5;
+        text-decoration: none;
+        cursor: pointer;
+        transition: all 150ms ease-in-out;
+      }
+      .noxss-btn:hover {
+        transform: translateY(-2px);
+      }
+      .noxss-icon {
+        width: 1.1em;
+        height: 1.1em;
+      }
+
+      .noxss-btn--primary {
+        color: #ffffff;
+        background-color: #007bff;
+        border-color: #007bff;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.07);
+      }
+      .noxss-btn--primary:hover {
+        background-color: #0069d9;
+        border-color: #0062cc;
+      }
+
+      .noxss-btn--secondary {
+        color: #212529;
+        background-color: transparent;
+        border-color: #ced4da;
+      }
+      .noxss-btn--secondary:hover {
+        color: #0056b3;
+        background-color: rgba(0, 123, 255, 0.1);
+        border-color: #007bff;
+      }
+
+      .noxss-form-group {
+        margin-bottom: 1.5rem;
+      }
+      .noxss-label {
+        display: block;
+        margin-bottom: 0.5rem;
+        font-size: 0.9em;
+        font-weight: 500;
+        color: #6c757d;
+      }
+      .noxss-input,
+      .noxss-textarea {
+        display: block;
+        width: 100%;
+        padding: 0.8rem 1rem;
+        font-size: 1rem;
+        line-height: 1.5;
+        color: #212529;
+        background-color: #f8f9fa;
+        border: 1px solid #ced4da;
+        border-radius: 8px;
+        transition: border-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+      }
+      .noxss-input:focus,
+      .noxss-textarea:focus {
+        outline: none;
+        border-color: #86b7fe;
+        box-shadow: 0 0 0 3px rgba(13, 110, 253, 0.25);
+      }
+      .noxss-textarea {
+        min-height: 80px;
+        resize: vertical;
+      }
+
+      h2.turma-title {
+        color: #343a40;
+        font-size: 1.5rem;
+        margin-top: 0;
+        border: none;
+        padding: 0;
+      }
+      /* --- Fim dos estilos mínimos --- */
+
+      /* EasyMDE adjustments */
+      .editor-toolbar {
+        border-top-left-radius: 8px;
+        border-top-right-radius: 8px;
+        border-color: #ced4da;
+        background-color: #f8f9fa;
+      }
+      .CodeMirror {
+        border-bottom-left-radius: 8px;
+        border-bottom-right-radius: 8px;
+        border-color: #ced4da;
+        height: 300px; /* Fixed height for editor */
+      }
+      .editor-toolbar button.active,
+      .editor-toolbar button:hover {
+        background-color: #e9ecef;
+      }
+
+      /* Estilos específicos para impressão */
+      @media print {
+        body {
+          background-color: #fff;
+          padding: 0;
+          margin: 0;
+        }
+        .controls-container {
+          display: none !important;
+        }
+        .page-container {
+          box-shadow: none;
+          margin: 0;
+          width: 100%;
+          min-height: 100dvh; /* Garante que o contêiner ocupe toda a altura da página de impressão */
+        }
+        .letterhead-bg {
+          display: block !important;
+          -webkit-print-color-adjust: exact;
+          print-color-adjust: exact;
+        }
+        @page {
+          size: A4;
+          margin: 0;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="controls-container">
+      <div class="d-flex justify-between align-center">
+        <h2 class="turma-title" style="margin: 0; border: none">Gerador de Ofício</h2>
+        <div>
+          <a href="index.html" class="noxss-btn noxss-btn--secondary"><i class="fa-solid fa-arrow-left noxss-icon"></i> Voltar</a>
+          <button id="print-btn" class="noxss-btn noxss-btn--primary"><i class="fa-solid fa-print noxss-icon"></i> Imprimir</button>
+        </div>
+      </div>
+      <hr class="my-3" />
+      <div class="row">
+        <div class="col-md-6">
+          <div class="noxss-form-group">
+            <label for="office-number" class="noxss-label">Número do Ofício</label>
+            <input type="text" id="office-number" class="noxss-input" value="OFÍCIO N° XX/ANO" />
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="noxss-form-group">
+            <label for="office-date-line" class="noxss-label">Local e Data</label>
+            <input type="text" id="office-date-line" class="noxss-input" />
+          </div>
+        </div>
+        <div class="col-md-12">
+          <div class="noxss-form-group">
+            <label for="office-recipient" class="noxss-label">Remetente</label>
+            <textarea id="office-recipient" class="noxss-textarea" rows="3">
+Ao Departamento de Administração e Serviços Gerais
+Secretaria Municipal de Educação
+SEMED</textarea
+            >
+          </div>
+        </div>
+        <div class="col-md-12">
+          <div class="noxss-form-group">
+            <label for="office-subject" class="noxss-label">Assunto</label>
+            <input type="text" id="office-subject" class="noxss-input" value="Assunto: " />
+          </div>
+        </div>
+        <div class="col-md-12">
+          <div class="noxss-form-group">
+            <label for="office-body-editor" class="noxss-label">Conteúdo do Ofício (Markdown)</label>
+            <textarea id="office-body-editor"></textarea>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="page-container">
+      <div class="letterhead-bg"></div>
+      <div id="office-content" class="office-content">
+        <div class="office-header-fields">
+          <div class="office-meta-line">
+            <p class="office-number" id="rendered-office-number"></p>
+            <p class="office-date-line" id="rendered-office-date-line"></p>
+          </div>
+          <p class="office-recipient" id="rendered-office-recipient"></p>
+          <p class="office-subject" id="rendered-office-subject"></p>
+        </div>
+
+        <div id="rendered-office-body" class="office-body-markdown">
+          <p style="text-align: center; margin-top: 5cm; color: #888">Preencha os campos acima para gerar o ofício.</p>
+        </div>
+
+        <p class="office-closing">Atenciosamente,</p>
+
+        <div class="signature-block">
+          <div class="signature-line"></div>
+          <div class="signature-title">
+            <strong id="rendered-gestor-name"></strong><br />
+            <span>Assinatura do Gestor(a)</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SCRIPTS -->
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <script src="https://unpkg.com/easymde/dist/easymde.min.js"></script>
+    <script src="js/office.js"></script>
+  </body>
+</html>

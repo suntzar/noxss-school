@@ -24,6 +24,7 @@ O projeto se destaca por não necessitar de um backend ou banco de dados externo
 - **Geração de Relatórios**:
   - Página de impressão otimizada no formato A4.
   - Opção para gerar um arquivo `.docx` a partir da lista de alunos.
+  - Gerador de Ofícios: Crie ofícios personalizados com um editor Markdown e preenchimento automático de dados da escola.
 - **Customização da Interface**:
   - **Modo Claro/Escuro**: Alterne entre os temas com um clique.
   - **Paletas de Cores**: Escolha entre diversos temas estáticos e paletas de cores dinâmicas para personalizar a aparência da aplicação.
