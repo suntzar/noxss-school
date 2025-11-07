@@ -16,10 +16,25 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const turmaMap = new Map(database.metadata.turmas.map((t) => [t.id, t]));
 
-  // Função auxiliar para formatar o nome da escola com INEP (se disponível)
+  // --- Funções de Formatação Dinâmica ---
+
   const formatSchoolInfo = (school) => {
     const inepInfo = school.inep ? ` (INEP: ${school.inep})` : "";
-    return `<strong>${school.escola || "Nome da Escola"}</strong>${inepInfo}`;
+    const schoolName = school.escola ? `<strong>${school.escola}</strong>` : "";
+    return `${schoolName}${inepInfo}`;
+  };
+
+  const formatFiliacao = (student) => {
+    const mae = student.mae;
+    const pai = student.pai;
+    if (mae && pai) {
+      return `, filho(a) de ${mae} e ${pai}`;
+    } else if (mae) {
+      return `, filho(a) de ${mae}`;
+    } else if (pai) {
+      return `, filho(a) de ${pai}`;
+    }
+    return ""; // Retorna string vazia se não houver pai nem mãe
   };
 
   // --- Modelos de Declaração ---
@@ -27,17 +42,17 @@ document.addEventListener("DOMContentLoaded", () => {
     matricula: {
       name: "Declaração de Matrícula",
       title: "DECLARAÇÃO DE MATRÍCULA",
-      generateBody: (student, school, turma) => `Declaramos para os devidos fins que <strong>${student.nome.toUpperCase()}</strong>, filho(a) de ${student.mae || "NÃO INFORMADO"} e ${student.pai || "NÃO INFORMADO"}, nascido(a) em ${student.nascimento || "__/__/____"}, está regularmente matriculado(a) na instituição de ensino ${formatSchoolInfo(school)}, no ano letivo de ${new Date().getFullYear()}, cursando o(a) <strong>${turma.turma}</strong> no turno <strong>${turma.turno}</strong>.`,
+      generateBody: (student, school, turma) => `Declaramos para os devidos fins que <strong>${student.nome.toUpperCase()}</strong>${formatFiliacao(student)}, nascido(a) em ${student.nascimento || "__/__/____"}, está regularmente matriculado(a) na instituição de ensino ${formatSchoolInfo(school)}, no ano letivo de ${new Date().getFullYear()}, cursando o(a) <strong>${turma.turma}</strong> no turno <strong>${turma.turno}</strong>.`,
     },
     transferencia: {
       name: "Declaração de Transferência",
       title: "DECLARAÇÃO DE TRANSFERÊNCIA",
-      generateBody: (student, school, turma) => `Declaramos para os devidos fins que <strong>${student.nome.toUpperCase()}</strong>, filho(a) de ${student.mae || "NÃO INFORMADO"} e ${student.pai || "NÃO INFORMADO"}, esteve regularmente matriculado(a) na instituição de ensino ${formatSchoolInfo(school)} no ano letivo de ${new Date().getFullYear()}, cursando o(a) <strong>${turma.turma}</strong> no turno <strong>${turma.turno}</strong>, tendo solicitado transferência nesta data.`,
+      generateBody: (student, school, turma) => `Declaramos para os devidos fins que <strong>${student.nome.toUpperCase()}</strong>${formatFiliacao(student)}, esteve regularmente matriculado(a) na instituição de ensino ${formatSchoolInfo(school)} no ano letivo de ${new Date().getFullYear()}, cursando o(a) <strong>${turma.turma}</strong> no turno <strong>${turma.turno}</strong>, tendo solicitado transferência nesta data.`,
     },
     conclusao: {
       name: "Declaração de Conclusão",
       title: "DECLARAÇÃO DE CONCLUSÃO",
-      generateBody: (student, school, turma) => `Declaramos para os devidos fins que <strong>${student.nome.toUpperCase()}</strong>, filho(a) de ${student.mae || "NÃO INFORMADO"} e ${student.pai || "NÃO INFORMADO"}, concluiu com aproveitamento o(a) <strong>${turma.turma}</strong> na instituição de ensino ${formatSchoolInfo(school)}, no ano letivo de ${new Date().getFullYear()}.`,
+      generateBody: (student, school, turma) => `Declaramos para os devidos fins que <strong>${student.nome.toUpperCase()}</strong>${formatFiliacao(student)}, concluiu com aproveitamento o(a) <strong>${turma.turma}</strong> na instituição de ensino ${formatSchoolInfo(school)}, no ano letivo de ${new Date().getFullYear()}.`,
     },
   };
 
@@ -71,6 +86,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const bodyText = template.generateBody(student, school, turma);
 
+    const dateLine = school.cidade ? `${school.cidade}, ${getFormattedDate()}.` : `${getFormattedDate()}.`;
+
     declarationContentEl.innerHTML = `
       <h2 style="text-align: center; font-size: 14pt; margin: 4cm 0 2cm 0; font-weight: bold;">${template.title}</h2>
 
@@ -83,13 +100,13 @@ document.addEventListener("DOMContentLoaded", () => {
       </p>
 
       <p class="date-line">
-        ${school.cidade || "Cidade"}, ${getFormattedDate()}.
+        ${dateLine}
       </p>
 
       <div class="signature-block">
         <div class="signature-line"></div>
         <div class="signature-title">
-          <strong>${school.gestor || "Nome do(a) Gestor(a)"}</strong><br>
+          <strong>${school.gestor || ""}</strong><br>
           <span>Assinatura do Gestor(a)</span>
         </div>
       </div>
