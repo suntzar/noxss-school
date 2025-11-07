@@ -152,7 +152,7 @@
           box-shadow: none;
           margin: 0;
           width: auto;
-          padding: 0;
+          padding: 1cm; /* Adiciona margem interna ao conteúdo para as extremidades do documento */
         }
         /* Garante que a cor do texto seja preta na impressão */
         #printable-content,
@@ -173,19 +173,18 @@
           page-break-inside: avoid;
         }
          A orientação será definida dinamicamente pelo JS */
+        @page {
+          size: A4 landscape;
+          margin: 1.5cm;
+        }
       }
     </style>
 
     <!-- Estilo de impressão dinâmico para orientação -->
-    <style id="print-orientation-style"></style>
   </head>
   <body>
     <div class="print-controls">
       <a href="index.html"><i class="fa-solid fa-arrow-left"></i> Voltar</a>
-      <label class="print-option">
-        <input type="checkbox" id="landscape-toggle" />
-        <span>Paisagem</span>
-      </label>
       <button id="excel-btn" class="btn-excel"><i class="fa-solid fa-file-excel"></i> Exportar Excel</button>
       <button id="print-btn" class="btn-primary"><i class="fa-solid fa-print"></i> Imprimir / PDF</button>
     </div>

@@ -3,8 +3,6 @@ document.addEventListener("DOMContentLoaded", () => {
   const printBtn = document.getElementById("print-btn");
   const excelBtn = document.getElementById("excel-btn");
   const DB_KEY = "schoolAppDatabase_v2";
-  const landscapeToggle = document.getElementById("landscape-toggle");
-  const printOrientationStyle = document.getElementById("print-orientation-style");
 
   /**
    * Função de ordenação personalizada que prioriza strings que começam com letras sobre as que começam com números.
@@ -17,25 +15,6 @@ document.addEventListener("DOMContentLoaded", () => {
     if (!aStartsWithNumber && bStartsWithNumber) return -1;
 
     return a.localeCompare(b, undefined, { numeric: true });
-  };
-
-  /**
-   * Atualiza a folha de estilo de impressão para definir a orientação da página.
-   */
-  const updatePrintOrientation = () => {
-    if (landscapeToggle.checked) {
-      printOrientationStyle.textContent = `
-        @media print {
-          @page { size: A4 landscape; margin: 1.5cm; }
-        }
-      `;
-    } else {
-      printOrientationStyle.textContent = `
-        @media print {
-          @page { size: A4 portrait; margin: 2cm; }
-        }
-      `;
-    }
   };
 
   const loadAndRenderData = () => {
@@ -257,12 +236,8 @@ document.addEventListener("DOMContentLoaded", () => {
     XLSX.writeFile(workbook, `Lista de Alunos - ${escola || "Exportado"}.xlsx`);
   };
 
-  landscapeToggle.addEventListener("change", updatePrintOrientation);
-
   // Inicia o processo
   loadAndRenderData();
-  // Define a orientação inicial
-  updatePrintOrientation();
 
   // Adiciona o listener para o botão de exportar Excel
   excelBtn.addEventListener("click", exportToExcel);
