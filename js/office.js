@@ -7,6 +7,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const officeRecipientInput = document.getElementById("office-recipient");
   const officeSubjectInput = document.getElementById("office-subject");
   const officeBodyEditor = document.getElementById("office-body-editor");
+  const fontSizeInput = document.getElementById("font-size-input");
   const printBtn = document.getElementById("print-btn");
 
   // --- Elementos da UI de Renderização ---
@@ -16,6 +17,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const renderedOfficeSubject = document.getElementById("rendered-office-subject");
   const renderedOfficeBody = document.getElementById("rendered-office-body");
   const renderedGestorName = document.getElementById("rendered-gestor-name");
+  const officeContent = document.getElementById("office-content");
 
   // --- Carregamento de Dados ---
   let database = JSON.parse(localStorage.getItem(DB_KEY));
@@ -64,6 +66,10 @@ Diante do exposto, aguardamos o agendamento da visita técnica com a maior brevi
     const markdownText = easyMDE.value();
     renderedOfficeBody.innerHTML = marked.parse(markdownText);
 
+    // Update font size
+    const fontSize = fontSizeInput.value || 13;
+    officeContent.style.fontSize = `${fontSize}pt`;
+
     // Update signature
     renderedGestorName.textContent = schoolMetadata.gestor || "";
   };
@@ -82,6 +88,7 @@ Diante do exposto, aguardamos o agendamento da visita técnica com a maior brevi
   officeDateLineInput.addEventListener("input", updateOfficePreview);
   officeRecipientInput.addEventListener("input", updateOfficePreview);
   officeSubjectInput.addEventListener("input", updateOfficePreview);
+  fontSizeInput.addEventListener("input", updateOfficePreview);
   easyMDE.codemirror.on("change", updateOfficePreview); // Listen for changes in the EasyMDE editor
 
   printBtn.addEventListener("click", () => window.print());
