@@ -155,6 +155,14 @@
       .office-body-markdown em {
         font-style: italic;
       }
+      .office-body-markdown img {
+        max-width: 25%; /* Garante que a imagem não ultrapasse a largura do contêiner */
+        height: auto; /* Mantém a proporção da imagem */
+        display: block; /* Permite o uso de margens automáticas para centralizar */
+        margin: 1cm auto; /* Adiciona espaçamento vertical e centraliza horizontalmente */
+        border-radius: 8px; /* Bordas arredondadas para um visual mais suave */
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* Sombra sutil para destacar a imagem */
+      }
 
       .office-closing {
         text-align: left;
