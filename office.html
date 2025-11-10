@@ -45,11 +45,14 @@
         position: relative;
         margin: 0 auto 2rem auto;
         width: 21cm;
-        min-height: 29.7cm; /* Use min-height to allow content to expand */
+        height: 29.7cm; /* Use height fixo para layout de impressão */
         background-color: #fff;
         box-shadow: 0 0 15px rgba(0, 0, 0, 0.15);
         box-sizing: border-box;
-        overflow: hidden; /* Esconde qualquer conteúdo que exceda a página */
+        /* Flexbox para alinhar a assinatura no fundo */
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
       }
 
       .letterhead-bg {
@@ -66,7 +69,7 @@
       }
 
       .office-content {
-        position: relative;
+        position: relative; /* Essencial para o z-index funcionar */
         z-index: 2;
         padding: 2.5cm; /* Margens padrão A4 */
         padding-top: 5cm; /* Aumenta o espaço no topo para não cobrir o cabeçalho da imagem */
@@ -74,6 +77,8 @@
         font-size: 13pt;
         line-height: 1.5;
         color: #000;
+        /* Flexbox para que o conteúdo principal cresça e empurre a assinatura */
+        flex-grow: 1;
       }
 
       /* Header fields for office */
@@ -158,13 +163,10 @@
       }
 
       .signature-block {
-        position: absolute;
-        bottom: -1cm; /* Ancorado na parte inferior com margem padrão */
-        left: 2.5cm;
-        right: 2.5cm;
+        position: relative; /* Garante que fique sobre o background */
+        z-index: 2;
         text-align: center;
-        /* font-size: 12pt; */ /* Removido para herdar do office-content */
-        /* margin-top: 4.5cm; */ /* Removido para usar posicionamento absoluto */
+        padding: 0 2.5cm 2.5cm; /* Adiciona padding horizontal e inferior */
       }
       .signature-line {
         display: inline-block;
@@ -404,26 +406,27 @@ SEMED</textarea
       <div id="office-content" class="office-content">
         <!-- Conteúdo do ofício renderizado -->
         <div class="office-header-fields">
-          <div class="office-meta-line">
-            <p class="office-number" id="rendered-office-number"></p>
-            <p class="office-date-line" id="rendered-office-date-line"></p>
+          <!-- O conteúdo principal do ofício (cabeçalho, corpo, etc.) vai aqui -->
+          <div>
+            <div class="office-meta-line">
+              <p class="office-number" id="rendered-office-number"></p>
+              <p class="office-date-line" id="rendered-office-date-line"></p>
+            </div>
+            <p class="office-recipient" id="rendered-office-recipient"></p>
+            <p class="office-subject" id="rendered-office-subject"></p>
+            <div id="rendered-office-body" class="office-body-markdown">
+              <p style="text-align: center; margin-top: 5cm; color: #888">Preencha os campos acima para gerar o ofício.</p>
+            </div>
+            <p class="office-closing">Atenciosamente,</p>
           </div>
-          <p class="office-recipient" id="rendered-office-recipient"></p>
-          <p class="office-subject" id="rendered-office-subject"></p>
         </div>
-
-        <div id="rendered-office-body" class="office-body-markdown">
-          <p style="text-align: center; margin-top: 5cm; color: #888">Preencha os campos acima para gerar o ofício.</p>
-        </div>
-
-        <p class="office-closing">Atenciosamente,</p>
-
-        <div class="signature-block">
-          <div class="signature-line"></div>
-          <div class="signature-title">
-            <strong id="rendered-gestor-name"></strong><br />
-            <span>Assinatura do Gestor(a)</span>
-          </div>
+      </div>
+      <!-- Bloco de assinatura movido para fora do .office-content para melhor controle de layout -->
+      <div class="signature-block">
+        <div class="signature-line"></div>
+        <div class="signature-title">
+          <strong id="rendered-gestor-name"></strong><br />
+          <span>Assinatura do Gestor(a)</span>
         </div>
       </div>
     </div>
