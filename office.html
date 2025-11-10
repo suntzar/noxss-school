@@ -71,7 +71,7 @@
       .office-content {
         position: relative; /* Essencial para o z-index funcionar */
         z-index: 2;
-        padding: 2.5cm; /* Margens padrão A4 */
+        padding: 2.5cm 2.5cm 0cm 2.5cm; /* Margens padrão A4 */
         padding-top: 5cm; /* Aumenta o espaço no topo para não cobrir o cabeçalho da imagem */
         font-family: "Baloo 2", sans-serif;
         font-size: 13pt;
@@ -83,7 +83,8 @@
 
       /* Header fields for office */
       .office-header-fields {
-        margin-bottom: 1.5cm;
+        /*margin-bottom: 1.5cm;*/
+        margin-bottom: 0cm;
       }
       .office-header-fields p {
         margin: 0;
@@ -115,7 +116,7 @@
       /* Markdown content styling */
       .office-body-markdown {
         text-align: justify;
-        margin-bottom: 2cm;
+        margin-bottom: 0cm;
       }
       .office-body-markdown h1,
       .office-body-markdown h2,
@@ -398,7 +399,7 @@ SEMED</textarea
           <div class="col-md-6">
             <div class="noxss-form-group">
               <label for="font-size-input" class="noxss-label">Tamanho da Fonte (pt)</label>
-              <input type="number" id="font-size-input" class="noxss-input" value="13" step="0.5" />
+              <input type="number" id="font-size-input" class="noxss-input" value="11" step="0.5" />
             </div>
           </div>
         </div>

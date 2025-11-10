@@ -38,11 +38,26 @@ document.addEventListener("DOMContentLoaded", () => {
     toolbar: ["bold", "italic", "heading", "|", "quote", "unordered-list", "ordered-list", "|", "link", "image", "|", "preview", "guide"],
     initialValue: `Prezado(a) Senhor(a) Gestor(a),
 
-A Direção da Escola Municipal ${schoolMetadata.escola || "Nome da Escola"} vem, por meio deste, solicitar a este Departamento o envio de uma equipe técnica especializada para realizar uma análise e manutenção geral na rede elétrica de nossa unidade de ensino.
+A Direção da **${schoolMetadata.escola || "Nome da Escola"}** vem, por meio deste, apresentar um modelo de ofício e as funcionalidades de formatação disponíveis neste gerador.
 
-A visita se faz necessária para verificar as condições gerais da instalação, com especial atenção para o funcionamento dos **ares-condicionados** e dos **ventiladores**. Temos observado instabilidade no fornecimento de energia para alguns equipamentos e desejamos garantir que toda a estrutura elétrica esteja segura e operando de forma eficiente.
+Este editor utiliza a sintaxe *Markdown*, que permite formatar o texto de maneira simples e intuitiva, como demonstrado abaixo.
 
-Diante do exposto, aguardamos o agendamento da visita técnica com a maior brevidade possível para assegurar o bem-estar e a segurança de nossas crianças e funcionários.
+### Exemplo de Estrutura de Ofício
+
+É possível criar seções com títulos para organizar o documento.
+
+#### 1. Introdução
+Nesta seção, o remetente se apresenta e introduz o assunto principal do ofício. O uso de **negrito** é ideal para destacar nomes ou termos importantes.
+
+#### 2. Desenvolvimento
+Aqui, os argumentos são detalhados. Pode-se usar listas para elencar itens, como:
+- Solicitação de materiais didáticos;
+- Relatório de frequência dos alunos;
+- Cronograma de atividades para o próximo semestre.
+
+> Para citações ou trechos que necessitam de ênfase especial, o bloco de citação é uma excelente ferramenta.
+
+Agradecemos a atenção e nos colocamos à disposição para quaisquer esclarecimentos.
 
 `,
   });
