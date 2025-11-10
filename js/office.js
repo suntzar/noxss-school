@@ -18,6 +18,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const renderedOfficeBody = document.getElementById("rendered-office-body");
   const renderedGestorName = document.getElementById("rendered-gestor-name");
   const officeContent = document.getElementById("office-content");
+  const signatureBlock = document.querySelector(".signature-block");
 
   // --- Carregamento de Dados ---
   let database = JSON.parse(localStorage.getItem(DB_KEY));
@@ -69,6 +70,7 @@ Diante do exposto, aguardamos o agendamento da visita técnica com a maior brevi
     // Update font size
     const fontSize = fontSizeInput.value || 13;
     officeContent.style.fontSize = `${fontSize}pt`;
+    signatureBlock.style.fontSize = `${fontSize}pt`;
 
     // Update signature
     renderedGestorName.textContent = schoolMetadata.gestor || "";
