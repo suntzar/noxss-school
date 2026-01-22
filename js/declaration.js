@@ -21,7 +21,8 @@ document.addEventListener("DOMContentLoaded", () => {
   const formatSchoolInfo = (school) => {
     const inepInfo = school.inep ? ` (INEP: ${school.inep})` : "";
     const schoolName = school.escola ? `<strong>${school.escola}</strong>` : "";
-    return `${schoolName}${inepInfo}`;
+    // Para mostrar o inep no corpo da seclaração em casos especificos, use : return `${schoolName}${inepInfo}`;
+    return `${schoolName}`;
   };
 
   const formatFiliacao = (student) => {
@@ -52,9 +53,12 @@ document.addEventListener("DOMContentLoaded", () => {
     conclusao: {
       name: "Declaração de Conclusão",
       title: "DECLARAÇÃO DE CONCLUSÃO",
-      generateBody: (student, school, turma) => `Declaramos para os devidos fins que <strong>${student.nome.toUpperCase()}</strong>${formatFiliacao(student)}, concluiu com aproveitamento o(a) <strong>${turma.turma}</strong> na instituição de ensino ${formatSchoolInfo(school)}, no ano letivo de ${new Date().getFullYear()}.`,
+      generateBody: (student, school, turma) => `Declaramos para os devidos fins que <strong>${student.nome.toUpperCase()}</strong>, nascido(a) em ${student.nascimento || "__/__/____"}${formatFiliacao(student)}, concluiu o(a) <strong>${turma.turma}</strong> na instituição de ensino ${formatSchoolInfo(school)}.<br /><br />Situação: Aprovado(a)`,
     },
   };
+
+  // --- MODELO ANTIGO DE DECLARAÇÃO DE CONCLUSÃO ---
+  // generateBody: (student, school, turma) => `Declaramos para os devidos fins que <strong>${student.nome.toUpperCase()}</strong>${formatFiliacao(student)}, nascido(a) em ${student.nascimento || "__/__/____"}, concluiu com aproveitamento o(a) <strong>${turma.turma}</strong> na instituição de ensino ${formatSchoolInfo(school)}, no ano letivo de ${new Date().getFullYear()}.`,
 
   // --- Funções Auxiliares ---
   const getFormattedDate = () => {
@@ -93,10 +97,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
       <p class="body-text">
         ${bodyText}
-      </p>
-
-      <p class="body-text">
-        Por ser verdade, firmamos a presente declaração.
+        <br />
+        <br />
+        Por ser a expressão da verdade dato e assino a presente declaração, para que surta os devidos efeitos legais.
       </p>
 
       <p class="date-line">
@@ -104,6 +107,7 @@ document.addEventListener("DOMContentLoaded", () => {
       </p>
 
       <div class="signature-block">
+        <img class="gest-sig" src="assets/halysson-sig.png">
         <div class="signature-line"></div>
         <div class="signature-title">
           <strong>${school.gestor || ""}</strong><br>
