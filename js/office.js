@@ -25,6 +25,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const officeContent = document.getElementById("office-content");
 
   // --- Elementos do Modal de Gerenciamento ---
+  const savedOfficesContainer = document.getElementById("saved-offices-container");
   const savedOfficesList = document.getElementById("saved-offices-list");
 
   const signatureBlock = document.querySelector(".signature-block");
@@ -244,15 +245,15 @@ Agradecemos a atenção e nos colocamos à disposição para quaisquer esclareci
       .sort((a, b) => new Date(b.savedAt) - new Date(a.savedAt)) // Mostra os mais recentes primeiro
       .map(
         (item) => `
-        <li class="noxss-list-item">
-            <div class="noxss-list-item__content">
-                <div class="noxss-list-item__title">${item.name}</div>
-                <div class="noxss-list-item__subtitle">Salvo em: ${new Date(item.savedAt).toLocaleString("pt-BR")}</div>
+        <li class="saved-office-item" data-id="${item.id}">
+            <div>
+                <strong style="display: block; color: #343a40;">${item.name}</strong>
+                <small style="color: #6c757d;">Salvo em: ${new Date(item.savedAt).toLocaleString("pt-BR")}</small>
             </div>
-            <div class="noxss-list-item__trailing d-flex gap-2">
-                <button class="noxss-btn noxss-btn--secondary load-manual-btn" data-id="${item.id}">Carregar</button>
-                <button class="noxss-btn noxss-btn--icon rename-manual-btn" data-id="${item.id}" title="Renomear"><i class="fa-solid fa-pen-to-square noxss-icon"></i></button>
-                <button class="noxss-btn noxss-btn--icon delete-manual-btn" data-id="${item.id}" title="Excluir"><i class="fa-solid fa-trash noxss-icon"></i></button>
+            <div class="button-group">
+                <button class="control-btn load-manual-btn">Carregar</button>
+                <button class="control-btn rename-manual-btn" title="Renomear"><i class="fa-solid fa-pen-to-square"></i></button>
+                <button class="control-btn delete-manual-btn" title="Excluir"><i class="fa-solid fa-trash"></i></button>
             </div>
         </li>
       `
@@ -262,7 +263,7 @@ Agradecemos a atenção e nos colocamos à disposição para quaisquer esclareci
 
   manageSavedBtn.addEventListener("click", () => {
     renderSavedOffices();
-    document.getElementById("savedOfficesModal").classList.add("is-open");
+    savedOfficesContainer.classList.toggle("is-open");
   });
 
   savedOfficesList.addEventListener("click", (e) => {
@@ -276,7 +277,7 @@ Agradecemos a atenção e nos colocamos à disposição para quaisquer esclareci
 
     if (e.target.closest(".load-manual-btn")) {
       loadStateFromObject(manualList[itemIndex].state);
-      document.getElementById("savedOfficesModal").classList.remove("is-open");
+      savedOfficesContainer.classList.remove("is-open"); // Fecha a seção após carregar
       Noxss.Toasts.show({ message: "Ofício carregado!", status: "info" });
     } else if (e.target.closest(".rename-manual-btn")) {
       const newName = prompt("Digite o novo nome para o ofício:", manualList[itemIndex].name);
@@ -294,21 +295,6 @@ Agradecemos a atenção e nos colocamos à disposição para quaisquer esclareci
     }
   });
 
-  clearBtn.addEventListener("click", () => {
-    if (confirm("Tem certeza que deseja começar um novo ofício? O conteúdo não salvo será perdido.")) {
-      setDefaultValues();
-    }
-  });
-
-  // --- Lógica do Modal ---
-  document.addEventListener("click", (e) => {
-    const modal = e.target.closest(".modal");
-    if (e.target.matches(".modal") || e.target.closest("[data-modal-close]")) {
-      if (modal || e.target.closest(".modal")) {
-        (modal || e.target.closest(".modal")).classList.remove("is-open");
-      }
-    }
-  });
   document.addEventListener("keydown", (e) => {
     if (e.key === "Escape") {
       document.querySelectorAll(".modal.is-open").forEach((modal) => modal.classList.remove("is-open"));
@@ -317,4 +303,10 @@ Agradecemos a atenção e nos colocamos à disposição para quaisquer esclareci
   // --- Renderização Inicial ---
   updateOfficePreview();
   updatePageTitle();
+
+  clearBtn.addEventListener("click", () => {
+    if (confirm("Tem certeza que deseja começar um novo ofício? O conteúdo não salvo será perdido.")) {
+      setDefaultValues();
+    }
+  });
 });

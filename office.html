@@ -299,6 +299,45 @@
         resize: vertical;
       }
 
+      /* --- Estilos para a seção de Ofícios Salvos --- */
+      .saved-offices-section {
+        margin-top: 2rem;
+        border-top: 1px solid #dee2e6;
+        padding-top: 1.5rem;
+      }
+      .saved-offices-section h3 {
+        margin: 0 0 1rem 0;
+        font-size: 1.2rem;
+        color: #495057;
+      }
+      .saved-offices-container {
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+      }
+      .saved-offices-container.is-open {
+        max-height: 1000px; /* Altura suficiente para a lista */
+      }
+      .saved-offices-list {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        border: 1px solid #dee2e6;
+        border-radius: 8px;
+        overflow: hidden;
+      }
+      .saved-office-item {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0.8rem 1.2rem;
+        border-bottom: 1px solid #dee2e6;
+        background-color: #f8f9fa;
+      }
+      .saved-office-item:last-child {
+        border-bottom: none;
+      }
+
       /* EasyMDE adjustments */
       .editor-toolbar {
         border-top-left-radius: 8px;
@@ -405,6 +444,16 @@ SEMED</textarea
           <label for="office-body-editor" class="form-label">Conteúdo do Ofício (Markdown)</label>
           <textarea id="office-body-editor"></textarea>
         </div>
+        <!-- Seção de Ofícios Salvos (substitui o modal) -->
+        <div class="saved-offices-section">
+          <h3>Ofícios Salvos</h3>
+          <p>Carregue, renomeie ou exclua os ofícios que você salvou manualmente.</p>
+          <div id="saved-offices-container" class="saved-offices-container">
+            <ul id="saved-offices-list" class="saved-offices-list">
+              <!-- Conteúdo gerado via JS -->
+            </ul>
+          </div>
+        </div>
       </div>
     </div>
 
@@ -437,21 +486,8 @@ SEMED</textarea
       </div>
     </div>
 
-    <!-- Modal para Gerenciar Ofícios Salvos -->
-    <div class="modal" id="savedOfficesModal">
-      <div class="modal-dialog modal-dialog-large">
-        <div class="modal-header">
-          <h3 class="modal-title">Ofícios Salvos</h3>
-          <button type="button" class="modal-close-btn" data-modal-close>
-            <i class="fa-solid fa-xmark"></i>
-          </button>
-        </div>
-        <div class="modal-body">
-          <p>Carregue, renomeie ou exclua os ofícios que você salvou manualmente.</p>
-          <ul class="list" id="saved-offices-list"></ul>
-        </div>
-      </div>
-    </div>
+    <!-- Modal de Confirmação (pode ser reutilizado se necessário) -->
+    <!-- ... -->
 
     <!-- SCRIPTS -->
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js" defer></script>
