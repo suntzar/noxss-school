@@ -366,7 +366,9 @@
         <h2 class="turma-title" style="margin: 0; border: none">Gerador de Ofício</h2>
         <div>
           <a href="index.html" class="noxss-btn noxss-btn--secondary"><i class="fa-solid fa-arrow-left noxss-icon"></i> Voltar</a>
-          <button id="clear-btn" class="noxss-btn noxss-btn--secondary"><i class="fa-solid fa-eraser noxss-icon"></i> Limpar e Recomeçar</button>
+          <button id="clear-btn" class="noxss-btn noxss-btn--secondary"><i class="fa-solid fa-file noxss-icon"></i> Novo Ofício</button>
+          <button id="save-manual-btn" class="noxss-btn noxss-btn--secondary"><i class="fa-solid fa-save noxss-icon"></i> Salvar Ofício</button>
+          <button id="manage-saved-btn" class="noxss-btn noxss-btn--secondary"><i class="fa-solid fa-folder-open noxss-icon"></i> Gerenciar Salvos</button>
           <button id="print-btn" class="noxss-btn noxss-btn--primary"><i class="fa-solid fa-print noxss-icon"></i> Imprimir</button>
         </div>
       </div>
@@ -447,6 +449,22 @@ SEMED</textarea
         <div class="signature-title">
           <strong id="rendered-gestor-name"></strong><br />
           <span>Assinatura do Gestor(a)</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Modal para Gerenciar Ofícios Salvos -->
+    <div class="noxss-modal" id="savedOfficesModal" data-noxss-modal>
+      <div class="noxss-modal__dialog noxss-modal__dialog--large">
+        <div class="noxss-modal__header">
+          <h3 class="noxss-modal__title">Ofícios Salvos</h3>
+          <button type="button" class="noxss-btn noxss-btn--icon noxss-modal__close-btn" data-noxss-modal-close>
+            <i class="noxss-icon fa-solid fa-xmark"></i>
+          </button>
+        </div>
+        <div class="noxss-modal__body">
+          <p class="text-secondary">Carregue, renomeie ou exclua os ofícios que você salvou manualmente.</p>
+          <ul class="noxss-list" id="saved-offices-list"></ul>
         </div>
       </div>
     </div>

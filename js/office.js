@@ -1,6 +1,6 @@
 document.addEventListener("DOMContentLoaded", () => {
   const DB_KEY = "schoolAppDatabase_v2";
-  const OFFICE_STATE_KEY = "officeGeneratorState";
+  const OFFICE_DB_KEY = "noxssOfficeStates";
 
   // --- Elementos da UI de Controle ---
   const officeNumberInput = document.getElementById("office-number");
@@ -11,6 +11,8 @@ document.addEventListener("DOMContentLoaded", () => {
   const officeBodyEditor = document.getElementById("office-body-editor");
   const fontSizeInput = document.getElementById("font-size-input");
   const printBtn = document.getElementById("print-btn");
+  const saveManualBtn = document.getElementById("save-manual-btn");
+  const manageSavedBtn = document.getElementById("manage-saved-btn");
   const clearBtn = document.getElementById("clear-btn");
 
   // --- Elementos da UI de Renderização ---
@@ -21,6 +23,10 @@ document.addEventListener("DOMContentLoaded", () => {
   const renderedOfficeBody = document.getElementById("rendered-office-body");
   const renderedGestorName = document.getElementById("rendered-gestor-name");
   const officeContent = document.getElementById("office-content");
+
+  // --- Elementos do Modal de Gerenciamento ---
+  const savedOfficesList = document.getElementById("saved-offices-list");
+
   const signatureBlock = document.querySelector(".signature-block");
 
   // --- Carregamento de Dados ---
@@ -34,12 +40,19 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // --- Inicialização do EasyMDE ---
   const easyMDE = new EasyMDE({
-    element: officeBodyEditor,
+    element: officeBodyEditor, // This should be the textarea element
     spellChecker: false,
     minHeight: "300px",
     maxHeight: "500px",
     toolbar: ["bold", "italic", "heading", "|", "quote", "unordered-list", "ordered-list", "|", "link", "image", "|", "preview", "guide"],
     initialValue: `Prezado(a) Senhor(a) Gestor(a),
+
+A Direção da **${schoolMetadata.escola || "Nome da Escola"}** vem, por meio deste, apresentar um modelo de ofício e as funcionalidades de formatação disponíveis neste gerador.
+Agradecemos a atenção e nos colocamos à disposição para quaisquer esclarecimentos.
+`,
+  });
+
+  const exampleContent = `Prezado(a) Senhor(a) Gestor(a),
 
 A Direção da **${schoolMetadata.escola || "Nome da Escola"}** vem, por meio deste, apresentar um modelo de ofício e as funcionalidades de formatação disponíveis neste gerador.
 
@@ -60,10 +73,7 @@ Aqui, os argumentos são detalhados. Pode-se usar listas para elencar itens, com
 
 > Para citações ou trechos que necessitam de ênfase especial, o bloco de citação é uma excelente ferramenta.
 
-Agradecemos a atenção e nos colocamos à disposição para quaisquer esclarecimentos.
-
-`,
-  });
+Agradecemos a atenção e nos colocamos à disposição para quaisquer esclarecimentos.`;
 
   // --- Funções Auxiliares ---
   const getFormattedDate = (date) => {
@@ -114,12 +124,11 @@ Agradecemos a atenção e nos colocamos à disposição para quaisquer esclareci
     const officeNumber = officeNumberInput.value.replace(/OFÍCIO N°\s*/i, "").trim();
     const subject = officeSubjectInput.value.replace(/Assunto:\s*/i, "").trim();
 
-    const newTitle = `ofício ${officeNumber} - ${subject}`;
-    console.log(newTitle);
+    const newTitle = `Ofício ${officeNumber} - ${subject}`;
     document.title = newTitle;
   };
 
-  const saveState = () => {
+  const getCurrentState = () => {
     const state = {
       number: officeNumberInput.value,
       location: officeLocationInput.value,
@@ -129,27 +138,43 @@ Agradecemos a atenção e nos colocamos à disposição para quaisquer esclareci
       fontSize: fontSizeInput.value,
       body: easyMDE.value(),
     };
-    localStorage.setItem(OFFICE_STATE_KEY, JSON.stringify(state));
+    return state;
+  };
+
+  const saveState = () => {
+    const officeDB = JSON.parse(localStorage.getItem(OFFICE_DB_KEY)) || { automatic: {}, manual: [] };
+    officeDB.automatic = getCurrentState();
+    localStorage.setItem(OFFICE_DB_KEY, JSON.stringify(officeDB));
+  };
+
+  const loadStateFromObject = (state) => {
+    if (!state) return;
+    officeNumberInput.value = state.number || "";
+    officeLocationInput.value = state.location || "";
+    officeDatePicker.value = state.date || "";
+    officeRecipientInput.value = state.recipient || "";
+    officeSubjectInput.value = state.subject || "";
+    fontSizeInput.value = state.fontSize || "11";
+    easyMDE.value(state.body || "");
+    updateOfficePreview();
+    updatePageTitle();
   };
 
   const loadState = () => {
-    const savedStateJSON = localStorage.getItem(OFFICE_STATE_KEY);
-    if (savedStateJSON) {
-      const savedState = JSON.parse(savedStateJSON);
-      console.log("Estado carregado:", savedState);
-      officeNumberInput.value = savedState.number;
-      officeLocationInput.value = savedState.location;
-      officeDatePicker.value = savedState.date;
-      officeRecipientInput.value = savedState.recipient;
-      officeSubjectInput.value = savedState.subject;
-      fontSizeInput.value = savedState.fontSize;
-      easyMDE.value(savedState.body);
+    const officeDB = JSON.parse(localStorage.getItem(OFFICE_DB_KEY));
+    if (officeDB && officeDB.automatic) {
+      loadStateFromObject(officeDB.automatic);
       return true; // Indica que o estado foi carregado
     }
     return false; // Indica que nenhum estado foi carregado
   };
 
   const setDefaultValues = () => {
+    // Limpa o estado automático ao resetar
+    const officeDB = JSON.parse(localStorage.getItem(OFFICE_DB_KEY)) || { automatic: {}, manual: [] };
+    delete officeDB.automatic;
+    localStorage.setItem(OFFICE_DB_KEY, JSON.stringify(officeDB));
+
     officeNumberInput.value = `OFÍCIO N° XX/${new Date().getFullYear()}`;
     officeLocationInput.value = schoolMetadata.cidade || "Cidade";
     const today = new Date();
@@ -160,7 +185,7 @@ Agradecemos a atenção e nos colocamos à disposição para quaisquer esclareci
     officeRecipientInput.value = `Ao Departamento de Administração e Serviços Gerais\nSecretaria Municipal de Educação - SEMED`;
     officeSubjectInput.value = `Assunto: `;
     fontSizeInput.value = "11";
-    // O valor inicial do EasyMDE já é definido na sua inicialização
+    easyMDE.value(exampleContent);
     updateOfficePreview();
     updatePageTitle();
   };
@@ -189,11 +214,88 @@ Agradecemos a atenção e nos colocamos à disposição para quaisquer esclareci
 
   printBtn.addEventListener("click", () => window.print());
 
+  saveManualBtn.addEventListener("click", () => {
+    const defaultName = document.title;
+    const name = prompt("Digite um nome para salvar este ofício:", defaultName);
+    if (name) {
+      const officeDB = JSON.parse(localStorage.getItem(OFFICE_DB_KEY)) || { automatic: {}, manual: [] };
+      const newState = {
+        id: crypto.randomUUID(),
+        name: name,
+        savedAt: new Date().toISOString(),
+        state: getCurrentState(),
+      };
+      officeDB.manual.push(newState);
+      localStorage.setItem(OFFICE_DB_KEY, JSON.stringify(officeDB));
+      Noxss.Toasts.show({ message: "Ofício salvo com sucesso!", status: "success" });
+    }
+  });
+
+  const renderSavedOffices = () => {
+    const officeDB = JSON.parse(localStorage.getItem(OFFICE_DB_KEY)) || { automatic: {}, manual: [] };
+    const savedManual = officeDB.manual || [];
+
+    if (savedManual.length === 0) {
+      savedOfficesList.innerHTML = `<p class="text-secondary text-center p-3">Nenhum ofício salvo manualmente.</p>`;
+      return;
+    }
+
+    savedOfficesList.innerHTML = savedManual
+      .sort((a, b) => new Date(b.savedAt) - new Date(a.savedAt)) // Mostra os mais recentes primeiro
+      .map(
+        (item) => `
+        <li class="noxss-list-item">
+            <div class="noxss-list-item__content">
+                <div class="noxss-list-item__title">${item.name}</div>
+                <div class="noxss-list-item__subtitle">Salvo em: ${new Date(item.savedAt).toLocaleString("pt-BR")}</div>
+            </div>
+            <div class="noxss-list-item__trailing d-flex gap-2">
+                <button class="noxss-btn noxss-btn--secondary load-manual-btn" data-id="${item.id}">Carregar</button>
+                <button class="noxss-btn noxss-btn--icon rename-manual-btn" data-id="${item.id}" title="Renomear"><i class="fa-solid fa-pen-to-square noxss-icon"></i></button>
+                <button class="noxss-btn noxss-btn--icon delete-manual-btn" data-id="${item.id}" title="Excluir"><i class="fa-solid fa-trash noxss-icon"></i></button>
+            </div>
+        </li>
+      `
+      )
+      .join("");
+  };
+
+  manageSavedBtn.addEventListener("click", () => {
+    renderSavedOffices();
+    Noxss.Modals.open("savedOfficesModal");
+  });
+
+  savedOfficesList.addEventListener("click", (e) => {
+    const officeDB = JSON.parse(localStorage.getItem(OFFICE_DB_KEY)) || { automatic: {}, manual: [] };
+    const manualList = officeDB.manual || [];
+    const targetId = e.target.closest("[data-id]")?.dataset.id;
+    if (!targetId) return;
+
+    const itemIndex = manualList.findIndex((item) => item.id === targetId);
+    if (itemIndex === -1) return;
+
+    if (e.target.closest(".load-manual-btn")) {
+      loadStateFromObject(manualList[itemIndex].state);
+      Noxss.Modals.close("savedOfficesModal");
+      Noxss.Toasts.show({ message: "Ofício carregado!", status: "info" });
+    } else if (e.target.closest(".rename-manual-btn")) {
+      const newName = prompt("Digite o novo nome para o ofício:", manualList[itemIndex].name);
+      if (newName) {
+        manualList[itemIndex].name = newName;
+        localStorage.setItem(OFFICE_DB_KEY, JSON.stringify(officeDB));
+        renderSavedOffices(); // Re-renderiza a lista
+      }
+    } else if (e.target.closest(".delete-manual-btn")) {
+      if (confirm(`Tem certeza que deseja excluir o ofício "${manualList[itemIndex].name}"?`)) {
+        manualList.splice(itemIndex, 1);
+        localStorage.setItem(OFFICE_DB_KEY, JSON.stringify(officeDB));
+        renderSavedOffices(); // Re-renderiza a lista
+      }
+    }
+  });
+
   clearBtn.addEventListener("click", () => {
-    if (confirm("Tem certeza que deseja limpar todos os campos e recomeçar? O conteúdo atual será perdido.")) {
-      localStorage.removeItem(OFFICE_STATE_KEY);
-      // Reseta o valor do EasyMDE para o padrão antes de chamar setDefaultValues
-      easyMDE.value(easyMDE.options.initialValue);
+    if (confirm("Tem certeza que deseja começar um novo ofício? O conteúdo não salvo será perdido.")) {
       setDefaultValues();
     }
   });
