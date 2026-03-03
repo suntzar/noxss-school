@@ -1,5 +1,6 @@
 document.addEventListener("DOMContentLoaded", () => {
   const DB_KEY = "schoolAppDatabase_v2";
+  const OFFICE_STATE_KEY = "officeGeneratorState";
 
   // --- Elementos da UI de Controle ---
   const officeNumberInput = document.getElementById("office-number");
@@ -10,6 +11,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const officeBodyEditor = document.getElementById("office-body-editor");
   const fontSizeInput = document.getElementById("font-size-input");
   const printBtn = document.getElementById("print-btn");
+  const clearBtn = document.getElementById("clear-btn");
 
   // --- Elementos da UI de Renderização ---
   const renderedOfficeNumber = document.getElementById("rendered-office-number");
@@ -117,16 +119,57 @@ Agradecemos a atenção e nos colocamos à disposição para quaisquer esclareci
     document.title = newTitle;
   };
 
+  const saveState = () => {
+    const state = {
+      number: officeNumberInput.value,
+      location: officeLocationInput.value,
+      date: officeDatePicker.value,
+      recipient: officeRecipientInput.value,
+      subject: officeSubjectInput.value,
+      fontSize: fontSizeInput.value,
+      body: easyMDE.value(),
+    };
+    localStorage.setItem(OFFICE_STATE_KEY, JSON.stringify(state));
+  };
+
+  const loadState = () => {
+    const savedStateJSON = localStorage.getItem(OFFICE_STATE_KEY);
+    if (savedStateJSON) {
+      const savedState = JSON.parse(savedStateJSON);
+      console.log("Estado carregado:", savedState);
+      officeNumberInput.value = savedState.number;
+      officeLocationInput.value = savedState.location;
+      officeDatePicker.value = savedState.date;
+      officeRecipientInput.value = savedState.recipient;
+      officeSubjectInput.value = savedState.subject;
+      fontSizeInput.value = savedState.fontSize;
+      easyMDE.value(savedState.body);
+      return true; // Indica que o estado foi carregado
+    }
+    return false; // Indica que nenhum estado foi carregado
+  };
+
+  const setDefaultValues = () => {
+    officeNumberInput.value = `OFÍCIO N° XX/${new Date().getFullYear()}`;
+    officeLocationInput.value = schoolMetadata.cidade || "Cidade";
+    const today = new Date();
+    const day = String(today.getDate()).padStart(2, "0");
+    const month = String(today.getMonth() + 1).padStart(2, "0"); // Mês é 0-indexado
+    const year = today.getFullYear();
+    officeDatePicker.value = `${day}/${month}/${year}`;
+    officeRecipientInput.value = `Ao Departamento de Administração e Serviços Gerais\nSecretaria Municipal de Educação - SEMED`;
+    officeSubjectInput.value = `Assunto: `;
+    fontSizeInput.value = "11";
+    // O valor inicial do EasyMDE já é definido na sua inicialização
+    updateOfficePreview();
+    updatePageTitle();
+  };
+
   // --- Inicialização de Campos ---
-  officeNumberInput.value = `OFÍCIO N° XX/${new Date().getFullYear()}`;
-  officeLocationInput.value = schoolMetadata.cidade || "Cidade";
-  const today = new Date();
-  const day = String(today.getDate()).padStart(2, "0");
-  const month = String(today.getMonth() + 1).padStart(2, "0"); // Mês é 0-indexado
-  const year = today.getFullYear();
-  officeDatePicker.value = `${day}/${month}/${year}`;
-  officeRecipientInput.value = `Ao Departamento de Administração e Serviços Gerais\nSecretaria Municipal de Educação - SEMED`; // Default recipient from the example image
-  officeSubjectInput.value = `Assunto: `;
+  if (!loadState()) {
+    // Se nenhum estado foi carregado, define os valores padrão.
+    setDefaultValues();
+  }
 
   // --- Event Listeners ---
   const inputsToUpdate = [officeNumberInput, officeLocationInput, officeDatePicker, officeRecipientInput, officeSubjectInput, fontSizeInput];
@@ -134,15 +177,26 @@ Agradecemos a atenção e nos colocamos à disposição para quaisquer esclareci
     input.addEventListener("input", () => {
       updateOfficePreview();
       updatePageTitle();
+      saveState();
     });
   });
 
   easyMDE.codemirror.on("change", () => {
     updateOfficePreview();
     updatePageTitle();
+    saveState();
   });
 
   printBtn.addEventListener("click", () => window.print());
+
+  clearBtn.addEventListener("click", () => {
+    if (confirm("Tem certeza que deseja limpar todos os campos e recomeçar? O conteúdo atual será perdido.")) {
+      localStorage.removeItem(OFFICE_STATE_KEY);
+      // Reseta o valor do EasyMDE para o padrão antes de chamar setDefaultValues
+      easyMDE.value(easyMDE.options.initialValue);
+      setDefaultValues();
+    }
+  });
 
   // --- Renderização Inicial ---
   updateOfficePreview();
