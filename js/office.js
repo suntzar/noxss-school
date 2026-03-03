@@ -262,7 +262,7 @@ Agradecemos a atenção e nos colocamos à disposição para quaisquer esclareci
 
   manageSavedBtn.addEventListener("click", () => {
     renderSavedOffices();
-    Noxss.Modals.open("savedOfficesModal");
+    document.getElementById("savedOfficesModal").classList.add("is-open");
   });
 
   savedOfficesList.addEventListener("click", (e) => {
@@ -276,7 +276,7 @@ Agradecemos a atenção e nos colocamos à disposição para quaisquer esclareci
 
     if (e.target.closest(".load-manual-btn")) {
       loadStateFromObject(manualList[itemIndex].state);
-      Noxss.Modals.close("savedOfficesModal");
+      document.getElementById("savedOfficesModal").classList.remove("is-open");
       Noxss.Toasts.show({ message: "Ofício carregado!", status: "info" });
     } else if (e.target.closest(".rename-manual-btn")) {
       const newName = prompt("Digite o novo nome para o ofício:", manualList[itemIndex].name);
@@ -300,6 +300,20 @@ Agradecemos a atenção e nos colocamos à disposição para quaisquer esclareci
     }
   });
 
+  // --- Lógica do Modal ---
+  document.addEventListener("click", (e) => {
+    const modal = e.target.closest(".modal");
+    if (e.target.matches(".modal") || e.target.closest("[data-modal-close]")) {
+      if (modal || e.target.closest(".modal")) {
+        (modal || e.target.closest(".modal")).classList.remove("is-open");
+      }
+    }
+  });
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape") {
+      document.querySelectorAll(".modal.is-open").forEach((modal) => modal.classList.remove("is-open"));
+    }
+  });
   // --- Renderização Inicial ---
   updateOfficePreview();
   updatePageTitle();
