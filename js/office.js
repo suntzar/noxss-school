@@ -3,7 +3,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // --- Elementos da UI de Controle ---
   const officeNumberInput = document.getElementById("office-number");
-  const officeDateLineInput = document.getElementById("office-date-line");
+  const officeLocationInput = document.getElementById("office-location");
+  const officeDatePicker = document.getElementById("office-date-picker");
   const officeRecipientInput = document.getElementById("office-recipient");
   const officeSubjectInput = document.getElementById("office-subject");
   const officeBodyEditor = document.getElementById("office-body-editor");
@@ -63,20 +64,37 @@ Agradecemos a atenção e nos colocamos à disposição para quaisquer esclareci
   });
 
   // --- Funções Auxiliares ---
-  const getFormattedDate = () => {
-    const today = new Date();
-    const day = String(today.getDate()).padStart(2, "0");
-    const month = today.toLocaleString("pt-BR", { month: "long" });
-    const year = today.getFullYear();
+  const getFormattedDate = (date) => {
+    const day = String(date.getDate()).padStart(2, "0");
+    const month = date.toLocaleString("pt-BR", { month: "long" });
+    const year = date.getFullYear();
     return `${day} de ${month} de ${year}`;
+  };
+
+  const parseDateString = (dateString) => {
+    const parts = dateString.split("/");
+    if (parts.length === 3) {
+      const day = parseInt(parts[0], 10);
+      const month = parseInt(parts[1], 10) - 1; // Mês é 0-indexado
+      const year = parseInt(parts[2], 10);
+      // Verifica se a data é válida (ex: ano com 4 dígitos)
+      if (!isNaN(day) && !isNaN(month) && !isNaN(year) && year > 1000) {
+        return new Date(year, month, day);
+      }
+    }
+    return new Date(); // Retorna a data atual como fallback se o formato for inválido
   };
 
   const updateOfficePreview = () => {
     // Update header fields
     renderedOfficeNumber.textContent = officeNumberInput.value;
-    renderedOfficeDateLine.textContent = officeDateLineInput.value;
     renderedOfficeRecipient.innerHTML = officeRecipientInput.value.replace(/\n/g, "<br>"); // Preserve line breaks
     renderedOfficeSubject.textContent = officeSubjectInput.value;
+
+    // Combine location and formatted date
+    const location = officeLocationInput.value;
+    const selectedDate = parseDateString(officeDatePicker.value);
+    renderedOfficeDateLine.textContent = `${location}, ${getFormattedDate(selectedDate)}.`;
 
     // Update Markdown content
     const markdownText = easyMDE.value();
@@ -93,16 +111,19 @@ Agradecemos a atenção e nos colocamos à disposição para quaisquer esclareci
 
   // --- Inicialização de Campos ---
   officeNumberInput.value = `OFÍCIO N° XX/${new Date().getFullYear()}`;
-  officeDateLineInput.value = `${schoolMetadata.cidade || "Cidade"}, ${getFormattedDate()}.`;
+  officeLocationInput.value = schoolMetadata.cidade || "Cidade";
+  const today = new Date();
+  const day = String(today.getDate()).padStart(2, "0");
+  const month = String(today.getMonth() + 1).padStart(2, "0"); // Mês é 0-indexado
+  const year = today.getFullYear();
+  officeDatePicker.value = `${day}/${month}/${year}`;
   officeRecipientInput.value = `Ao Departamento de Administração e Serviços Gerais\nSecretaria Municipal de Educação - SEMED`; // Default recipient from the example image
   officeSubjectInput.value = `Assunto: `;
 
-  // Set initial Markdown content (already done via EasyMDE initialValue)
-  // easyMDE.value(`Prezado(a) Senhor(a) Gestor(a),\n\nA Direção da Escola Municipal ${schoolMetadata.escola || "Nome da Escola"} vem, por meio deste, solicitar a este Departamento o envio de uma equipe técnica especializada para realizar uma análise e manutenção geral na rede elétrica de nossa unidade de ensino.\n\nA visita se faz necessária para verificar as condições gerais da instalação, com especial atenção para o funcionamento dos **ares-condicionados** e dos **ventiladores**. Temos observado instabilidade no fornecimento de energia para alguns equipamentos e desejamos garantir que toda a estrutura elétrica esteja segura e operando de forma eficiente.\n\nDiante do exposto, aguardamos o agendamento da visita técnica com a maior brevidade possível para assegurar o bem-estar e a segurança de nossas crianças e funcionários.\n\n`);
-
   // --- Event Listeners ---
   officeNumberInput.addEventListener("input", updateOfficePreview);
-  officeDateLineInput.addEventListener("input", updateOfficePreview);
+  officeLocationInput.addEventListener("input", updateOfficePreview);
+  officeDatePicker.addEventListener("input", updateOfficePreview);
   officeRecipientInput.addEventListener("input", updateOfficePreview);
   officeSubjectInput.addEventListener("input", updateOfficePreview);
   fontSizeInput.addEventListener("input", updateOfficePreview);
