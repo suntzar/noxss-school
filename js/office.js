@@ -108,6 +108,14 @@ Agradecemos a atenção e nos colocamos à disposição para quaisquer esclareci
     // Update signature
     renderedGestorName.textContent = schoolMetadata.gestor || "";
   };
+  const updatePageTitle = () => {
+    const officeNumber = officeNumberInput.value.replace(/OFÍCIO N°\s*/i, "").trim();
+    const subject = officeSubjectInput.value.replace(/Assunto:\s*/i, "").trim();
+
+    const newTitle = `ofício ${officeNumber} - ${subject}`;
+    console.log(newTitle);
+    document.title = newTitle;
+  };
 
   // --- Inicialização de Campos ---
   officeNumberInput.value = `OFÍCIO N° XX/${new Date().getFullYear()}`;
@@ -121,16 +129,22 @@ Agradecemos a atenção e nos colocamos à disposição para quaisquer esclareci
   officeSubjectInput.value = `Assunto: `;
 
   // --- Event Listeners ---
-  officeNumberInput.addEventListener("input", updateOfficePreview);
-  officeLocationInput.addEventListener("input", updateOfficePreview);
-  officeDatePicker.addEventListener("input", updateOfficePreview);
-  officeRecipientInput.addEventListener("input", updateOfficePreview);
-  officeSubjectInput.addEventListener("input", updateOfficePreview);
-  fontSizeInput.addEventListener("input", updateOfficePreview);
-  easyMDE.codemirror.on("change", updateOfficePreview); // Listen for changes in the EasyMDE editor
+  const inputsToUpdate = [officeNumberInput, officeLocationInput, officeDatePicker, officeRecipientInput, officeSubjectInput, fontSizeInput];
+  inputsToUpdate.forEach((input) => {
+    input.addEventListener("input", () => {
+      updateOfficePreview();
+      updatePageTitle();
+    });
+  });
+
+  easyMDE.codemirror.on("change", () => {
+    updateOfficePreview();
+    updatePageTitle();
+  });
 
   printBtn.addEventListener("click", () => window.print());
 
   // --- Renderização Inicial ---
   updateOfficePreview();
+  updatePageTitle();
 });
