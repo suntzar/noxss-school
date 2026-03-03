@@ -252,7 +252,7 @@ Agradecemos a atenção e nos colocamos à disposição para quaisquer esclareci
             </div>
             <div class="button-group">
                 <button class="control-btn load-manual-btn">Carregar</button>
-                <button class="control-btn rename-manual-btn" title="Renomear"><i class="fa-solid fa-pen-to-square"></i></button>
+                <button class="control-btn overwrite-manual-btn" title="Sobrescrever com o conteúdo atual"><i class="fa-solid fa-save"></i></button>
                 <button class="control-btn delete-manual-btn" title="Excluir"><i class="fa-solid fa-trash"></i></button>
             </div>
         </li>
@@ -278,12 +278,13 @@ Agradecemos a atenção e nos colocamos à disposição para quaisquer esclareci
     if (e.target.closest(".load-manual-btn")) {
       loadStateFromObject(manualList[itemIndex].state);
       savedOfficesContainer.classList.remove("is-open"); // Fecha a seção após carregar
-      Noxss.Toasts.show({ message: "Ofício carregado!", status: "info" });
-    } else if (e.target.closest(".rename-manual-btn")) {
-      const newName = prompt("Digite o novo nome para o ofício:", manualList[itemIndex].name);
-      if (newName) {
-        manualList[itemIndex].name = newName;
+      // Noxss.Toasts.show({ message: "Ofício carregado!", status: "info" });
+    } else if (e.target.closest(".overwrite-manual-btn")) {
+      if (confirm(`Tem certeza que deseja sobrescrever o ofício "${manualList[itemIndex].name}" com o conteúdo atual do editor?`)) {
+        manualList[itemIndex].state = getCurrentState();
+        manualList[itemIndex].savedAt = new Date().toISOString();
         localStorage.setItem(OFFICE_DB_KEY, JSON.stringify(officeDB));
+        Noxss.Toasts.show({ message: "Ofício sobrescrito com sucesso!", status: "success" });
         renderSavedOffices(); // Re-renderiza a lista
       }
     } else if (e.target.closest(".delete-manual-btn")) {
