@@ -15,33 +15,13 @@ document.addEventListener("DOMContentLoaded", () => {
   const manageSavedBtn = document.getElementById("manage-saved-btn");
   const clearBtn = document.getElementById("clear-btn");
 
-  // --- Elementos da UI de Renderização ---
-  const renderedOfficeNumber = document.getElementById("rendered-office-number");
-  const renderedOfficeDateLine = document.getElementById("rendered-office-date-line");
-  const renderedOfficeRecipient = document.getElementById("rendered-office-recipient");
-  const renderedOfficeSubject = document.getElementById("rendered-office-subject");
-  const renderedOfficeBody = document.getElementById("rendered-office-body");
-  const renderedGestorName = document.getElementById("rendered-gestor-name");
-  const officeContent = document.getElementById("office-content");
-
-  // --- Elementos do Modal de Gerenciamento ---
-  const savedOfficesContainer = document.getElementById("saved-offices-container");
-  const savedOfficesList = document.getElementById("saved-offices-list");
-
-  const signatureBlock = document.querySelector(".signature-block");
-
   // --- Carregamento de Dados ---
   let database = JSON.parse(localStorage.getItem(DB_KEY));
-  if (!database) {
-    renderedOfficeBody.innerHTML = `<p style="color: red; text-align: center;">Erro: Banco de dados não encontrado. Volte para a página principal e carregue os dados.</p>`;
-    return;
-  }
-
-  const schoolMetadata = database.metadata;
+  const schoolMetadata = database ? database.metadata : { escola: "Nome da Escola", gestor: "Gestor(a)", cidade: "Cidade" };
 
   // --- Inicialização do EasyMDE ---
   const easyMDE = new EasyMDE({
-    element: officeBodyEditor, // This should be the textarea element
+    element: officeBodyEditor,
     spellChecker: false,
     minHeight: "300px",
     maxHeight: "500px",
@@ -72,9 +52,17 @@ Aqui, os argumentos são detalhados. Pode-se usar listas para elencar itens, com
 - Relatório de frequência dos alunos;
 - Cronograma de atividades para o próximo semestre.
 
+---
+
 > Para citações ou trechos que necessitam de ênfase especial, o bloco de citação é uma excelente ferramenta.
+> O uso de três traços (---) cria uma quebra de página manual.
 
 Agradecemos a atenção e nos colocamos à disposição para quaisquer esclarecimentos.`;
+
+  // --- Elementos da UI de Renderização (Agora dinâmicos) ---
+  const pagesContainer = document.getElementById("pages-container");
+  const pageTemplate = document.getElementById("page-template");
+  const headerTemplate = document.getElementById("header-template");
 
   // --- Funções Auxiliares ---
   const getFormattedDate = (date) => {
@@ -90,37 +78,108 @@ Agradecemos a atenção e nos colocamos à disposição para quaisquer esclareci
       const day = parseInt(parts[0], 10);
       const month = parseInt(parts[1], 10) - 1; // Mês é 0-indexado
       const year = parseInt(parts[2], 10);
-      // Verifica se a data é válida (ex: ano com 4 dígitos)
       if (!isNaN(day) && !isNaN(month) && !isNaN(year) && year > 1000) {
         return new Date(year, month, day);
       }
     }
-    return new Date(); // Retorna a data atual como fallback se o formato for inválido
+    return new Date();
+  };
+
+  const createNewPage = () => {
+    const fragment = pageTemplate.content.cloneNode(true);
+    const page = fragment.querySelector(".page-container");
+    const content = page.querySelector(".office-content");
+    const signature = page.querySelector(".signature-block");
+    
+    // Aplicar tamanho da fonte
+    const fontSize = fontSizeInput.value || 11;
+    content.style.fontSize = `${fontSize}pt`;
+    signature.style.fontSize = `${fontSize}pt`;
+    
+    // Esconder assinatura por padrão (será mostrada na última)
+    signature.style.display = "none";
+    
+    return { page, content, signature };
   };
 
   const updateOfficePreview = () => {
-    // Update header fields
-    renderedOfficeNumber.textContent = officeNumberInput.value;
-    renderedOfficeRecipient.innerHTML = officeRecipientInput.value.replace(/\n/g, "<br>"); // Preserve line breaks
-    renderedOfficeSubject.textContent = officeSubjectInput.value;
+    // Limpar contêiner de páginas
+    pagesContainer.innerHTML = "";
 
-    // Combine location and formatted date
+    // Renderizar Markdown completo em um elemento temporário para medição
+    const markdownText = easyMDE.value();
+    const tempDiv = document.createElement("div");
+    tempDiv.classList.add("office-body-markdown");
+    tempDiv.innerHTML = marked.parse(markdownText);
+    
+    // Adicionar Atenciosamente ao final se não houver
+    if (!markdownText.toLowerCase().includes("atenciosamente")) {
+        const closing = document.createElement("p");
+        closing.className = "office-closing";
+        closing.textContent = "Atenciosamente,";
+        tempDiv.appendChild(closing);
+    }
+
+    const fontSize = fontSizeInput.value || 11;
     const location = officeLocationInput.value;
     const selectedDate = parseDateString(officeDatePicker.value);
-    renderedOfficeDateLine.textContent = `${location}, ${getFormattedDate(selectedDate)}.`;
+    const formattedDateLine = `${location}, ${getFormattedDate(selectedDate)}.`;
+    const gestorName = schoolMetadata.gestor || "";
 
-    // Update Markdown content
-    const markdownText = easyMDE.value();
-    renderedOfficeBody.innerHTML = marked.parse(markdownText);
+    // Iniciar primeira página
+    let current = createNewPage();
+    pagesContainer.appendChild(current.page);
 
-    // Update font size
-    const fontSize = fontSizeInput.value || 13;
-    officeContent.style.fontSize = `${fontSize}pt`;
-    signatureBlock.style.fontSize = `${fontSize}pt`;
+    // Adicionar Cabeçalho na primeira página
+    const headerFrag = headerTemplate.content.cloneNode(true);
+    headerFrag.querySelector(".rendered-office-number").textContent = officeNumberInput.value;
+    headerFrag.querySelector(".rendered-office-date-line").textContent = formattedDateLine;
+    headerFrag.querySelector(".rendered-office-recipient").innerHTML = officeRecipientInput.value.replace(/\n/g, "<br>");
+    headerFrag.querySelector(".rendered-office-subject").textContent = officeSubjectInput.value;
+    current.content.appendChild(headerFrag);
 
-    // Update signature
-    renderedGestorName.textContent = schoolMetadata.gestor || "";
+    // Distribuir elementos nas páginas
+    const elements = Array.from(tempDiv.children);
+
+    elements.forEach((el) => {
+        // Clonar elemento para teste
+        const clone = el.cloneNode(true);
+        
+        // Se for uma quebra de página manual (HR)
+        if (el.tagName === "HR") {
+            current = createNewPage();
+            pagesContainer.appendChild(current.page);
+            return;
+        }
+
+        current.content.appendChild(clone);
+
+        // Verificar se estourou a página
+        // A medição exata depende do elemento estar no DOM e renderizado
+        if (current.content.scrollHeight > current.content.offsetHeight) {
+            current.content.removeChild(clone);
+            current = createNewPage();
+            pagesContainer.appendChild(current.page);
+            current.content.appendChild(clone);
+        }
+    });
+
+    // Mostrar assinatura na última página
+    let lastPageData = current;
+    lastPageData.signature.style.display = "block";
+    lastPageData.signature.querySelector(".rendered-gestor-name").textContent = gestorName;
+    
+    // Verificar se a assinatura causou estouro na última página
+    if (lastPageData.content.scrollHeight > lastPageData.content.offsetHeight) {
+        // Se estourou, oculta na página atual e cria uma nova só para a assinatura
+        lastPageData.signature.style.display = "none";
+        const finalPage = createNewPage();
+        pagesContainer.appendChild(finalPage.page);
+        finalPage.signature.style.display = "block";
+        finalPage.signature.querySelector(".rendered-gestor-name").textContent = gestorName;
+    }
   };
+
   const updatePageTitle = () => {
     const officeNumber = officeNumberInput.value.replace(/OFÍCIO N°\s*/i, "").trim();
     const subject = officeSubjectInput.value.replace(/Assunto:\s*/i, "").trim();

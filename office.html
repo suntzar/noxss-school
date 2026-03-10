@@ -53,6 +53,16 @@
         display: flex;
         flex-direction: column; /* Empilha o conteúdo e a assinatura */
         justify-content: space-between;
+        overflow: hidden; /* Evita que o conteúdo vaze visualmente */
+      }
+
+      /* Classe para quebra de página manual no Markdown (opcional) */
+      .page-break {
+        break-after: page;
+        height: 0;
+        margin: 0;
+        padding: 0;
+        visibility: hidden;
       }
 
       .letterhead-bg {
@@ -71,14 +81,20 @@
       .office-content {
         position: relative;
         z-index: 2;
-        padding: 5cm 2.5cm 0 2.5cm; /* Margens: 5cm topo, 2.5cm laterais, 0 fundo */
+        padding: 5cm 2.5cm 1cm 2.5cm; /* Margens: 5cm topo, 2.5cm laterais, 1cm fundo */
         font-family: "Baloo 2", sans-serif;
         font-size: 13pt;
         line-height: 1.5;
         color: #000000;
         /* Flexbox para que o conteúdo principal cresça e empurre a assinatura */
         flex-grow: 1;
+        overflow: hidden;
       }
+
+      /* Páginas subsequentes podem ter margem superior menor se o papel timbrado for apenas na primeira */
+      /*.page-container:not(:first-child) .office-content {
+        padding-top: 3cm;
+      }*/
 
       /* Header fields for office */
       .office-header-fields {
@@ -361,16 +377,21 @@
         body {
           background-color: #fff;
           padding: 0;
-          margin: 0; /* Remove margens do body na impressão */
+          margin: 0;
         }
         .controls-container {
           display: none !important;
         }
         .page-container {
           box-shadow: none;
-          margin: 0; /* Remove margens do contêiner da página */
-          width: auto;
-          min-height: 100dvh; /* Garante que o contêiner ocupe toda a altura da página de impressão */
+          margin: 0 !important;
+          width: 21cm;
+          height: 29.7cm;
+          break-after: always; /* Força quebra de página */
+          overflow: hidden;
+        }
+        .page-container:last-child {
+          break-after: auto;
         }
         .letterhead-bg {
           display: block !important;
@@ -379,7 +400,7 @@
         }
         @page {
           size: A4;
-          margin: 0; /* Remove margens da impressora */
+          margin: 0;
         }
       }
     </style>
@@ -457,34 +478,39 @@ SEMED</textarea
       </div>
     </div>
 
-    <div class="page-container">
-      <div class="letterhead-bg"></div>
-      <div id="office-content" class="office-content">
-        <!-- Conteúdo do ofício renderizado -->
-        <div class="office-header-fields">
-          <div>
-            <div class="office-meta-line">
-              <p class="office-number" id="rendered-office-number"></p>
-              <p class="office-date-line" id="rendered-office-date-line"></p>
-            </div>
-            <p class="office-recipient" id="rendered-office-recipient"></p>
-            <p class="office-subject" id="rendered-office-subject"></p>
-            <div id="rendered-office-body" class="office-body-markdown">
-              <p style="text-align: center; margin-top: 5cm; color: #888">Preencha os campos acima para gerar o ofício.</p>
-            </div>
-            <p class="office-closing">Atenciosamente,</p>
+    <div id="pages-container">
+      <!-- As páginas serão geradas dinamicamente aqui via JS -->
+    </div>
+
+    <!-- Template de Página (usado pelo JS) -->
+    <template id="page-template">
+      <div class="page-container">
+        <div class="letterhead-bg"></div>
+        <div class="office-content office-body-markdown">
+          <!-- Conteúdo será inserido aqui pelo JS -->
+        </div>
+        <!-- Bloco de assinatura será movido para cá na última página -->
+        <div class="signature-block">
+          <div class="signature-line"></div>
+          <div class="signature-title">
+            <strong class="rendered-gestor-name"></strong><br />
+            <span>Gestor(a)</span>
           </div>
         </div>
       </div>
-      <!-- Bloco de assinatura movido para fora do .office-content para melhor controle de layout -->
-      <div class="signature-block">
-        <div class="signature-line"></div>
-        <div class="signature-title">
-          <strong id="rendered-gestor-name"></strong><br />
-          <span>Gestor(a)</span>
+    </template>
+
+    <!-- Template de Cabeçalho (usado pelo JS) -->
+    <template id="header-template">
+      <div class="office-header-fields">
+        <div class="office-meta-line">
+          <p class="office-number rendered-office-number"></p>
+          <p class="office-date-line rendered-office-date-line"></p>
         </div>
+        <p class="office-recipient rendered-office-recipient"></p>
+        <p class="office-subject rendered-office-subject"></p>
       </div>
-    </div>
+    </template>
 
     <!-- Modal de Confirmação (pode ser reutilizado se necessário) -->
     <!-- ... -->
