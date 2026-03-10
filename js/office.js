@@ -298,7 +298,7 @@ Agradecemos a atenção e nos colocamos à disposição para quaisquer esclareci
       };
       officeDB.manual.push(newState);
       localStorage.setItem(OFFICE_DB_KEY, JSON.stringify(officeDB));
-      Noxss.Toasts.show({ message: "Ofício salvo com sucesso!", status: "success" });
+      alert("Ofício salvo com sucesso!");
     }
   });
 
@@ -355,7 +355,7 @@ Agradecemos a atenção e nos colocamos à disposição para quaisquer esclareci
         manualList[itemIndex].state = getCurrentState();
         manualList[itemIndex].savedAt = new Date().toISOString();
         localStorage.setItem(OFFICE_DB_KEY, JSON.stringify(officeDB));
-        Noxss.Toasts.show({ message: "Ofício sobrescrito com sucesso!", status: "success" });
+        alert("Ofício sobrescrito com sucesso!");
         renderSavedOffices(); // Re-renderiza a lista
       }
     } else if (e.target.closest(".rename-manual-btn")) {
