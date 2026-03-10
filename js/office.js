@@ -362,8 +362,7 @@ Agradecemos a atenção e nos colocamos à disposição para quaisquer esclareci
 
     if (e.target.closest(".load-manual-btn")) {
       loadStateFromObject(manualList[itemIndex].state);
-      savedOfficesContainer.classList.remove("is-open"); // Fecha a seção após carregar
-      // Noxss.Toasts.show({ message: "Ofício carregado!", status: "info" });
+      // Removido o fechamento da seção, pois agora ela é fixa.
     } else if (e.target.closest(".overwrite-manual-btn")) {
       if (confirm(`Tem certeza que deseja sobrescrever o ofício "${manualList[itemIndex].name}" com o conteúdo atual do editor?`)) {
         manualList[itemIndex].state = getCurrentState();
@@ -396,6 +395,7 @@ Agradecemos a atenção e nos colocamos à disposição para quaisquer esclareci
   // --- Renderização Inicial ---
   updateOfficePreview();
   updatePageTitle();
+  renderSavedOffices(); // Garante que a lista apareça no carregamento inicial
 
   clearBtn.addEventListener("click", () => {
     if (confirm("Tem certeza que deseja começar um novo ofício? O conteúdo não salvo será perdido.")) {
