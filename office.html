@@ -413,7 +413,6 @@
           <a href="index.html" class="control-btn"><i class="fa-solid fa-arrow-left"></i> Voltar</a>
           <button id="clear-btn" class="control-btn"><i class="fa-solid fa-file"></i> Novo</button>
           <button id="save-manual-btn" class="control-btn"><i class="fa-solid fa-save"></i> Salvar</button>
-          <button id="manage-saved-btn" class="control-btn"><i class="fa-solid fa-folder-open"></i> Gerenciar</button>
           <button id="print-btn" class="control-btn control-btn-primary"><i class="fa-solid fa-print"></i> Imprimir</button>
         </div>
       </div>
@@ -465,11 +464,13 @@ SEMED</textarea
           <label for="office-body-editor" class="form-label">Conteúdo do Ofício (Markdown)</label>
           <textarea id="office-body-editor"></textarea>
         </div>
-        <!-- Seção de Ofícios Salvos (substitui o modal) -->
+        <!-- Seção de Ofícios Salvos Reformulada -->
         <div class="saved-offices-section">
-          <h3>Ofícios Salvos</h3>
-          <p>Carregue, renomeie ou exclua os ofícios que você salvou manualmente.</p>
-          <div id="saved-offices-container" class="saved-offices-container">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+            <h3 style="margin: 0;">Ofícios Salvos</h3>
+            <button id="toggle-more-btn" class="control-btn" style="display: none;">Ver Mais</button>
+          </div>
+          <div id="saved-offices-container" class="saved-offices-container is-open" style="max-height: none;">
             <ul id="saved-offices-list" class="saved-offices-list">
               <!-- Conteúdo gerado via JS -->
             </ul>

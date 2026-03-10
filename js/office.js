@@ -12,8 +12,11 @@ document.addEventListener("DOMContentLoaded", () => {
   const fontSizeInput = document.getElementById("font-size-input");
   const printBtn = document.getElementById("print-btn");
   const saveManualBtn = document.getElementById("save-manual-btn");
-  const manageSavedBtn = document.getElementById("manage-saved-btn");
   const clearBtn = document.getElementById("clear-btn");
+  const toggleMoreBtn = document.getElementById("toggle-more-btn");
+
+  // --- Estado da UI ---
+  let showAllOffices = false;
 
   // --- Elementos do Gerenciamento de Ofícios Salvos ---
   const savedOfficesContainer = document.getElementById("saved-offices-container");
@@ -299,6 +302,7 @@ Agradecemos a atenção e nos colocamos à disposição para quaisquer esclareci
       officeDB.manual.push(newState);
       localStorage.setItem(OFFICE_DB_KEY, JSON.stringify(officeDB));
       alert("Ofício salvo com sucesso!");
+      renderSavedOffices(); // Atualiza a lista automaticamente
     }
   });
 
@@ -308,11 +312,21 @@ Agradecemos a atenção e nos colocamos à disposição para quaisquer esclareci
 
     if (savedManual.length === 0) {
       savedOfficesList.innerHTML = `<p class="text-secondary text-center p-3">Nenhum ofício salvo manualmente.</p>`;
+      toggleMoreBtn.style.display = "none";
       return;
     }
 
-    savedOfficesList.innerHTML = savedManual
-      .sort((a, b) => new Date(b.savedAt) - new Date(a.savedAt)) // Mostra os mais recentes primeiro
+    const sortedManual = savedManual.sort((a, b) => new Date(b.savedAt) - new Date(a.savedAt));
+    const displayedManual = showAllOffices ? sortedManual : sortedManual.slice(0, 5);
+
+    if (savedManual.length > 5) {
+      toggleMoreBtn.style.display = "block";
+      toggleMoreBtn.textContent = showAllOffices ? "Ver Menos" : "Ver Mais";
+    } else {
+      toggleMoreBtn.style.display = "none";
+    }
+
+    savedOfficesList.innerHTML = displayedManual
       .map(
         (item) => `
         <li class="saved-office-item" data-id="${item.id}">
@@ -332,9 +346,9 @@ Agradecemos a atenção e nos colocamos à disposição para quaisquer esclareci
       .join("");
   };
 
-  manageSavedBtn.addEventListener("click", () => {
+  toggleMoreBtn.addEventListener("click", () => {
+    showAllOffices = !showAllOffices;
     renderSavedOffices();
-    savedOfficesContainer.classList.toggle("is-open");
   });
 
   savedOfficesList.addEventListener("click", (e) => {
