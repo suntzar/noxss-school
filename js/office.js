@@ -15,6 +15,10 @@ document.addEventListener("DOMContentLoaded", () => {
   const manageSavedBtn = document.getElementById("manage-saved-btn");
   const clearBtn = document.getElementById("clear-btn");
 
+  // --- Elementos do Gerenciamento de Ofícios Salvos ---
+  const savedOfficesContainer = document.getElementById("saved-offices-container");
+  const savedOfficesList = document.getElementById("saved-offices-list");
+
   // --- Carregamento de Dados ---
   let database = JSON.parse(localStorage.getItem(DB_KEY));
   const schoolMetadata = database ? database.metadata : { escola: "Nome da Escola", gestor: "Gestor(a)", cidade: "Cidade" };
