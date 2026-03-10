@@ -69,6 +69,13 @@ Agradecemos a atenção e nos colocamos à disposição para quaisquer esclareci
   const headerTemplate = document.getElementById("header-template");
 
   // --- Funções Auxiliares ---
+  const generateUUID = () => {
+    if (typeof crypto !== "undefined" && crypto.randomUUID) {
+      return crypto.randomUUID();
+    }
+    return ([1e7] + -1e3 + -4e3 + -8e3 + -1e11).replace(/[018]/g, (c) => (c ^ (crypto.getRandomValues(new Uint8Array(1))[0] & (15 >> (c / 4)))).toString(16));
+  };
+
   const getFormattedDate = (date) => {
     const day = String(date.getDate()).padStart(2, "0");
     const month = date.toLocaleString("pt-BR", { month: "long" });
@@ -284,7 +291,7 @@ Agradecemos a atenção e nos colocamos à disposição para quaisquer esclareci
     if (name) {
       const officeDB = JSON.parse(localStorage.getItem(OFFICE_DB_KEY)) || { automatic: {}, manual: [] };
       const newState = {
-        id: crypto.randomUUID(),
+        id: generateUUID(),
         name: name,
         savedAt: new Date().toISOString(),
         state: getCurrentState(),

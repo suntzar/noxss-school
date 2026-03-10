@@ -1,4 +1,11 @@
 // --- GERENCIADOR DE TEMA ---
+const generateUUID = () => {
+  if (typeof crypto !== "undefined" && crypto.randomUUID) {
+    return crypto.randomUUID();
+  }
+  return ([1e7] + -1e3 + -4e3 + -8e3 + -1e11).replace(/[018]/g, (c) => (c ^ (crypto.getRandomValues(new Uint8Array(1))[0] & (15 >> (c / 4)))).toString(16));
+};
+
 const htmlElement = document.documentElement;
 const MODE_KEY = "schoolAppThemeMode";
 const THEME_KEY = "schoolAppTheme"; // Nova chave para armazenar o tema/paleta selecionado
@@ -925,7 +932,7 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     } else {
       // MODO CRIAÇÃO: É um novo aluno.
-      studentData.id = crypto.randomUUID(); // Gera um UUID v4 padrão.
+      studentData.id = generateUUID(); // Gera um UUID v4 padrão.
       database.alunos.push(studentData); // Adiciona ao banco de dados.
     }
     saveDatabase();
